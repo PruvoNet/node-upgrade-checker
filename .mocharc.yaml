@@ -1,0 +1,9 @@
+require:
+  - 'ts-node/register'
+  - 'source-map-support/register'
+  - 'lib/test/setup.ts'
+recursive: true,
+reporter: spec
+exit: true
+exclude:
+  - '**/*.d.ts'
