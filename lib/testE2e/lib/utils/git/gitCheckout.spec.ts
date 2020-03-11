@@ -33,7 +33,7 @@ describe('checkout', () => {
     });
 
     it('should checkout existing tag', async function () {
-        this.timeout(5000);
+        this.timeout(10000);
         const name = await gitCheckout.checkoutRepo({
             url,
             baseDir: tmpDir,

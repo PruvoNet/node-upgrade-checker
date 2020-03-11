@@ -46,7 +46,7 @@ CODE_OF_CONDUCT.md
 CONTRIBUTORS.md
 # nyc test coverage
 .nyc_output
-.nycrc
+.nycrc.json
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt

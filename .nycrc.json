@@ -1,0 +1,9 @@
+{
+  "extends": "@istanbuljs/nyc-config-typescript",
+  "sourceMap": false,
+  "produce-source-map": false,
+  "exclude": [
+    "lib/test/**",
+    "lib/testE2e/**"
+  ]
+}
