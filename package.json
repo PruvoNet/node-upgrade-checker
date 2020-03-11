@@ -26,7 +26,6 @@
   ],
   "license": "ISC",
   "devDependencies": {
-    "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/chai": "^4.2.10",
     "@types/chai-as-promised": "^7.1.2",
     "@types/lowdb": "^1.0.9",
