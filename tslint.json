@@ -48,5 +48,10 @@
     ],
     "no-unused-expression": false
   },
-  "rulesDirectory": []
+  "rulesDirectory": [],
+  "linterOptions": {
+    "exclude": [
+      "dist/**"
+    ]
+  }
 }

@@ -21,8 +21,7 @@ coverage
 
 # source files
 CHANGELOG.md
-lib/test
-lib/testE2e
+src
 # source maps
 
 **/*.js.map

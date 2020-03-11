@@ -36,6 +36,7 @@ build/Release
 node_modules/
 .idea/
 build/
+dist/
 jspm_packages/
 **/*.js.map
 **/*.js

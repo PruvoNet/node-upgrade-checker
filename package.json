@@ -2,25 +2,27 @@
   "name": "dep-checker",
   "version": "1.0.0",
   "description": "",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "engines": {
     "node": ">=12"
   },
   "scripts": {
-    "build": "npm run lint && ./node_modules/.bin/tsc",
+    "clean": "rm -rf node_modules build coverage dist",
+    "build": "npm run lint && npm run buildDist",
+    "buildDist": "rm -rf dist/* && ./node_modules/.bin/tsc",
     "test": "npm run lint && npm run mocha",
     "testE2e": "npm run lint && npm run mochaE2e",
-    "mocha": "node --preserve-symlinks -r source-map-support/register node_modules/mocha/bin/_mocha lib/test/**/*.spec.ts",
-    "mochaE2e": "node --preserve-symlinks -r source-map-support/register node_modules/mocha/bin/_mocha lib/testE2e/**/*.spec.ts",
-    "mochaAll": "node --preserve-symlinks -r source-map-support/register node_modules/mocha/bin/_mocha lib/test/**/*.spec.ts lib/testE2e/**/*.spec.ts",
+    "mocha": "node --preserve-symlinks -r source-map-support/register node_modules/mocha/bin/_mocha src/test/**/*.spec.ts",
+    "mochaE2e": "node --preserve-symlinks -r source-map-support/register node_modules/mocha/bin/_mocha src/testE2e/**/*.spec.ts",
+    "mochaAll": "node --preserve-symlinks -r source-map-support/register node_modules/mocha/bin/_mocha src/test/**/*.spec.ts src/testE2e/**/*.spec.ts",
     "cover": "rm -rf coverage && nyc --reporter=lcov --reporter=text-summary npm run mochaAll",
-    "lint": "tslint -c tslint.json 'lib/**/*.ts'"
+    "lint": "tslint -c tslint.json 'src/**/*.ts'"
   },
   "author": "Regev Brody <regevbr@gmail.com>",
   "files": [
-    "lib/*.d.ts",
-    "lib/*.js"
+    "dist/*.d.ts",
+    "dist/*.js"
   ],
   "license": "ISC",
   "devDependencies": {

@@ -3,7 +3,9 @@
   "sourceMap": false,
   "produce-source-map": false,
   "exclude": [
-    "lib/test/**",
-    "lib/testE2e/**"
-  ]
+    "src/test/**",
+    "src/testE2e/**",
+    "dist/**"
+  ],
+  "all": true
 }

@@ -5,6 +5,7 @@
     "moduleResolution": "node",
     "declaration": true,
     "checkJs": false,
+    "outDir": "./dist",
     "allowJs": false,
     "strict": true,
     "noImplicitAny": true,
@@ -17,7 +18,7 @@
     "alwaysStrict": true,
     "noImplicitUseStrict": false,
     "preserveSymlinks": true,
-    "rootDir": "lib",
+    "rootDir": "src",
     "sourceMap": true,
     "lib": [
       "es2019"
@@ -26,6 +27,9 @@
     "emitDecoratorMetadata": true
   },
   "include": [
-    "lib/**/*.ts"
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "dist"
   ]
 }
