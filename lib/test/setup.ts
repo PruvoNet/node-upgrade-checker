@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 import * as chai from 'chai';
 // @ts-ignore
 import * as dirtyChai from 'dirty-chai';

@@ -3,8 +3,9 @@
 import * as tmp from 'tmp';
 import * as fs from 'fs';
 import * as path from 'path';
-import {checkout} from '../../../../utils/git';
 import {expect} from 'chai';
+import {IGitCheckout} from '../../../../utils/git/gitCheckout';
+import {container} from '../../../../container';
 
 const url = 'https://github.com/PruvoNet/squiss-ts';
 const dirName = 'squiss-ts';
@@ -19,14 +20,21 @@ const verifyVersion = async (dir: string, version: string) => {
 describe('checkout', () => {
 
     let tmpDir: string = '';
+    let gitCheckout: IGitCheckout;
 
     beforeEach(() => {
         tmpDir = tmp.dirSync().name;
+        container.snapshot();
+        gitCheckout = container.get(IGitCheckout);
+    });
+
+    afterEach(() => {
+        container.restore();
     });
 
     it('should checkout existing tag', async function () {
         this.timeout(5000);
-        const name = await checkout({
+        const name = await gitCheckout.checkoutRepo({
             url,
             baseDir: tmpDir,
             tag: '1.2.1',
@@ -34,7 +42,7 @@ describe('checkout', () => {
         const expected = path.join(tmpDir, dirName);
         name.should.eql(expected);
         await verifyVersion(name, '1.2.1');
-        const name2 = await checkout({
+        const name2 = await gitCheckout.checkoutRepo({
             url,
             baseDir: tmpDir,
             tag: '1.2.2',
@@ -45,7 +53,7 @@ describe('checkout', () => {
 
     it('should checkout existing commit', async function () {
         this.timeout(5000);
-        const name = await checkout({
+        const name = await gitCheckout.checkoutRepo({
             url,
             baseDir: tmpDir,
             tag: '4.0.9',
@@ -54,7 +62,7 @@ describe('checkout', () => {
         const expected = path.join(tmpDir, dirName);
         name.should.eql(expected);
         await verifyVersion(name, '4.0.9');
-        const name2 = await checkout({
+        const name2 = await gitCheckout.checkoutRepo({
             url,
             baseDir: tmpDir,
             tag: '1.2.2',
@@ -66,7 +74,7 @@ describe('checkout', () => {
 
     it('should fail to checkout non existing tag', async function () {
         this.timeout(5000);
-        const promise = checkout({
+        const promise = gitCheckout.checkoutRepo({
             url,
             baseDir: tmpDir,
             tag: '0.0.1',
@@ -76,7 +84,7 @@ describe('checkout', () => {
 
     it('should fail to checkout non existing commit', async function () {
         this.timeout(5000);
-        const promise = checkout({
+        const promise = gitCheckout.checkoutRepo({
             url,
             baseDir: tmpDir,
             tag: '0.0.1',
@@ -87,7 +95,7 @@ describe('checkout', () => {
 
     it('should fail to checkout too many matching tags', async function () {
         this.timeout(5000);
-        const promise = checkout({
+        const promise = gitCheckout.checkoutRepo({
             url,
             baseDir: tmpDir,
             tag: '1',

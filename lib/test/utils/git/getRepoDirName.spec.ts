@@ -1,6 +1,6 @@
 'use strict';
 
-import {getRepoDirName} from '../../../../utils/git/helpers/getRepoDirName';
+import {getRepoDirName} from '../../../utils/git/getRepoDirName';
 
 const baseUrl = 'https://github.com/PruvoNet/squiss-ts';
 const dirName = 'squiss-ts';
