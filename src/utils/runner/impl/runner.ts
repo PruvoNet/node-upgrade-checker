@@ -16,7 +16,7 @@ export class Runner extends IRunner {
         super();
     }
 
-    public async executeCommand({command, execOptions = {}}
+    public async executeCommand({command, execOptions}
                                     : IExecuteCommandOptions): Promise<void> {
         const firstCommand = command[0];
         const options = command.slice(1);

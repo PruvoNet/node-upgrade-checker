@@ -3,7 +3,7 @@ import {injectable} from 'inversify';
 
 export interface IExecuteCommandOptions {
     command: string[];
-    execOptions?: SpawnOptionsWithoutStdio;
+    execOptions: SpawnOptionsWithoutStdio;
 }
 
 @injectable()

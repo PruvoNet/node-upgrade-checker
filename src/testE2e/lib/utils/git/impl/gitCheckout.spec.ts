@@ -17,7 +17,7 @@ const verifyVersion = async (dir: string, version: string) => {
     packageJson.version.should.eql(version);
 };
 
-describe('checkout', () => {
+describe('git checkout', () => {
 
     let tmpDir: string = '';
     let gitCheckout: IGitCheckout;
