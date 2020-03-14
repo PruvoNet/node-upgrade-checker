@@ -1,7 +1,7 @@
 import * as path from 'path';
-import {ICIResolver} from '../../../../../../utils/resolvers/ciResolver';
-import {resourcesDir} from '../../../../../common';
-import {container} from '../../../../../../container';
+import {ICIResolver} from '../../../../../resolvers/ciResolver';
+import {resourcesDir} from '../../../../common';
+import {container} from '../../../../../container';
 
 describe('ci resolvers', () => {
 

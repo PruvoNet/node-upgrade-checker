@@ -2,9 +2,9 @@ import {Container} from 'inversify';
 import {gitContainerModule} from './utils/git';
 import {runnerContainerModule} from './utils/runner';
 import {npmContainerModule} from './utils/npm';
-import {ciResolverContainerModule} from './utils/resolvers/ciResolver';
+import {ciResolverContainerModule} from './resolvers/ciResolver';
 import {dbContainerModule} from './db';
-import {cacheResolverContainerModule} from './utils/resolvers/cacheResolver';
+import {cacheResolverContainerModule} from './resolvers/cacheResolver';
 
 export const container = new Container();
 

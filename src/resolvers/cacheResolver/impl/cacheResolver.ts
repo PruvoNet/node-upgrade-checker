@@ -1,6 +1,6 @@
 import {injectable} from 'inversify';
 import {ICacheResolver, ICacheResolverOptions, ICacheResolverResult} from '../interfaces/cacheResolver';
-import {IDependencyRepositoryProvider} from '../../../../db';
+import {IDependencyRepositoryProvider} from '../../../db';
 
 @injectable()
 export class CacheResolver extends ICacheResolver {

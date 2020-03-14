@@ -1,8 +1,8 @@
 import * as path from 'path';
 import {should} from 'chai';
-import {resourcesDir} from '../../../../../../common';
-import {container} from '../../../../../../../container';
-import {CircleCiResolver} from '../../../../../../../utils/resolvers/ciResolver/impl/resolvers/circle';
+import {resourcesDir} from '../../../../../common';
+import {container} from '../../../../../../container';
+import {CircleCiResolver} from '../../../../../../resolvers/ciResolver/impl/resolvers/circle';
 
 describe('circle ci', () => {
 
