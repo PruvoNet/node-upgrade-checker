@@ -4,8 +4,8 @@ import * as tmp from 'tmp';
 import * as fs from 'fs';
 import * as path from 'path';
 import {expect} from 'chai';
-import {container} from '../../../../container';
-import {IGitCheckout} from '../../../../utils/git';
+import {container} from '../../../../../container';
+import {IGitCheckout} from '../../../../../utils/git';
 
 const url = 'https://github.com/PruvoNet/squiss-ts';
 const dirName = 'squiss-ts';

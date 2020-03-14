@@ -1,0 +1,14 @@
+{
+  "name": "test-package",
+  "version": "1.0.1",
+  "scripts": {
+    "build": "echo 'build ran'",
+    "test": "echo 'test ran'"
+  },
+  "devDependencies": {
+    "@types/node": "^13.9.0"
+  },
+  "dependencies": {
+    "inversify": "^5.0.1"
+  }
+}

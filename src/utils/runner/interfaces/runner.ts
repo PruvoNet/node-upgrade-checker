@@ -4,7 +4,6 @@ import {injectable} from 'inversify';
 export interface IExecuteCommandOptions {
     command: string[];
     execOptions?: SpawnOptionsWithoutStdio;
-    retryCount?: number;
 }
 
 @injectable()

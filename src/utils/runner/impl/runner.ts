@@ -16,19 +16,11 @@ export class Runner extends IRunner {
         super();
     }
 
-    public async executeCommand({command, execOptions = {}, retryCount = 1}
+    public async executeCommand({command, execOptions = {}}
                                     : IExecuteCommandOptions): Promise<void> {
-        try {
-            const firstCommand = command[0];
-            const options = command.slice(1);
-            await this.promisifiedSpawn({command: firstCommand, options, execOptions});
-        } catch (error) {
-            if (retryCount > 0) {
-                await this.executeCommand({command, execOptions, retryCount: retryCount - 1});
-            } else {
-                throw error;
-            }
-        }
+        const firstCommand = command[0];
+        const options = command.slice(1);
+        await this.promisifiedSpawn({command: firstCommand, options, execOptions});
     }
 
     private async promisifiedSpawn({command, options, execOptions}: IPromisifiedSpawnOptions)
@@ -48,10 +40,9 @@ export class Runner extends IRunner {
                 if (code === 0) {
                     resolve();
                 } else {
-                    reject(`"${command} ${options.join(' ')}" exited with code: ${code}`);
+                    reject(new Error(`"${command} ${options.join(' ')}" exited with code: ${code}`));
                 }
             });
         });
     }
 }
-
