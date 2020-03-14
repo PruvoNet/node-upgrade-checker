@@ -1,20 +1,9 @@
-export interface ICacheResolveOptions {
-    repo: {
-        name: string;
-        version: string;
-    };
-    targetNode: string;
-}
+import {ContainerModule} from 'inversify';
+import {ICacheResolver} from './interfaces/cacheResolver';
+import {CacheResolver} from './impl/cacheResolver';
 
-export interface ICacheResolveResult {
-    isMatch: boolean;
-    resolverName?: string;
-}
+export const cacheResolverContainerModule = new ContainerModule((bind) => {
+    bind<ICacheResolver>(ICacheResolver).to(CacheResolver).inSingletonScope();
+});
 
-export const cacheResolve = async ({repo, targetNode}: ICacheResolveOptions): Promise<ICacheResolveResult> => {
-    const reason = 'resaon';
-    return {
-        isMatch: true,
-        resolverName: `cache - ${reason}`,
-    };
-};
+export * from './interfaces/cacheResolver';

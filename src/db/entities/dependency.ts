@@ -6,6 +6,7 @@ export interface IDependencyOptions {
     version: string;
     targetNode: string;
     match?: boolean;
+    reason?: string;
 }
 
 @Entity()
@@ -38,12 +39,19 @@ export class Dependency {
     })
     public match!: boolean | undefined;
 
+    @Column({
+        nullable: true,
+        type: 'text',
+    })
+    public reason!: string | undefined;
+
     constructor(options?: IDependencyOptions) {
         if (options) {
             this.name = options.name;
             this.version = options.version;
             this.targetNode = options.targetNode;
             this.match = options.match;
+            this.reason = options.reason;
         }
     }
 }

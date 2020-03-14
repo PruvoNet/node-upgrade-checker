@@ -13,3 +13,4 @@ export const dbContainerModule = new ContainerModule((bind) => {
 });
 
 export * from './interfaces/dependencyRepositoryProvider';
+export * from './entities/dependency';
