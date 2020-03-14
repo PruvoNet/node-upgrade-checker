@@ -1,6 +1,6 @@
 import {inject, injectable} from 'inversify';
-import {Commit, Reference, Repository} from 'nodegit';
 import {NodeGit, TYPES} from './types';
+import {Commit, Reference, Repository} from 'nodegit';
 
 interface ICheckoutCommitOptions {
     repo: Repository;
