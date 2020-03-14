@@ -3,7 +3,7 @@ import {ICIResolver} from '../../../../../resolvers/ciResolver';
 import {resourcesDir} from '../../../../common';
 import {container} from '../../../../../container';
 
-describe('ci resolvers', () => {
+describe('ci resolver', () => {
 
     let ciResolver: ICIResolver;
 
