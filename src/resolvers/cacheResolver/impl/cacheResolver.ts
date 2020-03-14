@@ -1,6 +1,7 @@
 import {injectable} from 'inversify';
-import {ICacheResolver, ICacheResolverOptions, ICacheResolverResult} from '../interfaces/cacheResolver';
+import {ICacheResolver, ICacheResolverOptions} from '../interfaces/cacheResolver';
 import {IDependencyRepositoryProvider} from '../../../db';
+import {IResolverResult} from '../../types';
 
 @injectable()
 export class CacheResolver extends ICacheResolver {
@@ -9,7 +10,7 @@ export class CacheResolver extends ICacheResolver {
         super();
     }
 
-    public async resolve({repo, targetNode}: ICacheResolverOptions): Promise<ICacheResolverResult> {
+    public async resolve({repo, targetNode}: ICacheResolverOptions): Promise<IResolverResult> {
         try {
             const dependencyRepository = await this.dependencyRepositoryProvider.getRepository();
             const dependency = await dependencyRepository.findOne({

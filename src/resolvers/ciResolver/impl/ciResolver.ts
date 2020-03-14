@@ -1,7 +1,8 @@
-import {ICIResolveOptions, ICIResolver, ICIResolveResult} from '../interfaces/cIResolver';
+import {ICIResolveOptions, ICIResolver} from '../interfaces/cIResolver';
 import {injectable, multiInject} from 'inversify';
 import {ISpecificCIResolver} from '../interfaces/specificCIResolver';
 import {ITargetMatcher} from '../interfaces/targetMatcher';
+import {IResolverResult} from '../../types';
 
 @injectable()
 export class CiResolver extends ICIResolver {
@@ -11,7 +12,7 @@ export class CiResolver extends ICIResolver {
         super();
     }
 
-    async resolve({repoPath, targetNode}: ICIResolveOptions): Promise<ICIResolveResult> {
+    async resolve({repoPath, targetNode}: ICIResolveOptions): Promise<IResolverResult> {
         for (const resolver of this.resolvers) {
 
             const nodeVersions = await resolver.resolve({

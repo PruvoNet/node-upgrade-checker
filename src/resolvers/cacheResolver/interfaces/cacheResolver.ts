@@ -1,4 +1,5 @@
 import {injectable} from 'inversify';
+import {IResolverResult} from '../../types';
 
 export interface ICacheResolverOptions {
     repo: {
@@ -8,13 +9,8 @@ export interface ICacheResolverOptions {
     targetNode: string;
 }
 
-export interface ICacheResolverResult {
-    isMatch: boolean;
-    resolverName?: string;
-}
-
 @injectable()
 export abstract class ICacheResolver {
-    public abstract async resolve(options: ICacheResolverOptions): Promise<ICacheResolverResult>;
+    public abstract async resolve(options: ICacheResolverOptions): Promise<IResolverResult>;
 }
 
