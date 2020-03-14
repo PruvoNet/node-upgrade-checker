@@ -1,10 +1,25 @@
 import {injectable} from 'inversify';
 
 export interface IRunFlowOptions {
-    repo: string;
+    pkg: {
+        version: string;
+        name: string;
+    };
+    repo: {
+        url: string;
+        baseDir: string;
+        commitSha?: string;
+    };
+    npmCommand: string;
+    targetNode: string;
+}
+
+export interface IRunFlowResult {
+    isMatch: boolean;
+    resolverName?: string;
 }
 
 @injectable()
 export abstract class IFlow {
-    public abstract async runFlow(options: IRunFlowOptions): Promise<boolean>;
+    public abstract async runFlow(options: IRunFlowOptions): Promise<IRunFlowResult>;
 }
