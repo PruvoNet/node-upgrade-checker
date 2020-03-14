@@ -1,5 +1,5 @@
-import {IRunner} from '../runner';
-import {INpm, INpmOptions} from './interfaces';
+import {IRunner} from '../../runner';
+import {INpm, INpmOptions} from '../interfaces/npm';
 import {injectable} from 'inversify';
 
 @injectable()

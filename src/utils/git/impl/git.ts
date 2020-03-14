@@ -1,5 +1,5 @@
 import {inject, injectable} from 'inversify';
-import {NodeGit, TYPES} from './types';
+import {NodeGit, TYPES} from '../types';
 import {Commit, Reference, Repository} from 'nodegit';
 import {
     CloneRepoOptions,
@@ -7,7 +7,7 @@ import {
     ICheckoutReferenceOptions,
     IGit,
     ILocateCommitOptions, ILocateTagOptions, IOpenRepoOptions
-} from './interfaces';
+} from '../interfaces/git';
 
 @injectable()
 export class Git extends IGit {

@@ -44,15 +44,3 @@ export abstract class IGit {
 
     abstract async openRepo(options: IOpenRepoOptions): Promise<Repository>;
 }
-
-export interface ICheckoutOptions {
-    url: string;
-    baseDir: string;
-    tag: string;
-    commitSha?: string; // githead property
-}
-
-@injectable()
-export abstract class IGitCheckout {
-    abstract async checkoutRepo(options: ICheckoutOptions): Promise<string>;
-}
