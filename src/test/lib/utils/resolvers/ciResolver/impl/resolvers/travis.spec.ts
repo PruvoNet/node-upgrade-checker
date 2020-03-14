@@ -1,8 +1,8 @@
-import {TravisCiResolver} from '../../../../../../utils/resolvers/ciResolver/impl/resolvers/travis';
+import {TravisCiResolver} from '../../../../../../../utils/resolvers/ciResolver/impl/resolvers/travis';
 import * as path from 'path';
 import {should} from 'chai';
-import {resourcesDir} from '../../../../../common';
-import {container} from '../../../../../../container';
+import {resourcesDir} from '../../../../../../common';
+import {container} from '../../../../../../../container';
 
 describe('travis ci', () => {
 

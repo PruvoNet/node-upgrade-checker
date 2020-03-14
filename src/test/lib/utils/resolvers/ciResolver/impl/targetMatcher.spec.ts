@@ -1,5 +1,5 @@
-import {container} from '../../../../../container';
-import {ITargetMatcher} from '../../../../../utils/resolvers/ciResolver';
+import {container} from '../../../../../../container';
+import {ITargetMatcher} from '../../../../../../utils/resolvers/ciResolver';
 
 describe('target matcher', () => {
 

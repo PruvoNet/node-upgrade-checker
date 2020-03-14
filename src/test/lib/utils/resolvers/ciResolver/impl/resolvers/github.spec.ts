@@ -1,10 +1,10 @@
 import * as path from 'path';
 import {
     GithubActionsResolver,
-} from '../../../../../../utils/resolvers/ciResolver/impl/resolvers/github';
+} from '../../../../../../../utils/resolvers/ciResolver/impl/resolvers/github';
 import {should} from 'chai';
-import {resourcesDir} from '../../../../../common';
-import {container} from '../../../../../../container';
+import {resourcesDir} from '../../../../../../common';
+import {container} from '../../../../../../../container';
 
 describe('github actions', () => {
 
