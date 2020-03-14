@@ -47,10 +47,11 @@
   },
   "dependencies": {
     "inversify": "^5.0.1",
-    "lowdb": "^1.0.0",
     "nodegit": "^0.26.5",
     "reflect-metadata": "^0.1.13",
+    "sqlite3": "^4.1.1",
     "tmp": "^0.1.0",
+    "typeorm": "^0.2.24",
     "yaml": "^1.8.0"
   }
 }
