@@ -2,20 +2,7 @@ import {getRepoDirName} from './getRepoDirName';
 import * as path from 'path';
 import * as fs from 'fs';
 import {injectable} from 'inversify';
-import {IGit} from './git';
-
-interface ICheckoutOptions {
-    url: string;
-    baseDir: string;
-    tag: string;
-    commitSha?: string; // githead property
-}
-
-
-@injectable()
-export abstract class IGitCheckout {
-    abstract async checkoutRepo(options: ICheckoutOptions): Promise<string>;
-}
+import {ICheckoutOptions, IGit, IGitCheckout} from './interfaces';
 
 @injectable()
 export class GitCheckout extends IGitCheckout {

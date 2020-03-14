@@ -1,50 +1,13 @@
 import {inject, injectable} from 'inversify';
 import {NodeGit, TYPES} from './types';
 import {Commit, Reference, Repository} from 'nodegit';
-
-interface ICheckoutCommitOptions {
-    repo: Repository;
-    commit: Commit;
-}
-
-interface ICheckoutReferenceOptions {
-    repo: Repository;
-    reference: Reference;
-}
-
-interface CloneRepoOptions {
-    url: string;
-    dir: string;
-}
-
-interface ILocateCommitOptions {
-    repo: Repository;
-    commitSha: string;
-}
-
-interface ILocateTagOptions {
-    repo: Repository;
-    tag: string;
-}
-
-interface IOpenRepoOptions {
-    path: string;
-}
-
-@injectable()
-export abstract class IGit {
-    abstract async checkoutCommit(options: ICheckoutCommitOptions): Promise<void>;
-
-    abstract async checkoutReference(options: ICheckoutReferenceOptions): Promise<void>;
-
-    abstract async cloneRepo(options: CloneRepoOptions): Promise<Repository>;
-
-    abstract async locateCommit(options: ILocateCommitOptions): Promise<Commit>;
-
-    abstract async locateTag(options: ILocateTagOptions): Promise<Reference>;
-
-    abstract async openRepo(options: IOpenRepoOptions): Promise<Repository>;
-}
+import {
+    CloneRepoOptions,
+    ICheckoutCommitOptions,
+    ICheckoutReferenceOptions,
+    IGit,
+    ILocateCommitOptions, ILocateTagOptions, IOpenRepoOptions
+} from './interfaces';
 
 @injectable()
 export class Git extends IGit {

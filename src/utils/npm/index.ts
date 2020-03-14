@@ -1,8 +1,9 @@
 import {ContainerModule} from 'inversify';
-import {Npm, INpm} from './npm';
+import {Npm} from './npm';
+import {INpm} from './interfaces';
 
 export const npmContainerModule = new ContainerModule((bind) => {
-    bind(INpm).to(Npm).inSingletonScope();
+    bind<INpm>(INpm).to(Npm).inSingletonScope();
 });
 
-export {INpm} from './npm';
+export * from './interfaces';

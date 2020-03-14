@@ -1,12 +1,7 @@
 import {SpawnOptionsWithoutStdio} from 'child_process';
-import {inject} from 'inversify';
+import {inject, injectable} from 'inversify';
 import {ChildProcess, TYPES} from './types';
-
-export interface IExecuteCommandOptions {
-    command: string[];
-    execOptions?: SpawnOptionsWithoutStdio;
-    retryCount?: number;
-}
+import {IExecuteCommandOptions, IRunner} from './interfaces';
 
 interface IPromisifiedSpawnOptions {
     command: string;
@@ -14,10 +9,7 @@ interface IPromisifiedSpawnOptions {
     execOptions: SpawnOptionsWithoutStdio;
 }
 
-export abstract class IRunner {
-    abstract async executeCommand(options: IExecuteCommandOptions): Promise<void>;
-}
-
+@injectable()
 export class Runner extends IRunner {
 
     constructor(@inject(TYPES.ChildProcess) private childProcess: ChildProcess) {

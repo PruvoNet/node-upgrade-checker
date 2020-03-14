@@ -1,19 +1,8 @@
 import {IRunner} from '../runner';
+import {INpm, INpmOptions} from './interfaces';
+import {injectable} from 'inversify';
 
-export interface INpmOptions {
-    npmCommand: string;
-    cwd: string;
-}
-
-
-export abstract class INpm {
-    abstract async build(options: INpmOptions): Promise<void>;
-
-    abstract async install(options: INpmOptions): Promise<void>;
-
-    abstract async test(options: INpmOptions): Promise<void>;
-}
-
+@injectable()
 export class Npm extends INpm {
 
     constructor(private runner: IRunner) {

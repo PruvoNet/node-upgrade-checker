@@ -4,8 +4,8 @@ import * as tmp from 'tmp';
 import * as fs from 'fs';
 import * as path from 'path';
 import {expect} from 'chai';
-import {IGitCheckout} from '../../../../utils/git/gitCheckout';
 import {container} from '../../../../container';
+import {IGitCheckout} from '../../../../utils/git';
 
 const url = 'https://github.com/PruvoNet/squiss-ts';
 const dirName = 'squiss-ts';
@@ -52,7 +52,7 @@ describe('checkout', () => {
     });
 
     it('should checkout existing commit', async function () {
-        this.timeout(5000);
+        this.timeout(10000);
         const name = await gitCheckout.checkoutRepo({
             url,
             baseDir: tmpDir,
@@ -73,7 +73,7 @@ describe('checkout', () => {
     });
 
     it('should fail to checkout non existing tag', async function () {
-        this.timeout(5000);
+        this.timeout(10000);
         const promise = gitCheckout.checkoutRepo({
             url,
             baseDir: tmpDir,
@@ -83,7 +83,7 @@ describe('checkout', () => {
     });
 
     it('should fail to checkout non existing commit', async function () {
-        this.timeout(5000);
+        this.timeout(10000);
         const promise = gitCheckout.checkoutRepo({
             url,
             baseDir: tmpDir,
@@ -94,7 +94,7 @@ describe('checkout', () => {
     });
 
     it('should fail to checkout too many matching tags', async function () {
-        this.timeout(5000);
+        this.timeout(10000);
         const promise = gitCheckout.checkoutRepo({
             url,
             baseDir: tmpDir,
