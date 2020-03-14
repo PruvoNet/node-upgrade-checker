@@ -1,6 +1,6 @@
 import {injectable} from 'inversify';
 import {IResolverResult} from '../../types';
-import {ITestResolver, ITestResolverOptions} from '..';
+import {ITestResolver, ITestResolverOptions} from '../interfaces/testResolver';
 import {INpm, INpmOptions} from '../../../utils/npm';
 
 @injectable()

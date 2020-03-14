@@ -12,9 +12,9 @@
     "build": "./scripts/build.sh",
     "test": "npm run lint && npm run mocha",
     "testE2e": "npm run lint && npm run mochaE2e",
-    "mocha": "node node_modules/mocha/bin/_mocha 'dist/test/**/*.spec.js'",
-    "mochaE2e": "node node_modules/mocha/bin/_mocha 'dist/testE2e/**/*.spec.js'",
-    "mochaAll": "node node_modules/mocha/bin/_mocha 'dist/test/**/*.spec.js' 'dist/testE2e/**/*.spec.js'",
+    "mocha": "node -r source-map-support/register node_modules/mocha/bin/_mocha 'dist/test/**/*.spec.js'",
+    "mochaE2e": "node -r source-map-support/register node_modules/mocha/bin/_mocha 'dist/testE2e/**/*.spec.js'",
+    "mochaAll": "node -r source-map-support/register node_modules/mocha/bin/_mocha 'dist/test/**/*.spec.js' 'dist/testE2e/**/*.spec.js'",
     "coverMin": "rm -rf coverage && nyc --reporter=lcov --reporter=text-summary npm run mocha",
     "cover": "rm -rf coverage && nyc --reporter=lcov --reporter=text-summary npm run mochaAll",
     "lint": "tslint -c tslint.json 'src/**/*.ts'"
