@@ -1,7 +1,5 @@
 'use strict';
 
-const {parserPlugins} = require('@istanbuljs/schema').defaults.nyc;
-
 module.exports = {
   cache: false,
   exclude: [
@@ -12,5 +10,5 @@ module.exports = {
     'dist/**.ts',
     'nyc.config.js'
   ],
-  all: true
+  all: false
 };
