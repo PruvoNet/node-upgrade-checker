@@ -1,9 +1,21 @@
 import * as path from 'path';
-import {circleCiResolver} from '../../../../../utils/resolvers/ciResolver/resolvers/circle';
 import {should} from 'chai';
-import {resourcesDir} from '../../../../common';
+import {resourcesDir} from '../../../../../common';
+import {container} from '../../../../../../container';
+import {CircleCiResolver} from '../../../../../../utils/resolvers/ciResolver/impl/resolvers/circle';
 
 describe('circle ci', () => {
+
+    let circleCiResolver: CircleCiResolver;
+
+    beforeEach(() => {
+        container.snapshot();
+        circleCiResolver = container.get(CircleCiResolver);
+    });
+
+    afterEach(() => {
+        container.restore();
+    });
 
     it('should expose the proper name', async () => {
         circleCiResolver.resolverName.should.eql('circleCi');
@@ -11,7 +23,7 @@ describe('circle ci', () => {
 
     it('should resolve node js from circleci configuration', async () => {
         const repoPath = path.join(resourcesDir, 'circleci');
-        const versions = await circleCiResolver({
+        const versions = await circleCiResolver.resolve({
             repoPath,
         });
         should().exist(versions);
@@ -20,7 +32,7 @@ describe('circle ci', () => {
 
     it('should resolve node js from circleci configuration multiple nodes', async () => {
         const repoPath = path.join(resourcesDir, 'circleci2');
-        const versions = await circleCiResolver({
+        const versions = await circleCiResolver.resolve({
             repoPath,
         });
         should().exist(versions);
@@ -29,7 +41,7 @@ describe('circle ci', () => {
 
     it('should return empty array from faulty configuration', async () => {
         const repoPath = path.join(resourcesDir, 'circleciFaulty');
-        const versions = await circleCiResolver({
+        const versions = await circleCiResolver.resolve({
             repoPath,
         });
         should().exist(versions);
@@ -38,7 +50,7 @@ describe('circle ci', () => {
 
     it('should return undefined from non relevant repo', async () => {
         const repoPath = path.join(__dirname, '..', '..', '..', 'resources', 'empty');
-        const versions = await circleCiResolver({
+        const versions = await circleCiResolver.resolve({
             repoPath,
         });
         should().not.exist(versions);

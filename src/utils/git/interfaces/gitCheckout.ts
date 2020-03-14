@@ -9,5 +9,5 @@ export interface ICheckoutOptions {
 
 @injectable()
 export abstract class IGitCheckout {
-    abstract async checkoutRepo(options: ICheckoutOptions): Promise<string>;
+    public abstract async checkoutRepo(options: ICheckoutOptions): Promise<string>;
 }

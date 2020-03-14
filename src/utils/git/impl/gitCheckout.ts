@@ -1,19 +1,19 @@
-import {getRepoDirName} from './getRepoDirName';
 import * as path from 'path';
 import * as fs from 'fs';
 import {injectable} from 'inversify';
 import {ICheckoutOptions, IGitCheckout} from '../interfaces/gitCheckout';
 import {IGit} from '../interfaces/git';
+import {IGetRepoDirName} from '../interfaces/getRepoDirName';
 
 @injectable()
 export class GitCheckout extends IGitCheckout {
 
-    constructor(private git: IGit) {
+    constructor(private git: IGit, private getRepoDirName: IGetRepoDirName) {
         super();
     }
 
     public async checkoutRepo({url, baseDir, tag, commitSha}: ICheckoutOptions): Promise<string> {
-        const dirName = await getRepoDirName({url});
+        const dirName = await this.getRepoDirName.get({url});
         const fullDir = path.join(baseDir, dirName);
         let exists: boolean;
         try {

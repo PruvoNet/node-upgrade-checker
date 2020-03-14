@@ -1,45 +1,29 @@
-import {ICIResolver} from './types';
-import {travisCiResolver} from './resolvers/travis';
-import {targetMatcher} from './targetMatcher';
-import {circleCiResolver} from './resolvers/circle';
-import {githubActionsResolver} from './resolvers/github';
+import {ContainerModule} from 'inversify';
+import * as fs from 'fs';
+import * as yaml from 'yaml';
+import {FS, TYPES, Yaml} from './types';
+import {ICIResolver} from './interfaces/cIResolver';
+import {CiResolver} from './impl/ciResolver';
+import {ISpecificCIResolver} from './interfaces/specificCIResolver';
+import {TravisCiResolver} from './impl/resolvers/travis';
+import {CircleCiResolver} from './impl/resolvers/circle';
+import {GithubActionsResolver} from './impl/resolvers/github';
+import {ITargetMatcher} from './interfaces/targetMatcher';
+import {TargetMatcher} from './impl/targetMatcher';
 
-const resolvers: ICIResolver[] = [travisCiResolver, circleCiResolver, githubActionsResolver];
+export const ciResolverContainerModule = new ContainerModule((bind) => {
+    bind<FS>(TYPES.FS).toConstantValue(fs);
+    bind<Yaml>(TYPES.YAML).toConstantValue(yaml);
+    bind<ICIResolver>(ICIResolver).to(CiResolver).inSingletonScope();
+    bind<ITargetMatcher>(ITargetMatcher).to(TargetMatcher).inSingletonScope();
+    bind<TravisCiResolver>(TravisCiResolver).to(TravisCiResolver).inSingletonScope();
+    bind<ISpecificCIResolver>(ISpecificCIResolver).to(TravisCiResolver).inSingletonScope();
+    bind<ISpecificCIResolver>(ISpecificCIResolver).to(CircleCiResolver).inSingletonScope();
+    bind<CircleCiResolver>(CircleCiResolver).to(CircleCiResolver).inSingletonScope();
+    bind<ISpecificCIResolver>(ISpecificCIResolver).to(GithubActionsResolver).inSingletonScope();
+    bind<ISpecificCIResolver>(GithubActionsResolver).to(GithubActionsResolver).inSingletonScope();
+});
 
-export interface ICIResolveOptions {
-    repoPath: string;
-    targetNode: string;
-}
-
-export interface ICIResolveResult {
-    isMatch: boolean;
-    resolverName?: string;
-}
-
-export const ciResolve = async ({repoPath, targetNode}: ICIResolveOptions): Promise<ICIResolveResult> => {
-    for (const resolver of resolvers) {
-
-        const nodeVersions = await resolver({
-            repoPath,
-        });
-        if (nodeVersions) {
-            if (nodeVersions.length === 0) {
-                console.log(`Failed to find node versions in resolver ${resolver.resolverName}`);
-                continue;
-            }
-            const isMatch = await targetMatcher({
-                candidates: nodeVersions,
-                targetNode,
-            });
-            if (isMatch) {
-                return {
-                    isMatch: true,
-                    resolverName: resolver.resolverName,
-                };
-            }
-        }
-    }
-    return {
-        isMatch: false,
-    };
-};
+export * from './interfaces/specificCIResolver';
+export * from './interfaces/targetMatcher';
+export * from './interfaces/cIResolver';

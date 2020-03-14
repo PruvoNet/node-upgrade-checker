@@ -1,9 +1,21 @@
-import {travisCiResolver} from '../../../../../utils/resolvers/ciResolver/resolvers/travis';
+import {TravisCiResolver} from '../../../../../../utils/resolvers/ciResolver/impl/resolvers/travis';
 import * as path from 'path';
 import {should} from 'chai';
-import {resourcesDir} from '../../../../common';
+import {resourcesDir} from '../../../../../common';
+import {container} from '../../../../../../container';
 
 describe('travis ci', () => {
+
+    let travisCiResolver: TravisCiResolver;
+
+    beforeEach(() => {
+        container.snapshot();
+        travisCiResolver = container.get(TravisCiResolver);
+    });
+
+    afterEach(() => {
+        container.restore();
+    });
 
     it('should expose the proper name', async () => {
         travisCiResolver.resolverName.should.eql('travisCi');
@@ -11,7 +23,7 @@ describe('travis ci', () => {
 
     it('should resolve node js from travis configuration', async () => {
         const repoPath = path.join(resourcesDir, 'travis');
-        const versions = await travisCiResolver({
+        const versions = await travisCiResolver.resolve({
             repoPath,
         });
         should().exist(versions);
@@ -20,7 +32,7 @@ describe('travis ci', () => {
 
     it('should return empty array from faulty configuration', async () => {
         const repoPath = path.join(resourcesDir, 'travisFaulty');
-        const versions = await travisCiResolver({
+        const versions = await travisCiResolver.resolve({
             repoPath,
         });
         should().exist(versions);
@@ -29,7 +41,7 @@ describe('travis ci', () => {
 
     it('should return undefined from non relevant repo', async () => {
         const repoPath = path.join(resourcesDir, 'empty');
-        const versions = await travisCiResolver({
+        const versions = await travisCiResolver.resolve({
             repoPath,
         });
         should().not.exist(versions);

@@ -32,15 +32,15 @@ export interface IOpenRepoOptions {
 
 @injectable()
 export abstract class IGit {
-    abstract async checkoutCommit(options: ICheckoutCommitOptions): Promise<void>;
+    public abstract async checkoutCommit(options: ICheckoutCommitOptions): Promise<void>;
 
-    abstract async checkoutReference(options: ICheckoutReferenceOptions): Promise<void>;
+    public abstract async checkoutReference(options: ICheckoutReferenceOptions): Promise<void>;
 
-    abstract async cloneRepo(options: CloneRepoOptions): Promise<Repository>;
+    public abstract async cloneRepo(options: CloneRepoOptions): Promise<Repository>;
 
-    abstract async locateCommit(options: ILocateCommitOptions): Promise<Commit>;
+    public abstract async locateCommit(options: ILocateCommitOptions): Promise<Commit>;
 
-    abstract async locateTag(options: ILocateTagOptions): Promise<Reference>;
+    public abstract async locateTag(options: ILocateTagOptions): Promise<Reference>;
 
-    abstract async openRepo(options: IOpenRepoOptions): Promise<Repository>;
+    public abstract async openRepo(options: IOpenRepoOptions): Promise<Repository>;
 }
