@@ -7,9 +7,9 @@ export interface IRunFlowOptions {
     };
     repo: {
         url: string;
-        baseDir: string;
         commitSha?: string;
     };
+    workDir: string;
     npmCommand: string;
     targetNode: string;
 }

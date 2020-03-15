@@ -16,7 +16,7 @@ export class Flow extends IFlow {
         super();
     }
 
-    public async runFlow({repo, targetNode, pkg, npmCommand}: IRunFlowOptions): Promise<IRunFlowResult> {
+    public async runFlow({repo, targetNode, pkg, npmCommand, workDir}: IRunFlowOptions): Promise<IRunFlowResult> {
         const cacheResult = await this.cacheResolver.resolve({
             targetNode,
             repo: {
@@ -32,8 +32,8 @@ export class Flow extends IFlow {
         }
         const repoPath = await this.gitCheckout.checkoutRepo({
             tag: pkg.version,
-            baseDir: repo.baseDir,
             commitSha: repo.commitSha,
+            baseDir: workDir,
             url: repo.url,
         });
         const ciResult = await this.ciResolver.resolve({

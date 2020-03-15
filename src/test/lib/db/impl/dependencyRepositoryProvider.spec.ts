@@ -68,6 +68,28 @@ describe('db', () => {
         entities[1].should.deep.eq(dependency2);
     });
 
+    it('should have proper key', async () => {
+        const repo = await dependencyRepositoryProvider.getRepository();
+        const dependency = new Dependency({
+            targetNode: '12',
+            match: true,
+            version: '5.0.1',
+            name: 'test dependency',
+            reason: 'cache',
+        });
+        const dependency2 = new Dependency({
+            targetNode: '12',
+            match: false,
+            version: '5.0.1',
+            name: 'test dependency',
+            reason: 'cache2',
+        });
+        await repo.save(dependency);
+        await repo.save(dependency2);
+        const count = await repo.count();
+        count.should.eql(1);
+    });
+
     it('should find entities', async () => {
         const repo = await dependencyRepositoryProvider.getRepository();
         const dependency = new Dependency({

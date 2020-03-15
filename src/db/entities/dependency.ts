@@ -1,6 +1,5 @@
 import {Entity, Column, PrimaryColumn} from 'typeorm';
 
-
 export interface IDependencyOptions {
     name: string;
     version: string;
@@ -12,36 +11,28 @@ export interface IDependencyOptions {
 @Entity()
 export class Dependency {
 
-    @PrimaryColumn({
+    @PrimaryColumn('text', {
         nullable: false,
-        type: 'text',
-        unique: true,
     })
     public name!: string;
 
-    @PrimaryColumn({
+    @PrimaryColumn('text', {
         nullable: false,
-        type: 'text',
-        unique: true,
     })
     public version!: string;
 
-    @PrimaryColumn({
+    @PrimaryColumn('text', {
         nullable: false,
-        type: 'text',
-        unique: true,
     })
     public targetNode!: string;
 
-    @Column({
+    @Column('boolean', {
         nullable: true,
-        type: 'boolean',
     })
     public match!: boolean | undefined;
 
-    @Column({
+    @Column('text', {
         nullable: true,
-        type: 'text',
     })
     public reason!: string | undefined;
 

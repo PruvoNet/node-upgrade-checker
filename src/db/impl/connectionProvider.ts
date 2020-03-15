@@ -4,6 +4,7 @@ import {Connection} from 'typeorm/connection/Connection';
 import {TypeOrm, TYPES} from '../types';
 import {ConnectionProviderSettings} from './connectionProviderSettings';
 import * as path from 'path';
+import {DependencyVersion} from '../entities/dependencyVersion';
 
 const DB_FILE = 'cache.db';
 
@@ -28,6 +29,7 @@ export class ConnectionProvider {
             dropSchema: this.settings.dropSchema,
             entities: [
                 Dependency,
+                DependencyVersion,
             ],
         });
         return this.connection;
