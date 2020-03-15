@@ -3,7 +3,7 @@ import {IResolverResult} from '../../types';
 
 export interface ITestResolverOptions {
     repoPath: string;
-    npmCommand: string;
+    nvmBinDir: string;
 }
 
 @injectable()

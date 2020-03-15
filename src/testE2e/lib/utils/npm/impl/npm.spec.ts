@@ -13,6 +13,8 @@ const failTestPageJsonFileName = 'test-fail.package.json';
 const testPackageJsonFile = path.join(__dirname, testPackageJsonFileName);
 const failPackageJsonFile = path.join(__dirname, failTestPageJsonFileName);
 
+const nvmBinDir = process.env.NVM_BIN || '';
+
 describe('npm', () => {
 
     let npm: INpm;
@@ -32,7 +34,7 @@ describe('npm', () => {
         await fs.promises.copyFile(testPackageJsonFile, path.join(tmpDir, pageJsonFileName));
         const npmOptions: INpmOptions = {
             cwd: tmpDir,
-            npmCommand: 'npm',
+            nvmBinDir,
         };
         await npm.install(npmOptions);
         await npm.build(npmOptions);
@@ -45,12 +47,12 @@ describe('npm', () => {
         await fs.promises.copyFile(failPackageJsonFile, path.join(tmpDir, pageJsonFileName));
         const npmOptions: INpmOptions = {
             cwd: tmpDir,
-            npmCommand: 'npm',
+            nvmBinDir,
         };
         await npm.install(npmOptions);
         await npm.build(npmOptions);
         const promise = npm.test(npmOptions);
-        await expect(promise).to.be.eventually.rejectedWith(Error).and.have.property('message').contain('"npm run test" exited with code: 1');
+        await expect(promise).to.be.eventually.rejectedWith(Error).and.have.property('message').contain('npm run test" exited with code: 1');
     });
 
     it('should fail on faulty npm command', async function () {
@@ -59,10 +61,10 @@ describe('npm', () => {
         await fs.promises.copyFile(failPackageJsonFile, path.join(tmpDir, pageJsonFileName));
         const npmOptions: INpmOptions = {
             cwd: tmpDir,
-            npmCommand: 'faultyCommand',
+            nvmBinDir: '/sdf/',
         };
         const promise = npm.install(npmOptions);
-        await expect(promise).to.be.eventually.rejectedWith(Error).and.have.property('message').contain('"faultyCommand install" exited with code: -2');
+        await expect(promise).to.be.eventually.rejectedWith(Error).and.have.property('message').contain('"/sdf/npm install" exited with code: -2');
     });
 
 });
