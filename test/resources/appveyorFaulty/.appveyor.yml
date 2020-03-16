@@ -1,5 +1,5 @@
 environment:
-  matrix1:
+  matrix:
     # node.js
     - nodejs_version: "4"
     - nodejs_version: "6"
@@ -7,4 +7,4 @@ environment:
     - nodejs_version: "1.0"
 
 install:
-  - ps: Install-Product node $env:nodejs_version
+  - ps: echo 1

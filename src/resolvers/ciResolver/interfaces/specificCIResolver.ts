@@ -4,7 +4,7 @@ export interface ISpecificCIResolverOptions {
     repoPath: string;
 }
 
-export const LTS_VERSION = Symbol.for('LTS_VERSION');
+export const LTS_VERSION = 'LTS_VERSION';
 
 @injectable()
 export abstract class ISpecificCIResolver {

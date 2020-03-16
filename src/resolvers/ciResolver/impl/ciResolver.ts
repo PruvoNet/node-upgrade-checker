@@ -12,7 +12,7 @@ export class CiResolver extends ICIResolver {
         super();
     }
 
-    async resolve({repoPath, targetNode}: ICIResolveOptions): Promise<IResolverResult> {
+    async resolve({repoPath, targetNode, packageReleaseDate}: ICIResolveOptions): Promise<IResolverResult> {
         for (const resolver of this.resolvers) {
 
             const nodeVersions = await resolver.resolve({
@@ -26,6 +26,7 @@ export class CiResolver extends ICIResolver {
                 const isMatch = await this.targetMatcher.match({
                     candidates: nodeVersions,
                     targetNode,
+                    packageReleaseDate,
                 });
                 if (isMatch) {
                     return {

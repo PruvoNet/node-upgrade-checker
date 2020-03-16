@@ -6,6 +6,13 @@ import {FS, TYPES, Yaml} from '../../types';
 const ciFileName = `.travis.yml`;
 const resolverName = `travisCi`;
 
+const ltsMapper = (nodeVersion: string): string => {
+    if (nodeVersion === 'lts/*') {
+        return LTS_VERSION;
+    }
+    return nodeVersion;
+};
+
 @injectable()
 export class TravisCiResolver extends ISpecificCIResolver {
     public readonly resolverName = resolverName;
@@ -20,13 +27,7 @@ export class TravisCiResolver extends ISpecificCIResolver {
             const fileContents = await this.fs.promises.readFile(fileName, 'utf-8');
             const yaml = this.yaml.parse(fileContents);
             const versions = yaml.node_js || [];
-            return versions
-                .map((nodeVersion: string) => {
-                    if (nodeVersion === 'lts/*') {
-                        return LTS_VERSION;
-                    }
-                    return nodeVersion;
-                });
+            return versions.map(ltsMapper);
         } catch (e) {
         }
         return;

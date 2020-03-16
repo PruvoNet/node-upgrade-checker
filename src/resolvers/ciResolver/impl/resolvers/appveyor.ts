@@ -42,7 +42,7 @@ export class AppVeyorResolver extends ISpecificCIResolver {
         try {
             const fileContents = await this.fs.promises.readFile(fileName, 'utf-8');
             const yaml = this.yaml.parse(fileContents);
-            const installCommands: string[] = yaml.install || [];
+            const installCommands: string[] = yaml.install;
             const nodeVersion = installCommands
                 .map(psObjectMapper)
                 .map(nodeVersionMapper)
@@ -55,7 +55,7 @@ export class AppVeyorResolver extends ISpecificCIResolver {
                 return [nodeVersion];
             } else {
                 const matrixVarName = match[1];
-                const matrix: any[] = yaml.environment.matrix || [];
+                const matrix: any[] = yaml.environment.matrix;
                 return matrix
                     .map(envObjectMapper(matrixVarName))
                     .filter(emptyFilter) as string[];

@@ -2,6 +2,10 @@ import * as path from 'path';
 import {ICIResolver} from '../../../../../src/resolvers/ciResolver';
 import {resourcesDir} from '../../../../common';
 import {container} from '../../../../../src/container';
+import moment = require('moment');
+
+const dateFormat = `YYYY-MM-DD`;
+const packageReleaseDate = moment.utc('2015-10-02', dateFormat);
 
 describe('ci resolver', () => {
 
@@ -21,6 +25,7 @@ describe('ci resolver', () => {
         const result = await ciResolver.resolve({
             repoPath,
             targetNode: '2',
+            packageReleaseDate,
         });
         expect(result.isMatch).toBe(false);
     });
@@ -31,6 +36,7 @@ describe('ci resolver', () => {
             const result = await ciResolver.resolve({
                 repoPath,
                 targetNode: '8',
+                packageReleaseDate,
             });
             expect(result.isMatch).toBe(true);
             expect(result.resolverName).toBe('travisCi');
@@ -41,6 +47,7 @@ describe('ci resolver', () => {
             const result = await ciResolver.resolve({
                 repoPath,
                 targetNode: '2',
+                packageReleaseDate,
             });
             expect(result.isMatch).toBe(false);
         });
@@ -50,6 +57,40 @@ describe('ci resolver', () => {
             const result = await ciResolver.resolve({
                 repoPath,
                 targetNode: '2',
+                packageReleaseDate,
+            });
+            expect(result.isMatch).toBe(false);
+        });
+    });
+
+    describe('appveyor', () => {
+        it('should resolve node js from appveyor configuration', async () => {
+            const repoPath = path.join(resourcesDir, 'appveyor');
+            const result = await ciResolver.resolve({
+                repoPath,
+                targetNode: '6',
+                packageReleaseDate,
+            });
+            expect(result.isMatch).toBe(true);
+            expect(result.resolverName).toBe('appVeyor');
+        });
+
+        it('should not resolve node js from appveyor configuration', async () => {
+            const repoPath = path.join(resourcesDir, 'appveyor');
+            const result = await ciResolver.resolve({
+                repoPath,
+                targetNode: '2',
+                packageReleaseDate,
+            });
+            expect(result.isMatch).toBe(false);
+        });
+
+        it('should not resolve node js from faulty appveyor configuration', async () => {
+            const repoPath = path.join(resourcesDir, 'appveyorFaulty');
+            const result = await ciResolver.resolve({
+                repoPath,
+                targetNode: '2',
+                packageReleaseDate,
             });
             expect(result.isMatch).toBe(false);
         });
@@ -61,6 +102,7 @@ describe('ci resolver', () => {
             const result = await ciResolver.resolve({
                 repoPath,
                 targetNode: '10',
+                packageReleaseDate,
             });
             expect(result.isMatch).toBe(true);
             expect(result.resolverName).toBe('circleCi');
@@ -71,6 +113,7 @@ describe('ci resolver', () => {
             const result = await ciResolver.resolve({
                 repoPath,
                 targetNode: '2',
+                packageReleaseDate,
             });
             expect(result.isMatch).toBe(false);        });
 
@@ -79,6 +122,7 @@ describe('ci resolver', () => {
             const result = await ciResolver.resolve({
                 repoPath,
                 targetNode: '2',
+                packageReleaseDate,
             });
             expect(result.isMatch).toBe(false);        });
 
@@ -90,6 +134,7 @@ describe('ci resolver', () => {
             const result = await ciResolver.resolve({
                 repoPath,
                 targetNode: '10',
+                packageReleaseDate,
             });
             expect(result.isMatch).toBe(true);
             expect(result.resolverName).toBe('githubActions');
@@ -100,6 +145,7 @@ describe('ci resolver', () => {
             const result = await ciResolver.resolve({
                 repoPath,
                 targetNode: '2',
+                packageReleaseDate,
             });
             expect(result.isMatch).toBe(false);        });
 
@@ -108,6 +154,7 @@ describe('ci resolver', () => {
             const result = await ciResolver.resolve({
                 repoPath,
                 targetNode: '2',
+                packageReleaseDate,
             });
             expect(result.isMatch).toBe(false);        });
     });

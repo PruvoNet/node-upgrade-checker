@@ -1,8 +1,10 @@
 import {injectable} from 'inversify';
+import {Moment} from 'moment';
 
 export interface ITargetMatcherOptions {
     targetNode: string;
     candidates: string[];
+    packageReleaseDate: Moment;
 }
 
 @injectable()

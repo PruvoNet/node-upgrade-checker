@@ -1,9 +1,11 @@
 import {injectable} from 'inversify';
+import {Moment} from 'moment';
 
 export interface IRunFlowOptions {
     pkg: {
         version: string;
         name: string;
+        releaseDate: Moment;
     };
     repo: {
         url: string;

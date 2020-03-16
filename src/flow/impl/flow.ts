@@ -39,6 +39,7 @@ export class Flow extends IFlow {
         const ciResult = await this.ciResolver.resolve({
             targetNode,
             repoPath,
+            packageReleaseDate: pkg.releaseDate,
         });
         if (ciResult.isMatch) {
             return {
