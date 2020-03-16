@@ -6,16 +6,19 @@ import {FS, TYPES} from '../../types';
 const nodeVersionRegex = new RegExp(`image: node:(\\d+)`, 'ig');
 const nodeVersionRegex2 = new RegExp(`image: \.+?\/node:(\\d+)`, 'ig');
 
+const ciFilePath = path.join(`.circleci`, `config.yml`);
+const resolverName = `circleCi`;
+
 @injectable()
 export class CircleCiResolver extends ISpecificCIResolver {
-    public readonly resolverName = `circleCi`;
+    public readonly resolverName = resolverName;
 
     constructor(@inject(TYPES.FS) private fs: FS) {
         super();
     }
 
     public async resolve({repoPath}: ISpecificCIResolverOptions): Promise<string[] | undefined> {
-        const fileName = path.join(repoPath, `.circleci`, `config.yml`);
+        const fileName = path.join(repoPath, ciFilePath);
         const versions = new Set<string>();
         try {
             const fileContents = await this.fs.promises.readFile(fileName, 'utf-8');

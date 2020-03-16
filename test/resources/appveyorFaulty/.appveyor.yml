@@ -1,0 +1,10 @@
+environment:
+  matrix1:
+    # node.js
+    - nodejs_version: "4"
+    - nodejs_version: "6"
+    # io.js
+    - nodejs_version: "1.0"
+
+install:
+  - ps: Install-Product node $env:nodejs_version

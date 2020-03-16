@@ -5,16 +5,19 @@ import {FS, TYPES} from '../../types';
 
 const nodeVersionRegex = new RegExp(`node-version:\\s*(.+)`, 'ig');
 
+const ciFilePath = path.join(`.github`, `workflows`);
+const resolverName = `githubActions`;
+
 @injectable()
 export class GithubActionsResolver extends ISpecificCIResolver {
-    public readonly resolverName = `githubActions`;
+    public readonly resolverName = resolverName;
 
     constructor(@inject(TYPES.FS) private fs: FS) {
         super();
     }
 
     public async resolve({repoPath}: ISpecificCIResolverOptions): Promise<string[] | undefined> {
-        const folderName = path.join(repoPath, `.github`, `workflows`);
+        const folderName = path.join(repoPath, ciFilePath);
         const foundVersions = new Set<string>();
         try {
             const files = await this.fs.promises.readdir(folderName);

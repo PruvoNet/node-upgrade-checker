@@ -28,6 +28,14 @@ describe('travis ci', () => {
         expect(versions).toEqual(['6', '7', '8', '9', '10']);
     });
 
+    it('should resolve lts version', async () => {
+        const repoPath = path.join(resourcesDir, 'travisLts');
+        const versions = await travisCiResolver.resolve({
+            repoPath,
+        });
+        expect(versions).toEqual([]);
+    });
+
     it('should return empty array from faulty configuration', async () => {
         const repoPath = path.join(resourcesDir, 'travisFaulty');
         const versions = await travisCiResolver.resolve({

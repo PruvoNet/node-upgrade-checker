@@ -10,6 +10,7 @@ import {CircleCiResolver} from './impl/resolvers/circle';
 import {GithubActionsResolver} from './impl/resolvers/github';
 import {ITargetMatcher} from './interfaces/targetMatcher';
 import {TargetMatcher} from './impl/targetMatcher';
+import {AppVeyorResolver} from './impl/resolvers/appveyor';
 
 export const ciResolverContainerModule = new ContainerModule((bind) => {
     bind<FS>(TYPES.FS).toConstantValue(fs);
@@ -17,7 +18,9 @@ export const ciResolverContainerModule = new ContainerModule((bind) => {
     bind<ICIResolver>(ICIResolver).to(CiResolver).inSingletonScope();
     bind<ITargetMatcher>(ITargetMatcher).to(TargetMatcher).inSingletonScope();
     bind<TravisCiResolver>(TravisCiResolver).to(TravisCiResolver).inSingletonScope();
+    bind<AppVeyorResolver>(AppVeyorResolver).to(AppVeyorResolver).inSingletonScope();
     bind<ISpecificCIResolver>(ISpecificCIResolver).to(TravisCiResolver).inSingletonScope();
+    bind<ISpecificCIResolver>(ISpecificCIResolver).to(AppVeyorResolver).inSingletonScope();
     bind<ISpecificCIResolver>(ISpecificCIResolver).to(CircleCiResolver).inSingletonScope();
     bind<CircleCiResolver>(CircleCiResolver).to(CircleCiResolver).inSingletonScope();
     bind<ISpecificCIResolver>(ISpecificCIResolver).to(GithubActionsResolver).inSingletonScope();
