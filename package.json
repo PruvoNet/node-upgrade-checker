@@ -9,9 +9,10 @@
     "node": ">=12 <13"
   },
   "scripts": {
-    "clean:dist": "rm -rf dist",
+    "clean:dist": "rm -rf dist && rm -f .buildcache",
     "prebuild": "npm run lint && npm run clean:dist",
     "build": "node_modules/.bin/tsc -p tsconfig.build.json",
+    "precompile": "npm run lint",
     "compile": "node_modules/.bin/tsc -p tsconfig.json",
     "pretest": "npm run lint",
     "pretest:unit": "npm run lint",

@@ -41,7 +41,8 @@ jspm_packages/
 **/*.js.map
 **/*.js
 **/*.d.ts
-
+!cli.js
+!jest.config.js
 !nyc.config.js
 
 # Typescript v1 declaration files
@@ -49,7 +50,7 @@ typings/
 
 # Optional npm cache directory
 .npm
-
+.buildcache
 # Optional eslint cache
 .eslintcache
 
