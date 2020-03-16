@@ -11,6 +11,7 @@
     "node": ">=12 <13"
   },
   "scripts": {
+    "versionupdate": "node_modules/.bin/ncu && npm install",
     "clean:dist": "rm -rf dist && rm -f .buildcache",
     "prebuild": "npm run lint && npm run clean:dist",
     "build": "node_modules/.bin/tsc -p tsconfig.build.json",
@@ -39,14 +40,15 @@
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^25.1.4",
-    "@types/node": "^13.9.0",
+    "@types/node": "^13.9.1",
     "@types/nodegit": "^0.26.1",
     "@types/tmp": "^0.1.0",
     "@types/yaml": "^1.2.0",
     "jest": "^25.1.0",
+    "npm-check-updates": "^4.0.4",
     "ts-jest": "^25.2.1",
-    "ts-node": "^8.6.2",
-    "tslint": "^6.0.0",
+    "ts-node": "^8.7.0",
+    "tslint": "^6.1.0",
     "typescript": "^3.8.3"
   },
   "dependencies": {
@@ -56,6 +58,6 @@
     "sqlite3": "^4.1.1",
     "tmp": "^0.1.0",
     "typeorm": "^0.2.24",
-    "yaml": "^1.8.0"
+    "yaml": "^1.8.2"
   }
 }
