@@ -2,6 +2,7 @@ import {TravisCiResolver} from '../../../../../../src/resolvers/ciResolver/impl/
 import * as path from 'path';
 import {resourcesDir} from '../../../../../common';
 import {container} from '../../../../../../src/container';
+import {LTS_VERSION} from '../../../../../../src/resolvers/ciResolver';
 
 describe('travis ci', () => {
 
@@ -33,7 +34,7 @@ describe('travis ci', () => {
         const versions = await travisCiResolver.resolve({
             repoPath,
         });
-        expect(versions).toEqual([]);
+        expect(versions).toEqual([LTS_VERSION]);
     });
 
     it('should return empty array from faulty configuration', async () => {

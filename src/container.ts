@@ -7,6 +7,7 @@ import {dbContainerModule} from './db';
 import {cacheResolverContainerModule} from './resolvers/cacheResolver';
 import {testResolverContainerModule} from './resolvers/testResolver';
 import {flowContainerModule} from './flow';
+import {ltsContainerModule} from './utils/lts';
 
 export const container = new Container();
 
@@ -18,3 +19,4 @@ container.load(dbContainerModule);
 container.load(cacheResolverContainerModule);
 container.load(testResolverContainerModule);
 container.load(flowContainerModule);
+container.load(ltsContainerModule);

@@ -1,5 +1,5 @@
 import * as path from 'path';
-import {ISpecificCIResolverOptions, ISpecificCIResolver} from '../../interfaces/specificCIResolver';
+import {ISpecificCIResolverOptions, ISpecificCIResolver, LTS_VERSION} from '../../interfaces/specificCIResolver';
 import {inject, injectable} from 'inversify';
 import {FS, TYPES, Yaml} from '../../types';
 
@@ -19,7 +19,14 @@ export class TravisCiResolver extends ISpecificCIResolver {
         try {
             const fileContents = await this.fs.promises.readFile(fileName, 'utf-8');
             const yaml = this.yaml.parse(fileContents);
-            return yaml.node_js || [];
+            const versions = yaml.node_js || [];
+            return versions
+                .map((nodeVersion: string) => {
+                    if (nodeVersion === 'lts/*') {
+                        return LTS_VERSION;
+                    }
+                    return nodeVersion;
+                });
         } catch (e) {
         }
         return;
