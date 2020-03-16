@@ -5,6 +5,7 @@ export interface IDependencyVersionOptions {
     semver: string;
     version: string;
     repoUrl: string;
+    releaseDate: string;
     commitSha?: string;
 }
 
@@ -32,6 +33,11 @@ export class DependencyVersion {
     public repoUrl!: string;
 
     @Column('text', {
+        nullable: false,
+    })
+    public releaseDate!: string;
+
+    @Column('text', {
         nullable: true,
     })
     public commitSha!: string | undefined;
@@ -42,6 +48,7 @@ export class DependencyVersion {
             this.semver = options.semver;
             this.version = options.version;
             this.repoUrl = options.repoUrl;
+            this.releaseDate = options.releaseDate;
             this.commitSha = options.commitSha;
         }
     }
