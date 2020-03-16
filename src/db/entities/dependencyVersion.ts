@@ -1,11 +1,15 @@
 import {Entity, Column, PrimaryColumn} from 'typeorm';
+import {Moment} from 'moment';
+
+const dateFormat = `YYYY-MM-DD`;
+import moment = require('moment');
 
 export interface IDependencyVersionOptions {
     name: string;
     semver: string;
     version: string;
     repoUrl: string;
-    releaseDate: string;
+    releaseDate: Moment;
     commitSha?: string;
 }
 
@@ -34,8 +38,16 @@ export class DependencyVersion {
 
     @Column('text', {
         nullable: false,
+        transformer: {
+            to(value: Moment): string {
+                return value.format(dateFormat);
+            },
+            from(value: string): Moment {
+                return moment.utc(value, dateFormat);
+            },
+        },
     })
-    public releaseDate!: string;
+    public releaseDate!: Moment;
 
     @Column('text', {
         nullable: true,

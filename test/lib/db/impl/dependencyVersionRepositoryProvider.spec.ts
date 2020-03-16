@@ -3,6 +3,11 @@ import {container} from '../../../../src/container';
 import {ConnectionProviderSettings} from '../../../../src/db/impl/connectionProviderSettings';
 import * as tmp from 'tmp';
 
+import moment = require('moment');
+
+const dateFormat = `YYYY-MM-DD`;
+const releaseDate = moment.utc('2015-10-02', dateFormat);
+
 describe('db', () => {
 
     let dependencyVersionRepositoryProvider: IDependencyVersionRepositoryProvider;
@@ -33,7 +38,7 @@ describe('db', () => {
             name: 'test dependency',
             repoUrl: 'https://www.github.com/example/test.git',
             commitSha: 'sdf-sdf-sdf-sdf-wert-fdgf',
-            releaseDate: '2020-01-01',
+            releaseDate,
         });
         await repo.save(dependency);
         const count = await repo.count();
@@ -51,7 +56,7 @@ describe('db', () => {
             name: 'test dependency',
             repoUrl: 'https://www.github.com/example/test.git',
             commitSha: 'sdf-sdf-sdf-sdf-wert-fdgf',
-            releaseDate: '2020-01-01',
+            releaseDate,
         });
         const dependency2 = new DependencyVersion({
             semver: '^5.0.0',
@@ -59,7 +64,7 @@ describe('db', () => {
             name: 'test dependency2',
             repoUrl: 'https://www.github.com/example/test2.git',
             commitSha: 'sdf-sdf-sdf-sdf-wert-fdgf',
-            releaseDate: '2020-01-01',
+            releaseDate,
         });
         await repo.save([dependency, dependency2]);
         const count = await repo.count();
@@ -78,14 +83,14 @@ describe('db', () => {
             name: 'test dependency',
             repoUrl: 'https://www.github.com/example/test.git',
             commitSha: 'sdf-sdf-sdf-sdf-wert-fdgf',
-            releaseDate: '2020-01-01',
+            releaseDate,
         });
         const dependency2 = new DependencyVersion({
             semver: '^4.0.1',
             version: '4.0.0',
             name: 'test dependency',
             repoUrl: 'https://www.github.com/example/test2.git',
-            releaseDate: '2020-01-01',
+            releaseDate,
         });
         await repo.save(dependency);
         await repo.save(dependency2);
@@ -101,7 +106,7 @@ describe('db', () => {
             name: 'test dependency',
             repoUrl: 'https://www.github.com/example/test.git',
             commitSha: 'sdf-sdf-sdf-sdf-wert-fdgf',
-            releaseDate: '2020-01-01',
+            releaseDate,
         });
         const dependency2 = new DependencyVersion({
             semver: '^5.0.0',
@@ -109,7 +114,7 @@ describe('db', () => {
             name: 'test dependency2',
             repoUrl: 'https://www.github.com/example/test2.git',
             commitSha: 'sdf-sdf-sdf-sdf-wert-fdgf',
-            releaseDate: '2020-01-01',
+            releaseDate,
         });
         await repo.save([dependency, dependency2]);
         const entity = await repo.findOne({
