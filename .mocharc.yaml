@@ -1,6 +1,0 @@
-require:
-  - source-map-support/register
-  - dist/test/setup.js
-recursive: true,
-reporter: spec
-exit: true

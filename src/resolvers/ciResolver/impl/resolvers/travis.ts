@@ -16,7 +16,7 @@ export class TravisCiResolver extends ISpecificCIResolver {
         try {
             const fileContents = await this.fs.promises.readFile(fileName, 'utf-8');
             const yaml = this.yaml.parse(fileContents);
-            return yaml.node_js;
+            return yaml.node_js || [];
         } catch (e) {
         }
         return;
