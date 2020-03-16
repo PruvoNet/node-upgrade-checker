@@ -59,5 +59,29 @@
     "tmp": "^0.1.0",
     "typeorm": "^0.2.24",
     "yaml": "^1.8.2"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.test.json"
+      }
+    },
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.ts",
+      "!<rootDir>/src/**/*.d.ts"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/test/setup.ts"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "text-summary",
+      "lcov"
+    ],
+    "errorOnDeprecated": true,
+    "verbose": false,
+    "cacheDirectory": "<rootDir>/.cache"
   }
 }
