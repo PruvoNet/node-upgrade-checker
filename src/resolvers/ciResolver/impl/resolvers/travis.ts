@@ -23,13 +23,14 @@ export class TravisCiResolver extends ISpecificCIResolver {
 
     public async resolve({repoPath}: ISpecificCIResolverOptions): Promise<string[] | undefined> {
         const fileName = path.join(repoPath, ciFileName);
+        let fileContents: string;
         try {
-            const fileContents = await this.fs.promises.readFile(fileName, 'utf-8');
-            const yaml = this.yaml.parse(fileContents);
-            const versions = yaml.node_js || [];
-            return versions.map(ltsMapper);
+            fileContents = await this.fs.promises.readFile(fileName, 'utf-8');
         } catch (e) {
+            return;
         }
-        return;
+        const yaml = this.yaml.parse(fileContents);
+        const versions = yaml.node_js;
+        return versions.map(ltsMapper);
     }
 }

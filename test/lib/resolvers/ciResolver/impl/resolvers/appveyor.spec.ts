@@ -36,12 +36,16 @@ describe('appveyor', () => {
         expect(versions).toEqual(['8']);
     });
 
-    it('should return empty array from faulty configuration', async () => {
+    it('should throw due to faulty configuration', async () => {
         const repoPath = path.join(resourcesDir, 'appveyorFaulty');
-        const versions = await appVeyorResolver.resolve({
-            repoPath,
-        });
-        expect(versions).toEqual([]);
+        expect.assertions(1);
+        try {
+            await appVeyorResolver.resolve({
+                repoPath,
+            });
+        } catch(e) {
+            expect(e).toBeInstanceOf(Error);
+        }
     });
 
     it('should return undefined from non relevant repo', async () => {

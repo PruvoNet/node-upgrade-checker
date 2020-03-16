@@ -39,29 +39,30 @@ export class AppVeyorResolver extends ISpecificCIResolver {
 
     public async resolve({repoPath}: ISpecificCIResolverOptions): Promise<string[] | undefined> {
         const fileName = path.join(repoPath, ciFileName);
+        let fileContents: string;
         try {
-            const fileContents = await this.fs.promises.readFile(fileName, 'utf-8');
-            const yaml = this.yaml.parse(fileContents);
-            const installCommands: string[] = yaml.install;
-            const nodeVersion = installCommands
-                .map(psObjectMapper)
-                .map(nodeVersionMapper)
-                .filter(emptyFilter)[0];
-            if (!nodeVersion) {
-                return [];
-            }
-            const match = nodeVersion.match(nodeEnvRegex);
-            if (!match) {
-                return [nodeVersion];
-            } else {
-                const matrixVarName = match[1];
-                const matrix: any[] = yaml.environment.matrix;
-                return matrix
-                    .map(envObjectMapper(matrixVarName))
-                    .filter(emptyFilter) as string[];
-            }
+            fileContents = await this.fs.promises.readFile(fileName, 'utf-8');
         } catch (e) {
+            return;
         }
-        return;
+        const yaml = this.yaml.parse(fileContents);
+        const installCommands: string[] = yaml.install;
+        const nodeVersion = installCommands
+            .map(psObjectMapper)
+            .map(nodeVersionMapper)
+            .filter(emptyFilter)[0];
+        if (!nodeVersion) {
+            throw new Error('failed to located node version in install commands');
+        }
+        const match = nodeVersion.match(nodeEnvRegex);
+        if (!match) {
+            return [nodeVersion];
+        } else {
+            const matrixVarName = match[1];
+            const matrix: any[] = yaml.environment.matrix;
+            return matrix
+                .map(envObjectMapper(matrixVarName))
+                .filter(emptyFilter) as string[];
+        }
     }
 }

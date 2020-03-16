@@ -37,12 +37,16 @@ describe('travis ci', () => {
         expect(versions).toEqual([LTS_VERSION]);
     });
 
-    it('should return empty array from faulty configuration', async () => {
+    it('should throw due to faulty configuration', async () => {
         const repoPath = path.join(resourcesDir, 'travisFaulty');
-        const versions = await travisCiResolver.resolve({
-            repoPath,
-        });
-        expect(versions).toEqual([]);
+        expect.assertions(1);
+        try {
+            await travisCiResolver.resolve({
+                repoPath,
+            });
+        } catch(e) {
+            expect(e).toBeInstanceOf(Error);
+        }
     });
 
     it('should return undefined from non relevant repo', async () => {

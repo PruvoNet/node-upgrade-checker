@@ -19,33 +19,34 @@ export class GithubActionsResolver extends ISpecificCIResolver {
     public async resolve({repoPath}: ISpecificCIResolverOptions): Promise<string[] | undefined> {
         const folderName = path.join(repoPath, ciFilePath);
         const foundVersions = new Set<string>();
+        let files: string[];
         try {
-            const files = await this.fs.promises.readdir(folderName);
-            for (const fileName of files) {
-                const fileContents = await this.fs.promises.readFile(path.join(folderName, fileName), 'utf-8');
-                let match: RegExpExecArray | null;
-                do {
-                    match = nodeVersionRegex.exec(fileContents);
-                    if (match) {
-                        const versionsStr = match[1];
-                        if (!versionsStr.startsWith('$')) {
-                            let versions: string[];
-                            if (versionsStr.startsWith('[') && versionsStr.endsWith(']')) {
-                                versions = versionsStr.substr(1, versionsStr.length - 2).split(',');
-                            } else {
-                                versions = [versionsStr];
-                            }
-                            versions.forEach((version) => {
-                                version = version.replace(/['"]/g, '').trim();
-                                foundVersions.add(version);
-                            });
-                        }
-                    }
-                } while (match);
-            }
-            return Array.from(foundVersions);
+            files = await this.fs.promises.readdir(folderName);
         } catch (e) {
+            return;
         }
-        return;
+        for (const fileName of files) {
+            const fileContents = await this.fs.promises.readFile(path.join(folderName, fileName), 'utf-8');
+            let match: RegExpExecArray | null;
+            do {
+                match = nodeVersionRegex.exec(fileContents);
+                if (match) {
+                    const versionsStr = match[1];
+                    if (!versionsStr.startsWith('$')) {
+                        let versions: string[];
+                        if (versionsStr.startsWith('[') && versionsStr.endsWith(']')) {
+                            versions = versionsStr.substr(1, versionsStr.length - 2).split(',');
+                        } else {
+                            versions = [versionsStr];
+                        }
+                        versions.forEach((version) => {
+                            version = version.replace(/['"]/g, '').trim();
+                            foundVersions.add(version);
+                        });
+                    }
+                }
+            } while (match);
+        }
+        return Array.from(foundVersions);
     }
 }

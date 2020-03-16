@@ -14,25 +14,30 @@ export class CiResolver extends ICIResolver {
 
     async resolve({repoPath, targetNode, packageReleaseDate}: ICIResolveOptions): Promise<IResolverResult> {
         for (const resolver of this.resolvers) {
-
-            const nodeVersions = await resolver.resolve({
-                repoPath,
-            });
+            let nodeVersions: string[] | undefined;
+            try {
+                nodeVersions = await resolver.resolve({
+                    repoPath,
+                });
+            } catch (e) {
+                console.log(
+                    `Failed to find node versions in resolver ${resolver.resolverName} due to an unknown error`, e);
+            }
             if (nodeVersions) {
                 if (nodeVersions.length === 0) {
                     console.log(`Failed to find node versions in resolver ${resolver.resolverName}`);
-                    continue;
-                }
-                const isMatch = await this.targetMatcher.match({
-                    candidates: nodeVersions,
-                    targetNode,
-                    packageReleaseDate,
-                });
-                if (isMatch) {
-                    return {
-                        isMatch: true,
-                        resolverName: resolver.resolverName,
-                    };
+                } else {
+                    const isMatch = await this.targetMatcher.match({
+                        candidates: nodeVersions,
+                        targetNode,
+                        packageReleaseDate,
+                    });
+                    if (isMatch) {
+                        return {
+                            isMatch: true,
+                            resolverName: resolver.resolverName,
+                        };
+                    }
                 }
             }
         }

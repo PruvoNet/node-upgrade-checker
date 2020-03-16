@@ -20,24 +20,25 @@ export class CircleCiResolver extends ISpecificCIResolver {
     public async resolve({repoPath}: ISpecificCIResolverOptions): Promise<string[] | undefined> {
         const fileName = path.join(repoPath, ciFilePath);
         const versions = new Set<string>();
+        let fileContents: string;
         try {
-            const fileContents = await this.fs.promises.readFile(fileName, 'utf-8');
-            let match: RegExpExecArray | null;
-            do {
-                match = nodeVersionRegex.exec(fileContents);
-                if (match) {
-                    versions.add(match[1]);
-                }
-            } while (match);
-            do {
-                match = nodeVersionRegex2.exec(fileContents);
-                if (match) {
-                    versions.add(match[1]);
-                }
-            } while (match);
-            return Array.from(versions);
+            fileContents = await this.fs.promises.readFile(fileName, 'utf-8');
         } catch (e) {
+            return;
         }
-        return;
+        let match: RegExpExecArray | null;
+        do {
+            match = nodeVersionRegex.exec(fileContents);
+            if (match) {
+                versions.add(match[1]);
+            }
+        } while (match);
+        do {
+            match = nodeVersionRegex2.exec(fileContents);
+            if (match) {
+                versions.add(match[1]);
+            }
+        } while (match);
+        return Array.from(versions);
     }
 }
