@@ -7,8 +7,9 @@
   "bin": {
     "nuc": "./dist/cli/index.js"
   },
+  "engineStrict": true,
   "engines": {
-    "node": ">=12 <13"
+    "node": "^10 || ^12"
   },
   "scripts": {
     "versionupdate": "node_modules/.bin/ncu && npm install",
