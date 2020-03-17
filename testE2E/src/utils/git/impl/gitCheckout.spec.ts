@@ -16,6 +16,8 @@ const verifyVersion = async (dir: string, version: string) => {
     expect(packageJson.version).toBe(version);
 };
 
+const timeout = 100000;
+
 describe('git checkout', () => {
 
     let tmpDir: string = '';
@@ -47,7 +49,7 @@ describe('git checkout', () => {
         });
         expect(name2).toBe(expected);
         await verifyVersion(name, '1.2.2');
-    }, 10000);
+    }, timeout);
 
     it('should checkout existing commit', async () => {
         const name = await gitCheckout.checkoutRepo({
@@ -67,7 +69,7 @@ describe('git checkout', () => {
         });
         expect(name2).toBe(expected);
         await verifyVersion(name, '1.2.2');
-    }, 10000);
+    }, timeout);
 
     it('should fail to checkout non existing tag', async () => {
         expect.assertions(2);
@@ -81,7 +83,7 @@ describe('git checkout', () => {
             expect(e).toBeInstanceOf(Error);
             expect(e.message).toBe('Failed to locate tag 0.0.1');
         }
-    }, 10000);
+    }, timeout);
 
     it('should fail to checkout non existing commit', async () => {
         expect.assertions(2);
@@ -96,7 +98,7 @@ describe('git checkout', () => {
             expect(e).toBeInstanceOf(Error);
             expect(e.message).toBe('Failed to locate commit sdfsdfsdf');
         }
-    }, 10000);
+    }, timeout);
 
     it('should fail to checkout too many matching tags', async () => {
         expect.assertions(2);
@@ -110,6 +112,6 @@ describe('git checkout', () => {
             expect(e).toBeInstanceOf(Error);
             expect(e.message).toContain('Too many matching tags for tag 1');
         }
-    }, 10000);
+    }, timeout);
 
 });
