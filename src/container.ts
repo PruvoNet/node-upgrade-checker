@@ -8,6 +8,7 @@ import {cacheResolverContainerModule} from './resolvers/cacheResolver';
 import {testResolverContainerModule} from './resolvers/testResolver';
 import {flowContainerModule} from './flow';
 import {ltsContainerModule} from './utils/lts';
+import {packageInfoContainerModule} from './utils/packageInfo';
 
 export const container = new Container();
 
@@ -20,3 +21,4 @@ container.load(cacheResolverContainerModule);
 container.load(testResolverContainerModule);
 container.load(flowContainerModule);
 container.load(ltsContainerModule);
+container.load(packageInfoContainerModule);
