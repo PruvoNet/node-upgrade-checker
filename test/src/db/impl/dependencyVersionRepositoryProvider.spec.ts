@@ -8,7 +8,7 @@ import moment = require('moment');
 const dateFormat = `YYYY-MM-DD`;
 const releaseDate = moment.utc('2015-10-02', dateFormat);
 
-describe('db', () => {
+describe('dependency version repository provider', () => {
 
     let dependencyVersionRepositoryProvider: IDependencyVersionRepositoryProvider;
 
@@ -33,7 +33,6 @@ describe('db', () => {
     it('should save entity', async () => {
         const repo = await dependencyVersionRepositoryProvider.getRepository();
         const dependency = new DependencyVersion({
-            semver: '^4.0.0',
             version: '4.0.1',
             name: 'test dependency',
             repoUrl: 'https://www.github.com/example/test.git',
@@ -51,7 +50,6 @@ describe('db', () => {
     it('should save multiple entities', async () => {
         const repo = await dependencyVersionRepositoryProvider.getRepository();
         const dependency = new DependencyVersion({
-            semver: '^4.0.0',
             version: '4.0.1',
             name: 'test dependency',
             repoUrl: 'https://www.github.com/example/test.git',
@@ -59,7 +57,6 @@ describe('db', () => {
             releaseDate,
         });
         const dependency2 = new DependencyVersion({
-            semver: '^5.0.0',
             version: '5.0.1',
             name: 'test dependency2',
             repoUrl: 'https://www.github.com/example/test2.git',
@@ -78,7 +75,6 @@ describe('db', () => {
     it('should have proper key', async () => {
         const repo = await dependencyVersionRepositoryProvider.getRepository();
         const dependency = new DependencyVersion({
-            semver: '^4.0.1',
             version: '4.0.1',
             name: 'test dependency',
             repoUrl: 'https://www.github.com/example/test.git',
@@ -86,11 +82,11 @@ describe('db', () => {
             releaseDate,
         });
         const dependency2 = new DependencyVersion({
-            semver: '^4.0.1',
-            version: '4.0.0',
+            version: '4.0.1',
             name: 'test dependency',
             repoUrl: 'https://www.github.com/example/test2.git',
             releaseDate,
+            commitSha: 'sdf-sdf-sdf-sdf-wert-fdgf',
         });
         await repo.save(dependency);
         await repo.save(dependency2);
@@ -101,7 +97,6 @@ describe('db', () => {
     it('should find entities', async () => {
         const repo = await dependencyVersionRepositoryProvider.getRepository();
         const dependency = new DependencyVersion({
-            semver: '^4.0.0',
             version: '4.0.1',
             name: 'test dependency',
             repoUrl: 'https://www.github.com/example/test.git',
@@ -109,7 +104,6 @@ describe('db', () => {
             releaseDate,
         });
         const dependency2 = new DependencyVersion({
-            semver: '^5.0.0',
             version: '5.0.1',
             name: 'test dependency2',
             repoUrl: 'https://www.github.com/example/test2.git',

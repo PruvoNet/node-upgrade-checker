@@ -3,7 +3,7 @@ import {container} from '../../../../src/container';
 import {ConnectionProviderSettings} from '../../../../src/db/impl/connectionProviderSettings';
 import * as tmp from 'tmp';
 
-describe('db', () => {
+describe('dependency repository provider', () => {
 
     let dependencyRepositoryProvider: IDependencyRepositoryProvider;
 

@@ -3,7 +3,7 @@ import {ConnectionProviderSettings} from '../../../../src/db/impl/connectionProv
 import * as tmp from 'tmp';
 import {ConnectionProvider} from '../../../../src/db/impl/connectionProvider';
 
-describe('db', () => {
+describe('connection provider', () => {
 
     let connectionProvider: ConnectionProvider;
 

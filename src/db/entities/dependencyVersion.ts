@@ -6,11 +6,10 @@ import moment = require('moment');
 
 export interface IDependencyVersionOptions {
     name: string;
-    semver: string;
     version: string;
     repoUrl: string;
     releaseDate: Moment;
-    commitSha?: string;
+    commitSha: string;
 }
 
 @Entity()
@@ -22,11 +21,6 @@ export class DependencyVersion {
     public name!: string;
 
     @PrimaryColumn('text', {
-        nullable: false,
-    })
-    public semver!: string;
-
-    @Column('text', {
         nullable: false,
     })
     public version!: string;
@@ -52,12 +46,11 @@ export class DependencyVersion {
     @Column('text', {
         nullable: true,
     })
-    public commitSha!: string | undefined;
+    public commitSha!: string;
 
     constructor(options?: IDependencyVersionOptions) {
         if (options) {
             this.name = options.name;
-            this.semver = options.semver;
             this.version = options.version;
             this.repoUrl = options.repoUrl;
             this.releaseDate = options.releaseDate;
