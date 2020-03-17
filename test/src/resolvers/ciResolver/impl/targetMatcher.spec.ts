@@ -1,31 +1,22 @@
-import {container} from '../../../../../src/container';
-import {ITargetMatcher} from '../../../../../src/resolvers/ciResolver';
 import moment = require('moment');
 import Mock = jest.Mock;
 import {ILts} from '../../../../../src/utils/lts';
+import {TargetMatcher} from '../../../../../src/resolvers/ciResolver/impl/targetMatcher';
 
 const dateFormat = `YYYY-MM-DD`;
 const packageReleaseDate = moment.utc('2015-10-02', dateFormat);
 
 describe('target matcher', () => {
 
-    let targetMatcher: ITargetMatcher;
+    let targetMatcher: TargetMatcher;
     let resolveLtsVersionMock: Mock;
 
     beforeEach(() => {
-        container.snapshot();
         resolveLtsVersionMock = jest.fn();
         const ltsMock  = {
             resolveLtsVersion: resolveLtsVersionMock,
         } as any as ILts;
-        container.unbind(ILts);
-        container.bind<ILts>(ILts)
-            .toConstantValue(ltsMock);
-        targetMatcher = container.get(ITargetMatcher);
-    });
-
-    afterEach(() => {
-        container.restore();
+        targetMatcher = new TargetMatcher(ltsMock);
     });
 
     it('should match target node from candidates', async () => {

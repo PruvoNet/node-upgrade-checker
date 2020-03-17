@@ -1,16 +1,14 @@
-import {container} from '../../../../../src/container';
 import {Dependency, IDependencyRepositoryProvider} from '../../../../../src/db';
 import {Repository} from 'typeorm';
-import {ICacheResolver} from '../../../../../src/resolvers/cacheResolver';
 import Mock = jest.Mock;
+import {CacheResolver} from '../../../../../src/resolvers/cacheResolver/impl/cacheResolver';
 
 describe('cache resolver', () => {
 
-    let cacheResolver: ICacheResolver;
+    let cacheResolver: CacheResolver;
     let findOneStub: Mock;
 
     beforeEach(() => {
-        container.snapshot();
         findOneStub = jest.fn();
         const repositorySpy = {
             findOne: findOneStub,
@@ -20,14 +18,7 @@ describe('cache resolver', () => {
                 return repositorySpy;
             },
         };
-        container.unbind(IDependencyRepositoryProvider);
-        container.bind<IDependencyRepositoryProvider>(IDependencyRepositoryProvider)
-            .toConstantValue(dependencyRepositoryProviderSpy);
-        cacheResolver = container.get(ICacheResolver);
-    });
-
-    afterEach(() => {
-        container.restore();
+        cacheResolver = new CacheResolver(dependencyRepositoryProviderSpy);
     });
 
     it('should resolve if match in cache', async () => {

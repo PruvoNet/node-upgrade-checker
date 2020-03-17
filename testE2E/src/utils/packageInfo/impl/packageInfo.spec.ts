@@ -1,7 +1,7 @@
 import {container} from '../../../../../src/container';
 import {IPackageInfo} from '../../../../../src/utils/packageInfo';
 
-describe('npm', () => {
+describe('package info e2e', () => {
 
     let packageInfo: IPackageInfo;
 
@@ -14,7 +14,7 @@ describe('npm', () => {
         container.restore();
     });
 
-    it('should perform full npm test flow', async () => {
+    it('should resolve package info properly', async () => {
         const result = await packageInfo.getPackageInfo({
             name: 'squiss-ts',
             semver: '^3.0.0',
