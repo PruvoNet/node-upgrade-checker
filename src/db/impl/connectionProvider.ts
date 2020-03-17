@@ -5,22 +5,19 @@ import {TypeOrm, TYPES} from '../types';
 import {ConnectionProviderSettings} from './connectionProviderSettings';
 import * as path from 'path';
 import {DependencyVersion} from '../entities/dependencyVersion';
+import {memoize} from '../../utils/memoize/memoize';
 
 const DB_FILE = 'cache.db';
 
 @injectable()
 export class ConnectionProvider {
 
-    private connection?: Connection;
-
     constructor(private settings: ConnectionProviderSettings, @inject(TYPES.TypeOrm) private typeorm: TypeOrm) {
     }
 
+    @memoize()
     public async getConnection(): Promise<Connection> {
-        if (this.connection) {
-            return this.connection;
-        }
-        this.connection = await this.typeorm.createConnection({
+        return await this.typeorm.createConnection({
             name: this.settings.databaseFilePath,
             type: 'sqlite',
             database: path.join(this.settings.databaseFilePath, DB_FILE),
@@ -32,6 +29,5 @@ export class ConnectionProvider {
                 DependencyVersion,
             ],
         });
-        return this.connection;
     }
 }

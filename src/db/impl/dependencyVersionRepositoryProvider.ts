@@ -3,22 +3,18 @@ import {ConnectionProvider} from './connectionProvider';
 import {Repository} from 'typeorm';
 import {DependencyVersion} from '../entities/dependencyVersion';
 import {IDependencyVersionRepositoryProvider} from '../interfaces/dependencyVersionRepositoryProvider';
+import {memoize} from '../../utils/memoize/memoize';
 
 @injectable()
 export class DependencyVersionRepositoryProvider extends IDependencyVersionRepositoryProvider{
-
-    private repository?: Repository<DependencyVersion>;
 
     constructor(private connectionProvider: ConnectionProvider) {
         super();
     }
 
+    @memoize()
     public async getRepository(): Promise<Repository<DependencyVersion>> {
-        if (this.repository) {
-            return this.repository;
-        }
         const connection = await this.connectionProvider.getConnection();
-        this.repository = connection.getRepository(DependencyVersion);
-        return this.repository;
+        return connection.getRepository(DependencyVersion);
     }
 }
