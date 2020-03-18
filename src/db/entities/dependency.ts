@@ -4,8 +4,8 @@ export interface IDependencyOptions {
     name: string;
     version: string;
     targetNode: string;
-    match?: boolean;
-    reason?: string;
+    match: boolean | undefined;
+    reason: string | undefined;
 }
 
 @Entity()
