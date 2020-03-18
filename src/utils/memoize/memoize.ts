@@ -1,15 +1,9 @@
-const cacheProp = Symbol.for('[memoize]');
+const cacheProp = Symbol.for(`[memoize]`);
 
 export type GenericFunction = (...args: any[]) => any;
 
-const defaultKeyBuilder = (v: any) => {
+const defaultKeyBuilder = (v: any): any => {
     return v;
-};
-
-export const memoize = (keyBuilder?: GenericFunction) => {
-    return (_: object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) => {
-        descriptor.value = _memoize(propertyKey, descriptor.value, keyBuilder || defaultKeyBuilder);
-    };
 };
 
 function getCache(target: any): Record<string, Map<any, any>> {
@@ -40,5 +34,11 @@ const _memoize = (namespace: string, func: GenericFunction, keyBuilder: GenericF
         const res = func.apply(this, args);
         cache.set(key, res);
         return res;
+    };
+};
+
+export const memoize = (keyBuilder?: GenericFunction) => {
+    return (_: object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>): void => {
+        descriptor.value = _memoize(propertyKey, descriptor.value, keyBuilder || defaultKeyBuilder);
     };
 };

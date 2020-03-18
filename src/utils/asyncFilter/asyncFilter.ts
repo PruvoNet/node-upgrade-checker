@@ -1,5 +1,4 @@
-export const asyncFilter = async <T>(array: T[], callback: (value: T, index?: number) => Promise<boolean>)
-    : Promise<T[]> => {
+export const asyncFilter = async <T>(array: T[], callback: (value: T, index?: number) => Promise<boolean>): Promise<T[]> => {
     const promises = array.map(async (value, index) => {
         return await callback(value, index);
     });

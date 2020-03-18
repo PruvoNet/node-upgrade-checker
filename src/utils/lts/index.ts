@@ -3,7 +3,7 @@ import {Lts} from './impl/lts';
 import {interfaces} from 'inversify';
 import Bind = interfaces.Bind;
 
-export const ltsModulesBinder = (bind: Bind) => {
+export const ltsModulesBinder = (bind: Bind): void => {
     bind<ILts>(ILts).to(Lts).inSingletonScope();
 };
 

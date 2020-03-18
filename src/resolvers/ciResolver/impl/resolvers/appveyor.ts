@@ -7,7 +7,7 @@ import {parse} from 'yaml';
 const nodeVersionRegex = /Install-Product node ([^\s]+)/i;
 const nodeEnvRegex = /\$env:(.+)/i;
 
-const nodeVersionMapper = (command: string | undefined) => {
+const nodeVersionMapper = (command: string | undefined): string | undefined => {
     if (!command) {
         return;
     }
@@ -15,7 +15,7 @@ const nodeVersionMapper = (command: string | undefined) => {
     return match?.[1];
 };
 
-const emptyFilter = (command: any) => {
+const emptyFilter = (command: any): boolean => {
     return Boolean(command);
 };
 
@@ -42,7 +42,7 @@ export class AppVeyorResolver extends ISpecificCIResolver {
         const fileName = path.join(repoPath, ciFileName);
         let fileContents: string;
         try {
-            fileContents = await this.fs.promises.readFile(fileName, 'utf-8');
+            fileContents = await this.fs.promises.readFile(fileName, `utf-8`);
         } catch (e) {
             return;
         }
@@ -53,7 +53,7 @@ export class AppVeyorResolver extends ISpecificCIResolver {
             .map(nodeVersionMapper)
             .filter(emptyFilter)[0];
         if (!nodeVersion) {
-            throw new Error('failed to located node version in install commands');
+            throw new Error(`failed to located node version in install commands`);
         }
         const match = nodeVersion.match(nodeEnvRegex);
         if (!match) {

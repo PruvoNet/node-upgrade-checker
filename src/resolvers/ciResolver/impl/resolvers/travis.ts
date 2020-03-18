@@ -8,7 +8,7 @@ const ciFileName = `.travis.yml`;
 const resolverName = `travisCi`;
 
 const ltsMapper = (nodeVersion: string): string => {
-    if (nodeVersion === 'lts/*') {
+    if (nodeVersion === `lts/*`) {
         return LTS_VERSION;
     }
     return nodeVersion;
@@ -26,7 +26,7 @@ export class TravisCiResolver extends ISpecificCIResolver {
         const fileName = path.join(repoPath, ciFileName);
         let fileContents: string;
         try {
-            fileContents = await this.fs.promises.readFile(fileName, 'utf-8');
+            fileContents = await this.fs.promises.readFile(fileName, `utf-8`);
         } catch (e) {
             return;
         }

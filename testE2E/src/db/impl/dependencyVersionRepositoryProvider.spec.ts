@@ -6,13 +6,12 @@ import {
 } from '../../../../src/db';
 import {container} from '../../../../src/container';
 import * as tmp from 'tmp';
-
 import moment = require('moment');
 
 const dateFormat = `YYYY-MM-DD`;
-const releaseDate = moment.utc('2015-10-02', dateFormat);
+const releaseDate = moment.utc(`2015-10-02`, dateFormat);
 
-describe('dependency version repository provider e2e', () => {
+describe(`dependency version repository provider e2e`, () => {
 
     let dependencyVersionRepositoryProvider: IDependencyVersionRepositoryProvider;
 
@@ -28,13 +27,13 @@ describe('dependency version repository provider e2e', () => {
         container.restore();
     });
 
-    it('should save entity', async () => {
+    it(`should save entity`, async () => {
         const repo = await dependencyVersionRepositoryProvider.getRepository();
         const dependency = new DependencyVersion({
-            version: '4.0.1',
-            name: 'test dependency',
-            repoUrl: 'https://www.github.com/example/test.git',
-            commitSha: 'sdf-sdf-sdf-sdf-wert-fdgf',
+            version: `4.0.1`,
+            name: `test dependency`,
+            repoUrl: `https://www.github.com/example/test.git`,
+            commitSha: `sdf-sdf-sdf-sdf-wert-fdgf`,
             releaseDate,
         });
         await repo.save(dependency);
@@ -45,20 +44,20 @@ describe('dependency version repository provider e2e', () => {
         expect(entities[0]).toEqual(dependency);
     });
 
-    it('should save multiple entities', async () => {
+    it(`should save multiple entities`, async () => {
         const repo = await dependencyVersionRepositoryProvider.getRepository();
         const dependency = new DependencyVersion({
-            version: '4.0.1',
-            name: 'test dependency',
-            repoUrl: 'https://www.github.com/example/test.git',
-            commitSha: 'sdf-sdf-sdf-sdf-wert-fdgf',
+            version: `4.0.1`,
+            name: `test dependency`,
+            repoUrl: `https://www.github.com/example/test.git`,
+            commitSha: `sdf-sdf-sdf-sdf-wert-fdgf`,
             releaseDate,
         });
         const dependency2 = new DependencyVersion({
-            version: '5.0.1',
-            name: 'test dependency2',
-            repoUrl: 'https://www.github.com/example/test2.git',
-            commitSha: 'sdf-sdf-sdf-sdf-wert-fdgf',
+            version: `5.0.1`,
+            name: `test dependency2`,
+            repoUrl: `https://www.github.com/example/test2.git`,
+            commitSha: `sdf-sdf-sdf-sdf-wert-fdgf`,
             releaseDate,
         });
         await repo.save([dependency, dependency2]);
@@ -70,21 +69,21 @@ describe('dependency version repository provider e2e', () => {
         expect(entities[1]).toEqual(dependency2);
     });
 
-    it('should have proper key', async () => {
+    it(`should have proper key`, async () => {
         const repo = await dependencyVersionRepositoryProvider.getRepository();
         const dependency = new DependencyVersion({
-            version: '4.0.1',
-            name: 'test dependency',
-            repoUrl: 'https://www.github.com/example/test.git',
-            commitSha: 'sdf-sdf-sdf-sdf-wert-fdgf',
+            version: `4.0.1`,
+            name: `test dependency`,
+            repoUrl: `https://www.github.com/example/test.git`,
+            commitSha: `sdf-sdf-sdf-sdf-wert-fdgf`,
             releaseDate,
         });
         const dependency2 = new DependencyVersion({
-            version: '4.0.1',
-            name: 'test dependency',
-            repoUrl: 'https://www.github.com/example/test2.git',
+            version: `4.0.1`,
+            name: `test dependency`,
+            repoUrl: `https://www.github.com/example/test2.git`,
             releaseDate,
-            commitSha: 'sdf-sdf-sdf-sdf-wert-fdgf',
+            commitSha: `sdf-sdf-sdf-sdf-wert-fdgf`,
         });
         await repo.save(dependency);
         await repo.save(dependency2);
@@ -92,25 +91,25 @@ describe('dependency version repository provider e2e', () => {
         expect(count).toBe(1);
     });
 
-    it('should find entities', async () => {
+    it(`should find entities`, async () => {
         const repo = await dependencyVersionRepositoryProvider.getRepository();
         const dependency = new DependencyVersion({
-            version: '4.0.1',
-            name: 'test dependency',
-            repoUrl: 'https://www.github.com/example/test.git',
-            commitSha: 'sdf-sdf-sdf-sdf-wert-fdgf',
+            version: `4.0.1`,
+            name: `test dependency`,
+            repoUrl: `https://www.github.com/example/test.git`,
+            commitSha: `sdf-sdf-sdf-sdf-wert-fdgf`,
             releaseDate,
         });
         const dependency2 = new DependencyVersion({
-            version: '5.0.1',
-            name: 'test dependency2',
-            repoUrl: 'https://www.github.com/example/test2.git',
-            commitSha: 'sdf-sdf-sdf-sdf-wert-fdgf',
+            version: `5.0.1`,
+            name: `test dependency2`,
+            repoUrl: `https://www.github.com/example/test2.git`,
+            commitSha: `sdf-sdf-sdf-sdf-wert-fdgf`,
             releaseDate,
         });
         await repo.save([dependency, dependency2]);
         const entity = await repo.findOne({
-            version: '4.0.1',
+            version: `4.0.1`,
         });
         expect(entity).toEqual(dependency);
     });

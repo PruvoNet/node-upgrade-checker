@@ -3,8 +3,8 @@ import {ISpecificCIResolverOptions, ISpecificCIResolver} from '../../interfaces/
 import {inject, injectable} from 'inversify';
 import {FS, TYPES} from '../../../../container/nodeModulesContainer';
 
-const nodeVersionRegex = new RegExp(`image: node:(\\d+)`, 'ig');
-const nodeVersionRegex2 = new RegExp(`image: \.+?\/node:(\\d+)`, 'ig');
+const nodeVersionRegex = new RegExp(`image: node:(\\d+)`, `ig`);
+const nodeVersionRegex2 = new RegExp(`image: \.+?\/node:(\\d+)`, `ig`);
 
 const ciFilePath = path.join(`.circleci`, `config.yml`);
 const resolverName = `circleCi`;
@@ -22,7 +22,7 @@ export class CircleCiResolver extends ISpecificCIResolver {
         const versions = new Set<string>();
         let fileContents: string;
         try {
-            fileContents = await this.fs.promises.readFile(fileName, 'utf-8');
+            fileContents = await this.fs.promises.readFile(fileName, `utf-8`);
         } catch (e) {
             return;
         }

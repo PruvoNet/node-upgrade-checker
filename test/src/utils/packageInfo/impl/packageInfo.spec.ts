@@ -2,7 +2,7 @@ import Mock = jest.Mock;
 import {PackageInfo} from '../../../../../src/utils/packageInfo/impl/packageInfo';
 import {Pacote} from '../../../../../src/container/nodeModulesContainer';
 
-describe('package info', () => {
+describe(`package info`, () => {
 
     let packageInfo: PackageInfo;
     let manifestMock: Mock;
@@ -15,80 +15,80 @@ describe('package info', () => {
         packageInfo = new PackageInfo(pacoteSpy);
     });
 
-    it('should resolve package info properly', async () => {
+    it(`should resolve package info properly`, async () => {
         manifestMock.mockResolvedValue({
-            version: '3.0.1',
+            version: `3.0.1`,
             engines: {
-                node: '>=6',
+                node: `>=6`,
             },
             repository: {
-                url: 'git+https://github.com/PruvoNet/squiss-ts.git',
+                url: `git+https://github.com/PruvoNet/squiss-ts.git`,
             },
-            gitHead: '5cd3e98b5236ce93bb522a893a7e09fd4de1e39b',
+            gitHead: `5cd3e98b5236ce93bb522a893a7e09fd4de1e39b`,
         });
         const result = await packageInfo.getPackageInfo({
-            name: 'squiss-ts',
-            semver: '^3.0.0',
+            name: `squiss-ts`,
+            semver: `^3.0.0`,
         });
         expect(result).toEqual({
-            name: 'squiss-ts',
-            semver: '^3.0.0',
-            version: '3.0.1',
-            engines: '>=6',
-            repoUrl: 'git+https://github.com/PruvoNet/squiss-ts.git',
-            commitSha: '5cd3e98b5236ce93bb522a893a7e09fd4de1e39b',
+            name: `squiss-ts`,
+            semver: `^3.0.0`,
+            version: `3.0.1`,
+            engines: `>=6`,
+            repoUrl: `git+https://github.com/PruvoNet/squiss-ts.git`,
+            commitSha: `5cd3e98b5236ce93bb522a893a7e09fd4de1e39b`,
         });
         expect(manifestMock.mock.calls.length).toBe(1);
         expect(manifestMock.mock.calls[0].length).toBe(2);
-        expect(manifestMock.mock.calls[0][0]).toBe('squiss-ts@^3.0.0');
+        expect(manifestMock.mock.calls[0][0]).toBe(`squiss-ts@^3.0.0`);
     });
 
-    it('should resolve package info properly when no repo data', async () => {
+    it(`should resolve package info properly when no repo data`, async () => {
         manifestMock.mockResolvedValue({
-            version: '3.0.1',
+            version: `3.0.1`,
             engines: {
-                node: '>=6',
+                node: `>=6`,
             },
-            gitHead: '5cd3e98b5236ce93bb522a893a7e09fd4de1e39b',
+            gitHead: `5cd3e98b5236ce93bb522a893a7e09fd4de1e39b`,
         });
         const result = await packageInfo.getPackageInfo({
-            name: 'squiss-ts',
-            semver: '^3.0.0',
+            name: `squiss-ts`,
+            semver: `^3.0.0`,
         });
         expect(result).toEqual({
-            name: 'squiss-ts',
-            semver: '^3.0.0',
-            version: '3.0.1',
-            engines: '>=6',
-            commitSha: '5cd3e98b5236ce93bb522a893a7e09fd4de1e39b',
+            name: `squiss-ts`,
+            semver: `^3.0.0`,
+            version: `3.0.1`,
+            engines: `>=6`,
+            commitSha: `5cd3e98b5236ce93bb522a893a7e09fd4de1e39b`,
         });
         expect(manifestMock.mock.calls.length).toBe(1);
         expect(manifestMock.mock.calls[0].length).toBe(2);
-        expect(manifestMock.mock.calls[0][0]).toBe('squiss-ts@^3.0.0');
+        expect(manifestMock.mock.calls[0][0]).toBe(`squiss-ts@^3.0.0`);
     });
 
-    it('should resolve package info properly when no engines data', async () => {
+    it(`should resolve package info properly when no engines data`, async () => {
         manifestMock.mockResolvedValue({
-            version: '3.0.1',
+            version: `3.0.1`,
             repository: {
-                url: 'git+https://github.com/PruvoNet/squiss-ts.git',
+                url: `git+https://github.com/PruvoNet/squiss-ts.git`,
             },
-            gitHead: '5cd3e98b5236ce93bb522a893a7e09fd4de1e39b',
+            gitHead: `5cd3e98b5236ce93bb522a893a7e09fd4de1e39b`,
         });
         const result = await packageInfo.getPackageInfo({
-            name: 'squiss-ts',
-            semver: '^3.0.0',
+            name: `squiss-ts`,
+            semver: `^3.0.0`,
         });
         expect(result).toEqual({
-            name: 'squiss-ts',
-            semver: '^3.0.0',
-            version: '3.0.1',
-            repoUrl: 'git+https://github.com/PruvoNet/squiss-ts.git',
-            commitSha: '5cd3e98b5236ce93bb522a893a7e09fd4de1e39b',
+            name: `squiss-ts`,
+            semver: `^3.0.0`,
+            version: `3.0.1`,
+            repoUrl: `git+https://github.com/PruvoNet/squiss-ts.git`,
+            commitSha: `5cd3e98b5236ce93bb522a893a7e09fd4de1e39b`,
         });
         expect(manifestMock.mock.calls.length).toBe(1);
         expect(manifestMock.mock.calls[0].length).toBe(2);
-        expect(manifestMock.mock.calls[0][0]).toBe('squiss-ts@^3.0.0');
+        expect(manifestMock.mock.calls[0][0]).toBe(`squiss-ts@^3.0.0`);
     });
 
 });

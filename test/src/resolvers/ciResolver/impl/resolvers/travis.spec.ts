@@ -4,7 +4,7 @@ import {resourcesDir} from '../../../../../common';
 import {container} from '../../../../../../src/container';
 import {LTS_VERSION} from '../../../../../../src/resolvers/ciResolver';
 
-describe('travis ci', () => {
+describe(`travis ci`, () => {
 
     let travisCiResolver: TravisCiResolver;
 
@@ -17,40 +17,36 @@ describe('travis ci', () => {
         container.restore();
     });
 
-    it('should expose the proper name', async () => {
-        expect(travisCiResolver.resolverName).toBe('travisCi');
+    it(`should expose the proper name`, async () => {
+        expect(travisCiResolver.resolverName).toBe(`travisCi`);
     });
 
-    it('should resolve node js from travis configuration', async () => {
-        const repoPath = path.join(resourcesDir, 'travis');
+    it(`should resolve node js from travis configuration`, async () => {
+        const repoPath = path.join(resourcesDir, `travis`);
         const versions = await travisCiResolver.resolve({
             repoPath,
         });
-        expect(versions).toEqual(['6', '7', '8', '9', '10']);
+        expect(versions).toEqual([`6`, `7`, `8`, `9`, `10`]);
     });
 
-    it('should resolve lts version', async () => {
-        const repoPath = path.join(resourcesDir, 'travisLts');
+    it(`should resolve lts version`, async () => {
+        const repoPath = path.join(resourcesDir, `travisLts`);
         const versions = await travisCiResolver.resolve({
             repoPath,
         });
         expect(versions).toEqual([LTS_VERSION]);
     });
 
-    it('should throw due to faulty configuration', async () => {
-        const repoPath = path.join(resourcesDir, 'travisFaulty');
-        expect.assertions(1);
-        try {
-            await travisCiResolver.resolve({
-                repoPath,
-            });
-        } catch(e) {
-            expect(e).toBeInstanceOf(Error);
-        }
+    it(`should throw due to faulty configuration`, async () => {
+        const repoPath = path.join(resourcesDir, `travisFaulty`);
+        const promise = travisCiResolver.resolve({
+            repoPath,
+        });
+        await expect(promise).rejects.toBeInstanceOf(Error);
     });
 
-    it('should return undefined from non relevant repo', async () => {
-        const repoPath = path.join(resourcesDir, 'empty');
+    it(`should return undefined from non relevant repo`, async () => {
+        const repoPath = path.join(resourcesDir, `empty`);
         const versions = await travisCiResolver.resolve({
             repoPath,
         });

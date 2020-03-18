@@ -3,7 +3,7 @@ import * as tmp from 'tmp';
 import {Connection} from 'typeorm';
 import {ConnectionSettings, IConnectionProvider, IConnectionSettings} from '../../../../src/db';
 
-describe('connection provider e2e', () => {
+describe(`connection provider e2e`, () => {
 
     let connectionProvider: IConnectionProvider;
 
@@ -19,7 +19,7 @@ describe('connection provider e2e', () => {
         container.restore();
     });
 
-    it('should get connection', async () => {
+    it(`should get connection`, async () => {
         const conn = await connectionProvider.getConnection();
         expect(conn).toBeInstanceOf(Connection);
     });

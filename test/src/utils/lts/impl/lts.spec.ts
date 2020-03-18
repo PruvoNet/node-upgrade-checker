@@ -6,7 +6,7 @@ import moment = require('moment');
 
 const dateFormat = `YYYY-MM-DD`;
 
-describe('lts', () => {
+describe(`lts`, () => {
 
     let lts: ILts;
 
@@ -19,46 +19,46 @@ describe('lts', () => {
         container.restore();
     });
 
-    it('should resolve to node 4', async () => {
+    it(`should resolve to node 4`, async () => {
         const versions = await lts.resolveLtsVersion({
-            date: moment.utc('2015-10-02', dateFormat),
+            date: moment.utc(`2015-10-02`, dateFormat),
         });
-        expect(versions).toEqual(['4']);
+        expect(versions).toEqual([`4`]);
     });
 
-    it('should resolve to node 4 & 6', async () => {
+    it(`should resolve to node 4 & 6`, async () => {
         const versions = await lts.resolveLtsVersion({
-            date: moment.utc('2016-10-19', dateFormat),
+            date: moment.utc(`2016-10-19`, dateFormat),
         });
-        expect(versions).toEqual(['4', '6']);
+        expect(versions).toEqual([`4`, `6`]);
     });
 
-    it('should resolve to node 4 & 6 & 8', async () => {
+    it(`should resolve to node 4 & 6 & 8`, async () => {
         const versions = await lts.resolveLtsVersion({
-            date: moment.utc('2017-11-01', dateFormat),
+            date: moment.utc(`2017-11-01`, dateFormat),
         });
-        expect(versions).toEqual(['4', '6', '8']);
+        expect(versions).toEqual([`4`, `6`, `8`]);
     });
 
-    it('should resolve to node 6 & 8 & 10', async () => {
+    it(`should resolve to node 6 & 8 & 10`, async () => {
         const versions = await lts.resolveLtsVersion({
-            date: moment.utc('2018-11-01', dateFormat),
+            date: moment.utc(`2018-11-01`, dateFormat),
         });
-        expect(versions).toEqual(['6', '8', '10']);
+        expect(versions).toEqual([`6`, `8`, `10`]);
     });
 
-    it('should resolve to node 8 & 10 && 12', async () => {
+    it(`should resolve to node 8 & 10 && 12`, async () => {
         const versions = await lts.resolveLtsVersion({
-            date: moment.utc('2019-10-23', dateFormat),
+            date: moment.utc(`2019-10-23`, dateFormat),
         });
-        expect(versions).toEqual(['8', '10', '12']);
+        expect(versions).toEqual([`8`, `10`, `12`]);
     });
 
-    it('should resolve to node 10 && 12 && 14', async () => {
+    it(`should resolve to node 10 && 12 && 14`, async () => {
         const versions = await lts.resolveLtsVersion({
-            date: moment.utc('2020-10-21', dateFormat),
+            date: moment.utc(`2020-10-21`, dateFormat),
         });
-        expect(versions).toEqual(['10', '12', '14']);
+        expect(versions).toEqual([`10`, `12`, `14`]);
     });
 
 });

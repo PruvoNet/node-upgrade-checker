@@ -3,7 +3,7 @@ import {ITestResolver} from './interfaces/testResolver';
 import {interfaces} from 'inversify';
 import Bind = interfaces.Bind;
 
-export const testResolverModulesBinder = (bind: Bind) => {
+export const testResolverModulesBinder = (bind: Bind): void => {
     bind<ITestResolver>(ITestResolver).to(TestResolver).inSingletonScope();
 };
 

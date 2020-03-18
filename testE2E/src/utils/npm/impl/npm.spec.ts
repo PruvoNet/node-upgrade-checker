@@ -6,15 +6,15 @@ import * as path from 'path';
 import {container} from '../../../../../src/container';
 import {INpm, INpmOptions} from '../../../../../src/utils/npm';
 
-const pageJsonFileName = 'package.json';
-const testPackageJsonFileName = 'test.package.json';
-const failTestPageJsonFileName = 'test-fail.package.json';
+const pageJsonFileName = `package.json`;
+const testPackageJsonFileName = `test.package.json`;
+const failTestPageJsonFileName = `test-fail.package.json`;
 const testPackageJsonFile = path.join(__dirname, testPackageJsonFileName);
 const failPackageJsonFile = path.join(__dirname, failTestPageJsonFileName);
 
-const nvmBinDir = process.env.NVM_BIN || '';
+const nvmBinDir = process.env.NVM_BIN || ``;
 
-describe('npm', () => {
+describe(`npm`, () => {
 
     let npm: INpm;
 
@@ -27,7 +27,7 @@ describe('npm', () => {
         container.restore();
     });
 
-    it('should perform full npm test flow', async () => {
+    it(`should perform full npm test flow`, async () => {
         const tmpDir = tmp.dirSync().name;
         await fs.promises.copyFile(testPackageJsonFile, path.join(tmpDir, pageJsonFileName));
         const npmOptions: INpmOptions = {
@@ -37,9 +37,10 @@ describe('npm', () => {
         await npm.install(npmOptions);
         await npm.build(npmOptions);
         await npm.test(npmOptions);
+        expect(true).toBe(true);
     }, 10000);
 
-    it('should fail npm test flow', async () => {
+    it(`should fail npm test flow`, async () => {
         const tmpDir = tmp.dirSync().name;
         await fs.promises.copyFile(failPackageJsonFile, path.join(tmpDir, pageJsonFileName));
         const npmOptions: INpmOptions = {
@@ -48,29 +49,25 @@ describe('npm', () => {
         };
         await npm.install(npmOptions);
         await npm.build(npmOptions);
-        expect.assertions(2);
-        try {
-            await npm.test(npmOptions);
-        } catch (e) {
-            expect(e).toBeInstanceOf(Error);
-            expect(e.message).toContain('npm run test" exited with code: 1');
-        }
+        const promise = npm.test(npmOptions);
+        await expect(promise).rejects.toBeInstanceOf(Error);
+        await expect(promise).rejects.toMatchObject({
+            message: expect.stringContaining(`npm run test" exited with code: 1`),
+        });
     }, 10000);
 
-    it('should fail on faulty npm command', async () => {
+    it(`should fail on faulty npm command`, async () => {
         const tmpDir = tmp.dirSync().name;
         await fs.promises.copyFile(failPackageJsonFile, path.join(tmpDir, pageJsonFileName));
         const npmOptions: INpmOptions = {
             cwd: tmpDir,
-            nvmBinDir: '/sdf/',
+            nvmBinDir: `/sdf/`,
         };
-        expect.assertions(2);
-        try {
-            await npm.install(npmOptions);
-        } catch (e) {
-            expect(e).toBeInstanceOf(Error);
-            expect(e.message).toContain('"/sdf/npm install" exited with code: -2');
-        }
+        const promise = npm.install(npmOptions);
+        await expect(promise).rejects.toBeInstanceOf(Error);
+        await expect(promise).rejects.toMatchObject({
+            message: expect.stringContaining(`"/sdf/npm install" exited with code: -2`),
+        });
     }, 10000);
 
 });

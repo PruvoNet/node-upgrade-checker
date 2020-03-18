@@ -7,7 +7,7 @@ import {IConnectionProvider} from './interfaces/connectionProvider';
 import {interfaces} from 'inversify';
 import Bind = interfaces.Bind;
 
-export const dbModulesBinder = (bind: Bind) => {
+export const dbModulesBinder = (bind: Bind): void => {
     bind<IDependencyRepositoryProvider>(IDependencyRepositoryProvider)
         .to(DependencyRepositoryProvider).inSingletonScope();
     bind<IDependencyVersionRepositoryProvider>(IDependencyVersionRepositoryProvider)

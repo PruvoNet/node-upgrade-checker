@@ -15,8 +15,7 @@ export class PackageInfo extends IPackageInfo {
         });
         const version = result.version;
         const engines = result.engines?.node;
-        // @ts-ignore
-        const repoUrl = result.repository?.url;
+        const repoUrl = (result.repository as any)?.url;
         const commitSha = result.gitHead as string;
         return {
             name,

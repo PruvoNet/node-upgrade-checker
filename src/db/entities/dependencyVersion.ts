@@ -15,28 +15,28 @@ export interface IDependencyVersionOptions {
 @Entity()
 export class DependencyVersion {
 
-    @PrimaryColumn('text', {
+    @PrimaryColumn(`text`, {
         nullable: false,
     })
     public name!: string;
 
-    @PrimaryColumn('text', {
+    @PrimaryColumn(`text`, {
         nullable: false,
     })
     public version!: string;
 
-    @Column('text', {
+    @Column(`text`, {
         nullable: false,
     })
     public repoUrl!: string;
 
-    @Column('text', {
+    @Column(`text`, {
         nullable: false,
         transformer: buildDateTransformer(dateFormat),
     })
     public releaseDate!: Moment;
 
-    @Column('text', {
+    @Column(`text`, {
         nullable: true,
     })
     public commitSha!: string;

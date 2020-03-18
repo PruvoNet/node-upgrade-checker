@@ -10,7 +10,7 @@ import {AppVeyorResolver} from './impl/resolvers/appveyor';
 import {interfaces} from 'inversify';
 import Bind = interfaces.Bind;
 
-export const ciResolverModulesBinder = (bind: Bind) => {
+export const ciResolverModulesBinder = (bind: Bind): void => {
     bind<ICIResolver>(ICIResolver).to(CiResolver).inSingletonScope();
     bind<ITargetMatcher>(ITargetMatcher).to(TargetMatcher).inSingletonScope();
     bind<TravisCiResolver>(TravisCiResolver).to(TravisCiResolver).inSingletonScope();

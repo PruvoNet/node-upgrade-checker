@@ -3,7 +3,7 @@ import {Runner} from './impl/runner';
 import {IRunner} from './interfaces/runner';
 import Bind = interfaces.Bind;
 
-export const runnerModuleBinder = (bind: Bind) => {
+export const runnerModuleBinder = (bind: Bind): void => {
     bind<IRunner>(IRunner).to(Runner).inSingletonScope();
 };
 

@@ -12,7 +12,7 @@ export class Npm extends INpm {
 
     async install({nvmBinDir, cwd}: INpmOptions): Promise<void> {
         await this.runner.executeCommand({
-            command: [path.join(nvmBinDir, 'npm'), 'install'],
+            command: [path.join(nvmBinDir, `npm`), `install`],
             execOptions: {
                 cwd,
             },
@@ -21,7 +21,7 @@ export class Npm extends INpm {
 
     async build({nvmBinDir, cwd}: INpmOptions): Promise<void> {
         await this.runner.executeCommand({
-            command: [path.join(nvmBinDir, 'npm'), 'run', 'build'],
+            command: [path.join(nvmBinDir, `npm`), `run`, `build`],
             execOptions: {
                 cwd,
             },
@@ -30,7 +30,7 @@ export class Npm extends INpm {
 
     async test({nvmBinDir, cwd}: INpmOptions): Promise<void> {
         await this.runner.executeCommand({
-            command: [path.join(nvmBinDir, 'npm'), 'run', 'test'],
+            command: [path.join(nvmBinDir, `npm`), `run`, `test`],
             execOptions: {
                 cwd,
             },

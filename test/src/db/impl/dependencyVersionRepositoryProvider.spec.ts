@@ -3,9 +3,9 @@ import {Connection} from 'typeorm/connection/Connection';
 import Mock = jest.Mock;
 import {DependencyVersionRepositoryProvider} from '../../../../src/db/impl/dependencyVersionRepositoryProvider';
 
-describe('dependency version repository provider', () => {
+describe(`dependency version repository provider`, () => {
 
-    const placeholder = 'PLACEHOLDER';
+    const placeholder = `PLACEHOLDER`;
 
     let dependencyVersionRepositoryProvider: DependencyVersionRepositoryProvider;
     let getConnectionMock: Mock;
@@ -25,7 +25,7 @@ describe('dependency version repository provider', () => {
         dependencyVersionRepositoryProvider = new DependencyVersionRepositoryProvider(connectionProviderSpy);
     });
 
-    it('should cache repo', async () => {
+    it(`should cache repo`, async () => {
         const repo = await dependencyVersionRepositoryProvider.getRepository();
         const repo2 = await dependencyVersionRepositoryProvider.getRepository();
         expect(repo).toEqual(repo2);
@@ -34,7 +34,7 @@ describe('dependency version repository provider', () => {
         expect(getRepositoryMock).toBeCalledTimes(1);
     });
 
-    it('should use connection properly', async () => {
+    it(`should use connection properly`, async () => {
         const repo = await dependencyVersionRepositoryProvider.getRepository();
         expect(repo).toBe(placeholder);
         expect(getConnectionMock).toBeCalledTimes(1);

@@ -3,7 +3,7 @@ import {CacheResolver} from './impl/cacheResolver';
 import {interfaces} from 'inversify';
 import Bind = interfaces.Bind;
 
-export const cacheResolveModulesBinder = (bind: Bind) => {
+export const cacheResolveModulesBinder = (bind: Bind): void => {
     bind<ICacheResolver>(ICacheResolver).to(CacheResolver).inSingletonScope();
 };
 

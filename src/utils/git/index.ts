@@ -7,7 +7,7 @@ import {IGetRepoDirName} from './interfaces/getRepoDirName';
 import {GetRepoDirName} from './impl/getRepoDirName';
 import Bind = interfaces.Bind;
 
-export const gitModuleBinder =(bind: Bind) => {
+export const gitModuleBinder =(bind: Bind): void => {
     bind<IGetRepoDirName>(IGetRepoDirName).to(GetRepoDirName).inSingletonScope();
     bind<IGit>(IGit).to(Git).inSingletonScope();
     bind<IGitCheckout>(IGitCheckout).to(GitCheckout).inSingletonScope();

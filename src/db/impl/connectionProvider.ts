@@ -8,7 +8,7 @@ import {IConnectionProvider} from '../interfaces/connectionProvider';
 import {IConnectionSettings} from '../interfaces/connectionSettings';
 import {TypeOrm, TYPES} from '../../container/nodeModulesContainer';
 
-const DB_FILE = 'cache.db';
+const DB_FILE = `cache.db`;
 
 @injectable()
 export class ConnectionProvider extends IConnectionProvider{
@@ -21,7 +21,7 @@ export class ConnectionProvider extends IConnectionProvider{
     public async getConnection(): Promise<Connection> {
         return await this.typeorm.createConnection({
             name: this.settings.databaseFilePath,
-            type: 'sqlite',
+            type: `sqlite`,
             database: path.join(this.settings.databaseFilePath, DB_FILE),
             synchronize: true,
             logging: false,

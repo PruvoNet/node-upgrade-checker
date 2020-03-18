@@ -2,7 +2,7 @@ import {ConnectionSettings, Dependency, IConnectionSettings, IDependencyReposito
 import {container} from '../../../../src/container';
 import * as tmp from 'tmp';
 
-describe('dependency repository provider e2e', () => {
+describe(`dependency repository provider e2e`, () => {
 
     let dependencyRepositoryProvider: IDependencyRepositoryProvider;
 
@@ -18,14 +18,14 @@ describe('dependency repository provider e2e', () => {
         container.restore();
     });
 
-    it('should save entity', async () => {
+    it(`should save entity`, async () => {
         const repo = await dependencyRepositoryProvider.getRepository();
         const dependency = new Dependency({
-            targetNode: '12',
+            targetNode: `12`,
             match: true,
-            version: '4.0.1',
-            name: 'test dependency',
-            reason: 'cache',
+            version: `4.0.1`,
+            name: `test dependency`,
+            reason: `cache`,
         });
         await repo.save(dependency);
         const count = await repo.count();
@@ -35,21 +35,21 @@ describe('dependency repository provider e2e', () => {
         expect(entities[0]).toEqual(dependency);
     });
 
-    it('should save multiple entities', async () => {
+    it(`should save multiple entities`, async () => {
         const repo = await dependencyRepositoryProvider.getRepository();
         const dependency = new Dependency({
-            targetNode: '12',
+            targetNode: `12`,
             match: true,
-            version: '4.0.1',
-            name: 'test dependency',
-            reason: 'cache',
+            version: `4.0.1`,
+            name: `test dependency`,
+            reason: `cache`,
         });
         const dependency2 = new Dependency({
-            targetNode: '13',
+            targetNode: `13`,
             match: true,
-            version: '5.0.1',
-            name: 'test dependency 2',
-            reason: 'cache',
+            version: `5.0.1`,
+            name: `test dependency 2`,
+            reason: `cache`,
         });
         await repo.save([dependency, dependency2]);
         const count = await repo.count();
@@ -60,21 +60,21 @@ describe('dependency repository provider e2e', () => {
         expect(entities[1]).toEqual(dependency2);
     });
 
-    it('should have proper key', async () => {
+    it(`should have proper key`, async () => {
         const repo = await dependencyRepositoryProvider.getRepository();
         const dependency = new Dependency({
-            targetNode: '12',
+            targetNode: `12`,
             match: true,
-            version: '5.0.1',
-            name: 'test dependency',
-            reason: 'cache',
+            version: `5.0.1`,
+            name: `test dependency`,
+            reason: `cache`,
         });
         const dependency2 = new Dependency({
-            targetNode: '12',
+            targetNode: `12`,
             match: false,
-            version: '5.0.1',
-            name: 'test dependency',
-            reason: 'cache2',
+            version: `5.0.1`,
+            name: `test dependency`,
+            reason: `cache2`,
         });
         await repo.save(dependency);
         await repo.save(dependency2);
@@ -82,25 +82,25 @@ describe('dependency repository provider e2e', () => {
         expect(count).toBe(1);
     });
 
-    it('should find entities', async () => {
+    it(`should find entities`, async () => {
         const repo = await dependencyRepositoryProvider.getRepository();
         const dependency = new Dependency({
-            targetNode: '12',
+            targetNode: `12`,
             match: true,
-            version: '4.0.1',
-            name: 'test dependency',
-            reason: 'cache',
+            version: `4.0.1`,
+            name: `test dependency`,
+            reason: `cache`,
         });
         const dependency2 = new Dependency({
-            targetNode: '13',
+            targetNode: `13`,
             match: true,
-            version: '5.0.1',
-            name: 'test dependency 2',
-            reason: 'cache',
+            version: `5.0.1`,
+            name: `test dependency 2`,
+            reason: `cache`,
         });
         await repo.save([dependency, dependency2]);
         const entity = await repo.findOne({
-            version: '4.0.1',
+            version: `4.0.1`,
         });
         expect(entity).toEqual(dependency);
     });

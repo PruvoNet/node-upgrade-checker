@@ -3,7 +3,7 @@ import {ISpecificCIResolverOptions, ISpecificCIResolver} from '../../interfaces/
 import {inject, injectable} from 'inversify';
 import {FS, TYPES} from '../../../../container/nodeModulesContainer';
 
-const nodeVersionRegex = new RegExp(`node-version:\\s*(.+)`, 'ig');
+const nodeVersionRegex = new RegExp(`node-version:\\s*(.+)`, `ig`);
 
 const ciFilePath = path.join(`.github`, `workflows`);
 const resolverName = `githubActions`;
@@ -26,21 +26,21 @@ export class GithubActionsResolver extends ISpecificCIResolver {
             return;
         }
         for (const fileName of files) {
-            const fileContents = await this.fs.promises.readFile(path.join(folderName, fileName), 'utf-8');
+            const fileContents = await this.fs.promises.readFile(path.join(folderName, fileName), `utf-8`);
             let match: RegExpExecArray | null;
             do {
                 match = nodeVersionRegex.exec(fileContents);
                 if (match) {
                     const versionsStr = match[1];
-                    if (!versionsStr.startsWith('$')) {
+                    if (!versionsStr.startsWith(`$`)) {
                         let versions: string[];
-                        if (versionsStr.startsWith('[') && versionsStr.endsWith(']')) {
-                            versions = versionsStr.substr(1, versionsStr.length - 2).split(',');
+                        if (versionsStr.startsWith(`[`) && versionsStr.endsWith(`]`)) {
+                            versions = versionsStr.substr(1, versionsStr.length - 2).split(`,`);
                         } else {
                             versions = [versionsStr];
                         }
                         versions.forEach((version) => {
-                            version = version.replace(/['"]/g, '').trim();
+                            version = version.replace(/['"]/g, ``).trim();
                             foundVersions.add(version);
                         });
                     }

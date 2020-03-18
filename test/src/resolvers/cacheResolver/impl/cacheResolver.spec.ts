@@ -3,7 +3,7 @@ import {Repository} from 'typeorm';
 import Mock = jest.Mock;
 import {CacheResolver} from '../../../../../src/resolvers/cacheResolver/impl/cacheResolver';
 
-describe('cache resolver', () => {
+describe(`cache resolver`, () => {
 
     let cacheResolver: CacheResolver;
     let findOneStub: Mock;
@@ -21,16 +21,16 @@ describe('cache resolver', () => {
         cacheResolver = new CacheResolver(dependencyRepositoryProviderSpy);
     });
 
-    it('should resolve if match in cache', async () => {
+    it(`should resolve if match in cache`, async () => {
         const dependency = new Dependency({
-            targetNode: '12',
+            targetNode: `12`,
             match: true,
-            version: '4.0.1',
-            name: 'test dependency',
-            reason: 'circleCi',
+            version: `4.0.1`,
+            name: `test dependency`,
+            reason: `circleCi`,
         });
         findOneStub.mockResolvedValue(dependency);
-        const targetNode = '8';
+        const targetNode = `8`;
         const result = await cacheResolver.resolve({
             repo: {
                 version: dependency.version,
@@ -44,19 +44,19 @@ describe('cache resolver', () => {
             targetNode,
         });
         expect(result.isMatch).toBe(true);
-        expect(result.resolverName).toBe('circleCi (cache)');
+        expect(result.resolverName).toBe(`circleCi (cache)`);
     });
 
-    it('should not resolve if not in cache', async () => {
+    it(`should not resolve if not in cache`, async () => {
         const dependency = new Dependency({
-            targetNode: '12',
+            targetNode: `12`,
             match: true,
-            version: '4.0.1',
-            name: 'test dependency',
-            reason: 'circleCi',
+            version: `4.0.1`,
+            name: `test dependency`,
+            reason: `circleCi`,
         });
         findOneStub.mockResolvedValue(undefined);
-        const targetNode = '8';
+        const targetNode = `8`;
         const result = await cacheResolver.resolve({
             repo: {
                 version: dependency.version,
@@ -72,16 +72,16 @@ describe('cache resolver', () => {
         expect(result.isMatch).toBe(false);
     });
 
-    it('should not resolve if cache error', async () => {
+    it(`should not resolve if cache error`, async () => {
         const dependency = new Dependency({
-            targetNode: '12',
+            targetNode: `12`,
             match: true,
-            version: '4.0.1',
-            name: 'test dependency',
-            reason: 'circleCi',
+            version: `4.0.1`,
+            name: `test dependency`,
+            reason: `circleCi`,
         });
         findOneStub.mockRejectedValue(new Error());
-        const targetNode = '8';
+        const targetNode = `8`;
         const result = await cacheResolver.resolve({
             repo: {
                 version: dependency.version,

@@ -5,9 +5,9 @@ import * as tmp from 'tmp';
 import {ConnectionProvider} from '../../../../src/db/impl/connectionProvider';
 import {TypeOrm} from '../../../../src/container/nodeModulesContainer';
 
-describe('connection provider', () => {
+describe(`connection provider`, () => {
 
-    const placeholder = 'PLACEHOLDER';
+    const placeholder = `PLACEHOLDER`;
 
     let tmpDir: string;
 
@@ -23,7 +23,7 @@ describe('connection provider', () => {
         } as any as TypeOrm;
     });
 
-    it('should call createConnection properly', async () => {
+    it(`should call createConnection properly`, async () => {
         const settings: IConnectionSettings = {
             databaseFilePath: tmpDir,
             dropSchema: false,
@@ -34,8 +34,8 @@ describe('connection provider', () => {
         expect(createConnectionMock).toBeCalledTimes(1);
         expect(createConnectionMock).toHaveBeenCalledWith({
             name: tmpDir,
-            type: 'sqlite',
-            database: path.join(tmpDir, 'cache.db'),
+            type: `sqlite`,
+            database: path.join(tmpDir, `cache.db`),
             synchronize: true,
             logging: false,
             dropSchema: false,
@@ -46,7 +46,7 @@ describe('connection provider', () => {
         });
     });
 
-    it('should call createConnection properly with drop schema', async () => {
+    it(`should call createConnection properly with drop schema`, async () => {
         const settings: IConnectionSettings = {
             databaseFilePath: tmpDir,
             dropSchema: true,
@@ -57,8 +57,8 @@ describe('connection provider', () => {
         expect(createConnectionMock).toBeCalledTimes(1);
         expect(createConnectionMock).toHaveBeenCalledWith({
             name: tmpDir,
-            type: 'sqlite',
-            database: path.join(tmpDir, 'cache.db'),
+            type: `sqlite`,
+            database: path.join(tmpDir, `cache.db`),
             synchronize: true,
             logging: false,
             dropSchema: true,
@@ -69,7 +69,7 @@ describe('connection provider', () => {
         });
     });
 
-    it('should cache connection', async () => {
+    it(`should cache connection`, async () => {
         const settings: IConnectionSettings = {
             databaseFilePath: tmpDir,
             dropSchema: false,

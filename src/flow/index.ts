@@ -3,7 +3,7 @@ import {Flow} from './impl/flow';
 import {interfaces} from 'inversify';
 import Bind = interfaces.Bind;
 
-export const flowModulesBinder = (bind: Bind) => {
+export const flowModulesBinder = (bind: Bind): void => {
     bind<IFlow>(IFlow).to(Flow).inSingletonScope();
 };
 
