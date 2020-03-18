@@ -1,9 +1,10 @@
-import {ContainerModule} from 'inversify';
 import {IFlow} from './interfaces/flow';
 import {Flow} from './impl/flow';
+import {interfaces} from 'inversify';
+import Bind = interfaces.Bind;
 
-export const flowContainerModule = new ContainerModule((bind) => {
+export const flowModulesBinder = (bind: Bind) => {
     bind<IFlow>(IFlow).to(Flow).inSingletonScope();
-});
+};
 
 export * from './interfaces/flow';

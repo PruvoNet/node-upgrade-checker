@@ -4,7 +4,8 @@ import * as yaml from 'yaml';
 import * as nodeGit from 'nodegit';
 import * as pacote from 'pacote';
 import * as child_process from 'child_process';
-import {ContainerModule} from 'inversify';
+import {interfaces} from 'inversify';
+import Bind = interfaces.Bind;
 
 export type ChildProcess = typeof child_process;
 export type Pacote = typeof pacote;
@@ -21,11 +22,11 @@ export const TYPES = {
     ChildProcess: Symbol.for('ChildProcess'),
 };
 
-export const nodeModulesContainerModule = new ContainerModule((bind) => {
+export const nodeModulesBinder = (bind: Bind) => {
     bind<TypeOrm>(TYPES.TypeOrm).toConstantValue(typeorm);
     bind<FS>(TYPES.FS).toConstantValue(fs);
     bind<Yaml>(TYPES.YAML).toConstantValue(yaml);
     bind<NodeGit>(TYPES.NodeGit).toConstantValue(nodeGit);
     bind<Pacote>(TYPES.Pacote).toConstantValue(pacote);
     bind<ChildProcess>(TYPES.ChildProcess).toConstantValue(child_process);
-});
+};

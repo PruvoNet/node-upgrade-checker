@@ -1,9 +1,10 @@
-import {ContainerModule} from 'inversify';
+import {interfaces} from 'inversify';
 import {Runner} from './impl/runner';
 import {IRunner} from './interfaces/runner';
+import Bind = interfaces.Bind;
 
-export const runnerContainerModule = new ContainerModule((bind) => {
+export const runnerModuleBinder = (bind: Bind) => {
     bind<IRunner>(IRunner).to(Runner).inSingletonScope();
-});
+};
 
 export * from './interfaces/runner';

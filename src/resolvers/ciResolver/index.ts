@@ -1,4 +1,3 @@
-import {ContainerModule} from 'inversify';
 import {ICIResolver} from './interfaces/cIResolver';
 import {CiResolver} from './impl/ciResolver';
 import {ISpecificCIResolver} from './interfaces/specificCIResolver';
@@ -8,8 +7,10 @@ import {GithubActionsResolver} from './impl/resolvers/github';
 import {ITargetMatcher} from './interfaces/targetMatcher';
 import {TargetMatcher} from './impl/targetMatcher';
 import {AppVeyorResolver} from './impl/resolvers/appveyor';
+import {interfaces} from 'inversify';
+import Bind = interfaces.Bind;
 
-export const ciResolverContainerModule = new ContainerModule((bind) => {
+export const ciResolverModulesBinder = (bind: Bind) => {
     bind<ICIResolver>(ICIResolver).to(CiResolver).inSingletonScope();
     bind<ITargetMatcher>(ITargetMatcher).to(TargetMatcher).inSingletonScope();
     bind<TravisCiResolver>(TravisCiResolver).to(TravisCiResolver).inSingletonScope();
@@ -19,8 +20,7 @@ export const ciResolverContainerModule = new ContainerModule((bind) => {
     bind<ISpecificCIResolver>(ISpecificCIResolver).to(CircleCiResolver).inSingletonScope();
     bind<CircleCiResolver>(CircleCiResolver).to(CircleCiResolver).inSingletonScope();
     bind<ISpecificCIResolver>(ISpecificCIResolver).to(GithubActionsResolver).inSingletonScope();
-    bind<ISpecificCIResolver>(GithubActionsResolver).to(GithubActionsResolver).inSingletonScope();
-});
+    bind<ISpecificCIResolver>(GithubActionsResolver).to(GithubActionsResolver).inSingletonScope();};
 
 export * from './interfaces/specificCIResolver';
 export * from './interfaces/targetMatcher';
