@@ -6,13 +6,15 @@ import {ConnectionProviderSettings} from './connectionProviderSettings';
 import * as path from 'path';
 import {DependencyVersion} from '../entities/dependencyVersion';
 import {memoize} from '../../utils/memoize/memoize';
+import {IConnectionProvider} from '../interfaces/connectionProvider';
 
 const DB_FILE = 'cache.db';
 
 @injectable()
-export class ConnectionProvider {
+export class ConnectionProvider extends IConnectionProvider{
 
     constructor(private settings: ConnectionProviderSettings, @inject(TYPES.TypeOrm) private typeorm: TypeOrm) {
+        super();
     }
 
     @memoize()

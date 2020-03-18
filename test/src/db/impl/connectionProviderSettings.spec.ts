@@ -1,18 +1,18 @@
 import {ConnectionProviderSettings} from '../../../../src/db/impl/connectionProviderSettings';
+import {ConnectionProvider} from '../../../../src/db/impl/connectionProvider';
 import Mock = jest.Mock;
 import {TypeOrm} from '../../../../src/db/types';
 import * as path from 'path';
 import {Dependency, DependencyVersion} from '../../../../src/db';
 import * as tmp from 'tmp';
-import {ConnectionProvider} from '../../../../src/db/impl/connectionProvider';
 
 
-describe('connection provider', () => {
+describe('connection provider settings', () => {
 
     const placeholder = 'PLACEHOLDER';
 
     let tmpDir: string;
-
+    let settings: ConnectionProviderSettings;
     let createConnectionMock: Mock;
     let typeOrmSpy: TypeOrm;
 
@@ -26,10 +26,7 @@ describe('connection provider', () => {
     });
 
     it('should call createConnection properly', async () => {
-        const settings: ConnectionProviderSettings = {
-            databaseFilePath: tmpDir,
-            dropSchema: false,
-        };
+        settings = new ConnectionProviderSettings(tmpDir, false);
         const connectionProvider = new ConnectionProvider(settings, typeOrmSpy);
         const conn = await connectionProvider.getConnection();
         expect(conn).toBe(placeholder);
@@ -49,10 +46,7 @@ describe('connection provider', () => {
     });
 
     it('should call createConnection properly with drop schema', async () => {
-        const settings: ConnectionProviderSettings = {
-            databaseFilePath: tmpDir,
-            dropSchema: true,
-        };
+        settings = new ConnectionProviderSettings(tmpDir, true);
         const connectionProvider = new ConnectionProvider(settings, typeOrmSpy);
         const conn = await connectionProvider.getConnection();
         expect(conn).toBe(placeholder);
@@ -72,10 +66,7 @@ describe('connection provider', () => {
     });
 
     it('should cache connection', async () => {
-        const settings: ConnectionProviderSettings = {
-            databaseFilePath: tmpDir,
-            dropSchema: false,
-        };
+        settings = new ConnectionProviderSettings(tmpDir, false);
         const connectionProvider = new ConnectionProvider(settings, typeOrmSpy);
         const conn = await connectionProvider.getConnection();
         const conn2 = await connectionProvider.getConnection();

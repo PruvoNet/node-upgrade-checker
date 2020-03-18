@@ -6,6 +6,7 @@ import {IDependencyRepositoryProvider} from './interfaces/dependencyRepositoryPr
 import {ConnectionProvider} from './impl/connectionProvider';
 import {DependencyVersionRepositoryProvider} from './impl/dependencyVersionRepositoryProvider';
 import {IDependencyVersionRepositoryProvider} from './interfaces/dependencyVersionRepositoryProvider';
+import {IConnectionProvider} from './interfaces/connectionProvider';
 
 export const dbContainerModule = new ContainerModule((bind) => {
     bind<TypeOrm>(TYPES.TypeOrm).toConstantValue(typeorm);
@@ -13,10 +14,12 @@ export const dbContainerModule = new ContainerModule((bind) => {
         .to(DependencyRepositoryProvider).inSingletonScope();
     bind<IDependencyVersionRepositoryProvider>(IDependencyVersionRepositoryProvider)
         .to(DependencyVersionRepositoryProvider).inSingletonScope();
-    bind<ConnectionProvider>(ConnectionProvider).toSelf().inSingletonScope();
+    bind<IConnectionProvider>(IConnectionProvider).to(ConnectionProvider).inSingletonScope();
 });
 
+export * from './interfaces/connectionProvider';
 export * from './interfaces/dependencyRepositoryProvider';
 export * from './interfaces/dependencyVersionRepositoryProvider';
+export * from './impl/connectionProviderSettings';
 export * from './entities/dependency';
 export * from './entities/dependencyVersion';

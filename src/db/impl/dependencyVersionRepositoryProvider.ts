@@ -1,14 +1,14 @@
 import {injectable} from 'inversify';
-import {ConnectionProvider} from './connectionProvider';
 import {Repository} from 'typeorm';
 import {DependencyVersion} from '../entities/dependencyVersion';
 import {IDependencyVersionRepositoryProvider} from '../interfaces/dependencyVersionRepositoryProvider';
 import {memoize} from '../../utils/memoize/memoize';
+import {IConnectionProvider} from '../interfaces/connectionProvider';
 
 @injectable()
 export class DependencyVersionRepositoryProvider extends IDependencyVersionRepositoryProvider{
 
-    constructor(private connectionProvider: ConnectionProvider) {
+    constructor(private connectionProvider: IConnectionProvider) {
         super();
     }
 
