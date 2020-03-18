@@ -181,6 +181,7 @@
         "@typescript-eslint/no-parameter-properties": "off",
         "@typescript-eslint/prefer-for-of": "error",
         "@typescript-eslint/prefer-function-type": "error",
+        "quotes": "off",
         "@typescript-eslint/quotes": [
             "error",
             "backtick"

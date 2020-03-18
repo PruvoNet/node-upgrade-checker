@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/quotes
 import moment = require('moment');
 import Mock = jest.Mock;
 import {ILts} from '../../../../../src/utils/lts';

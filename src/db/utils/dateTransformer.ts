@@ -1,5 +1,6 @@
 import {ValueTransformer} from 'typeorm/decorator/options/ValueTransformer';
 import {Moment} from 'moment';
+// eslint-disable-next-line @typescript-eslint/quotes
 import moment = require('moment');
 
 export const buildDateTransformer = (dateFormat: string): ValueTransformer => {

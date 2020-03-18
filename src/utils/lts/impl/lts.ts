@@ -1,5 +1,6 @@
 import {injectable} from 'inversify';
 import {ILts, ILtsOptions} from '../interfaces/lts';
+// eslint-disable-next-line @typescript-eslint/quotes
 import moment = require('moment');
 import {Moment} from 'moment';
 
