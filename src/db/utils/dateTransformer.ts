@@ -2,7 +2,7 @@ import {ValueTransformer} from 'typeorm/decorator/options/ValueTransformer';
 import {Moment} from 'moment';
 import moment = require('moment');
 
-export const dateTransformer = (dateFormat: string): ValueTransformer => {
+export const buildDateTransformer = (dateFormat: string): ValueTransformer => {
     return {
         to(value: Moment): string {
             return value.format(dateFormat);
