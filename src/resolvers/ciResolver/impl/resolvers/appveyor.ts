@@ -1,7 +1,8 @@
 import * as path from 'path';
 import {ISpecificCIResolverOptions, ISpecificCIResolver} from '../../interfaces/specificCIResolver';
 import {inject, injectable} from 'inversify';
-import {FS, TYPES, Yaml} from '../../../../container/nodeModulesContainer';
+import {FS, TYPES} from '../../../../container/nodeModulesContainer';
+import {parse} from 'yaml';
 
 const nodeVersionRegex = /Install-Product node ([^\s]+)/i;
 const nodeEnvRegex = /\$env:(.+)/i;
@@ -33,7 +34,7 @@ const resolverName = `appVeyor`;
 export class AppVeyorResolver extends ISpecificCIResolver {
     public readonly resolverName = resolverName;
 
-    constructor(@inject(TYPES.FS) private fs: FS, @inject(TYPES.YAML) private yaml: Yaml) {
+    constructor(@inject(TYPES.FS) private fs: FS) {
         super();
     }
 
@@ -45,7 +46,7 @@ export class AppVeyorResolver extends ISpecificCIResolver {
         } catch (e) {
             return;
         }
-        const yaml = this.yaml.parse(fileContents);
+        const yaml = parse(fileContents);
         const installCommands: string[] = yaml.install;
         const nodeVersion = installCommands
             .map(psObjectMapper)

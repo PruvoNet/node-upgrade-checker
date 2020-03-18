@@ -1,7 +1,8 @@
 import * as path from 'path';
 import {ISpecificCIResolverOptions, ISpecificCIResolver, LTS_VERSION} from '../../interfaces/specificCIResolver';
 import {inject, injectable} from 'inversify';
-import {FS, TYPES, Yaml} from '../../../../container/nodeModulesContainer';
+import {FS, TYPES} from '../../../../container/nodeModulesContainer';
+import {parse} from 'yaml';
 
 const ciFileName = `.travis.yml`;
 const resolverName = `travisCi`;
@@ -17,7 +18,7 @@ const ltsMapper = (nodeVersion: string): string => {
 export class TravisCiResolver extends ISpecificCIResolver {
     public readonly resolverName = resolverName;
 
-    constructor(@inject(TYPES.FS) private fs: FS, @inject(TYPES.YAML) private yaml: Yaml) {
+    constructor(@inject(TYPES.FS) private fs: FS) {
         super();
     }
 
@@ -29,7 +30,7 @@ export class TravisCiResolver extends ISpecificCIResolver {
         } catch (e) {
             return;
         }
-        const yaml = this.yaml.parse(fileContents);
+        const yaml = parse(fileContents);
         const versions = yaml.node_js;
         return versions.map(ltsMapper);
     }
