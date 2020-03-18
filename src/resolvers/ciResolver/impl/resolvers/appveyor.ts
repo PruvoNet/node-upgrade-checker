@@ -1,7 +1,7 @@
 import * as path from 'path';
 import {ISpecificCIResolverOptions, ISpecificCIResolver} from '../../interfaces/specificCIResolver';
 import {inject, injectable} from 'inversify';
-import {FS, TYPES, Yaml} from '../../types';
+import {FS, TYPES, Yaml} from '../../../../container/nodeModulesContainer';
 
 const nodeVersionRegex = /Install-Product node ([^\s]+)/i;
 const nodeEnvRegex = /\$env:(.+)/i;

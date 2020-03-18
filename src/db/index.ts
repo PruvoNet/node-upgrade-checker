@@ -1,6 +1,4 @@
 import {ContainerModule} from 'inversify';
-import * as typeorm from 'typeorm';
-import {TypeOrm, TYPES} from './types';
 import {DependencyRepositoryProvider} from './impl/dependencyRepositoryProvider';
 import {IDependencyRepositoryProvider} from './interfaces/dependencyRepositoryProvider';
 import {ConnectionProvider} from './impl/connectionProvider';
@@ -9,7 +7,6 @@ import {IDependencyVersionRepositoryProvider} from './interfaces/dependencyVersi
 import {IConnectionProvider} from './interfaces/connectionProvider';
 
 export const dbContainerModule = new ContainerModule((bind) => {
-    bind<TypeOrm>(TYPES.TypeOrm).toConstantValue(typeorm);
     bind<IDependencyRepositoryProvider>(IDependencyRepositoryProvider)
         .to(DependencyRepositoryProvider).inSingletonScope();
     bind<IDependencyVersionRepositoryProvider>(IDependencyVersionRepositoryProvider)

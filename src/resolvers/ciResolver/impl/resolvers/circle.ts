@@ -1,7 +1,7 @@
 import * as path from 'path';
 import {ISpecificCIResolverOptions, ISpecificCIResolver} from '../../interfaces/specificCIResolver';
 import {inject, injectable} from 'inversify';
-import {FS, TYPES} from '../../types';
+import {FS, TYPES} from '../../../../container/nodeModulesContainer';
 
 const nodeVersionRegex = new RegExp(`image: node:(\\d+)`, 'ig');
 const nodeVersionRegex2 = new RegExp(`image: \.+?\/node:(\\d+)`, 'ig');

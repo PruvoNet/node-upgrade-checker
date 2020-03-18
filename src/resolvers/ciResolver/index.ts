@@ -1,7 +1,4 @@
 import {ContainerModule} from 'inversify';
-import * as fs from 'fs';
-import * as yaml from 'yaml';
-import {FS, TYPES, Yaml} from './types';
 import {ICIResolver} from './interfaces/cIResolver';
 import {CiResolver} from './impl/ciResolver';
 import {ISpecificCIResolver} from './interfaces/specificCIResolver';
@@ -13,8 +10,6 @@ import {TargetMatcher} from './impl/targetMatcher';
 import {AppVeyorResolver} from './impl/resolvers/appveyor';
 
 export const ciResolverContainerModule = new ContainerModule((bind) => {
-    bind<FS>(TYPES.FS).toConstantValue(fs);
-    bind<Yaml>(TYPES.YAML).toConstantValue(yaml);
     bind<ICIResolver>(ICIResolver).to(CiResolver).inSingletonScope();
     bind<ITargetMatcher>(ITargetMatcher).to(TargetMatcher).inSingletonScope();
     bind<TravisCiResolver>(TravisCiResolver).to(TravisCiResolver).inSingletonScope();

@@ -1,6 +1,4 @@
 import {ContainerModule} from 'inversify';
-import * as nodeGit from 'nodegit';
-import {NodeGit, TYPES} from './types';
 import {Git} from './impl/git';
 import {GitCheckout} from './impl/gitCheckout';
 import {IGitCheckout} from './interfaces/gitCheckout';
@@ -9,7 +7,6 @@ import {IGetRepoDirName} from './interfaces/getRepoDirName';
 import {GetRepoDirName} from './impl/getRepoDirName';
 
 export const gitContainerModule = new ContainerModule((bind) => {
-    bind<NodeGit>(TYPES.NodeGit).toConstantValue(nodeGit);
     bind<IGetRepoDirName>(IGetRepoDirName).to(GetRepoDirName).inSingletonScope();
     bind<IGit>(IGit).to(Git).inSingletonScope();
     bind<IGitCheckout>(IGitCheckout).to(GitCheckout).inSingletonScope();

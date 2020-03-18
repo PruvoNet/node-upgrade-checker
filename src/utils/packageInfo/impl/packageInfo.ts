@@ -1,6 +1,6 @@
 import {inject, injectable} from 'inversify';
 import {IPackageInfo, IPackageInfoOptions, IPackageInfoResult} from '../interfaces/packageInfo';
-import {Pacote, TYPES} from '../types';
+import {Pacote, TYPES} from '../../../container/nodeModulesContainer';
 
 @injectable()
 export class PackageInfo extends IPackageInfo {

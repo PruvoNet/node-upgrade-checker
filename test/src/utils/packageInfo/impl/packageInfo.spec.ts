@@ -1,6 +1,6 @@
 import Mock = jest.Mock;
-import {Pacote} from '../../../../../src/utils/packageInfo/types';
 import {PackageInfo} from '../../../../../src/utils/packageInfo/impl/packageInfo';
+import {Pacote} from '../../../../../src/container/nodeModulesContainer';
 
 describe('package info', () => {
 

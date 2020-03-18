@@ -1,9 +1,9 @@
 import Mock = jest.Mock;
-import {TypeOrm} from '../../../../src/db/types';
 import * as path from 'path';
 import {Dependency, DependencyVersion, IConnectionSettings} from '../../../../src/db';
 import * as tmp from 'tmp';
 import {ConnectionProvider} from '../../../../src/db/impl/connectionProvider';
+import {TypeOrm} from '../../../../src/container/nodeModulesContainer';
 
 describe('connection provider', () => {
 

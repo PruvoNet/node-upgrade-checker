@@ -1,7 +1,7 @@
 import {SpawnOptionsWithoutStdio} from 'child_process';
 import {inject, injectable} from 'inversify';
-import {ChildProcess, TYPES} from '../types';
 import {IExecuteCommandOptions, IRunner} from '../interfaces/runner';
+import {ChildProcess, TYPES} from '../../../container/nodeModulesContainer';
 
 interface IPromisifiedSpawnOptions {
     command: string;

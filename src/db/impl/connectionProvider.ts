@@ -1,12 +1,12 @@
 import {Dependency} from '../entities/dependency';
 import {inject, injectable} from 'inversify';
 import {Connection} from 'typeorm/connection/Connection';
-import {TypeOrm, TYPES} from '../types';
 import * as path from 'path';
 import {DependencyVersion} from '../entities/dependencyVersion';
 import {memoize} from '../../utils/memoize/memoize';
 import {IConnectionProvider} from '../interfaces/connectionProvider';
 import {IConnectionSettings} from '../interfaces/connectionSettings';
+import {TypeOrm, TYPES} from '../../container/nodeModulesContainer';
 
 const DB_FILE = 'cache.db';
 
