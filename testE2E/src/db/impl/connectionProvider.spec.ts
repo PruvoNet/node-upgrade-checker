@@ -1,8 +1,7 @@
 import {container} from '../../../../src/container';
-import {ConnectionProviderSettings} from '../../../../src/db/impl/connectionProviderSettings';
 import * as tmp from 'tmp';
 import {Connection} from 'typeorm';
-import {IConnectionProvider} from '../../../../src/db';
+import {ConnectionSettings, IConnectionProvider, IConnectionSettings} from '../../../../src/db';
 
 describe('connection provider e2e', () => {
 
@@ -11,8 +10,8 @@ describe('connection provider e2e', () => {
     beforeEach(() => {
         container.snapshot();
         const tmpDir = tmp.dirSync().name;
-        container.bind<ConnectionProviderSettings>(ConnectionProviderSettings).toConstantValue(
-            new ConnectionProviderSettings(tmpDir, false));
+        container.bind<IConnectionSettings>(IConnectionSettings).toConstantValue(
+            new ConnectionSettings(tmpDir, false));
         connectionProvider = container.get(IConnectionProvider);
     });
 

@@ -20,6 +20,7 @@ export const dbContainerModule = new ContainerModule((bind) => {
 export * from './interfaces/connectionProvider';
 export * from './interfaces/dependencyRepositoryProvider';
 export * from './interfaces/dependencyVersionRepositoryProvider';
-export * from './impl/connectionProviderSettings';
+export * from './interfaces/connectionSettings';
+export * from './impl/connectionSettings';
 export * from './entities/dependency';
 export * from './entities/dependencyVersion';

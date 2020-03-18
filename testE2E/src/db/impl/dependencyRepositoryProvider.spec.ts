@@ -1,6 +1,5 @@
-import {Dependency, IDependencyRepositoryProvider} from '../../../../src/db';
+import {ConnectionSettings, Dependency, IConnectionSettings, IDependencyRepositoryProvider} from '../../../../src/db';
 import {container} from '../../../../src/container';
-import {ConnectionProviderSettings} from '../../../../src/db/impl/connectionProviderSettings';
 import * as tmp from 'tmp';
 
 describe('dependency repository provider e2e', () => {
@@ -10,8 +9,8 @@ describe('dependency repository provider e2e', () => {
     beforeEach(() => {
         container.snapshot();
         const tmpDir = tmp.dirSync().name;
-        container.bind<ConnectionProviderSettings>(ConnectionProviderSettings).toConstantValue(
-            new ConnectionProviderSettings(tmpDir, false));
+        container.bind<IConnectionSettings>(IConnectionSettings).toConstantValue(
+            new ConnectionSettings(tmpDir, false));
         dependencyRepositoryProvider = container.get(IDependencyRepositoryProvider);
     });
 

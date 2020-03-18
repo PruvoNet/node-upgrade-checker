@@ -1,11 +1,9 @@
-import {ConnectionProviderSettings} from '../../../../src/db/impl/connectionProviderSettings';
 import Mock = jest.Mock;
 import {TypeOrm} from '../../../../src/db/types';
 import * as path from 'path';
-import {Dependency, DependencyVersion} from '../../../../src/db';
+import {Dependency, DependencyVersion, IConnectionSettings} from '../../../../src/db';
 import * as tmp from 'tmp';
 import {ConnectionProvider} from '../../../../src/db/impl/connectionProvider';
-
 
 describe('connection provider', () => {
 
@@ -26,7 +24,7 @@ describe('connection provider', () => {
     });
 
     it('should call createConnection properly', async () => {
-        const settings: ConnectionProviderSettings = {
+        const settings: IConnectionSettings = {
             databaseFilePath: tmpDir,
             dropSchema: false,
         };
@@ -49,7 +47,7 @@ describe('connection provider', () => {
     });
 
     it('should call createConnection properly with drop schema', async () => {
-        const settings: ConnectionProviderSettings = {
+        const settings: IConnectionSettings = {
             databaseFilePath: tmpDir,
             dropSchema: true,
         };
@@ -72,7 +70,7 @@ describe('connection provider', () => {
     });
 
     it('should cache connection', async () => {
-        const settings: ConnectionProviderSettings = {
+        const settings: IConnectionSettings = {
             databaseFilePath: tmpDir,
             dropSchema: false,
         };

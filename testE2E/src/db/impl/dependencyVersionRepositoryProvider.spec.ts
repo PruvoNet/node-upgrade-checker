@@ -1,6 +1,10 @@
-import {IDependencyVersionRepositoryProvider, DependencyVersion} from '../../../../src/db';
+import {
+    IDependencyVersionRepositoryProvider,
+    DependencyVersion,
+    IConnectionSettings,
+    ConnectionSettings
+} from '../../../../src/db';
 import {container} from '../../../../src/container';
-import {ConnectionProviderSettings} from '../../../../src/db/impl/connectionProviderSettings';
 import * as tmp from 'tmp';
 
 import moment = require('moment');
@@ -15,8 +19,8 @@ describe('dependency version repository provider e2e', () => {
     beforeEach(() => {
         container.snapshot();
         const tmpDir = tmp.dirSync().name;
-        container.bind<ConnectionProviderSettings>(ConnectionProviderSettings).toConstantValue(
-            new ConnectionProviderSettings(tmpDir, false));
+        container.bind<IConnectionSettings>(IConnectionSettings).toConstantValue(
+            new ConnectionSettings(tmpDir, false));
         dependencyVersionRepositoryProvider = container.get(IDependencyVersionRepositoryProvider);
     });
 
