@@ -78,7 +78,7 @@ describe(`git checkout`, () => {
             tag: `0.0.1`,
         });
         await expect(promise).rejects.toBeInstanceOf(Error);
-        await expect(promise).rejects.toHaveProperty('message', `Failed to locate tag 0.0.1`);
+        await expect(promise).rejects.toHaveProperty(`message`, `Failed to locate tag 0.0.1`);
     }, timeout);
 
     it(`should fail to checkout non existing commit`, async () => {
@@ -89,7 +89,7 @@ describe(`git checkout`, () => {
             commitSha: `sdfsdfsdf`,
         });
         await expect(promise).rejects.toBeInstanceOf(Error);
-        await expect(promise).rejects.toHaveProperty('message', `Failed to locate commit sdfsdfsdf`);
+        await expect(promise).rejects.toHaveProperty(`message`, `Failed to locate commit sdfsdfsdf`);
     }, timeout);
 
     it(`should fail to checkout too many matching tags`, async () => {

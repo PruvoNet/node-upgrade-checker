@@ -6,7 +6,7 @@ const defaultKeyBuilder = (v: any): any => {
     return v;
 };
 
-function getCache(target: any): Record<string, Map<any, any>> {
+const getCache = (target: any): Record<string, Map<any, any>> => {
     if (!target[cacheProp]) {
         Object.defineProperty(target, cacheProp, {
             value: Object.create(null),
@@ -14,7 +14,7 @@ function getCache(target: any): Record<string, Map<any, any>> {
         });
     }
     return target[cacheProp];
-}
+};
 
 const getKeyCache = (target: any, key: string): Map<any, any> => {
     const dict = getCache(target);
@@ -24,7 +24,7 @@ const getKeyCache = (target: any, key: string): Map<any, any> => {
     return dict[key];
 };
 
-const _memoize = (namespace: string, func: GenericFunction, keyBuilder: GenericFunction): GenericFunction => {
+const memoizeFn = (namespace: string, func: GenericFunction, keyBuilder: GenericFunction): GenericFunction => {
     return function (this: any, ...args: any[]): any {
         const cache = getKeyCache(this, namespace);
         const key = keyBuilder.apply(this, args);
@@ -39,6 +39,6 @@ const _memoize = (namespace: string, func: GenericFunction, keyBuilder: GenericF
 
 export const memoize = (keyBuilder?: GenericFunction) => {
     return (_: object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>): void => {
-        descriptor.value = _memoize(propertyKey, descriptor.value, keyBuilder || defaultKeyBuilder);
+        descriptor.value = memoizeFn(propertyKey, descriptor.value, keyBuilder || defaultKeyBuilder);
     };
 };

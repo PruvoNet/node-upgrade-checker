@@ -11,27 +11,27 @@ export interface IDependencyOptions {
 @Entity()
 export class Dependency {
 
-    @PrimaryColumn('text', {
+    @PrimaryColumn(`text`, {
         nullable: false,
     })
     public name!: string;
 
-    @PrimaryColumn('text', {
+    @PrimaryColumn(`text`, {
         nullable: false,
     })
     public version!: string;
 
-    @PrimaryColumn('text', {
+    @PrimaryColumn(`text`, {
         nullable: false,
     })
     public targetNode!: string;
 
-    @Column('boolean', {
+    @Column(`boolean`, {
         nullable: true,
     })
     public match!: boolean | undefined;
 
-    @Column('text', {
+    @Column(`text`, {
         nullable: true,
     })
     public reason!: string | undefined;

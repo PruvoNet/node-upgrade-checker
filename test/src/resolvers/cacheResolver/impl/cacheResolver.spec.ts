@@ -14,7 +14,7 @@ describe(`cache resolver`, () => {
             findOne: findOneStub,
         } as any as Repository<Dependency>;
         const dependencyRepositoryProviderSpy: IDependencyRepositoryProvider = {
-            async getRepository(): Promise<Repository<Dependency>> {
+            getRepository: async(): Promise<Repository<Dependency>> => {
                 return repositorySpy;
             },
         };

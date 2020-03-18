@@ -4,10 +4,10 @@ import moment = require('moment');
 
 export const buildDateTransformer = (dateFormat: string): ValueTransformer => {
     return {
-        to(value: Moment): string {
+        to: (value: Moment): string => {
             return value.format(dateFormat);
         },
-        from(value: string): Moment {
+        from: (value: string): Moment => {
             return moment.utc(value, dateFormat);
         },
     };

@@ -31,7 +31,8 @@
     "cover:e2e": "yarn jest --coverage 'testE2E/.*\\.spec\\.ts'",
     "cover:unit": "yarn jest --coverage 'test/.*\\.spec\\.ts'",
     "cover": "yarn jest --coverage 'test/.*\\.spec\\.ts' 'testE2E/.*\\.spec\\.ts'",
-    "lint": "yarn eslint . --ext .ts"
+    "lint": "yarn eslint . --ext .ts",
+    "lint:fix": "yarn eslint . --fix --ext .ts"
   },
   "author": "Regev Brody <regevbr@gmail.com>",
   "files": [
@@ -50,10 +51,8 @@
     "@typescript-eslint/eslint-plugin": "^2.24.0",
     "@typescript-eslint/parser": "^2.24.0",
     "eslint": "^6.8.0",
-    "eslint-config-airbnb-typescript": "^7.2.0",
-    "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jest": "^23.8.2",
-    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prefer-arrow": "^1.1.7",
     "jest": "^25.1.0",
     "npm-check-updates": "^4.0.4",
     "ts-jest": "^25.2.1",

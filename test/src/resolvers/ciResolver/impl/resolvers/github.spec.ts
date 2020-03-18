@@ -1,6 +1,6 @@
 import * as path from 'path';
 import {
-    GithubActionsResolver,
+    GithubActionsResolver
 } from '../../../../../../src/resolvers/ciResolver/impl/resolvers/github';
 import {resourcesDir} from '../../../../../common';
 import {container} from '../../../../../../src/container';

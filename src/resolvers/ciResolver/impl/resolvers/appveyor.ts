@@ -11,7 +11,7 @@ const nodeVersionMapper = (command: string | undefined): string | undefined => {
     if (!command) {
         return;
     }
-    const match = command.match(nodeVersionRegex);
+    const match = nodeVersionRegex.exec(command);
     return match?.[1];
 };
 
@@ -55,7 +55,7 @@ export class AppVeyorResolver extends ISpecificCIResolver {
         if (!nodeVersion) {
             throw new Error(`failed to located node version in install commands`);
         }
-        const match = nodeVersion.match(nodeEnvRegex);
+        const match = nodeEnvRegex.exec(nodeVersion);
         if (!match) {
             return [nodeVersion];
         } else {

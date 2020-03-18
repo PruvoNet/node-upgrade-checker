@@ -10,13 +10,13 @@ describe(`memoize`, () => {
     const sharedHasher = jest.fn((...args: any[]) => args.join(`:`));
 
     class Dummy {
-        public _method0 = jest.fn(() => {
+        public method0Mock = jest.fn(() => {
             return this.data.method0;
         });
-        public _method1 = jest.fn((...args: any[]) => {
+        public method1Mock = jest.fn((...args: any[]) => {
             return [this.data.method1, ...args].join(`:`);
         });
-        public _method2 = jest.fn((...args: any[]) => {
+        public method2Mock = jest.fn((...args: any[]) => {
             return [this.data.method2, ...args].join(`:`);
         });
 
@@ -25,17 +25,17 @@ describe(`memoize`, () => {
 
         @memoize()
         public method0(): string {
-            return this._method0();
+            return this.method0Mock();
         }
 
         @memoize()
         public method1(...args: any[]): string {
-            return this._method1(...args);
+            return this.method1Mock(...args);
         }
 
         @memoize(sharedHasher)
         public method2(...args: any[]): string {
-            return this._method2(...args);
+            return this.method2Mock(...args);
         }
     }
 
@@ -57,24 +57,24 @@ describe(`memoize`, () => {
 
     it(`should remember method values with no args`, () => {
         expect(subjectA.method0()).toBe(`method0 A`);
-        expect(subjectA._method0).toHaveBeenCalledTimes(1);
-        expect(subjectB._method0).toHaveBeenCalledTimes(0);
+        expect(subjectA.method0Mock).toHaveBeenCalledTimes(1);
+        expect(subjectB.method0Mock).toHaveBeenCalledTimes(0);
         expect(subjectB.method0()).toBe(`method0 B`);
-        expect(subjectA._method0).toHaveBeenCalledTimes(1);
-        expect(subjectB._method0).toHaveBeenCalledTimes(1);
+        expect(subjectA.method0Mock).toHaveBeenCalledTimes(1);
+        expect(subjectB.method0Mock).toHaveBeenCalledTimes(1);
         expect(subjectA.method0()).toBe(`method0 A`);
         expect(subjectB.method0()).toBe(`method0 B`);
-        expect(subjectA._method0).toHaveBeenCalledTimes(1);
-        expect(subjectB._method0).toHaveBeenCalledTimes(1);
+        expect(subjectA.method0Mock).toHaveBeenCalledTimes(1);
+        expect(subjectB.method0Mock).toHaveBeenCalledTimes(1);
     });
 
     it(`should remember method values with one args`, () => {
         expect(subjectA.method1(`foo`)).toBe(`method1 A:foo`);
-        expect(subjectA._method1).toHaveBeenCalledTimes(1);
+        expect(subjectA.method1Mock).toHaveBeenCalledTimes(1);
         expect(subjectA.method1(`bar`)).toBe(`method1 A:bar`);
-        expect(subjectA._method1).toHaveBeenCalledTimes(2);
+        expect(subjectA.method1Mock).toHaveBeenCalledTimes(2);
         expect(subjectA.method1(`foo`)).toBe(`method1 A:foo`);
         expect(subjectA.method1(`bar`)).toBe(`method1 A:bar`);
-        expect(subjectA._method1).toHaveBeenCalledTimes(2);
+        expect(subjectA.method1Mock).toHaveBeenCalledTimes(2);
     });
 });
