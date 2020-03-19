@@ -1,7 +1,6 @@
 import { IRunner } from '../../runner';
 import { INpm, INpmOptions } from '../interfaces/npm';
 import { injectable } from 'inversify';
-import * as path from 'path';
 
 @injectable()
 export class Npm extends INpm {
@@ -9,27 +8,27 @@ export class Npm extends INpm {
     super();
   }
 
-  async install({ nvmBinDir, cwd }: INpmOptions): Promise<void> {
+  async install({ cwd }: INpmOptions): Promise<void> {
     await this.runner.executeCommand({
-      command: [path.join(nvmBinDir, `npm`), `install`],
+      command: [`npm`, `install`],
       execOptions: {
         cwd,
       },
     });
   }
 
-  async build({ nvmBinDir, cwd }: INpmOptions): Promise<void> {
+  async build({ cwd }: INpmOptions): Promise<void> {
     await this.runner.executeCommand({
-      command: [path.join(nvmBinDir, `npm`), `run`, `build`],
+      command: [`npm`, `run`, `build`],
       execOptions: {
         cwd,
       },
     });
   }
 
-  async test({ nvmBinDir, cwd }: INpmOptions): Promise<void> {
+  async test({ cwd }: INpmOptions): Promise<void> {
     await this.runner.executeCommand({
-      command: [path.join(nvmBinDir, `npm`), `run`, `test`],
+      command: [`npm`, `run`, `test`],
       execOptions: {
         cwd,
       },

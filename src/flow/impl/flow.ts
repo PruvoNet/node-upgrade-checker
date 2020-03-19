@@ -16,7 +16,7 @@ export class Flow extends IFlow {
     super();
   }
 
-  public async runFlow({ repo, targetNode, pkg, nvmBinDir, workDir }: IRunFlowOptions): Promise<IRunFlowResult> {
+  public async runFlow({ repo, targetNode, pkg, workDir }: IRunFlowOptions): Promise<IRunFlowResult> {
     const cacheResult = await this.cacheResolver.resolve({
       targetNode,
       repo: {
@@ -49,7 +49,6 @@ export class Flow extends IFlow {
     }
     const testResult = await this.testResolver.resolve({
       repoPath,
-      nvmBinDir,
     });
     if (testResult.isMatch) {
       return {

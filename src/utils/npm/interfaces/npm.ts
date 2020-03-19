@@ -1,7 +1,6 @@
 import { injectable } from 'inversify';
 
 export interface INpmOptions {
-  nvmBinDir: string;
   cwd: string;
 }
 

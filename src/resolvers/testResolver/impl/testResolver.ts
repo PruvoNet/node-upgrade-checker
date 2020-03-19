@@ -9,11 +9,10 @@ export class TestResolver extends ITestResolver {
     super();
   }
 
-  public async resolve({ repoPath, nvmBinDir }: ITestResolverOptions): Promise<IResolverResult> {
+  public async resolve({ repoPath }: ITestResolverOptions): Promise<IResolverResult> {
     try {
       const npmOptions: INpmOptions = {
         cwd: repoPath,
-        nvmBinDir,
       };
       await this.npm.install(npmOptions);
       await this.npm.build(npmOptions);

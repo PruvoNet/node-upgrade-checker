@@ -12,7 +12,6 @@ export interface IRunFlowOptions {
     commitSha?: string;
   };
   workDir: string;
-  nvmBinDir: string;
   targetNode: string;
 }
 
