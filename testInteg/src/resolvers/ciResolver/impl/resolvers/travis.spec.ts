@@ -1,19 +1,14 @@
 import { TravisCiResolver } from '../../../../../../src/resolvers/ciResolver/impl/resolvers/travis';
 import * as path from 'path';
 import { resourcesDir } from '../../../../../common';
-import { container } from '../../../../../../src/container';
 import { LTS_VERSION } from '../../../../../../src/resolvers/ciResolver';
+import * as fs from 'fs';
 
 describe(`travis ci`, () => {
   let travisCiResolver: TravisCiResolver;
 
   beforeEach(() => {
-    container.snapshot();
-    travisCiResolver = container.get(TravisCiResolver);
-  });
-
-  afterEach(() => {
-    container.restore();
+    travisCiResolver = new TravisCiResolver(fs);
   });
 
   it(`should expose the proper name`, async () => {

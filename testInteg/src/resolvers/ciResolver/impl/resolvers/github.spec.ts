@@ -1,18 +1,13 @@
 import * as path from 'path';
 import { GithubActionsResolver } from '../../../../../../src/resolvers/ciResolver/impl/resolvers/github';
 import { resourcesDir } from '../../../../../common';
-import { container } from '../../../../../../src/container';
+import * as fs from 'fs';
 
 describe(`github actions`, () => {
   let githubActionsResolver: GithubActionsResolver;
 
   beforeEach(() => {
-    container.snapshot();
-    githubActionsResolver = container.get(GithubActionsResolver);
-  });
-
-  afterEach(() => {
-    container.restore();
+    githubActionsResolver = new GithubActionsResolver(fs);
   });
 
   it(`should expose the proper name`, async () => {

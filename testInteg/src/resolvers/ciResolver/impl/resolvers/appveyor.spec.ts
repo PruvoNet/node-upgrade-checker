@@ -1,18 +1,13 @@
 import { AppVeyorResolver } from '../../../../../../src/resolvers/ciResolver/impl/resolvers/appveyor';
 import * as path from 'path';
+import * as fs from 'fs';
 import { resourcesDir } from '../../../../../common';
-import { container } from '../../../../../../src/container';
 
 describe(`appveyor`, () => {
   let appVeyorResolver: AppVeyorResolver;
 
   beforeEach(() => {
-    container.snapshot();
-    appVeyorResolver = container.get(AppVeyorResolver);
-  });
-
-  afterEach(() => {
-    container.restore();
+    appVeyorResolver = new AppVeyorResolver(fs);
   });
 
   it(`should expose the proper name`, async () => {

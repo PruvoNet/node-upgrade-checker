@@ -46,25 +46,5 @@ testBindings({
       binded: GithubActionsResolver,
       type: BindingTypes.SINGELTON,
     },
-    {
-      binder: GithubActionsResolver,
-      binded: GithubActionsResolver,
-      type: BindingTypes.SINGELTON,
-    },
-    {
-      binder: AppVeyorResolver,
-      binded: AppVeyorResolver,
-      type: BindingTypes.SINGELTON,
-    },
-    {
-      binder: TravisCiResolver,
-      binded: TravisCiResolver,
-      type: BindingTypes.SINGELTON,
-    },
-    {
-      binder: CircleCiResolver,
-      binded: CircleCiResolver,
-      type: BindingTypes.SINGELTON,
-    },
   ],
 });

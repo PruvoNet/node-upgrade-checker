@@ -29,18 +29,6 @@ export const ciResolverModulesBinder = (bind: Bind): void => {
   bind<ISpecificCIResolver>(ISpecificCIResolver)
     .to(GithubActionsResolver)
     .inSingletonScope();
-  bind<GithubActionsResolver>(GithubActionsResolver)
-    .to(GithubActionsResolver)
-    .inSingletonScope();
-  bind<AppVeyorResolver>(AppVeyorResolver)
-    .to(AppVeyorResolver)
-    .inSingletonScope();
-  bind<TravisCiResolver>(TravisCiResolver)
-    .to(TravisCiResolver)
-    .inSingletonScope();
-  bind<CircleCiResolver>(CircleCiResolver)
-    .to(CircleCiResolver)
-    .inSingletonScope();
 };
 
 export * from './interfaces/specificCIResolver';

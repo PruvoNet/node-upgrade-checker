@@ -1,18 +1,13 @@
 import * as path from 'path';
 import { resourcesDir } from '../../../../../common';
-import { container } from '../../../../../../src/container';
 import { CircleCiResolver } from '../../../../../../src/resolvers/ciResolver/impl/resolvers/circle';
+import * as fs from 'fs';
 
 describe(`circle ci`, () => {
   let circleCiResolver: CircleCiResolver;
 
   beforeEach(() => {
-    container.snapshot();
-    circleCiResolver = container.get(CircleCiResolver);
-  });
-
-  afterEach(() => {
-    container.restore();
+    circleCiResolver = new CircleCiResolver(fs);
   });
 
   it(`should expose the proper name`, async () => {
