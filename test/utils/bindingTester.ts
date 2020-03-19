@@ -24,7 +24,10 @@ export interface IBindingTestOptions {
   name: string;
 }
 
-const getBindNmae = (bind: any): string => {
+const getBindName = (bind: any): string => {
+  if (typeof bind === `symbol`) {
+    return bind.toString();
+  }
   return bind.name || bind.constructor?.name || bind.toString?.() || bind;
 };
 
@@ -51,7 +54,7 @@ export const testBindings = ({ binderFn, bindings, name }: IBindingTestOptions):
     let inSingletonScopeExpectedCalls = 0;
     bindings.forEach((binding) => {
       const { binder, binded, type } = binding;
-      it(`Should bind ${getBindNmae(binder)} to ${getBindNmae(binded)} - ${type}`, () => {
+      it(`Should bind ${getBindName(binder)} to ${getBindName(binded)} - ${type}`, () => {
         bindExpectedCalls++;
         expect(bindMock).toHaveBeenNthCalledWith(bindExpectedCalls, binder);
         if (type === BindingTypes.SINGELTON) {
