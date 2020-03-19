@@ -17,29 +17,29 @@ export const ciResolverModulesBinder = (bind: Bind): void => {
   bind<ITargetMatcher>(ITargetMatcher)
     .to(TargetMatcher)
     .inSingletonScope();
-  bind<TravisCiResolver>(TravisCiResolver)
+  bind<ISpecificCIResolver>(ISpecificCIResolver)
     .to(TravisCiResolver)
+    .inSingletonScope();
+  bind<ISpecificCIResolver>(ISpecificCIResolver)
+    .to(AppVeyorResolver)
+    .inSingletonScope();
+  bind<ISpecificCIResolver>(ISpecificCIResolver)
+    .to(CircleCiResolver)
+    .inSingletonScope();
+  bind<ISpecificCIResolver>(ISpecificCIResolver)
+    .to(GithubActionsResolver)
+    .inSingletonScope();
+  bind<GithubActionsResolver>(GithubActionsResolver)
+    .to(GithubActionsResolver)
     .inSingletonScope();
   bind<AppVeyorResolver>(AppVeyorResolver)
     .to(AppVeyorResolver)
     .inSingletonScope();
-  bind<ISpecificCIResolver>(ISpecificCIResolver)
+  bind<TravisCiResolver>(TravisCiResolver)
     .to(TravisCiResolver)
-    .inSingletonScope();
-  bind<ISpecificCIResolver>(ISpecificCIResolver)
-    .to(AppVeyorResolver)
-    .inSingletonScope();
-  bind<ISpecificCIResolver>(ISpecificCIResolver)
-    .to(CircleCiResolver)
     .inSingletonScope();
   bind<CircleCiResolver>(CircleCiResolver)
     .to(CircleCiResolver)
-    .inSingletonScope();
-  bind<ISpecificCIResolver>(ISpecificCIResolver)
-    .to(GithubActionsResolver)
-    .inSingletonScope();
-  bind<ISpecificCIResolver>(GithubActionsResolver)
-    .to(GithubActionsResolver)
     .inSingletonScope();
 };
 
