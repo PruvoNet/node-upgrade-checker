@@ -1,9 +1,6 @@
-'use strict';
-
 import {container} from '../../../../../src/container';
 import {ILts} from '../../../../../src/utils/lts';
-// eslint-disable-next-line @typescript-eslint/quotes
-import moment = require('moment');
+import moment from 'moment';
 
 const dateFormat = `YYYY-MM-DD`;
 

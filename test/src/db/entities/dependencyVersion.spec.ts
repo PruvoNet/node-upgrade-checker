@@ -1,6 +1,5 @@
 import {DependencyVersion} from '../../../../src/db';
-// eslint-disable-next-line @typescript-eslint/quotes
-import moment = require('moment');
+import moment from 'moment';
 
 describe(`dependencyVersion entity`, () => {
     it(`should set properties from constructor`, async () => {

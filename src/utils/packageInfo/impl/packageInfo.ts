@@ -27,5 +27,3 @@ export class PackageInfo extends IPackageInfo {
         };
     }
 }
-
-

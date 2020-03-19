@@ -12,6 +12,8 @@
     "noUnusedParameters": false,
     "noImplicitReturns": true,
     "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "strictFunctionTypes": true,
     "alwaysStrict": true,
     "noImplicitUseStrict": false,

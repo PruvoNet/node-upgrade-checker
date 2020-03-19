@@ -1,8 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/quotes
-import moment = require('moment');
 import Mock = jest.Mock;
 import {ILts} from '../../../../../src/utils/lts';
 import {TargetMatcher} from '../../../../../src/resolvers/ciResolver/impl/targetMatcher';
+import moment from 'moment';
 
 const dateFormat = `YYYY-MM-DD`;
 const packageReleaseDate = moment.utc(`2015-10-02`, dateFormat);

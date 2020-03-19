@@ -7,7 +7,6 @@ import {container} from '../../../../../../src/container';
 
 describe(`github actions`, () => {
 
-
     let githubActionsResolver: GithubActionsResolver;
 
     beforeEach(() => {

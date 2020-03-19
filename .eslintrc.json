@@ -191,6 +191,12 @@
             "always"
         ],
         "@typescript-eslint/unified-signatures": "error",
+        "no-multiple-empty-lines": [
+            "error",
+            {
+                "max": 1
+            }
+        ],
         "comma-dangle": [
             "error",
             {

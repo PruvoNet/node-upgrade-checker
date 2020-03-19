@@ -6,8 +6,7 @@ import {
 } from '../../../../src/db';
 import {container} from '../../../../src/container';
 import * as tmp from 'tmp';
-// eslint-disable-next-line @typescript-eslint/quotes
-import moment = require('moment');
+import moment from 'moment';
 
 const dateFormat = `YYYY-MM-DD`;
 const releaseDate = moment.utc(`2015-10-02`, dateFormat);

@@ -2,8 +2,7 @@ import * as path from 'path';
 import {ICIResolver} from '../../../../../src/resolvers/ciResolver';
 import {resourcesDir} from '../../../../common';
 import {container} from '../../../../../src/container';
-// eslint-disable-next-line @typescript-eslint/quotes
-import moment = require('moment');
+import moment from 'moment';
 
 const dateFormat = `YYYY-MM-DD`;
 const packageReleaseDate = moment.utc(`2015-10-02`, dateFormat);
