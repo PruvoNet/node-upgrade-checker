@@ -2,7 +2,6 @@ import { injectable } from 'inversify';
 import { ILts, ILtsOptions } from '../interfaces/lts';
 import { Moment } from 'moment';
 // eslint-disable-next-line @typescript-eslint/quotes
-// eslint-disable-next-line @typescript-eslint/quotes
 import moment = require('moment');
 
 const dateFormat = `YYYY-MM-DD`;
@@ -49,6 +48,10 @@ const nodesByDate: ILtsVersion[] = [
 
 @injectable()
 export class Lts extends ILts {
+  constructor() {
+    super();
+  }
+
   async resolveLtsVersion({ date }: ILtsOptions): Promise<string[]> {
     return nodesByDate
       .filter((lts: ILtsVersion) => {

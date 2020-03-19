@@ -1,20 +1,14 @@
-import { container } from '../../../../../src/container';
-import { ILts } from '../../../../../src/utils/lts';
 // eslint-disable-next-line @typescript-eslint/quotes
 import moment = require('moment');
+import { Lts } from '../../../../../src/utils/lts/impl/lts';
 
 const dateFormat = `YYYY-MM-DD`;
 
 describe(`lts`, () => {
-  let lts: ILts;
+  let lts: Lts;
 
   beforeEach(() => {
-    container.snapshot();
-    lts = container.get(ILts);
-  });
-
-  afterEach(() => {
-    container.restore();
+    lts = new Lts();
   });
 
   it(`should resolve to node 4`, async () => {

@@ -3,16 +3,16 @@ import * as fs from 'fs';
 import { injectable } from 'inversify';
 import { ICheckoutOptions, IGitCheckout } from '../interfaces/gitCheckout';
 import { IGit } from '../interfaces/git';
-import { IGetRepoDirName } from '../interfaces/getRepoDirName';
+import { getRepoDirName } from './getRepoDirName';
 
 @injectable()
 export class GitCheckout extends IGitCheckout {
-  constructor(private git: IGit, private getRepoDirName: IGetRepoDirName) {
+  constructor(private git: IGit) {
     super();
   }
 
   public async checkoutRepo({ url, baseDir, tag, commitSha }: ICheckoutOptions): Promise<string> {
-    const dirName = await this.getRepoDirName.get({ url });
+    const dirName = await getRepoDirName({ url });
     const fullDir = path.join(baseDir, dirName);
     let exists: boolean;
     try {

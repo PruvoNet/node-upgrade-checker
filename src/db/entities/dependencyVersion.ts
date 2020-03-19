@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryColumn } from 'typeorm';
 import { Moment } from 'moment';
-import { buildDateTransformer } from '../utils/dateTransformer';
+import { buildDateTransformer } from '../impl/dateTransformer';
 import { IEntity } from '../interfaces/entity';
 
 const dateFormat = `YYYY-MM-DD`;
