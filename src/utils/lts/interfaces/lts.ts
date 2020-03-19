@@ -1,13 +1,11 @@
-import {injectable} from 'inversify';
+import { injectable } from 'inversify';
 import { Moment } from 'moment';
 
 export interface ILtsOptions {
-    date: Moment;
+  date: Moment;
 }
 
 @injectable()
 export abstract class ILts {
-
-    public abstract async resolveLtsVersion(options: ILtsOptions): Promise<string[]>;
-
+  public abstract async resolveLtsVersion(options: ILtsOptions): Promise<string[]>;
 }

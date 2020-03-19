@@ -50,7 +50,7 @@ CONTRIBUTORS.md
 # nyc test coverage
 .nyc_output
 nyc.config.js
-
+.editorconfig
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 

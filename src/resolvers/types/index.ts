@@ -1,4 +1,4 @@
 export interface IResolverResult {
-    isMatch: boolean;
-    resolverName?: string;
+  isMatch: boolean;
+  resolverName?: string;
 }

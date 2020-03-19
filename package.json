@@ -35,7 +35,6 @@
     "lint:fix": "yarn eslint . --fix --ext .ts",
     "pre-commit": "yarn lint-staged",
     "pre-push": "yarn format-check",
-    "format": "prettier -c --debug-check \"./**/*.{ts,js,json,md}\"",
     "format:fix": "prettier --write \"./**/*.{ts,js,json,md}\"",
     "format:check": "prettier --list-different \"./**/*.{ts,js,json,md}\"",
     "check:spelling": "cspell --config=.cspell.json \"**/*.{md,ts,js}\""

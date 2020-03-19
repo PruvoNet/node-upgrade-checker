@@ -1,15 +1,14 @@
-import {injectable} from 'inversify';
-import {IResolverResult} from '../../types';
-import {Moment} from 'moment';
+import { injectable } from 'inversify';
+import { IResolverResult } from '../../types';
+import { Moment } from 'moment';
 
 export interface ICIResolveOptions {
-    repoPath: string;
-    targetNode: string;
-    packageReleaseDate: Moment;
+  repoPath: string;
+  targetNode: string;
+  packageReleaseDate: Moment;
 }
 
 @injectable()
 export abstract class ICIResolver {
-    public abstract async resolve(options: ICIResolveOptions): Promise<IResolverResult>;
+  public abstract async resolve(options: ICIResolveOptions): Promise<IResolverResult>;
 }
-

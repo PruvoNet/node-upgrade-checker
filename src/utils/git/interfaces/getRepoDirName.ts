@@ -1,10 +1,10 @@
-import {injectable} from 'inversify';
+import { injectable } from 'inversify';
 
 export interface IGetRepoDirNameOptions {
-    url: string;
+  url: string;
 }
 
 @injectable()
 export abstract class IGetRepoDirName {
-    public abstract async get(options: IGetRepoDirNameOptions): Promise<string>;
+  public abstract async get(options: IGetRepoDirNameOptions): Promise<string>;
 }

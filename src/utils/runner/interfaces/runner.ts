@@ -1,12 +1,12 @@
-import {SpawnOptionsWithoutStdio} from 'child_process';
-import {injectable} from 'inversify';
+import { SpawnOptionsWithoutStdio } from 'child_process';
+import { injectable } from 'inversify';
 
 export interface IExecuteCommandOptions {
-    command: string[];
-    execOptions: SpawnOptionsWithoutStdio;
+  command: string[];
+  execOptions: SpawnOptionsWithoutStdio;
 }
 
 @injectable()
 export abstract class IRunner {
-    public abstract async executeCommand(options: IExecuteCommandOptions): Promise<void>;
+  public abstract async executeCommand(options: IExecuteCommandOptions): Promise<void>;
 }
