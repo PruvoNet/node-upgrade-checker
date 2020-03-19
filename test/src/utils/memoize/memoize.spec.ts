@@ -7,7 +7,7 @@ interface IData {
 }
 
 describe(`memoize`, () => {
-  const sharedHasher = jest.fn((...args: any[]) => args.join(`:`));
+  const argHash = jest.fn((...args: any[]) => args.join(`:`));
 
   class Dummy {
     public method0Mock = jest.fn(() => {
@@ -32,7 +32,7 @@ describe(`memoize`, () => {
       return this.method1Mock(...args);
     }
 
-    @memoize(sharedHasher)
+    @memoize(argHash)
     public method2(...args: any[]): string {
       return this.method2Mock(...args);
     }

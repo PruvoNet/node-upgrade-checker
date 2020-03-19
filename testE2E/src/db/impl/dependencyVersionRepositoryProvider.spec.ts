@@ -6,7 +6,8 @@ import {
 } from '../../../../src/db';
 import { container } from '../../../../src/container';
 import * as tmp from 'tmp';
-import moment from 'moment';
+// eslint-disable-next-line @typescript-eslint/quotes
+import moment = require('moment');
 
 const dateFormat = `YYYY-MM-DD`;
 const releaseDate = moment.utc(`2015-10-02`, dateFormat);
@@ -31,7 +32,7 @@ describe(`dependency version repository provider e2e`, () => {
       version: `4.0.1`,
       name: `test dependency`,
       repoUrl: `https://www.github.com/example/test.git`,
-      commitSha: `sdf-sdf-sdf-sdf-wert-fdgf`,
+      commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
       releaseDate,
     });
     await repo.save(dependency);
@@ -48,14 +49,14 @@ describe(`dependency version repository provider e2e`, () => {
       version: `4.0.1`,
       name: `test dependency`,
       repoUrl: `https://www.github.com/example/test.git`,
-      commitSha: `sdf-sdf-sdf-sdf-wert-fdgf`,
+      commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
       releaseDate,
     });
     const dependency2 = new DependencyVersion({
       version: `5.0.1`,
       name: `test dependency2`,
       repoUrl: `https://www.github.com/example/test2.git`,
-      commitSha: `sdf-sdf-sdf-sdf-wert-fdgf`,
+      commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
       releaseDate,
     });
     await repo.save([dependency, dependency2]);
@@ -73,7 +74,7 @@ describe(`dependency version repository provider e2e`, () => {
       version: `4.0.1`,
       name: `test dependency`,
       repoUrl: `https://www.github.com/example/test.git`,
-      commitSha: `sdf-sdf-sdf-sdf-wert-fdgf`,
+      commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
       releaseDate,
     });
     const dependency2 = new DependencyVersion({
@@ -81,7 +82,7 @@ describe(`dependency version repository provider e2e`, () => {
       name: `test dependency`,
       repoUrl: `https://www.github.com/example/test2.git`,
       releaseDate,
-      commitSha: `sdf-sdf-sdf-sdf-wert-fdgf`,
+      commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
     });
     await repo.save(dependency);
     await repo.save(dependency2);
@@ -95,14 +96,14 @@ describe(`dependency version repository provider e2e`, () => {
       version: `4.0.1`,
       name: `test dependency`,
       repoUrl: `https://www.github.com/example/test.git`,
-      commitSha: `sdf-sdf-sdf-sdf-wert-fdgf`,
+      commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
       releaseDate,
     });
     const dependency2 = new DependencyVersion({
       version: `5.0.1`,
       name: `test dependency2`,
       repoUrl: `https://www.github.com/example/test2.git`,
-      commitSha: `sdf-sdf-sdf-sdf-wert-fdgf`,
+      commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
       releaseDate,
     });
     await repo.save([dependency, dependency2]);

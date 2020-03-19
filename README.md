@@ -12,7 +12,7 @@
 
 # Squiss-TS
 
-High-volume Amazon SQS Poller and single-queue client for Node.js 6 and up with full typescript support  
+High-volume Amazon SQS Poller and single-queue client for Node.js 6 and up with full typescript support
 The library is production ready and is being stress used in a full blown production environment
 
 ## Main features
@@ -49,7 +49,7 @@ const squiss = new Squiss({
 
 squiss.on('message', (message: Message) => {
   console.log(
-    `${message.body.name} says: ${JSON.stringify(message.body.message)} and has attripute p1 with value ${
+    `${message.body.name} says: ${JSON.stringify(message.body.message)} and has attribute p1 with value ${
       message.attributes.p1
     }`
   );
@@ -82,12 +82,12 @@ npm install squiss-ts
 
 ## How it works
 
-Squiss processes as many messages simultaneously as possible.  
+Squiss processes as many messages simultaneously as possible.
 Set the [maxInFlight](https://squiss-ts.pruvo.com/#squiss-class-constructor-options-polling-options-maxinflight) option to the number of messages your app can handle at one time without choking, and Squiss will keep
-that many messages flowing through your app, grabbing more as you mark each message as handled or ready for deletion.  
-If the queue is empty, Squiss will maintain an open connection to SQS, waiting for any messages that appear in real time.  
+that many messages flowing through your app, grabbing more as you mark each message as handled or ready for deletion.
+If the queue is empty, Squiss will maintain an open connection to SQS, waiting for any messages that appear in real time.
 Squiss can also handle renewing the visibility timeout for your messages until you handle the message, or message handling time
-(set up by you) has passed (see [autoExtendTimeout](https://squiss-ts.pruvo.com/#squiss-class-constructor-options-auto-extend-options-autoextendtimeout)).  
+(set up by you) has passed (see [autoExtendTimeout](https://squiss-ts.pruvo.com/#squiss-class-constructor-options-auto-extend-options-autoextendtimeout)).
 Bonus: Squiss will also automatically handle the message attributes formatting and parsing when receiving and sending messages.
 
 ## Versions
@@ -96,10 +96,10 @@ Squiss supports Node 6 LTS and higher.
 
 ## Credits
 
-This project is a typescript port (with better performance, bug fixes and new features) of the wonderful and unmaintnaed project [TomFrost/Squiss](https://www.github.com/TomFrost/Squiss)  
+This project is a typescript port (with better performance, bug fixes and new features) of the wonderful and unmaintained project [TomFrost/Squiss](https://www.github.com/TomFrost/Squiss)
 Squiss was originally created at [TechnologyAdvice](http://www.technologyadvice.com) in Nashville, TN.
 
 ## Contributing
 
-All contributions are happily welcomed!  
+All contributions are happily welcomed!
 Please make all pull requests to the `master` branch from your fork and ensure tests pass locally.

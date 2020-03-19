@@ -1,6 +1,19 @@
 {
   "version": "0.1",
   "language": "en",
+  "words": [
+    "squiss",
+    "pacote",
+    "circleci",
+    "Veyor",
+    "typeorm",
+    "inversify",
+    "Promisified",
+    "socio",
+    "Greenkeeper",
+    "lifecycle",
+    "nodegit"
+  ],
   "ignorePaths": ["**/coverage/**", "**/node_modules/**", "**/dist/**", "**/*.{json,snap}", ".cspell.json"],
   "dictionaries": ["typescript", "softwareTerms", "node", "en_US", "npm", "misc", "filetypes"],
   "overrides": [

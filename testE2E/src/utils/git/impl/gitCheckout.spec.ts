@@ -99,10 +99,13 @@ describe(`git checkout`, () => {
         url,
         baseDir: tmpDir,
         tag: `0.0.1`,
-        commitSha: `sdfsdfsdf`,
+        commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
       });
       await expect(promise).rejects.toBeInstanceOf(Error);
-      await expect(promise).rejects.toHaveProperty(`message`, `Failed to locate commit sdfsdfsdf`);
+      await expect(promise).rejects.toHaveProperty(
+        `message`,
+        `Failed to locate commit 595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`
+      );
     },
     timeout
   );

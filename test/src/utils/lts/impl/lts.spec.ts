@@ -1,6 +1,7 @@
 import { container } from '../../../../../src/container';
 import { ILts } from '../../../../../src/utils/lts';
-import moment from 'moment';
+// eslint-disable-next-line @typescript-eslint/quotes
+import moment = require('moment');
 
 const dateFormat = `YYYY-MM-DD`;
 
