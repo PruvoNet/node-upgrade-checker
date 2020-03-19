@@ -1,0 +1,25 @@
+{
+  "version": "0.1",
+  "language": "en",
+  "ignorePaths": [
+    "**/coverage/**",
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/*.{json,snap}",
+    ".cspell.json"
+  ],
+  "dictionaries": [
+    "typescript",
+    "softwareTerms",
+    "node",
+    "en_US",
+    "npm",
+    "misc",
+    "filetypes"
+  ],
+  "overrides": [
+    {
+      "filename": "**/*.{ts,js}",
+    }
+  ]
+}
