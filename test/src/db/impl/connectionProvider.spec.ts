@@ -27,7 +27,7 @@ describe(`connection provider`, () => {
       databaseFilePath: tmpDir,
       dropSchema: false,
     };
-    const connectionProvider = new ConnectionProvider(settings, typeOrmSpy);
+    const connectionProvider = new ConnectionProvider(settings, typeOrmSpy, [Dependency]);
     const conn = await connectionProvider.getConnection();
     expect(conn).toBe(placeholder);
     expect(createConnectionMock).toBeCalledTimes(1);
@@ -38,7 +38,7 @@ describe(`connection provider`, () => {
       synchronize: true,
       logging: false,
       dropSchema: false,
-      entities: [Dependency, DependencyVersion],
+      entities: [Dependency],
     });
   });
 
@@ -47,7 +47,7 @@ describe(`connection provider`, () => {
       databaseFilePath: tmpDir,
       dropSchema: true,
     };
-    const connectionProvider = new ConnectionProvider(settings, typeOrmSpy);
+    const connectionProvider = new ConnectionProvider(settings, typeOrmSpy, [DependencyVersion]);
     const conn = await connectionProvider.getConnection();
     expect(conn).toBe(placeholder);
     expect(createConnectionMock).toBeCalledTimes(1);
@@ -58,7 +58,7 @@ describe(`connection provider`, () => {
       synchronize: true,
       logging: false,
       dropSchema: true,
-      entities: [Dependency, DependencyVersion],
+      entities: [DependencyVersion],
     });
   });
 
@@ -67,7 +67,7 @@ describe(`connection provider`, () => {
       databaseFilePath: tmpDir,
       dropSchema: false,
     };
-    const connectionProvider = new ConnectionProvider(settings, typeOrmSpy);
+    const connectionProvider = new ConnectionProvider(settings, typeOrmSpy, []);
     const conn = await connectionProvider.getConnection();
     const conn2 = await connectionProvider.getConnection();
     expect(conn).toBe(conn2);

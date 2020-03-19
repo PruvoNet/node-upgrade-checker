@@ -1,4 +1,6 @@
 import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { IEntity } from '../interfaces/entity';
+import { injectable } from 'inversify';
 
 export interface IDependencyOptions {
   name: string;
@@ -9,7 +11,8 @@ export interface IDependencyOptions {
 }
 
 @Entity()
-export class Dependency {
+@injectable()
+export class Dependency extends IEntity {
   @PrimaryColumn(`text`, {
     nullable: false,
   })
@@ -36,6 +39,7 @@ export class Dependency {
   public reason!: string | undefined;
 
   constructor(options?: IDependencyOptions) {
+    super();
     if (options) {
       this.name = options.name;
       this.version = options.version;

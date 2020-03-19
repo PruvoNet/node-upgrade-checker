@@ -31,6 +31,7 @@
     "cover:e2e": "yarn jest --coverage 'testE2E/.*\\.spec\\.ts'",
     "cover:unit": "yarn jest --coverage 'test/.*\\.spec\\.ts'",
     "cover": "yarn jest --coverage 'test/.*\\.spec\\.ts' 'testE2E/.*\\.spec\\.ts'",
+    "prelint": "yarn run format:check",
     "lint": "yarn eslint . --ext .ts",
     "lint:fix": "yarn eslint . --fix --ext .ts",
     "pre-commit": "yarn lint-staged",

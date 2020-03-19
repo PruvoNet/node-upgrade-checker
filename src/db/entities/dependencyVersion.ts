@@ -1,6 +1,8 @@
 import { Entity, Column, PrimaryColumn } from 'typeorm';
 import { Moment } from 'moment';
 import { buildDateTransformer } from '../utils/dateTransformer';
+import { IEntity } from '../interfaces/entity';
+import { injectable } from 'inversify';
 
 const dateFormat = `YYYY-MM-DD`;
 
@@ -13,7 +15,8 @@ export interface IDependencyVersionOptions {
 }
 
 @Entity()
-export class DependencyVersion {
+@injectable()
+export class DependencyVersion extends IEntity {
   @PrimaryColumn(`text`, {
     nullable: false,
   })
@@ -41,6 +44,7 @@ export class DependencyVersion {
   public commitSha!: string;
 
   constructor(options?: IDependencyVersionOptions) {
+    super();
     if (options) {
       this.name = options.name;
       this.version = options.version;

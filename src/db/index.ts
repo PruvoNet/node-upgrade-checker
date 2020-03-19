@@ -6,6 +6,9 @@ import { IDependencyVersionRepositoryProvider } from './interfaces/dependencyVer
 import { IConnectionProvider } from './interfaces/connectionProvider';
 import { interfaces } from 'inversify';
 import Bind = interfaces.Bind;
+import { IEntity } from './interfaces/entity';
+import { Dependency } from './entities/dependency';
+import { DependencyVersion } from './entities/dependencyVersion';
 
 export const dbModulesBinder = (bind: Bind): void => {
   bind<IDependencyRepositoryProvider>(IDependencyRepositoryProvider)
@@ -17,6 +20,8 @@ export const dbModulesBinder = (bind: Bind): void => {
   bind<IConnectionProvider>(IConnectionProvider)
     .to(ConnectionProvider)
     .inSingletonScope();
+  bind<IEntity>(IEntity).toConstantValue(Dependency);
+  bind<IEntity>(IEntity).toConstantValue(DependencyVersion);
 };
 
 export * from './interfaces/connectionProvider';

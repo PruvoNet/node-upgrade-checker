@@ -1,18 +1,21 @@
-import { Dependency } from '../entities/dependency';
-import { inject, injectable } from 'inversify';
+import { inject, injectable, multiInject } from 'inversify';
 import { Connection } from 'typeorm/connection/Connection';
 import * as path from 'path';
-import { DependencyVersion } from '../entities/dependencyVersion';
 import { memoize } from '../../utils/memoize/memoize';
 import { IConnectionProvider } from '../interfaces/connectionProvider';
 import { IConnectionSettings } from '../interfaces/connectionSettings';
 import { TypeOrm, TYPES } from '../../container/nodeModulesContainer';
+import { IEntity, IEntityConstructor } from '../interfaces/entity';
 
 const DB_FILE = `cache.db`;
 
 @injectable()
 export class ConnectionProvider extends IConnectionProvider {
-  constructor(private settings: IConnectionSettings, @inject(TYPES.TypeOrm) private typeorm: TypeOrm) {
+  constructor(
+    private settings: IConnectionSettings,
+    @inject(TYPES.TypeOrm) private typeorm: TypeOrm,
+    @multiInject(IEntity) private entities: IEntityConstructor[]
+  ) {
     super();
   }
 
@@ -25,7 +28,7 @@ export class ConnectionProvider extends IConnectionProvider {
       synchronize: true,
       logging: false,
       dropSchema: this.settings.dropSchema,
-      entities: [Dependency, DependencyVersion],
+      entities: this.entities,
     });
   }
 }
