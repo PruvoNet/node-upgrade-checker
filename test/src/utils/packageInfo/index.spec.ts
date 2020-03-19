@@ -1,4 +1,4 @@
-import { BindingTypes, testBindings } from '../../../utils/bindingTester';
+import { BindingTypes, testBindings } from '../../../common/bindingTester';
 import { IPackageInfo, packageInfoModulesBinder } from '../../../../src/utils/packageInfo';
 import { PackageInfo } from '../../../../src/utils/packageInfo/impl/packageInfo';
 

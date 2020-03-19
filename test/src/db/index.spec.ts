@@ -10,7 +10,7 @@ import { DependencyRepositoryProvider } from '../../../src/db/impl/dependencyRep
 import { DependencyVersionRepositoryProvider } from '../../../src/db/impl/dependencyVersionRepositoryProvider';
 import { ConnectionProvider } from '../../../src/db/impl/connectionProvider';
 import { IEntity } from '../../../src/db/interfaces/entity';
-import { BindingTypes, testBindings } from '../../utils/bindingTester';
+import { BindingTypes, testBindings } from '../../common/bindingTester';
 
 testBindings({
   name: `db module container`,

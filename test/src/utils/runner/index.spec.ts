@@ -1,4 +1,4 @@
-import { BindingTypes, testBindings } from '../../../utils/bindingTester';
+import { BindingTypes, testBindings } from '../../../common/bindingTester';
 import { IRunner, runnerModuleBinder } from '../../../../src/utils/runner';
 import { Runner } from '../../../../src/utils/runner/impl/runner';
 

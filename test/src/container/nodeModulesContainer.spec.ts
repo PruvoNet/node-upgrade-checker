@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as nodeGit from 'nodegit';
 import * as pacote from 'pacote';
 import * as childProcess from 'child_process';
-import { BindingTypes, testBindings } from '../../utils/bindingTester';
+import { BindingTypes, testBindings } from '../../common/bindingTester';
 import { nodeModulesBinder, TYPES } from '../../../src/container/nodeModulesContainer';
 
 testBindings({

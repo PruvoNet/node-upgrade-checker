@@ -1,4 +1,4 @@
-import { BindingTypes, testBindings } from '../../../utils/bindingTester';
+import { BindingTypes, testBindings } from '../../../common/bindingTester';
 import { ITestResolver, testResolverModulesBinder } from '../../../../src/resolvers/testResolver';
 import { TestResolver } from '../../../../src/resolvers/testResolver/impl/testResolver';
 

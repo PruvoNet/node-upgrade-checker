@@ -1,4 +1,4 @@
-import { BindingTypes, testBindings } from '../../utils/bindingTester';
+import { BindingTypes, testBindings } from '../../common/bindingTester';
 import { flowModulesBinder, IFlow } from '../../../src/flow';
 import { Flow } from '../../../src/flow/impl/flow';
 
