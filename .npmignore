@@ -29,6 +29,7 @@ src
 **/*.js.map
 **/*.ts
 !**/*.d.ts
+.lintstagedrc
 test/
 testE2E
 # config files

@@ -44,11 +44,6 @@ jobs:
           yarn --ignore-engines --frozen-lockfile
           yarn check-clean-workspace-after-install
 
-      # Note that this command *also* type checks tests/tools,
-      # whereas the build only checks src files
-      - name: Typecheck all packages
-        run: yarn typecheck
-
       - name: Check code formatting
         run: yarn format-check
 

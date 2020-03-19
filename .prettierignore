@@ -3,3 +3,5 @@
 **/.nyc_output
 .github
 .all-contributorsrc
+.cache
+.nyc_output
