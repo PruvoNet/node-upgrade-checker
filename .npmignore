@@ -31,6 +31,7 @@ src
 !**/*.d.ts
 .lintstagedrc
 test/
+testInteg
 testE2E
 # config files
 tslint.json
