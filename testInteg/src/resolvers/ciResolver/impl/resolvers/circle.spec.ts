@@ -4,11 +4,7 @@ import { CircleCiResolver } from '../../../../../../src/resolvers/ciResolver/imp
 import * as fs from 'fs';
 
 describe(`circle ci`, () => {
-  let circleCiResolver: CircleCiResolver;
-
-  beforeEach(() => {
-    circleCiResolver = new CircleCiResolver(fs);
-  });
+  const circleCiResolver = new CircleCiResolver(fs);
 
   it(`should expose the proper name`, async () => {
     expect(circleCiResolver.resolverName).toBe(`circleCi`);

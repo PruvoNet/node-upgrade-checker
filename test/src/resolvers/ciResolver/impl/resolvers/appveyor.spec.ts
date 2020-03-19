@@ -1,13 +1,25 @@
 import { AppVeyorResolver } from '../../../../../../src/resolvers/ciResolver/impl/resolvers/appveyor';
-import * as path from 'path';
-import * as fs from 'fs';
-import { resourcesDir } from '../../../../../common';
+import { FS } from '../../../../../../src/container/nodeModulesContainer';
 
 describe(`appveyor`, () => {
-  const appVeyorResolver = new AppVeyorResolver(fs);
+  const repoPath = `placeholder`;
+  const fsMock = jest.fn();
+  const fsSpy = ({
+    promises: {
+      readFile: fsMock,
+    },
+  } as any) as FS;
+  const appVeyorResolver = new AppVeyorResolver(fsSpy);
+
+  beforeEach(() => {
+    fsMock.mockReset();
+  });
+
+  it(`should expose the proper name`, async () => {
+    expect(appVeyorResolver.resolverName).toBe(`appVeyor`);
+  });
 
   it(`should resolve node js from travis configuration matrix`, async () => {
-    const repoPath = path.join(resourcesDir, `appveyor`);
     const versions = await appVeyorResolver.resolve({
       repoPath,
     });
@@ -15,7 +27,6 @@ describe(`appveyor`, () => {
   });
 
   it(`should resolve node js from travis configuration`, async () => {
-    const repoPath = path.join(resourcesDir, `appveyor2`);
     const versions = await appVeyorResolver.resolve({
       repoPath,
     });
@@ -23,7 +34,6 @@ describe(`appveyor`, () => {
   });
 
   it(`should throw due to faulty configuration`, async () => {
-    const repoPath = path.join(resourcesDir, `appveyorFaulty`);
     const promise = appVeyorResolver.resolve({
       repoPath,
     });
@@ -31,7 +41,6 @@ describe(`appveyor`, () => {
   });
 
   it(`should return undefined from non relevant repo`, async () => {
-    const repoPath = path.join(resourcesDir, `empty`);
     const versions = await appVeyorResolver.resolve({
       repoPath,
     });

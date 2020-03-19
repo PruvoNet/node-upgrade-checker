@@ -5,11 +5,7 @@ import { Lts } from '../../../../../src/utils/lts/impl/lts';
 const dateFormat = `YYYY-MM-DD`;
 
 describe(`lts`, () => {
-  let lts: Lts;
-
-  beforeEach(() => {
-    lts = new Lts();
-  });
+  const lts = new Lts();
 
   it(`should resolve to node 4`, async () => {
     const versions = await lts.resolveLtsVersion({

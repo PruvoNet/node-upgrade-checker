@@ -4,11 +4,7 @@ import { resourcesDir } from '../../../../../common';
 import * as fs from 'fs';
 
 describe(`github actions`, () => {
-  let githubActionsResolver: GithubActionsResolver;
-
-  beforeEach(() => {
-    githubActionsResolver = new GithubActionsResolver(fs);
-  });
+  const githubActionsResolver = new GithubActionsResolver(fs);
 
   it(`should expose the proper name`, async () => {
     expect(githubActionsResolver.resolverName).toBe(`githubActions`);

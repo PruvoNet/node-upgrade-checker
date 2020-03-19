@@ -5,11 +5,7 @@ import { LTS_VERSION } from '../../../../../../src/resolvers/ciResolver';
 import * as fs from 'fs';
 
 describe(`travis ci`, () => {
-  let travisCiResolver: TravisCiResolver;
-
-  beforeEach(() => {
-    travisCiResolver = new TravisCiResolver(fs);
-  });
+  const travisCiResolver = new TravisCiResolver(fs);
 
   it(`should expose the proper name`, async () => {
     expect(travisCiResolver.resolverName).toBe(`travisCi`);

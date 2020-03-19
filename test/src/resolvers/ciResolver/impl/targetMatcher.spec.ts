@@ -1,4 +1,3 @@
-import Mock = jest.Mock;
 import { ILts } from '../../../../../src/utils/lts';
 import { TargetMatcher } from '../../../../../src/resolvers/ciResolver/impl/targetMatcher';
 // eslint-disable-next-line @typescript-eslint/quotes
@@ -8,15 +7,14 @@ const dateFormat = `YYYY-MM-DD`;
 const packageReleaseDate = moment.utc(`2015-10-02`, dateFormat);
 
 describe(`target matcher`, () => {
-  let targetMatcher: TargetMatcher;
-  let resolveLtsVersionMock: Mock;
+  const resolveLtsVersionMock = jest.fn();
+  const ltsMock = ({
+    resolveLtsVersion: resolveLtsVersionMock,
+  } as any) as ILts;
+  const targetMatcher = new TargetMatcher(ltsMock);
 
   beforeEach(() => {
-    resolveLtsVersionMock = jest.fn();
-    const ltsMock = ({
-      resolveLtsVersion: resolveLtsVersionMock,
-    } as any) as ILts;
-    targetMatcher = new TargetMatcher(ltsMock);
+    resolveLtsVersionMock.mockReset();
   });
 
   it(`should match target node from candidates`, async () => {

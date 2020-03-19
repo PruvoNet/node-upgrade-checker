@@ -1,23 +1,21 @@
 import { Dependency, IDependencyRepositoryProvider } from '../../../../../src/db';
 import { Repository } from 'typeorm';
-import Mock = jest.Mock;
 import { CacheResolver } from '../../../../../src/resolvers/cacheResolver/impl/cacheResolver';
 
 describe(`cache resolver`, () => {
-  let cacheResolver: CacheResolver;
-  let findOneStub: Mock;
+  const findOneStub = jest.fn();
+  const repositorySpy = ({
+    findOne: findOneStub,
+  } as any) as Repository<Dependency>;
+  const dependencyRepositoryProviderSpy: IDependencyRepositoryProvider = {
+    getRepository: async (): Promise<Repository<Dependency>> => {
+      return repositorySpy;
+    },
+  };
+  const cacheResolver = new CacheResolver(dependencyRepositoryProviderSpy);
 
   beforeEach(() => {
-    findOneStub = jest.fn();
-    const repositorySpy = ({
-      findOne: findOneStub,
-    } as any) as Repository<Dependency>;
-    const dependencyRepositoryProviderSpy: IDependencyRepositoryProvider = {
-      getRepository: async (): Promise<Repository<Dependency>> => {
-        return repositorySpy;
-      },
-    };
-    cacheResolver = new CacheResolver(dependencyRepositoryProviderSpy);
+    findOneStub.mockReset();
   });
 
   it(`should resolve if match in cache`, async () => {

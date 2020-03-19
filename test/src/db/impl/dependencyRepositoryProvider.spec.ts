@@ -1,27 +1,26 @@
 import { Dependency, IConnectionProvider } from '../../../../src/db';
 import { DependencyRepositoryProvider } from '../../../../src/db/impl/dependencyRepositoryProvider';
 import { Connection } from 'typeorm/connection/Connection';
-import Mock = jest.Mock;
 
 describe(`dependency repository provider`, () => {
   const placeholder = `PLACEHOLDER`;
 
+  const getRepositoryMock = jest.fn();
+  const connectionSpy = ({
+    getRepository: getRepositoryMock,
+  } as any) as Connection;
+  const getConnectionMock = jest.fn();
+  const connectionProviderSpy = ({
+    getConnection: getConnectionMock,
+  } as any) as IConnectionProvider;
   let dependencyRepositoryProvider: DependencyRepositoryProvider;
-  let getConnectionMock: Mock;
-  let getRepositoryMock: Mock;
 
   beforeEach(() => {
-    getRepositoryMock = jest.fn();
-    getRepositoryMock.mockReturnValue(placeholder);
-    const connectionSpy = ({
-      getRepository: getRepositoryMock,
-    } as any) as Connection;
-    getConnectionMock = jest.fn();
-    getConnectionMock.mockResolvedValue(connectionSpy);
-    const connectionProviderSpy = ({
-      getConnection: getConnectionMock,
-    } as any) as IConnectionProvider;
     dependencyRepositoryProvider = new DependencyRepositoryProvider(connectionProviderSpy);
+    getConnectionMock.mockReset();
+    getConnectionMock.mockResolvedValue(connectionSpy);
+    getRepositoryMock.mockReset();
+    getRepositoryMock.mockReturnValue(placeholder);
   });
 
   it(`should cache repo`, async () => {

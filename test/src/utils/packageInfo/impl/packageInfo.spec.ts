@@ -1,17 +1,15 @@
-import Mock = jest.Mock;
 import { PackageInfo } from '../../../../../src/utils/packageInfo/impl/packageInfo';
 import { Pacote } from '../../../../../src/container/nodeModulesContainer';
 
 describe(`package info`, () => {
-  let packageInfo: PackageInfo;
-  let manifestMock: Mock;
+  const manifestMock = jest.fn();
+  const pacoteSpy = ({
+    manifest: manifestMock,
+  } as any) as Pacote;
+  const packageInfo = new PackageInfo(pacoteSpy);
 
   beforeEach(() => {
-    manifestMock = jest.fn();
-    const pacoteSpy = ({
-      manifest: manifestMock,
-    } as any) as Pacote;
-    packageInfo = new PackageInfo(pacoteSpy);
+    manifestMock.mockReset();
   });
 
   it(`should resolve package info properly`, async () => {
