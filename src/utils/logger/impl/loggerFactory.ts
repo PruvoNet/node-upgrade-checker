@@ -1,6 +1,7 @@
 import { injectable, optional } from 'inversify';
 import { ILoggerFactory } from '../interfaces/loggerFactory';
-import { Consola } from 'consola';
+// @ts-ignore
+import { Consola, FancyReporter } from 'consola';
 import { memoize } from '../../memoize/memoize';
 import { ILoggerSettings } from '../interfaces/loggerSettings';
 
@@ -16,6 +17,7 @@ export class LoggerFactory extends ILoggerFactory {
     const isTrace = !this.settings || this.settings.traceMode;
     return new Consola({
       level: isTrace ? 5 : isDebug ? 4 : 3,
+      reporters: [new FancyReporter()],
     });
   }
 }

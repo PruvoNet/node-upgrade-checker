@@ -1,8 +1,20 @@
 import { ILoggerSettings } from '../../../../../src/utils/logger';
 import { LoggerFactory } from '../../../../../src/utils/logger/impl/loggerFactory';
-import { Consola } from 'consola';
+// @ts-ignore
+import { Consola, FancyReporter } from 'consola';
 
-describe(`connection provider`, () => {
+describe(`logger factory`, () => {
+  it(`should set reporter`, async () => {
+    const loggerFactory = new LoggerFactory();
+    const logger = loggerFactory.getLogger();
+    expect(logger).toBeInstanceOf(Consola);
+    expect(logger.level).toBe(5);
+    // @ts-ignore
+    // eslint-disable-next-line no-underscore-dangle
+    const reporters = logger._reporters;
+    expect(reporters.length).toBe(1);
+    expect(reporters[0]).toBeInstanceOf(FancyReporter);
+  });
   it(`should set debug log level from settings`, async () => {
     const settings: ILoggerSettings = {
       debugMode: true,

@@ -36,7 +36,7 @@ export class Runner extends IRunner {
         this.logger.error(data.toString());
       });
       subProcess.on(`error`, (err) => {
-        console.error(`spawn error: `, err);
+        this.logger.error(`spawn error`, err);
       });
       subProcess.on(`close`, (code) => {
         if (code === 0) {
