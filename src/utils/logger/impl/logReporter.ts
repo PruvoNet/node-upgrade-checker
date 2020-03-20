@@ -1,5 +1,5 @@
 // @ts-ignore
-import { ConsolaReporter, FancyReporter } from 'consola';
+import { ConsolaLogObject, ConsolaReporter, ConsolaReporterArgs, FancyReporter } from 'consola';
 // eslint-disable-next-line @typescript-eslint/quotes
 import chalk = require('chalk');
 
@@ -34,7 +34,7 @@ export class LogReporter extends FancyReporter implements ConsolaReporter {
     return chalkBgColor(typeColor).black(` ${logObj.type.toUpperCase()} `);
   }
 
-  public log(...args: any[]): void {
-    super.log.apply(this, args);
+  public log(logObj: ConsolaLogObject, args: ConsolaReporterArgs): void {
+    super.log(logObj, args);
   }
 }
