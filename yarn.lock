@@ -575,6 +575,13 @@
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
+"@types/consola@^2.2.5":
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/@types/consola/-/consola-2.2.5.tgz#f84e2842e44aad1e038dff1abbc1c6bf2dd9e65c"
+  integrity sha512-ttF6wKgTQJfdUBK6zwg/C4kqzFyKqwg8kRdUOj+rn1T0CsrBvgwBn+ILLhfoVGiOY5/FAzLbD/Ld/tSgt7Damg==
+  dependencies:
+    consola "*"
+
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
@@ -1590,6 +1597,11 @@ configstore@^5.0.0, configstore@^5.0.1:
     unique-string "^2.0.0"
     write-file-atomic "^3.0.0"
     xdg-basedir "^4.0.0"
+
+consola@*, consola@^2.11.3:
+  version "2.11.3"
+  resolved "https://registry.yarnpkg.com/consola/-/consola-2.11.3.tgz#f7315836224c143ac5094b47fd4c816c2cd1560e"
+  integrity sha512-aoW0YIIAmeftGR8GSpw6CGQluNdkWMWh3yEFjH/hmynTYnMtibXszii3lxCXmk8YxJtI3FAK5aTiquA5VH68Gw==
 
 console-control-strings@^1.0.0, console-control-strings@~1.1.0:
   version "1.1.0"

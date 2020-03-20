@@ -12,6 +12,7 @@ import { ltsModulesBinder } from '../utils/lts';
 import { packageInfoModulesBinder } from '../utils/packageInfo';
 import { nodeModulesBinder } from './nodeModulesContainer';
 import { enginesResolveModulesBinder } from '../resolvers/enginesResolver';
+import { loggerModuleBinder } from '../utils/logger';
 
 export const container = new Container();
 
@@ -30,6 +31,7 @@ const binders: Binder[] = [
   ltsModulesBinder,
   packageInfoModulesBinder,
   enginesResolveModulesBinder,
+  loggerModuleBinder,
 ];
 
 container.load(
