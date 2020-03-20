@@ -17,6 +17,27 @@ describe(`target matcher`, () => {
     resolveLtsVersionMock.mockReset();
   });
 
+  it(`should not match on invalid target version`, async () => {
+    const promise = targetMatcher.match({
+      candidates: [`8`],
+      targetNode: `foo`,
+      packageReleaseDate,
+    });
+    await expect(promise).rejects.toBeInstanceOf(TypeError);
+    await expect(promise).rejects.toMatchObject({
+      message: expect.stringContaining(`Node target version foo is not valid`),
+    });
+  });
+
+  it(`should not match on invalid version`, async () => {
+    const result = await targetMatcher.match({
+      candidates: [`foo`],
+      targetNode: `8`,
+      packageReleaseDate,
+    });
+    expect(result).toBe(false);
+  });
+
   it(`should match target node from candidates`, async () => {
     const result = await targetMatcher.match({
       candidates: [`6`, `8`, `10`, `11`],

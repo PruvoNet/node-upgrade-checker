@@ -5,12 +5,18 @@ import { LTS_VERSION } from '..';
 // eslint-disable-next-line @typescript-eslint/quotes
 import semver = require('semver');
 
-const coerce = (version: string): string => {
-  const coereced = semver.coerce(semver.coerce(version)?.major?.toFixed(0) || version);
-  if (coereced) {
-    return coereced.format();
+const semverOptions = {
+  loose: true,
+};
+
+const coerce = (version: string): string | undefined => {
+  const coercedAll = semver.coerce(version, semverOptions);
+  if (!coercedAll) {
+    return undefined;
   }
-  return version;
+  const majorStr = coercedAll.major.toFixed(0);
+  const coerced = semver.coerce(majorStr, semverOptions);
+  return coerced!.format();
 };
 
 @injectable()
@@ -21,6 +27,9 @@ export class TargetMatcher extends ITargetMatcher {
 
   public async match({ targetNode, candidates, packageReleaseDate }: ITargetMatcherOptions): Promise<boolean> {
     const validTarget = coerce(targetNode);
+    if (!validTarget) {
+      throw new TypeError(`Node target version ${targetNode} is not valid`);
+    }
     const resolvedCandidates: string[] = [];
     for (const candidate of candidates) {
       if (candidate === LTS_VERSION) {
@@ -34,7 +43,7 @@ export class TargetMatcher extends ITargetMatcher {
     }
     const matchingCandidates = resolvedCandidates.filter((candidate) => {
       const validCandidate = coerce(candidate);
-      return semver.eq(validTarget, validCandidate);
+      return validCandidate && semver.eq(validTarget, validCandidate);
     });
     return matchingCandidates.length > 0;
   }
