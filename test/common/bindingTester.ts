@@ -1,23 +1,20 @@
+/* eslint-disable jest/no-export */
 import { interfaces } from 'inversify';
 import Bind = interfaces.Bind;
 
-// eslint-disable-next-line jest/no-export
 export type BinderFn = (bind: Bind) => void;
 
-// eslint-disable-next-line jest/no-export
 export enum BindingTypes {
   SINGELTON = `SINGELTON`,
   CONSTANT = `CONSTANT`,
 }
 
-// eslint-disable-next-line jest/no-export
 export interface IBindingToTest {
   binder: any;
   binded: any;
   type: BindingTypes;
 }
 
-// eslint-disable-next-line jest/no-export
 export interface IBindingTestOptions {
   bindings: IBindingToTest[];
   binderFn: BinderFn;
@@ -31,7 +28,6 @@ const getBindName = (bind: any): string => {
   return bind.name || bind.constructor?.name || bind.toString?.() || bind;
 };
 
-// eslint-disable-next-line jest/no-export
 export const testBindings = ({ binderFn, bindings, name }: IBindingTestOptions): void => {
   describe(name, () => {
     const inSingletonScopeMock = jest.fn();

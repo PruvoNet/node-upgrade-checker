@@ -2,6 +2,16 @@ import { ITargetMatcher, ITargetMatcherOptions } from '../interfaces/targetMatch
 import { injectable } from 'inversify';
 import { ILts } from '../../../utils/lts';
 import { LTS_VERSION } from '..';
+// eslint-disable-next-line @typescript-eslint/quotes
+import semver = require('semver');
+
+const coerce = (version: string): string => {
+  const coereced = semver.coerce(semver.coerce(version)?.major?.toFixed(0) || version);
+  if (coereced) {
+    return coereced.format();
+  }
+  return version;
+};
 
 @injectable()
 export class TargetMatcher extends ITargetMatcher {
@@ -10,6 +20,7 @@ export class TargetMatcher extends ITargetMatcher {
   }
 
   public async match({ targetNode, candidates, packageReleaseDate }: ITargetMatcherOptions): Promise<boolean> {
+    const validTarget = coerce(targetNode);
     const resolvedCandidates: string[] = [];
     for (const candidate of candidates) {
       if (candidate === LTS_VERSION) {
@@ -21,15 +32,10 @@ export class TargetMatcher extends ITargetMatcher {
         resolvedCandidates.push(candidate);
       }
     }
-    const dotedTargetVersions = `${targetNode}.`;
-    for (const candidate of resolvedCandidates) {
-      if (candidate === targetNode) {
-        return true;
-      }
-      if (candidate.startsWith(dotedTargetVersions)) {
-        return true;
-      }
-    }
-    return false;
+    const matchingCandidates = resolvedCandidates.filter((candidate) => {
+      const validCandidate = coerce(candidate);
+      return semver.eq(validTarget, validCandidate);
+    });
+    return matchingCandidates.length > 0;
   }
 }
