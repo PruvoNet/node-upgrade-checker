@@ -69,6 +69,7 @@
     "eslint-plugin-prefer-arrow": "^1.1.7",
     "jest": "^25.1.0",
     "lint-staged": "^10.0.8",
+    "mock-spawn": "^0.2.6",
     "npm-check-updates": "^4.0.4",
     "prettier": "^1.19.1",
     "semver": "^7.1.3",
