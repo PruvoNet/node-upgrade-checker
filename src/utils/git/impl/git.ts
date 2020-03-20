@@ -81,9 +81,9 @@ export class Git extends IGit {
   }
 
   public async openRepo({ path }: IOpenRepoOptions): Promise<Repository> {
-    this.logger.debug(`Opening existing repo in ${path}`);
+    this.logger.info(`Opening existing repo in ${path}`);
     const repo = await this.nodeGit.Repository.open(path);
-    this.logger.debug(`Opened repo`);
+    this.logger.success(`Opened repo`);
     return repo;
   }
 }
