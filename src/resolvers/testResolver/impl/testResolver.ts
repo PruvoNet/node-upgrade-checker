@@ -3,6 +3,8 @@ import { IResolverResult } from '../../types';
 import { ITestResolver, ITestResolverOptions } from '../interfaces/testResolver';
 import { INpm, INpmOptions } from '../../../utils/npm';
 
+const resolverName = `npm run test`;
+
 @injectable()
 export class TestResolver extends ITestResolver {
   constructor(private npm: INpm) {
@@ -19,7 +21,7 @@ export class TestResolver extends ITestResolver {
       await this.npm.test(npmOptions);
       return {
         isMatch: true,
-        resolverName: `npm run test`,
+        resolverName,
       };
     } catch (e) {}
     return {

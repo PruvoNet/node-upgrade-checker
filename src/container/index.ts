@@ -1,4 +1,5 @@
 import { Container, ContainerModule, interfaces } from 'inversify';
+import Bind = interfaces.Bind;
 import { gitModuleBinder } from '../utils/git';
 import { runnerModuleBinder } from '../utils/runner';
 import { npmModulesBinder } from '../utils/npm';
@@ -10,7 +11,7 @@ import { flowModulesBinder } from '../flow';
 import { ltsModulesBinder } from '../utils/lts';
 import { packageInfoModulesBinder } from '../utils/packageInfo';
 import { nodeModulesBinder } from './nodeModulesContainer';
-import Bind = interfaces.Bind;
+import { enginesResolveModulesBinder } from '../resolvers/enginesResolver';
 
 export const container = new Container();
 
@@ -28,6 +29,7 @@ const binders: Binder[] = [
   flowModulesBinder,
   ltsModulesBinder,
   packageInfoModulesBinder,
+  enginesResolveModulesBinder,
 ];
 
 container.load(
