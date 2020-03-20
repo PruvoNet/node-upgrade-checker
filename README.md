@@ -21,5 +21,4 @@ NUC supports Node 10 LTS and higher.
 
 ## Contributing
 
-All contributions are happily welcomed!
-Please make all pull requests to the `master` branch from your fork and ensure tests pass locally.
+[See the contributing guide here](./CONTRIBUTING.md)

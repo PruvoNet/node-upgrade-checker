@@ -14,6 +14,7 @@
   "scripts": {
     "envcheck": "node -e 'if(!/yarn\\.js$/.test(process.env.npm_execpath))throw new Error(\"Use yarn\")'",
     "preinstall": "yarn run envcheck",
+    "postinstall": "yarn run build",
     "versionupdate": "yarn ncu && yarn install",
     "clean:dist": "rm -rf dist && rm -f .buildcache",
     "prebuild": "yarn run lint && yarn run clean:dist",

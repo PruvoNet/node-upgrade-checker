@@ -1,90 +1,87 @@
 # Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via issue,
-email, or any other method with the owners of this repository before making a change.
+## Raising Issues
 
-Please note we have a code of conduct, please follow it in all your interactions with the project.
+Feel free to raise an issue if you have a question, an enhancement, or a bug report.
 
-## Pull Request Process
+Please ensure you use the issue search functionality to search all **_opened and closed_** issues before raising a new issue.
 
-1. Ensure any install or build dependencies are removed before the end of the layer when doing a
-   build.
-2. Update the README.md with details of changes to the interface.
-3. Update the CHANGELOG.md with details of changes.
-4. You may merge the Pull Request in once you have the sign-off of another developers, or if you
-   do not have permission to do that, you may request the reviewer to merge it for you.
+When raising a new issue, please fill out the issue template - please don't skip sections.
+Please provide **_as much information as possible_**. This project is maintained by volunteers, so the more the more information you provide, the less likely we will have to waste everyone's time in asking you for more information.
 
-## Code of Conduct
+**_Help us to help you_**
 
-### Our Pledge
+## Commenting
 
-In the interest of fostering an open and welcoming environment, we as
-contributors and maintainers pledge to making participation in our project and
-our community a harassment-free experience for everyone, regardless of age, body
-size, disability, ethnicity, gender identity and expression, level of experience,
-nationality, personal appearance, race, religion, or sexual identity and
-orientation.
+Feel free to comment on any open issue if you have more information that you feel like you can provide. If you don't have more information, instead use the "reaction" feature on the root comment for the issue. We use reactions to help gauge which issues are important to the community, so these are the best way to show us an issue is important.
 
-### Our Standards
+Please refrain from leaving useless comments on issues. Comments like "+1", or "when's this getting fixed", or "any progress on this" just serve as spam, and annoy every single person subscribed to the issue. Generally we will just delete those comments, so save everyone time and think twice.
 
-Examples of behavior that contributes to creating a positive environment
-include:
+Please refrain from commenting on old, closed issues and PRs. Your issue is rarely related enough to a closed issue to warrant "necroing" a dead thread - raising a new issue means you can fill in the template, and make it easier for us to help you. Often times if you comment on a closed issue, we will just ask you to open a new issue, so please save everyone's time, and **_help us to help you_**.
 
-- Using welcoming and inclusive language
-- Being respectful of differing viewpoints and experiences
-- Gracefully accepting constructive criticism
-- Focusing on what is best for the community
-- Showing empathy towards other community members
+Please refrain from commenting on `master` commits. Commit comments are not searchable, meaning that nobody else can discover your comments. Raise an issue and reference the commit instead so that everyone can see your comment, and you can fill out the template.
 
-Examples of unacceptable behavior by participants include:
+---
 
-- The use of sexualized language or imagery and unwelcome sexual attention or
-  advances
-- Trolling, insulting/derogatory comments, and personal or political attacks
-- Public or private harassment
-- Publishing others' private information, such as a physical or electronic
-  address, without explicit permission
-- Other conduct which could reasonably be considered inappropriate in a
-  professional setting
+## Pull Requests
 
-### Our Responsibilities
+Anyone is free to help us build and maintain this project. If you see an issue that needs working on because it's important to you, comment on the issue to help make sure that nobody else works on it at the same time, and then start working.
 
-Project maintainers are responsible for clarifying the standards of acceptable
-behavior and are expected to take appropriate and fair corrective action in
-response to any instances of unacceptable behavior.
+Developing in this repo is easy:
 
-Project maintainers have the right and responsibility to remove, edit, or
-reject comments, commits, code, wiki edits, issues, and other contributions
-that are not aligned to this Code of Conduct, or to ban temporarily or
-permanently any contributor for other behaviors that they deem inappropriate,
-threatening, offensive, or harmful.
+- First fork the repo, and then clone it locally.
+- Create a new branch.
+- In the root of the project, run `yarn install`.
+  - This will install the dependencies and do a build.
+- Make the required changes.
 
-### Scope
+### Validating Your Changes
 
-This Code of Conduct applies both within project spaces and in public spaces
-when an individual is representing the project or its community. Examples of
-representing a project or community include using an official project e-mail
-address, posting via an official social media account, or acting as an appointed
-representative at an online or offline event. Representation of a project may be
-further defined and clarified by project maintainers.
+We have a sophisticated CI process setup which gets run on every PR. You must pass all of the checks for us to consider merging your PR. Here is a list of checks that are done automatically, that you can also perform locally before pushing.
 
-### Enforcement
+- Ensure your code is properly formatted.
+  - You can run `yarn format` in any package or in the root.
+  - Alternatively, you can run prettier on save.
+- Ensure your changes are adequately tested.
+  - You can run `yarn test` in any package.
+  - We aim for around `90%` branch coverage for every PR.
+  - Coverage reports can be generated locally using `yarn cover`, and the `codecov` bot should also comment on your PR with the percentage, as well as links to the line-by-line coverage of each file touched by your PR.
+- Ensure you have no lint errors.
+  - You can run `yarn lint` in any package or in the root.
+- If you have made changes to any markdown documentation, ensure there are no spelling errors
+  - You can run `yarn check:spelling` in the root.
+  - Or if you are using vscode, you can use [`Code Spell Checker`](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) plugin.
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by contacting the project team at <a href="mailto:dev@pruvo.net">dev@pruvo.net</a>. All
-complaints will be reviewed and investigated and will result in a response that
-is deemed necessary and appropriate to the circumstances. The project team is
-obligated to maintain confidentiality with regard to the reporter of an incident.
-Further details of specific enforcement policies may be posted separately.
+### Raising a PR
 
-Project maintainers who do not follow or enforce the Code of Conduct in good
-faith may face temporary or permanent repercussions as determined by other
-members of the project's leadership.
+Once your changes are ready, you can raise a PR. The title of your PR should match the following format:
 
-### Attribution
+```
+<tag>: <short description>
+```
 
-This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4,
-available at [http://contributor-covenant.org/version/1/4][version]
+Where `<tag>` is one of:
 
-[homepage]: http://contributor-covenant.org
-[version]: http://contributor-covenant.org/version/1/4/
+- `feat` - for any new functionality additions
+- `fix` - for any bug fixes that don't add new functionality
+- `test` - if you only change tests, and not shipped code
+- `docs` - if you only change documentation, and not shipped code
+- `chore` - anything else
+
+And `<short description>` is a succinct title for the PR.
+
+Within the body of your PR, make sure you reference the issue that you have worked on, as well as pointing out anything of note you wish us to look at during our review.
+
+Make sure you use the "Fixes #xxx" format to reference issues, so that GitHub automatically closes the issues when we merge the PR. Also note that if you are fixing multiple issues at once, you can only reference one issue per line, and must put one "Fixes #xxx" per issue number.
+
+In terms of your commit history - we do not care about the number, or style of commits in your history, because we squash merge every PR into master. Feel free to commit in whatever style you feel comfortable with.
+
+**_One thing we ask is to please avoid force pushing after you have raised a PR_**. GitHub is not able to track changes across force pushes, which makes it impossible to efficiently do incremental reviews. This slows us down, and means it will take longer for us to get your PR merged.
+
+### Addressing Feedback and Beyond
+
+With your PR raised, and the CI showing green, your PR will [sit in the queue to be reviewed](https://github.com/PruvoNet/node-upgrade-checker/pulls?q=is%3Apr+is%3Aopen+sort%3Acreated-asc+-label%3A%22breaking+change%22+-label%3A%22awaiting+response%22+-label%3A%221+approval%22+-label%3A%22DO+NOT+MERGE%22). We generally review PRs oldest to newest, unless we consider a newer PR higher priority (i.e. if it's a bug fix).
+
+Please note that as this project is maintained by volunteers, it may take a while for us to get around to your PR (sometimes a month or more). Be patient, we'll get to it. Please refrain from commenting asking for a review, or similar bump comments. **_These just create spam for maintainers, and does not push your PR higher in the queue_**.
+
+Once we have reviewed your PR, we will provide any feedback that needs addressing. If you feel a requested change is wrong, don't be afraid to discuss with us in the comments. Once the feedback is addressed, and the PR is reviewed, we'll ensure the branch is up to date with master, and merge it for you.
