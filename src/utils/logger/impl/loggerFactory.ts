@@ -16,8 +16,18 @@ export class LoggerFactory extends ILoggerFactory {
     const isDebug = this.settings?.debugMode;
     const isTrace = !this.settings || this.settings.traceMode;
     return new Consola({
-      level: isTrace ? 5 : isDebug ? 4 : 3,
+      level: isTrace ? ILoggerFactory.LEVELS.TRACE : isDebug ? ILoggerFactory.LEVELS.DEBUG : ILoggerFactory.LEVELS.INFO,
       reporters: [new FancyReporter()],
     });
+  }
+
+  @memoize()
+  public isDebugEnabled(): boolean {
+    return this.getLogger().level >= ILoggerFactory.LEVELS.DEBUG;
+  }
+
+  @memoize()
+  public isTraceEnabled(): boolean {
+    return this.getLogger().level >= ILoggerFactory.LEVELS.TRACE;
   }
 }
