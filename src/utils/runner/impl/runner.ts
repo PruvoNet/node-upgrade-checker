@@ -2,6 +2,8 @@ import { SpawnOptionsWithoutStdio } from 'child_process';
 import { inject, injectable } from 'inversify';
 import { IExecuteCommandOptions, IRunner } from '../interfaces/runner';
 import { ChildProcess, TYPES } from '../../../container/nodeModulesContainer';
+import { ILoggerFactory } from '../../logger';
+import { Consola } from 'consola';
 
 interface IPromisifiedSpawnOptions {
   command: string;
@@ -11,8 +13,11 @@ interface IPromisifiedSpawnOptions {
 
 @injectable()
 export class Runner extends IRunner {
-  constructor(@inject(TYPES.ChildProcess) private childProcess: ChildProcess) {
+  private logger: Consola;
+
+  constructor(@inject(TYPES.ChildProcess) private childProcess: ChildProcess, loggerFactory: ILoggerFactory) {
     super();
+    this.logger = loggerFactory.getLogger();
   }
 
   public async executeCommand({ command, execOptions }: IExecuteCommandOptions): Promise<void> {
@@ -25,10 +30,10 @@ export class Runner extends IRunner {
     return await new Promise((resolve, reject) => {
       const subProcess = this.childProcess.spawn(command, options, execOptions);
       subProcess.stdout.on(`data`, (data) => {
-        process.stdout.write(data.toString());
+        this.logger.trace(data.toString());
       });
       subProcess.stderr.on(`data`, (data) => {
-        process.stderr.write(data.toString());
+        this.logger.error(data.toString());
       });
       subProcess.on(`error`, (err) => {
         console.error(`spawn error: `, err);

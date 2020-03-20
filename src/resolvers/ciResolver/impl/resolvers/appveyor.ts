@@ -34,7 +34,7 @@ const envObjectMapper = (variable: string) => (command: any): string | undefined
   return command[variable];
 };
 
-const parseStack = (stack: string | undefined, versions: string[]) => {
+const parseStack = (stack: string | undefined, versions: string[]): void => {
   if (!stack) {
     return;
   }

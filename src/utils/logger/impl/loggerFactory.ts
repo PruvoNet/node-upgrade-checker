@@ -12,9 +12,10 @@ export class LoggerFactory extends ILoggerFactory {
 
   @memoize()
   public getLogger(): Consola {
-    const isDebug = !this.settings || this.settings.debugMode;
+    const isDebug = this.settings?.debugMode;
+    const isTrace = !this.settings || this.settings.traceMode;
     return new Consola({
-      level: isDebug ? 4 : 3,
+      level: isTrace ? 5 : isDebug ? 4 : 3,
     });
   }
 }

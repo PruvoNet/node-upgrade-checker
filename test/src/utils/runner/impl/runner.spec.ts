@@ -3,13 +3,14 @@ import { Runner } from '../../../../../src/utils/runner/impl/runner';
 /* eslint-disable @typescript-eslint/quotes,@typescript-eslint/ban-ts-ignore */
 // @ts-ignore
 import mockSpawn = require('mock-spawn');
+import { LoggerFactory } from '../../../../../src/utils/logger/impl/loggerFactory';
 
 describe(`runner`, () => {
   let mock = mockSpawn();
   const childProcessSpy = ({
     spawn: mock,
   } as any) as ChildProcess;
-  const runner = new Runner(childProcessSpy);
+  const runner = new Runner(childProcessSpy, new LoggerFactory());
 
   beforeEach(() => {
     mock = mockSpawn();
