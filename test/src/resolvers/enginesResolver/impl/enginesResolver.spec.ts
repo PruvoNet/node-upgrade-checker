@@ -65,6 +65,30 @@ describe(`engines resolver`, () => {
     expect(result.isMatch).toBe(true);
   });
 
+  it(`should match if in range 2`, async () => {
+    const result = await enginesResolver.resolve({
+      engines: `>6 <=12`,
+      targetNode: `8`,
+    });
+    expect(result.isMatch).toBe(true);
+  });
+
+  it(`should match if in range equality`, async () => {
+    const result = await enginesResolver.resolve({
+      engines: `=8`,
+      targetNode: `8`,
+    });
+    expect(result.isMatch).toBe(true);
+  });
+
+  it(`should not match if in range strict equality`, async () => {
+    const result = await enginesResolver.resolve({
+      engines: `=8.0.1`,
+      targetNode: `8`,
+    });
+    expect(result.isMatch).toBe(false);
+  });
+
   it(`should match if in range hyphen`, async () => {
     const result = await enginesResolver.resolve({
       engines: `6 - 12`,
