@@ -28,6 +28,5 @@ export * from './interfaces/connectionProvider';
 export * from './interfaces/dependencyRepositoryProvider';
 export * from './interfaces/dependencyVersionRepositoryProvider';
 export * from './interfaces/connectionSettings';
-export * from './impl/connectionSettings';
 export * from './entities/dependency';
 export * from './entities/dependencyVersion';

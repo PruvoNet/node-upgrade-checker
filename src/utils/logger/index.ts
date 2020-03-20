@@ -11,4 +11,3 @@ export const loggerModuleBinder = (bind: Bind): void => {
 
 export * from './interfaces/loggerFactory';
 export * from './interfaces/loggerSettings';
-export * from './impl/loggerSettings';

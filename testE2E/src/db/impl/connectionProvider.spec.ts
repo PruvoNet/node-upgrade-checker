@@ -1,7 +1,7 @@
 import { container } from '../../../../src/container';
 import * as tmp from 'tmp';
 import { Connection } from 'typeorm';
-import { ConnectionSettings, IConnectionProvider, IConnectionSettings } from '../../../../src/db';
+import { IConnectionProvider, IConnectionSettings } from '../../../../src/db';
 
 describe(`connection provider e2e`, () => {
   let connectionProvider: IConnectionProvider;
@@ -9,7 +9,10 @@ describe(`connection provider e2e`, () => {
   beforeEach(() => {
     container.snapshot();
     const tmpDir = tmp.dirSync().name;
-    container.bind<IConnectionSettings>(IConnectionSettings).toConstantValue(new ConnectionSettings(tmpDir, false));
+    container.bind<IConnectionSettings>(IConnectionSettings).toConstantValue({
+      databaseFilePath: tmpDir,
+      dropSchema: false,
+    });
     connectionProvider = container.get(IConnectionProvider);
   });
 

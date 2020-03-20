@@ -1,9 +1,4 @@
-import {
-  IDependencyVersionRepositoryProvider,
-  DependencyVersion,
-  IConnectionSettings,
-  ConnectionSettings,
-} from '../../../../src/db';
+import { IDependencyVersionRepositoryProvider, DependencyVersion, IConnectionSettings } from '../../../../src/db';
 import { container } from '../../../../src/container';
 import * as tmp from 'tmp';
 // eslint-disable-next-line @typescript-eslint/quotes
@@ -18,7 +13,10 @@ describe(`dependency version repository provider e2e`, () => {
   beforeEach(() => {
     container.snapshot();
     const tmpDir = tmp.dirSync().name;
-    container.bind<IConnectionSettings>(IConnectionSettings).toConstantValue(new ConnectionSettings(tmpDir, false));
+    container.bind<IConnectionSettings>(IConnectionSettings).toConstantValue({
+      databaseFilePath: tmpDir,
+      dropSchema: false,
+    });
     dependencyVersionRepositoryProvider = container.get(IDependencyVersionRepositoryProvider);
   });
 

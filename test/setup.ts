@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import { container } from '../src/container';
-import { ILoggerSettings, LoggerSettings } from '../src/utils/logger';
+import { ILoggerSettings } from '../src/utils/logger';
+import { loggerSettings } from './common/logger';
 
-container.bind<ILoggerSettings>(ILoggerSettings).toConstantValue(new LoggerSettings(true, true));
+container.bind<ILoggerSettings>(ILoggerSettings).toConstantValue(loggerSettings);
