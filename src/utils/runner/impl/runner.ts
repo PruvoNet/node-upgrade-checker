@@ -3,7 +3,7 @@ import { inject, injectable } from 'inversify';
 import { IExecuteCommandOptions, IRunner } from '../interfaces/runner';
 import { ChildProcess, TYPES } from '../../../container/nodeModulesContainer';
 import { ILoggerFactory } from '../../logger';
-import { Consola } from 'consola';
+import { ILogger } from '../../logger/interfaces/logger';
 
 interface IPromisifiedSpawnOptions {
   command: string;
@@ -13,17 +13,17 @@ interface IPromisifiedSpawnOptions {
 
 @injectable()
 export class Runner extends IRunner {
-  private logger: Consola;
+  private logger: ILogger;
 
-  constructor(@inject(TYPES.ChildProcess) private childProcess: ChildProcess, private loggerFactory: ILoggerFactory) {
+  constructor(@inject(TYPES.ChildProcess) private childProcess: ChildProcess, loggerFactory: ILoggerFactory) {
     super();
-    this.logger = loggerFactory.getLogger();
+    this.logger = loggerFactory.getLogger(`Command Runner`);
   }
 
   public async executeCommand({ command, execOptions }: IExecuteCommandOptions): Promise<void> {
     const firstCommand = command[0];
     const options = command.slice(1);
-    if (this.loggerFactory.isDebugEnabled()) {
+    if (this.logger.isDebugEnabled()) {
       this.logger.debug(`Running command ${command.join(` `)}`);
     }
     await this.promisifiedSpawn({ command: firstCommand, options, execOptions });
@@ -33,7 +33,7 @@ export class Runner extends IRunner {
     return await new Promise((resolve, reject) => {
       const subProcess = this.childProcess.spawn(command, options, execOptions);
       subProcess.stdout.on(`data`, (data) => {
-        if (this.loggerFactory.isDebugEnabled()) {
+        if (this.logger.isDebugEnabled()) {
           this.logger.debug(data.toString());
         }
       });
@@ -44,7 +44,7 @@ export class Runner extends IRunner {
         this.logger.error(`spawn error`, err);
       });
       subProcess.on(`close`, (code) => {
-        if (this.loggerFactory.isDebugEnabled()) {
+        if (this.logger.isDebugEnabled()) {
           this.logger.debug(`Command ${command} exit status is ${code}`);
         }
         if (code === 0) {

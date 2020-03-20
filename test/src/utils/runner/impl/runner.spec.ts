@@ -4,7 +4,7 @@ import { Runner } from '../../../../../src/utils/runner/impl/runner';
 // @ts-ignore
 import mockSpawn = require('mock-spawn');
 import { ILoggerFactory } from '../../../../../src/utils/logger';
-import { Consola } from 'consola';
+import { ILogger } from '../../../../../src/utils/logger/interfaces/logger';
 
 describe(`runner`, () => {
   let mock = mockSpawn();
@@ -13,22 +13,24 @@ describe(`runner`, () => {
   } as any) as ChildProcess;
   const logErrorMock = jest.fn();
   const logDebugMock = jest.fn();
+  const isDebugEnabledMock = jest.fn();
+  const isTraceEnabledMock = jest.fn();
   const loggerSpy = ({
     error: logErrorMock,
     debug: logDebugMock,
-  } as any) as Consola;
-  const isDebugEnabledMock = jest.fn();
-  const isTraceEnabledMock = jest.fn();
-  const loggerFactorySpy: ILoggerFactory = {
-    getLogger: (): Consola => {
-      return loggerSpy;
-    },
     isDebugEnabled: isDebugEnabledMock,
     isTraceEnabled: isTraceEnabledMock,
+  } as any) as ILogger;
+  const getLoggerMock = jest.fn();
+  getLoggerMock.mockReturnValue(loggerSpy);
+  const loggerFactorySpy: ILoggerFactory = {
+    getLogger: getLoggerMock as any,
   };
   const runner = new Runner(childProcessSpy, loggerFactorySpy);
 
   beforeEach(() => {
+    getLoggerMock.mockReset();
+    getLoggerMock.mockReturnValue(loggerSpy);
     isDebugEnabledMock.mockReset();
     isTraceEnabledMock.mockReset();
     logErrorMock.mockReset();

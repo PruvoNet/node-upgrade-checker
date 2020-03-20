@@ -1,13 +1,17 @@
-import { ILoggerFactory, ILoggerSettings } from '../../../../../src/utils/logger';
+import { ILoggerSettings } from '../../../../../src/utils/logger';
 import { LoggerFactory } from '../../../../../src/utils/logger/impl/loggerFactory';
 // @ts-ignore
 import { Consola, FancyReporter } from 'consola';
+import { LogLevel } from '../../../../../src/utils/logger/interfaces/logger';
 
 describe(`logger factory`, () => {
   it(`should have proper logger level`, async () => {
-    expect(ILoggerFactory.LEVELS.INFO).toBe(3);
-    expect(ILoggerFactory.LEVELS.DEBUG).toBe(4);
-    expect(ILoggerFactory.LEVELS.TRACE).toBe(5);
+    expect(LogLevel.ERROR).toBe(0);
+    expect(LogLevel.WARN).toBe(1);
+    expect(LogLevel.LOG).toBe(2);
+    expect(LogLevel.INFO).toBe(3);
+    expect(LogLevel.DEBUG).toBe(4);
+    expect(LogLevel.TRACE).toBe(5);
   });
   it(`should set reporter`, async () => {
     const settings: ILoggerSettings = {
@@ -15,9 +19,8 @@ describe(`logger factory`, () => {
       traceMode: true,
     };
     const loggerFactory = new LoggerFactory(settings);
-    const logger = loggerFactory.getLogger();
-    expect(logger).toBeInstanceOf(Consola);
-    expect(logger.level).toBe(ILoggerFactory.LEVELS.TRACE);
+    const logger = loggerFactory.getLogger(`test`);
+    expect(logger.isTraceEnabled()).toBe(true);
     // @ts-ignore
     // eslint-disable-next-line no-underscore-dangle
     const reporters = logger._reporters;
@@ -30,11 +33,11 @@ describe(`logger factory`, () => {
       traceMode: false,
     };
     const loggerFactory = new LoggerFactory(settings);
-    const logger = loggerFactory.getLogger();
-    expect(logger).toBeInstanceOf(Consola);
-    expect(logger.level).toBe(ILoggerFactory.LEVELS.DEBUG);
-    expect(loggerFactory.isDebugEnabled()).toBe(true);
-    expect(loggerFactory.isTraceEnabled()).toBe(false);
+    const logger = loggerFactory.getLogger(`test`);
+    expect(logger.isDebugEnabled()).toBe(true);
+    expect(logger.isTraceEnabled()).toBe(false);
+    expect(logger.isInfoEnabled()).toBe(true);
+    expect(logger.isWarnEnabled()).toBe(true);
   });
   it(`should set trace log level from settings`, async () => {
     const settings: ILoggerSettings = {
@@ -42,11 +45,12 @@ describe(`logger factory`, () => {
       traceMode: true,
     };
     const loggerFactory = new LoggerFactory(settings);
-    const logger = loggerFactory.getLogger();
+    const logger = loggerFactory.getLogger(`test`);
     expect(logger).toBeInstanceOf(Consola);
-    expect(logger.level).toBe(ILoggerFactory.LEVELS.TRACE);
-    expect(loggerFactory.isDebugEnabled()).toBe(true);
-    expect(loggerFactory.isTraceEnabled()).toBe(true);
+    expect(logger.isDebugEnabled()).toBe(true);
+    expect(logger.isTraceEnabled()).toBe(true);
+    expect(logger.isInfoEnabled()).toBe(true);
+    expect(logger.isWarnEnabled()).toBe(true);
   });
 
   it(`should not set debug log level from settings`, async () => {
@@ -55,11 +59,11 @@ describe(`logger factory`, () => {
       traceMode: false,
     };
     const loggerFactory = new LoggerFactory(settings);
-    const logger = loggerFactory.getLogger();
-    expect(logger).toBeInstanceOf(Consola);
-    expect(logger.level).toBe(ILoggerFactory.LEVELS.INFO);
-    expect(loggerFactory.isDebugEnabled()).toBe(false);
-    expect(loggerFactory.isTraceEnabled()).toBe(false);
+    const logger = loggerFactory.getLogger(`test`);
+    expect(logger.isInfoEnabled()).toBe(true);
+    expect(logger.isDebugEnabled()).toBe(false);
+    expect(logger.isTraceEnabled()).toBe(false);
+    expect(logger.isWarnEnabled()).toBe(true);
   });
 
   it(`should cache logger`, async () => {
@@ -68,8 +72,10 @@ describe(`logger factory`, () => {
       traceMode: false,
     };
     const loggerFactory = new LoggerFactory(settings);
-    const logger1 = loggerFactory.getLogger();
-    const logger2 = loggerFactory.getLogger();
+    const logger1 = loggerFactory.getLogger(`test`);
+    const logger2 = loggerFactory.getLogger(`test`);
+    const logger3 = loggerFactory.getLogger(`test2`);
     expect(logger1).toBe(logger2);
+    expect(logger1).not.toBe(logger3);
   });
 });

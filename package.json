@@ -53,6 +53,7 @@
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
+    "@types/chalk": "^2.2.0",
     "@types/consola": "^2.2.5",
     "@types/jest": "^25.1.4",
     "@types/moment": "^2.13.0",
@@ -79,6 +80,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "chalk": "^3.0.0",
     "consola": "^2.11.3",
     "inversify": "^5.0.1",
     "moment": "^2.24.0",
