@@ -31,10 +31,10 @@ describe(`test resolver`, () => {
       repoPath: tmpDir,
     });
     expect(result.isMatch).toBe(true);
-    expect(result.resolverName).toBe(`npm run test`);
+    expect(result.resolverName).toBe(`yarn run test`);
   }, 10000);
 
-  it(`should fail npm test flow`, async () => {
+  it(`should fail yarn test flow`, async () => {
     const tmpDir = tmp.dirSync().name;
     await fs.promises.copyFile(failPackageJsonFile, path.join(tmpDir, pageJsonFileName));
     const result = await testResolver.resolve({

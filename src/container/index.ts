@@ -2,7 +2,7 @@ import { Container, ContainerModule, interfaces } from 'inversify';
 import Bind = interfaces.Bind;
 import { gitModuleBinder } from '../utils/git';
 import { runnerModuleBinder } from '../utils/runner';
-import { npmModulesBinder } from '../utils/npm';
+import { yarnModulesBinder } from '../utils/yarn';
 import { ciResolverModulesBinder } from '../resolvers/ciResolver';
 import { dbModulesBinder } from '../db';
 import { cacheResolveModulesBinder } from '../resolvers/cacheResolver';
@@ -22,7 +22,7 @@ const binders: Binder[] = [
   gitModuleBinder,
   nodeModulesBinder,
   runnerModuleBinder,
-  npmModulesBinder,
+  yarnModulesBinder,
   ciResolverModulesBinder,
   dbModulesBinder,
   cacheResolveModulesBinder,
