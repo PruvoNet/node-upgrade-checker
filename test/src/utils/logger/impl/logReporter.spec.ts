@@ -33,7 +33,7 @@ describe(`log reporter`, () => {
     mockedStream.destroy();
     const result = await streamPromise;
     expect(result).toBe(`
-[41m[30m ERROR [39m[49m my message
+[41m[30m ✖ [39m[49m my message
 
 `);
   });
@@ -65,7 +65,7 @@ describe(`log reporter`, () => {
     mockedStream.destroy();
     const result = await streamPromise;
     expect(result).toBe(`
-[43m[30m WARN [39m[49m my message
+[43m[30m Ⓘ [39m[49m my message
 
 `);
   });
@@ -126,7 +126,7 @@ describe(`log reporter`, () => {
     mockedStream.end();
     mockedStream.destroy();
     const result = await streamPromise;
-    expect(result).toBe(`[42m[30m INFO [39m[49m my message
+    expect(result).toBe(`[44m[30m ℹ [39m[49m my message
 `);
   });
 

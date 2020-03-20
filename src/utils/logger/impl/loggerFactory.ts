@@ -27,7 +27,7 @@ export class LoggerFactory extends ILoggerFactory {
     return new Logger({
       ...this.options,
       defaults: {
-        message: `${chalk.bgCyan(category)}`,
+        message: `${chalk.cyan(category)}`,
       },
     });
   }

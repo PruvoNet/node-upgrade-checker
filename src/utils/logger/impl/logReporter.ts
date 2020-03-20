@@ -2,6 +2,7 @@
 import { ConsolaLogObject, ConsolaReporter, ConsolaReporterArgs, FancyReporter } from 'consola';
 // eslint-disable-next-line @typescript-eslint/quotes
 import chalk = require('chalk');
+import * as figures from 'figures';
 
 const bgColorCache: any = {};
 
@@ -23,6 +24,17 @@ const LEVEL_COLOR_MAP = {
   3: `green`,
 };
 
+const TYPE_COLOR_MAP = {
+  info: `blue`,
+};
+
+const TYPE_ICONS = {
+  info: figures(`ℹ`),
+  success: figures(`✔`),
+  error: figures(`✖`),
+  warn: figures(`Ⓘ`),
+};
+
 export class LogReporter extends FancyReporter implements ConsolaReporter {
   constructor(options?: any) {
     super(options);
@@ -30,8 +42,11 @@ export class LogReporter extends FancyReporter implements ConsolaReporter {
 
   protected formatType(logObj: any): string {
     // @ts-ignore
-    const typeColor = LEVEL_COLOR_MAP[logObj.level] || this.options.secondaryColor;
-    return chalkBgColor(typeColor).black(` ${logObj.type.toUpperCase()} `);
+    const typeColor = TYPE_COLOR_MAP[logObj.type] || LEVEL_COLOR_MAP[logObj.level] || this.options.secondaryColor;
+    // @ts-ignore
+    const typeIcon = TYPE_ICONS[logObj.type];
+    const text = ` ${typeIcon || logObj.type.toUpperCase()} `;
+    return chalkBgColor(typeColor).black(text);
   }
 
   public log(logObj: ConsolaLogObject, args: ConsolaReporterArgs): void {
