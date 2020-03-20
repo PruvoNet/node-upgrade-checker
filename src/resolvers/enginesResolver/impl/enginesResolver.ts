@@ -3,9 +3,18 @@ import { IResolverResult } from '../../types';
 import { IEnginesResolver, IEnginesResolverOptions } from '../interfaces/enginesResolver';
 // eslint-disable-next-line @typescript-eslint/quotes
 import semver = require('semver');
+// eslint-disable-next-line @typescript-eslint/quotes
+import SemVer = require('semver/classes/semver');
+// eslint-disable-next-line @typescript-eslint/quotes
+import Comparator = require('semver/classes/comparator');
 
 const semverOptions = {
   loose: true,
+};
+
+const coerceSemVer = (version: SemVer): SemVer => {
+  const majorStr = version.major.toFixed(0);
+  return semver.coerce(majorStr, semverOptions)!;
 };
 
 const coerce = (version: string): string | undefined => {
@@ -13,9 +22,30 @@ const coerce = (version: string): string | undefined => {
   if (!coercedAll) {
     return undefined;
   }
-  const majorStr = coercedAll.major.toFixed(0);
-  const coerced = semver.coerce(majorStr, semverOptions);
-  return coerced!.format();
+  const coerced = coerceSemVer(coercedAll);
+  return coerced.format();
+};
+
+const strictSatisfiesRange = (target: string, range: string): boolean => {
+  const rangeObj = new semver.Range(range, semverOptions);
+  const revisedComparatorRange: (readonly Comparator[])[] = [];
+  for (const comparatorRange of rangeObj.set) {
+    let hasUpperBound = false;
+    let hasLowerBound = false;
+    for (const comparator of comparatorRange) {
+      if (comparator.operator === `<` || comparator.operator === `<=`) {
+        hasUpperBound = true;
+      } else if (comparator.operator === `>` || comparator.operator === `>=`) {
+        hasLowerBound = true;
+      }
+    }
+    if ((hasLowerBound && hasUpperBound) || (!hasLowerBound && !hasUpperBound)) {
+      revisedComparatorRange.push(comparatorRange);
+    }
+  }
+  rangeObj.set = revisedComparatorRange;
+  const revisedRange = new semver.Range(rangeObj.format(), semverOptions);
+  return semver.satisfies(target, revisedRange);
 };
 
 const resolverName = `engines field`;
@@ -36,11 +66,11 @@ export class EnginesResolver extends IEnginesResolver {
     if (!validTarget) {
       throw new TypeError(`Node target version ${targetNode} is not valid`);
     }
-    const validRange = semver.validRange(engines);
+    const validRange = semver.validRange(engines, semverOptions);
     if (!validRange) {
       throw new TypeError(`Engines range ${engines} is not valid`);
     }
-    const isMatch = semver.satisfies(validTarget, validRange);
+    const isMatch = strictSatisfiesRange(validTarget, validRange);
     if (isMatch) {
       return {
         isMatch: true,
