@@ -13,11 +13,13 @@ describe(`runner`, () => {
   } as any) as ChildProcess;
   const logErrorMock = jest.fn();
   const logDebugMock = jest.fn();
+  const logWarnMock = jest.fn();
   const isDebugEnabledMock = jest.fn();
   const isTraceEnabledMock = jest.fn();
   const loggerSpy = ({
     error: logErrorMock,
     debug: logDebugMock,
+    warn: logWarnMock,
     isDebugEnabled: isDebugEnabledMock,
     isTraceEnabled: isTraceEnabledMock,
   } as any) as ILogger;
@@ -34,6 +36,7 @@ describe(`runner`, () => {
     isDebugEnabledMock.mockReset();
     isTraceEnabledMock.mockReset();
     logErrorMock.mockReset();
+    logWarnMock.mockReset();
     logDebugMock.mockReset();
     mock = mockSpawn();
     childProcessSpy.spawn = mock;
@@ -75,8 +78,61 @@ describe(`runner`, () => {
     expect(call.command).toBe(`npm`);
     expect(call.args).toEqual([`run`, `build`]);
     expect(call.opts).toBe(execOptionsPlaceHolder);
-    expect(logErrorMock).toHaveBeenCalledWith(`error output data my library expects`);
-    expect(logDebugMock).toHaveBeenCalledWith(`output data my library expects`);
+    expect(logDebugMock).toHaveBeenCalledWith(`Command error output:\n`, `error output data my library expects`);
+    expect(logDebugMock).toHaveBeenCalledWith(`Command output:\n`, `output data my library expects`);
+  });
+
+  it(`should log error command output`, async () => {
+    isDebugEnabledMock.mockReturnValue(false);
+    isTraceEnabledMock.mockReturnValue(false);
+    mock.sequence.add(function(this: any, cb: any) {
+      this.stdout.write(`output data my library expects`);
+      this.stderr.write(`error output data my library expects`);
+      setTimeout(() => {
+        cb(1);
+      }, 10);
+    });
+    const execOptionsPlaceHolder = {};
+    const promise = runner.executeCommand({
+      execOptions: execOptionsPlaceHolder,
+      command: [`npm`, `run`, `build`],
+    });
+    await expect(promise).rejects.toBeInstanceOf(Error);
+    await expect(promise).rejects.toMatchObject({
+      message: `"npm run build" exited with code: 1`,
+    });
+    expect(mock.calls.length).toBe(1);
+    const call = mock.calls[0];
+    expect(call.command).toBe(`npm`);
+    expect(call.args).toEqual([`run`, `build`]);
+    expect(call.opts).toBe(execOptionsPlaceHolder);
+    expect(logErrorMock).toHaveBeenCalledWith(`Command error output:\n`, `error output data my library expects`);
+  });
+
+  it(`should not log error command output if empty output`, async () => {
+    isDebugEnabledMock.mockReturnValue(false);
+    isTraceEnabledMock.mockReturnValue(false);
+    mock.sequence.add(function(this: any, cb: any) {
+      this.stdout.write(`output data my library expects`);
+      setTimeout(() => {
+        cb(1);
+      }, 10);
+    });
+    const execOptionsPlaceHolder = {};
+    const promise = runner.executeCommand({
+      execOptions: execOptionsPlaceHolder,
+      command: [`npm`, `run`, `build`],
+    });
+    await expect(promise).rejects.toBeInstanceOf(Error);
+    await expect(promise).rejects.toMatchObject({
+      message: `"npm run build" exited with code: 1`,
+    });
+    expect(mock.calls.length).toBe(1);
+    const call = mock.calls[0];
+    expect(call.command).toBe(`npm`);
+    expect(call.args).toEqual([`run`, `build`]);
+    expect(call.opts).toBe(execOptionsPlaceHolder);
+    expect(logErrorMock).toBeCalledTimes(0);
   });
 
   it(`should not log command output`, async () => {
