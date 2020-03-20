@@ -10,7 +10,11 @@ describe(`logger factory`, () => {
     expect(ILoggerFactory.LEVELS.TRACE).toBe(5);
   });
   it(`should set reporter`, async () => {
-    const loggerFactory = new LoggerFactory();
+    const settings: ILoggerSettings = {
+      debugMode: true,
+      traceMode: true,
+    };
+    const loggerFactory = new LoggerFactory(settings);
     const logger = loggerFactory.getLogger();
     expect(logger).toBeInstanceOf(Consola);
     expect(logger.level).toBe(ILoggerFactory.LEVELS.TRACE);
@@ -56,15 +60,6 @@ describe(`logger factory`, () => {
     expect(logger.level).toBe(ILoggerFactory.LEVELS.INFO);
     expect(loggerFactory.isDebugEnabled()).toBe(false);
     expect(loggerFactory.isTraceEnabled()).toBe(false);
-  });
-
-  it(`should set trace log level if no settings`, async () => {
-    const loggerFactory = new LoggerFactory();
-    const logger = loggerFactory.getLogger();
-    expect(logger).toBeInstanceOf(Consola);
-    expect(logger.level).toBe(ILoggerFactory.LEVELS.TRACE);
-    expect(loggerFactory.isDebugEnabled()).toBe(true);
-    expect(loggerFactory.isTraceEnabled()).toBe(true);
   });
 
   it(`should cache logger`, async () => {
