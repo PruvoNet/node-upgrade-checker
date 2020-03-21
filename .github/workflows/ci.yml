@@ -93,7 +93,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ env.PRIMARY_NODE_VERSION }}
-          registry-url: ${{ env.$REGISTRY }}
+          registry-url: ${{ env.REGISTRY }}
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
