@@ -25,7 +25,8 @@ This project exists thanks to every one of the awesome people who contribute cod
 <a href="https://github.com/PruvoNet/node-upgrade-checker/graphs/contributors">
   <img src="https://contributors-img.web.app/image?repo=PruvoNet/node-upgrade-checker" alt="contributors" />
 </a>
-🙏 An extra special thanks goes out to the wonderful people listed in [`CONTRIBUTORS.md`](./CONTRIBUTORS.md)
+
+🙏An extra special thanks goes out to the wonderful people listed in [CONTRIBUTORS.md](./CONTRIBUTORS.md)
 
 ## Contributing
 
