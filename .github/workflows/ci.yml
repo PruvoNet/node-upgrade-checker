@@ -67,7 +67,8 @@ jobs:
       - name: Validate spelling
         run: yarn run check:spelling
 
-      - name: Run unit tests
+      - name: Run unit tests with coverage
+        if: matrix.node-version == env.PRIMARY_NODE_VERSION && matrix.os == env.PRIMARY_OS
         run: yarn run cover:unit
 
       - name: Publish code coverage report
@@ -79,6 +80,10 @@ jobs:
           flags: unittest
           name: codecov
           fail_ci_if_error: true
+
+      - name: Run unit tests
+        if: !(matrix.node-version == env.PRIMARY_NODE_VERSION && matrix.os == env.PRIMARY_OS)
+        run: yarn run test:unit
 
       - name: Run integration tests
         run: yarn run test:integ
