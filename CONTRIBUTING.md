@@ -17,7 +17,7 @@ Feel free to comment on any open issue if you have more information that you fee
 
 Please refrain from leaving useless comments on issues. Comments like "+1", or "when's this getting fixed", or "any progress on this" just serve as spam, and annoy every single person subscribed to the issue. Generally we will just delete those comments, so save everyone time and think twice.
 
-Please refrain from commenting on old, closed issues and PRs. Your issue is rarely related enough to a closed issue to warrant "necroing" a dead thread - raising a new issue means you can fill in the template, and make it easier for us to help you. Often times if you comment on a closed issue, we will just ask you to open a new issue, so please save everyone's time, and **_help us to help you_**.
+Please refrain from commenting on old, closed issues and PRs. Your issue is rarely related enough to a closed issue - raising a new issue means you can fill in the template, and make it easier for us to help you. Often times if you comment on a closed issue, we will just ask you to open a new issue, so please save everyone's time, and **_help us to help you_**.
 
 Please refrain from commenting on `master` commits. Commit comments are not searchable, meaning that nobody else can discover your comments. Raise an issue and reference the commit instead so that everyone can see your comment, and you can fill out the template.
 

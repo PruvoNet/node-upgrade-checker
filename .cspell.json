@@ -12,7 +12,15 @@
     "socio",
     "Greenkeeper",
     "lifecycle",
-    "nodegit"
+    "nodegit",
+    "codecov",
+    "tostr",
+    "Consola",
+    "SINGELTON",
+    "camelcase",
+    "binded",
+    "Pruvo",
+    "contributorsrc"
   ],
   "ignorePaths": ["**/coverage/**", "**/node_modules/**", "**/dist/**", "**/*.{json,snap}", ".cspell.json"],
   "dictionaries": ["typescript", "softwareTerms", "node", "en_US", "npm", "misc", "filetypes"],

@@ -157,7 +157,7 @@ describe(`runner`, () => {
     expect(logDebugMock).toBeCalledTimes(0);
   });
 
-  it(`should reject on bad exit cose`, async () => {
+  it(`should reject on bad exit code`, async () => {
     isDebugEnabledMock.mockReturnValue(true);
     isTraceEnabledMock.mockReturnValue(true);
     mock.sequence.add(mock.simple(-1));

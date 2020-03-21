@@ -93,3 +93,10 @@ typings/
 # next.js build output
 .next
 
+/CONTRIBUTORS.md
+/CONTRIBUTING.md
+!/CODE_OF_CONDUCT.md
+/CHANGELOG.md
+/tsconfig.build.json
+/tsconfig.json
+/tsconfig.test.json
