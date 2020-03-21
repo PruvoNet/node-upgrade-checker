@@ -1,13 +1,13 @@
 import * as path from 'path';
-import * as fs from 'fs';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { ICheckoutOptions, IGitCheckout } from '../interfaces/gitCheckout';
 import { getRepoDirName } from './getRepoDirName';
 import { Git } from './git';
+import { FS, TYPES } from '../../../container/nodeModulesContainer';
 
 @injectable()
 export class GitCheckout extends IGitCheckout {
-  constructor(private git: Git) {
+  constructor(private git: Git, @inject(TYPES.FS) private fs: FS) {
     super();
   }
 
@@ -16,9 +16,10 @@ export class GitCheckout extends IGitCheckout {
     const fullDir = path.join(baseDir, dirName);
     let exists: boolean;
     try {
-      await fs.promises.stat(fullDir);
+      await this.fs.promises.stat(fullDir);
       exists = true;
     } catch (e) {
+      await this.fs.promises.mkdir(fullDir);
       exists = false;
     }
     const repo = exists

@@ -32,7 +32,12 @@ export class Git {
 
   public async checkoutCommit({ repo, commitSha }: ICheckoutCommitOptions): Promise<void> {
     this.logger.debug(`Checking out commit ${commitSha}`);
-    await repo.checkout(commitSha);
+    try {
+      await repo.checkout(commitSha);
+    } catch (e) {
+      this.logger.debug(`Failed Checking out commit ${commitSha}`, e);
+      throw new Error(`Failed to checkout commit ${commitSha}`);
+    }
     this.logger.debug(`Checked out commit ${commitSha}`);
   }
 
