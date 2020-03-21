@@ -14,7 +14,6 @@ env:
   PRIMARY_NODE_VERSION: 10.x
   FORCE_COLOR: true
   JEST_CI: true
-  RELEASE_COMMIT: "chore: release (\\S+)"
 
 jobs:
   test:
@@ -113,12 +112,8 @@ jobs:
           yarn check-clean-workspace-after-install
           yarn run build
 
-      - name: Publish if version has been updated
-        uses: pascalgn/npm-publish-action@1.1.0
-        with:
-          tag_name: "v%s"
-          tag_message: "v%s"
-          commit_pattern: ${{ env.RELEASE_COMMIT }}
+      - name: Publish
+        run: |
+          yarn publish --non-interactive --no-git-tag-version
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
