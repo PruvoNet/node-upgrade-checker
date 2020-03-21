@@ -73,6 +73,7 @@
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
+    "@types/cross-spawn": "^6.0.1",
     "@types/jest": "^25.1.4",
     "@types/moment": "^2.13.0",
     "@types/node": "^13.9.2",
@@ -106,6 +107,7 @@
   "dependencies": {
     "chalk": "^3.0.0",
     "consola": "^2.11.3",
+    "cross-spawn": "^7.0.1",
     "figures": "^3.2.0",
     "inversify": "^5.0.1",
     "moment": "^2.24.0",

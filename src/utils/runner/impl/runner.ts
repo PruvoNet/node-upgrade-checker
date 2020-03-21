@@ -1,7 +1,7 @@
 import { SpawnOptionsWithoutStdio } from 'child_process';
 import { inject, injectable } from 'inversify';
 import { IExecuteCommandOptions, IRunner } from '../interfaces/runner';
-import { ChildProcess, TYPES } from '../../../container/nodeModulesContainer';
+import { Spawn, TYPES } from '../../../container/nodeModulesContainer';
 import { ILoggerFactory } from '../../logger';
 import { ILogger } from '../../logger/interfaces/logger';
 
@@ -15,7 +15,7 @@ interface IPromisifiedSpawnOptions {
 export class Runner extends IRunner {
   private logger: ILogger;
 
-  constructor(@inject(TYPES.ChildProcess) private childProcess: ChildProcess, loggerFactory: ILoggerFactory) {
+  constructor(@inject(TYPES.Spawn) private spawn: Spawn, loggerFactory: ILoggerFactory) {
     super();
     this.logger = loggerFactory.getLogger(`Command Runner`);
   }
@@ -33,7 +33,7 @@ export class Runner extends IRunner {
     return await new Promise((resolve, reject) => {
       const outputBuffer: Uint8Array[] = [];
       const errorBuffer: Uint8Array[] = [];
-      const subProcess = this.childProcess.spawn(command, options, execOptions);
+      const subProcess = this.spawn.spawn(command, options, execOptions);
       subProcess.stdout.on(`data`, (data) => {
         if (this.logger.isDebugEnabled()) {
           outputBuffer.push(data);
@@ -42,10 +42,10 @@ export class Runner extends IRunner {
       subProcess.stderr.on(`data`, (data) => {
         errorBuffer.push(data);
       });
-      subProcess.on(`error`, (err) => {
+      subProcess.on(`error`, (err: Error) => {
         this.logger.error(`spawn error`, err);
       });
-      subProcess.on(`close`, (code) => {
+      subProcess.on(`close`, (code: number) => {
         if (this.logger.isDebugEnabled()) {
           const output = Buffer.concat(outputBuffer).toString().trim();
           if (output) {

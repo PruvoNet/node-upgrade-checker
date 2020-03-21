@@ -1,4 +1,3 @@
-import { ChildProcess } from '../../../../../src/container/nodeModulesContainer';
 import { Runner } from '../../../../../src/utils/runner/impl/runner';
 /* eslint-disable @typescript-eslint/quotes,@typescript-eslint/ban-ts-ignore */
 // @ts-ignore
@@ -8,9 +7,9 @@ import { ILogger } from '../../../../../src/utils/logger/interfaces/logger';
 
 describe(`runner`, () => {
   let mock = mockSpawn();
-  const childProcessSpy = ({
+  const childProcessSpy: any = {
     spawn: mock,
-  } as any) as ChildProcess;
+  };
   const logErrorMock = jest.fn();
   const logDebugMock = jest.fn();
   const logWarnMock = jest.fn();

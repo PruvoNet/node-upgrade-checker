@@ -2,7 +2,7 @@ import * as typeorm from 'typeorm';
 import * as fs from 'fs';
 import * as simplegit from 'simple-git/promise';
 import * as pacote from 'pacote';
-import * as childProcess from 'child_process';
+import * as spawn from 'cross-spawn';
 import { BindingTypes, testBindings } from '../../common/bindingTester';
 import { nodeModulesBinder, TYPES } from '../../../src/container/nodeModulesContainer';
 
@@ -26,8 +26,8 @@ testBindings({
       type: BindingTypes.CONSTANT,
     },
     {
-      binder: TYPES.ChildProcess,
-      binded: childProcess,
+      binder: TYPES.Spawn,
+      binded: spawn,
       type: BindingTypes.CONSTANT,
     },
     {
