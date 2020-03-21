@@ -1,75 +1,70 @@
 import { inject, injectable } from 'inversify';
-import { Commit, Reference, Repository } from 'nodegit';
-import {
-  CloneRepoOptions,
-  ICheckoutCommitOptions,
-  ICheckoutReferenceOptions,
-  IGit,
-  ILocateCommitOptions,
-  ILocateTagOptions,
-  IOpenRepoOptions,
-} from '../interfaces/git';
-import { NodeGit, TYPES } from '../../../container/nodeModulesContainer';
+import { SimpleGitFn, TYPES } from '../../../container/nodeModulesContainer';
 import { ILoggerFactory } from '../../logger';
 import { ILogger } from '../../logger/interfaces/logger';
+import { SimpleGit } from 'simple-git/promise';
+
+export interface ICheckoutCommitOptions {
+  repo: SimpleGit;
+  commitSha: string;
+}
+
+export interface CloneRepoOptions {
+  url: string;
+  dir: string;
+}
+
+export interface ILocateTagOptions {
+  repo: SimpleGit;
+  tag: string;
+}
+
+export interface IOpenRepoOptions {
+  path: string;
+}
 
 @injectable()
-export class Git extends IGit {
+export class Git {
   private readonly logger: ILogger;
-  constructor(@inject(TYPES.NodeGit) private readonly nodeGit: NodeGit, loggerFactory: ILoggerFactory) {
-    super();
+  constructor(@inject(TYPES.SimpleGit) private readonly git: SimpleGitFn, loggerFactory: ILoggerFactory) {
     this.logger = loggerFactory.getLogger(`Git`);
   }
 
-  public async checkoutCommit({ repo, commit }: ICheckoutCommitOptions): Promise<void> {
-    this.logger.debug(`Checking out commit ${commit.id().tostrS()}`);
-    await this.nodeGit.Reset.reset(repo, commit, this.nodeGit.Reset.TYPE.HARD, {
-      checkoutStrategy: this.nodeGit.Checkout.STRATEGY.SAFE,
-    });
-    this.logger.debug(`Checked out commit ${commit.id().tostrS()}`);
+  public async checkoutCommit({ repo, commitSha }: ICheckoutCommitOptions): Promise<void> {
+    this.logger.info(`Checking out commit ${commitSha}`);
+    try {
+      await repo.checkout(commitSha);
+    } catch (e) {
+      this.logger.debug(`Failed Checking out commit ${commitSha}`, e);
+      throw new Error(`Failed to checkout commit ${commitSha}`);
+    }
+    this.logger.success(`Checked out commit ${commitSha}`);
   }
 
-  public async checkoutReference({ repo, reference }: ICheckoutReferenceOptions): Promise<void> {
-    this.logger.debug(`Checking out reference ${reference.toString()}`);
-    await repo.checkoutRef(reference);
-    this.logger.debug(`Checked out reference ${reference.toString()}`);
-  }
-
-  public async cloneRepo({ url, dir }: CloneRepoOptions): Promise<Repository> {
+  public async cloneRepo({ url, dir }: CloneRepoOptions): Promise<SimpleGit> {
     this.logger.info(`Cloning repo ${url}`);
     this.logger.debug(`Cloning repo to ${dir}`);
-    const repo = await this.nodeGit.Clone.clone(url, dir);
+    const repo = this.git(dir);
+    await repo.clone(url, dir);
     this.logger.success(`Cloned repo ${url}`);
     return repo;
   }
 
-  public async locateCommit({ repo, commitSha }: ILocateCommitOptions): Promise<Commit> {
-    this.logger.debug(`Locating commit ${commitSha}`);
-    try {
-      const id = this.nodeGit.Oid.fromString(commitSha);
-      this.logger.debug(`Located commit ${commitSha}, getting id`);
-      const commit = await repo.getCommit(id);
-      this.logger.debug(`Located commit id ${commit.id().tostrS()}`);
-      return commit;
-    } catch (e) {
-      this.logger.debug(`Failed to locate commit ${commitSha}`, e);
-      throw new Error(`Failed to locate commit ${commitSha}`);
-    }
-  }
-
-  public async locateTag({ repo, tag }: ILocateTagOptions): Promise<Reference> {
-    this.logger.debug(`Locating all references of repo ${repo.workdir()}`);
-    const refs = await repo.getReferences();
-    this.logger.debug(`Located ${refs.length} references`);
-    const tagRefs = refs.filter((ref) => ref.isTag());
-    this.logger.debug(`Located ${refs.length} tags. Looking for tag ${tag}`);
+  public async locateTag({ repo, tag }: ILocateTagOptions): Promise<string> {
+    // @ts-ignore
+    // eslint-disable-next-line no-underscore-dangle
+    const repoName = repo._baseDir;
+    this.logger.debug(`Locating all references of repo ${repoName}`);
+    const refsResult = await repo.tags();
+    const tagRefs = refsResult.all;
+    this.logger.debug(`Located ${tagRefs.length} tags. Looking for tag ${tag}`);
     const filteredTags = tagRefs.filter((currentTag) => {
-      return currentTag.name().includes(tag);
+      return currentTag.includes(tag);
     });
     this.logger.debug(`Located ${filteredTags.length} matching tag(s)`);
     if (filteredTags.length > 1) {
       this.logger.debug(`Too many matching tags`);
-      throw new Error(`Too many matching tags for tag ${tag} - ${filteredTags}`);
+      throw new Error(`Too many matching tags for tag ${tag} - [${filteredTags.join(`, `)}]`);
     }
     const tagRef = filteredTags[0];
     if (!tagRef) {
@@ -80,9 +75,9 @@ export class Git extends IGit {
     return tagRef;
   }
 
-  public async openRepo({ path }: IOpenRepoOptions): Promise<Repository> {
+  public async openRepo({ path }: IOpenRepoOptions): Promise<SimpleGit> {
     this.logger.info(`Opening existing repo in ${path}`);
-    const repo = await this.nodeGit.Repository.open(path);
+    const repo = this.git(path);
     this.logger.success(`Opened repo`);
     return repo;
   }

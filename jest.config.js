@@ -12,10 +12,10 @@ const config = {
   coverageReporters: ['text-summary', 'lcov'],
   coverageThreshold: {
     global: {
-      branches: 70,
-      functions: 70,
-      lines: 70,
-      statements: 70,
+      branches: 83,
+      functions: 83,
+      lines: 83,
+      statements: 83,
     },
   },
   errorOnDeprecated: true,

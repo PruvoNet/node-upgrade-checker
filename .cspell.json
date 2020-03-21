@@ -12,7 +12,6 @@
     "socio",
     "Greenkeeper",
     "lifecycle",
-    "nodegit",
     "codecov",
     "tostr",
     "Consola",
@@ -21,6 +20,7 @@
     "binded",
     "Pruvo",
     "contributorsrc",
+    "simplegit",
     "lcov"
   ],
   "ignorePaths": [

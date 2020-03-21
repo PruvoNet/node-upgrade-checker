@@ -16,7 +16,7 @@ const verifyVersion = async (dir: string, version: string): Promise<void> => {
   expect(packageJson.version).toBe(version);
 };
 
-const timeout = 30000;
+const timeout = 60000;
 
 describe(`git checkout`, () => {
   let tmpDir = ``;
@@ -104,7 +104,7 @@ describe(`git checkout`, () => {
       await expect(promise).rejects.toBeInstanceOf(Error);
       await expect(promise).rejects.toHaveProperty(
         `message`,
-        `Failed to locate commit 595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`
+        `Failed to checkout commit 595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`
       );
     },
     timeout
