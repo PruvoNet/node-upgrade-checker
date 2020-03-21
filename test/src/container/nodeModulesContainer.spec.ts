@@ -1,6 +1,6 @@
 import * as typeorm from 'typeorm';
 import * as fs from 'fs';
-import * as nodeGit from 'nodegit';
+import * as simplegit from 'simple-git/promise';
 import * as pacote from 'pacote';
 import * as childProcess from 'child_process';
 import { BindingTypes, testBindings } from '../../common/bindingTester';
@@ -21,11 +21,6 @@ testBindings({
       type: BindingTypes.CONSTANT,
     },
     {
-      binder: TYPES.NodeGit,
-      binded: nodeGit,
-      type: BindingTypes.CONSTANT,
-    },
-    {
       binder: TYPES.Pacote,
       binded: pacote,
       type: BindingTypes.CONSTANT,
@@ -33,6 +28,11 @@ testBindings({
     {
       binder: TYPES.ChildProcess,
       binded: childProcess,
+      type: BindingTypes.CONSTANT,
+    },
+    {
+      binder: TYPES.SimpleGit,
+      binded: simplegit,
       type: BindingTypes.CONSTANT,
     },
   ],

@@ -2,12 +2,12 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { injectable } from 'inversify';
 import { ICheckoutOptions, IGitCheckout } from '../interfaces/gitCheckout';
-import { IGit } from '../interfaces/git';
 import { getRepoDirName } from './getRepoDirName';
+import { Git } from './git';
 
 @injectable()
 export class GitCheckout extends IGitCheckout {
-  constructor(private git: IGit) {
+  constructor(private git: Git) {
     super();
   }
 
@@ -30,16 +30,15 @@ export class GitCheckout extends IGitCheckout {
           dir: fullDir,
         });
     if (commitSha) {
-      const commit = await this.git.locateCommit({ repo, commitSha });
       await this.git.checkoutCommit({
         repo,
-        commit,
+        commitSha,
       });
     } else {
       const reference = await this.git.locateTag({ repo, tag });
-      await this.git.checkoutReference({
+      await this.git.checkoutCommit({
         repo,
-        reference,
+        commitSha: reference,
       });
     }
     return fullDir;
