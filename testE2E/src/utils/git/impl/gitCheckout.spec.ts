@@ -16,7 +16,7 @@ const verifyVersion = async (dir: string, version: string): Promise<void> => {
   expect(packageJson.version).toBe(version);
 };
 
-const timeout = 100000;
+const timeout = 30000;
 
 describe(`git checkout`, () => {
   let tmpDir = ``;

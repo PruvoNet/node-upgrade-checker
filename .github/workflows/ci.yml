@@ -10,6 +10,7 @@ on:
 
 env:
   PRIMARY_NODE_VERSION: 10
+  FORCE_COLOR: true
 
 jobs:
   test:
