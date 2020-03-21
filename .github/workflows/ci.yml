@@ -9,7 +9,7 @@ on:
       - '**'
 
 env:
-  PRIMARY_NODE_VERSION: 10
+  PRIMARY_NODE_VERSION: 10.x
   FORCE_COLOR: true
   JEST_CI: true
 
@@ -61,6 +61,7 @@ jobs:
         run: yarn cover:unit
 
       - name: Publish code coverage report
+        if: matrix.node-version == env.PRIMARY_NODE_VERSION
         uses: codecov/codecov-action@v1
         with:
           yml: ./codecov.yml
