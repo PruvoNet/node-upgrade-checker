@@ -4,21 +4,28 @@ import { ICheckoutOptions, IGitCheckout } from '../interfaces/gitCheckout';
 import { getRepoDirName } from './getRepoDirName';
 import { Git } from './git';
 import { FS, TYPES } from '../../../container/nodeModulesContainer';
+import { ILoggerFactory } from '../../logger';
+import { ILogger } from '../../logger/interfaces/logger';
 
 @injectable()
 export class GitCheckout extends IGitCheckout {
-  constructor(private git: Git, @inject(TYPES.FS) private fs: FS) {
+  private logger: ILogger;
+  constructor(private git: Git, @inject(TYPES.FS) private fs: FS, loggerFactory: ILoggerFactory) {
     super();
+    this.logger = loggerFactory.getLogger(`GitCheckout`);
   }
 
   public async checkoutRepo({ url, baseDir, tag, commitSha }: ICheckoutOptions): Promise<string> {
     const dirName = await getRepoDirName({ url });
     const fullDir = path.join(baseDir, dirName);
+    this.logger.info(`Cloning repo ${url} to ${fullDir}`);
     let exists: boolean;
     try {
       await this.fs.promises.stat(fullDir);
+      this.logger.debug(`Repo already exists locally`);
       exists = true;
     } catch (e) {
+      this.logger.debug(`Repo doesn't exist locally, will create directory ${fullDir}`);
       await this.fs.promises.mkdir(fullDir);
       exists = false;
     }
@@ -31,17 +38,21 @@ export class GitCheckout extends IGitCheckout {
           dir: fullDir,
         });
     if (commitSha) {
+      this.logger.debug(`Checking out provided commit ${commitSha}`);
       await this.git.checkoutCommit({
         repo,
         commitSha,
       });
     } else {
+      this.logger.debug(`Looking for commit of tag ${tag}`);
       const reference = await this.git.locateTag({ repo, tag });
+      this.logger.debug(`Checking out found commit ${reference} for tag ${tag}`);
       await this.git.checkoutCommit({
         repo,
         commitSha: reference,
       });
     }
+    this.logger.success(`Checking out repo ${dirName}`);
     return fullDir;
   }
 }

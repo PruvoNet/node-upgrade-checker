@@ -31,14 +31,14 @@ export class Git {
   }
 
   public async checkoutCommit({ repo, commitSha }: ICheckoutCommitOptions): Promise<void> {
-    this.logger.debug(`Checking out commit ${commitSha}`);
+    this.logger.info(`Checking out commit ${commitSha}`);
     try {
       await repo.checkout(commitSha);
     } catch (e) {
       this.logger.debug(`Failed Checking out commit ${commitSha}`, e);
       throw new Error(`Failed to checkout commit ${commitSha}`);
     }
-    this.logger.debug(`Checked out commit ${commitSha}`);
+    this.logger.success(`Checked out commit ${commitSha}`);
   }
 
   public async cloneRepo({ url, dir }: CloneRepoOptions): Promise<SimpleGit> {
@@ -64,7 +64,7 @@ export class Git {
     this.logger.debug(`Located ${filteredTags.length} matching tag(s)`);
     if (filteredTags.length > 1) {
       this.logger.debug(`Too many matching tags`);
-      throw new Error(`Too many matching tags for tag ${tag} - ${filteredTags}`);
+      throw new Error(`Too many matching tags for tag ${tag} - [${filteredTags.join(`, `)}]`);
     }
     const tagRef = filteredTags[0];
     if (!tagRef) {

@@ -1,8 +1,8 @@
 ---
-name: "🐞 Bug Report"
-about: "Something isn't working well 💔"
+name: "🐞Bug Report"
+about: "Something isn't working well💔"
 labels: bug
-
+title: "bug: "
 ---
 
 <!--
