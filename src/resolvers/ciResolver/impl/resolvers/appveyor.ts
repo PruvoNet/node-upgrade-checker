@@ -75,10 +75,7 @@ export class AppVeyorResolver extends ISpecificCIResolver {
     if (!installCommands) {
       return versions;
     }
-    const nodeVersion = installCommands
-      .map(psObjectMapper)
-      .map(nodeVersionInstallMapper)
-      .filter(emptyFilter)[0];
+    const nodeVersion = installCommands.map(psObjectMapper).map(nodeVersionInstallMapper).filter(emptyFilter)[0];
     if (!nodeVersion) {
       return versions;
     }

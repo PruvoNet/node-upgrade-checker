@@ -47,22 +47,16 @@ export class Runner extends IRunner {
       });
       subProcess.on(`close`, (code) => {
         if (this.logger.isDebugEnabled()) {
-          const output = Buffer.concat(outputBuffer)
-            .toString()
-            .trim();
+          const output = Buffer.concat(outputBuffer).toString().trim();
           if (output) {
             this.logger.debug(`Command output:\n`, output);
           }
-          const errorOutput = Buffer.concat(errorBuffer)
-            .toString()
-            .trim();
+          const errorOutput = Buffer.concat(errorBuffer).toString().trim();
           if (errorOutput) {
             this.logger.debug(`Command error output:\n`, errorOutput);
           }
         } else if (code !== 0) {
-          const errorOutput = Buffer.concat(errorBuffer)
-            .toString()
-            .trim();
+          const errorOutput = Buffer.concat(errorBuffer).toString().trim();
           if (errorOutput) {
             this.logger.error(`Command error output:\n`, errorOutput);
           }

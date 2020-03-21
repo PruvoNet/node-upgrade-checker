@@ -17,9 +17,7 @@ export const dbModulesBinder = (bind: Bind): void => {
   bind<IDependencyVersionRepositoryProvider>(IDependencyVersionRepositoryProvider)
     .to(DependencyVersionRepositoryProvider)
     .inSingletonScope();
-  bind<IConnectionProvider>(IConnectionProvider)
-    .to(ConnectionProvider)
-    .inSingletonScope();
+  bind<IConnectionProvider>(IConnectionProvider).to(ConnectionProvider).inSingletonScope();
   bind<IEntity>(IEntity).toConstantValue(Dependency);
   bind<IEntity>(IEntity).toConstantValue(DependencyVersion);
 };

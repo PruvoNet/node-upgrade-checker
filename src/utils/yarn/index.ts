@@ -4,9 +4,7 @@ import { IYarn } from './interfaces/yarn';
 import Bind = interfaces.Bind;
 
 export const yarnModulesBinder = (bind: Bind): void => {
-  bind<IYarn>(IYarn)
-    .to(Yarn)
-    .inSingletonScope();
+  bind<IYarn>(IYarn).to(Yarn).inSingletonScope();
 };
 
 export * from './interfaces/yarn';
