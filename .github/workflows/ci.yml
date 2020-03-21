@@ -86,7 +86,7 @@ jobs:
 
   publish_version:
     name: Publish
-    runs-on: ${{ env.PRIMARY_OS }}
+    runs-on: ubuntu-latest
     needs: [test]
     if: github.event_name == 'release' && github.event.action == 'published'
     steps:
