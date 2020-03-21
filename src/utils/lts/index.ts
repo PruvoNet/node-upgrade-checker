@@ -4,9 +4,7 @@ import { interfaces } from 'inversify';
 import Bind = interfaces.Bind;
 
 export const ltsModulesBinder = (bind: Bind): void => {
-  bind<ILts>(ILts)
-    .to(Lts)
-    .inSingletonScope();
+  bind<ILts>(ILts).to(Lts).inSingletonScope();
 };
 
 export * from './interfaces/lts';

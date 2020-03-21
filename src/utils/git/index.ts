@@ -5,12 +5,8 @@ import { IGitCheckout } from './interfaces/gitCheckout';
 import Bind = interfaces.Bind;
 
 export const gitModuleBinder = (bind: Bind): void => {
-  bind<Git>(Git)
-    .to(Git)
-    .inSingletonScope();
-  bind<IGitCheckout>(IGitCheckout)
-    .to(GitCheckout)
-    .inSingletonScope();
+  bind<Git>(Git).to(Git).inSingletonScope();
+  bind<IGitCheckout>(IGitCheckout).to(GitCheckout).inSingletonScope();
 };
 
 export * from './interfaces/gitCheckout';

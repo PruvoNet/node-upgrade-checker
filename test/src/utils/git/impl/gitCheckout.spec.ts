@@ -2,6 +2,7 @@ import { loggerFactory } from '../../../../common/logger';
 import { GitCheckout } from '../../../../../src/utils/git/impl/gitCheckout';
 import { Git } from '../../../../../src/utils/git/impl/git';
 import { FS } from '../../../../../src/container/nodeModulesContainer';
+import { normalize } from 'path';
 
 describe(`git checkout`, () => {
   const openRepoMock = jest.fn();
@@ -25,9 +26,8 @@ describe(`git checkout`, () => {
   const gitCheckout = new GitCheckout(gitSpy, fsSpy, loggerFactory);
 
   const url = `https://git.com/temp/test.git`;
-  const baseDir = `/path/to/repo`;
-  // const repoName = `test`;
-  const fullDir = `/path/to/repo/test`;
+  const baseDir = normalize(`/path/to/repo`);
+  const fullDir = normalize(`/path/to/repo/test`);
   const tag = `test-tag`;
   const commitSha = `test-commit`;
   const repoPlaceHolder = Symbol.for(`repo`);

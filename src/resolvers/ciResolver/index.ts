@@ -11,24 +11,12 @@ import { interfaces } from 'inversify';
 import Bind = interfaces.Bind;
 
 export const ciResolverModulesBinder = (bind: Bind): void => {
-  bind<ICIResolver>(ICIResolver)
-    .to(CiResolver)
-    .inSingletonScope();
-  bind<ITargetMatcher>(ITargetMatcher)
-    .to(TargetMatcher)
-    .inSingletonScope();
-  bind<ISpecificCIResolver>(ISpecificCIResolver)
-    .to(TravisCiResolver)
-    .inSingletonScope();
-  bind<ISpecificCIResolver>(ISpecificCIResolver)
-    .to(AppVeyorResolver)
-    .inSingletonScope();
-  bind<ISpecificCIResolver>(ISpecificCIResolver)
-    .to(CircleCiResolver)
-    .inSingletonScope();
-  bind<ISpecificCIResolver>(ISpecificCIResolver)
-    .to(GithubActionsResolver)
-    .inSingletonScope();
+  bind<ICIResolver>(ICIResolver).to(CiResolver).inSingletonScope();
+  bind<ITargetMatcher>(ITargetMatcher).to(TargetMatcher).inSingletonScope();
+  bind<ISpecificCIResolver>(ISpecificCIResolver).to(TravisCiResolver).inSingletonScope();
+  bind<ISpecificCIResolver>(ISpecificCIResolver).to(AppVeyorResolver).inSingletonScope();
+  bind<ISpecificCIResolver>(ISpecificCIResolver).to(CircleCiResolver).inSingletonScope();
+  bind<ISpecificCIResolver>(ISpecificCIResolver).to(GithubActionsResolver).inSingletonScope();
 };
 
 export * from './interfaces/specificCIResolver';

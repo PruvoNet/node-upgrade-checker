@@ -25,7 +25,7 @@ const getKeyCache = (target: any, key: string): Map<any, any> => {
 };
 
 const memoizeFn = (namespace: string, func: GenericFunction, keyBuilder: GenericFunction): GenericFunction => {
-  return function(this: any, ...args: any[]): any {
+  return function (this: any, ...args: any[]): any {
     const cache = getKeyCache(this, namespace);
     const key = keyBuilder.apply(this, args);
     if (cache.has(key)) {
