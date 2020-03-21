@@ -20,7 +20,8 @@
     "camelcase",
     "binded",
     "Pruvo",
-    "contributorsrc"
+    "contributorsrc",
+    "lcov"
   ],
   "ignorePaths": [
     "**/coverage/**",
