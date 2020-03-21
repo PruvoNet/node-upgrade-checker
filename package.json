@@ -44,7 +44,8 @@
     "format:fix": "yarn prettier --write \"./**/*.{ts,js,json,md}\"",
     "format:check": "yarn prettier --list-different \"./**/*.{ts,js,json,md}\"",
     "check:spelling": "cspell --config=.cspell.json \"**/*.{md,ts,js}\"",
-    "generate-contributors": "yarn ts-node --transpile-only ./tools/generate-contributors.ts && yarn all-contributors generate"
+    "generate-contributors": "yarn ts-node --transpile-only ./tools/generate-contributors.ts && yarn all-contributors generate",
+    "check-clean-workspace-after-install": "git diff --quiet --exit-code"
   },
   "author": "Regev Brody <regevbr@gmail.com>",
   "files": [

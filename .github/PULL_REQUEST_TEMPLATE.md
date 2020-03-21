@@ -1,29 +1,46 @@
-<!-- A similar PR may already be submitted!
-Please search among the [Pull request](../) before creating one.
+<!--
+Please don't ignore this template.
 
-Thanks for submitting a pull request! Please provide enough information so that others can review your pull request:
-
-For more information, see the `CONTRIBUTING` guide.
-
+If you ignore it, we're just going to respond asking you to fill it out, which wastes everyone's time.
+The more relevant information you can include, the faster we can find the issue and fix it without asking you for more info.
 -->
-**Summary**
 
-<!-- Summary of the PR -->
+## 🎁 Pull Request
 
-This PR fixes/implements the following **bugs/features**
+<!-- Fill the following checklist. -->
+* [ ] Used a clear / meaningful title for this pull request
+* [ ] Tested the changes in your own code (on your projects)
+* [ ] Added / Edited tests to reflect changes (`tst` folder)
+* [ ] Have read the **Contributing** part of the **Readme**
+* [ ] Passed `npm test`
 
-* [ ] Bug 1
-* [ ] Bug 2
-* [ ] Feature 1
-* [ ] Feature 2
-* [ ] Breaking changes
+<!-- Complete the following parts. -->
 
-<!-- You can skip this if you're fixing a typo or alike -->
+#### Fixes
+<!-- List the issues that this fixes. -->
 
-Explain the **motivation** for making this change. What existing problem does the pull request solve?
+#### Why have you made changes?
+<!-- A clear & concise explanation. -->
 
-<!-- Example: When "Adding a function to do X", explain why it is necessary to have a way to do X. -->
+#### What changes have you made?
+* changed this to achieve this
+* changed that to achieve this
+* ...
 
-**Test plan (required)**
+#### What tests have you updated?
+* tested this in `tst/...`
+* tested that in `tst/...`
+* ...
 
-<!-- Make sure tests pass on both Travis and locally. -->
+#### Is there any breaking changes?
+<!-- Fill the following checklist. -->
+* [ ] Yes, I changed the public API & documented it
+* [ ] Yes, I changed existing tests
+* [ ] No,  I added to the public API & documented it
+* [ ] No,  I added to the existing tests
+* [ ] I don't know
+
+#### Anything else worth mentioning?
+<!-- Please help with the PR process. -->
+<!-- Leave any extra useful information. -->
+<!-- Or mention someone who is concerned. -->

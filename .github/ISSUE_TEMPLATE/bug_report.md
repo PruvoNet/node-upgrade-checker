@@ -1,41 +1,36 @@
 ---
-name: Bug report
-about: Create a report to help us improve
-title: ''
+name: "🐞 Bug Report"
+about: "Something isn't working well 💔"
 labels: bug
-assignees: regevbr
 
 ---
 
-<!-- Your issue may already be reported!
-Please search on the [issue tracker](../) before creating one.
+<!--
+Please don't ignore this template.
+
+If you ignore it, we're just going to respond asking you to fill it out, which wastes everyone's time.
+The more relevant information you can include, the faster we can find the issue and fix it without asking you for more info.
 -->
-## Expected Behavior
-<!--- If you're describing a bug, tell us what should happen -->
-<!--- If you're suggesting a change/improvement, tell us how it should work -->
 
-## Current Behavior
-<!--- If describing a bug, tell us what happens instead of the expected behavior -->
-<!--- If suggesting a change/improvement, explain the difference from current behavior -->
+## 🐞 Bug Report
 
-## Possible Solution
-<!--- Not obligatory, but suggest a fix/reason for the bug, -->
-<!--- or ideas how to implement the addition or change -->
+#### Describe the bug
+<!-- A clear and concise description of what the bug is. -->
 
-## Steps to Reproduce (for bugs)
-<!--- Provide a link to a live example, or an unambiguous set of steps to -->
-<!--- reproduce this bug. Include code to reproduce, if relevant -->
-1.
-2.
-3.
-4.
+#### Reproduce the bug
+```ts
+// REPL or a link to your repository if applicable.
+// A *self-contained* demonstration of the problem.
+```
 
-## Context
-<!--- How has this issue affected you? What are you trying to accomplish? -->
-<!--- Providing context helps us come up with a solution that is most useful in the real world -->
+#### Expected behavior
+<!-- A clear & concise description of what you expected to happen. -->
 
-## Your Environment
-<!--- Include as many relevant details about the environment you experienced the bug in -->
-* Version used:
-* Node version:
+#### Possible Solution
+<!-- Only if you have suggestions on a fix for the bug. -->
 
+#### Screenshots
+<!-- If applicable, add screenshots to help explaining. -->
+
+#### Additional context
+<!-- Add any other context about the problem here (version, environment, tools...). -->

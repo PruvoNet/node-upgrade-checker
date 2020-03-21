@@ -1,23 +1,30 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
-title: ''
+name: "🍩 Feature Request"
+about: "Suggest an idea for this project 💡"
 labels: enhancement
-assignees: regevbr
 
 ---
 
-<!-- Your feature request may already be requested!
-Please search on the [issue tracker](../) before creating one.
+<!--
+Please don't ignore this template.
+
+If you ignore it, we're just going to respond asking you to fill it out, which wastes everyone's time.
+The more relevant information you can include, the faster we can find the issue and fix it without asking you for more info.
 -->
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+## 🍩 Feature Request
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+#### Is your feature request related to a problem?
+<!-- A clear & concise description of what the problem is. (e.g. I have an issue when [...]). -->
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+#### Describe the solution you'd like
+<!-- A clear & concise description of what you want to happen. Add any considered drawbacks. -->
+
+#### Describe alternatives you've considered
+<!-- A clear & concise description of any alternative solutions or features you've considered. -->
+
+#### Teachability, Documentation, Adoption, Migration Strategy
+<!-- If you can, explain how users will be able to use this and possibly write out a
+version of the docs.
+
+Maybe a screenshot or design? -->
