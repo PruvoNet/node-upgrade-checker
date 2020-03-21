@@ -26,5 +26,5 @@ describe(`package info e2e`, () => {
       repoUrl: `git+https://github.com/PruvoNet/squiss-ts.git`,
       commitSha: `5cd3e98b5236ce93bb522a893a7e09fd4de1e39b`,
     });
-  }, 10000);
+  }, 30000);
 });

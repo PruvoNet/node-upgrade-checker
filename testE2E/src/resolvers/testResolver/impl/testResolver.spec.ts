@@ -32,7 +32,7 @@ describe(`test resolver`, () => {
     });
     expect(result.isMatch).toBe(true);
     expect(result.resolverName).toBe(`yarn run test`);
-  }, 10000);
+  }, 30000);
 
   it(`should fail yarn test flow`, async () => {
     const tmpDir = tmp.dirSync().name;
@@ -41,5 +41,5 @@ describe(`test resolver`, () => {
       repoPath: tmpDir,
     });
     expect(result.isMatch).toBe(false);
-  }, 10000);
+  }, 30000);
 });

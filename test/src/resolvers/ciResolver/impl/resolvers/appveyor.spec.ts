@@ -1,5 +1,6 @@
 import { AppVeyorResolver } from '../../../../../../src/resolvers/ciResolver/impl/resolvers/appveyor';
 import { FS } from '../../../../../../src/container/nodeModulesContainer';
+import { normalize } from 'path';
 
 describe(`appveyor`, () => {
   const repoPath = `placeholder`;
@@ -33,7 +34,7 @@ install:
       repoPath,
     });
     expect(fsMock).toBeCalledTimes(1);
-    expect(fsMock).toHaveBeenCalledWith(`placeholder/.appveyor.yml`, `utf-8`);
+    expect(fsMock).toHaveBeenCalledWith(normalize(`placeholder/.appveyor.yml`), `utf-8`);
   });
 
   it(`should resolve node js from configuration matrix`, async () => {

@@ -1,4 +1,3 @@
-import { ChildProcess } from '../../../../../src/container/nodeModulesContainer';
 import { Runner } from '../../../../../src/utils/runner/impl/runner';
 /* eslint-disable @typescript-eslint/quotes,@typescript-eslint/ban-ts-ignore */
 // @ts-ignore
@@ -8,9 +7,9 @@ import { ILogger } from '../../../../../src/utils/logger/interfaces/logger';
 
 describe(`runner`, () => {
   let mock = mockSpawn();
-  const childProcessSpy = ({
+  const childProcessSpy: any = {
     spawn: mock,
-  } as any) as ChildProcess;
+  };
   const logErrorMock = jest.fn();
   const logDebugMock = jest.fn();
   const logWarnMock = jest.fn();
@@ -61,7 +60,7 @@ describe(`runner`, () => {
   it(`should log command output`, async () => {
     isDebugEnabledMock.mockReturnValue(true);
     isTraceEnabledMock.mockReturnValue(true);
-    mock.sequence.add(function(this: any, cb: any) {
+    mock.sequence.add(function (this: any, cb: any) {
       this.stdout.write(`output data my library expects`);
       this.stderr.write(`error output data my library expects`);
       setTimeout(() => {
@@ -85,7 +84,7 @@ describe(`runner`, () => {
   it(`should log error command output`, async () => {
     isDebugEnabledMock.mockReturnValue(false);
     isTraceEnabledMock.mockReturnValue(false);
-    mock.sequence.add(function(this: any, cb: any) {
+    mock.sequence.add(function (this: any, cb: any) {
       this.stdout.write(`output data my library expects`);
       this.stderr.write(`error output data my library expects`);
       setTimeout(() => {
@@ -112,7 +111,7 @@ describe(`runner`, () => {
   it(`should not log error command output if empty output`, async () => {
     isDebugEnabledMock.mockReturnValue(false);
     isTraceEnabledMock.mockReturnValue(false);
-    mock.sequence.add(function(this: any, cb: any) {
+    mock.sequence.add(function (this: any, cb: any) {
       this.stdout.write(`output data my library expects`);
       setTimeout(() => {
         cb(1);
@@ -138,7 +137,7 @@ describe(`runner`, () => {
   it(`should not log command output`, async () => {
     isDebugEnabledMock.mockReturnValue(false);
     isTraceEnabledMock.mockReturnValue(false);
-    mock.sequence.add(function(this: any, cb: any) {
+    mock.sequence.add(function (this: any, cb: any) {
       this.stdout.write(`output data my library expects`);
       setTimeout(() => {
         cb(0);
@@ -180,7 +179,7 @@ describe(`runner`, () => {
   it(`should reject on failed spawn`, async () => {
     isDebugEnabledMock.mockReturnValue(true);
     isTraceEnabledMock.mockReturnValue(true);
-    mock.sequence.add(function(this: any, cb: any) {
+    mock.sequence.add(function (this: any, cb: any) {
       this.emit('error', new Error('spawn ENOENT'));
       setTimeout(() => {
         cb(8);

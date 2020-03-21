@@ -1,5 +1,7 @@
 import { LogReporter } from '../../../../../src/utils/logger/impl/logReporter';
 import { PassThrough } from 'stream';
+import * as chalk from 'chalk';
+import * as figures from 'figures';
 
 describe(`log reporter`, () => {
   const logReporter = new LogReporter({
@@ -32,10 +34,11 @@ describe(`log reporter`, () => {
     mockedStream.end();
     mockedStream.destroy();
     const result = await streamPromise;
-    expect(result).toBe(`
-[41m[30m ✖ [39m[49m my message
+    const expected = `
+${chalk.bgRed.black(` ` + figures(`✖`) + ` `)} my message
 
-`);
+`;
+    expect(result).toBe(expected);
   });
 
   it(`should log WARN properly`, async () => {
@@ -64,10 +67,11 @@ describe(`log reporter`, () => {
     mockedStream.end();
     mockedStream.destroy();
     const result = await streamPromise;
-    expect(result).toBe(`
-[43m[30m Ⓘ [39m[49m my message
+    const expected = `
+${chalk.bgYellow.black(` ` + figures(`Ⓘ`) + ` `)} my message
 
-`);
+`;
+    expect(result).toBe(expected);
   });
 
   it(`should log LOG properly`, async () => {
@@ -96,8 +100,9 @@ describe(`log reporter`, () => {
     mockedStream.end();
     mockedStream.destroy();
     const result = await streamPromise;
-    expect(result).toBe(`[47m[30m LOG [39m[49m my message
-`);
+    const expected = `${chalk.bgWhite.black(` LOG `)} my message
+`;
+    expect(result).toBe(expected);
   });
 
   it(`should log INFO properly`, async () => {
@@ -126,8 +131,9 @@ describe(`log reporter`, () => {
     mockedStream.end();
     mockedStream.destroy();
     const result = await streamPromise;
-    expect(result).toBe(`[44m[30m ℹ [39m[49m my message
-`);
+    const expected = `${chalk.bgBlue.black(` ` + figures(`ℹ`) + ` `)} my message
+`;
+    expect(result).toBe(expected);
   });
 
   it(`should log DEBUG properly`, async () => {
@@ -156,8 +162,9 @@ describe(`log reporter`, () => {
     mockedStream.end();
     mockedStream.destroy();
     const result = await streamPromise;
-    expect(result).toBe(`[100m[30m DEBUG [39m[49m my message
-`);
+    const expected = `${chalk.bgGrey.black(` DEBUG `)} my message
+`;
+    expect(result).toBe(expected);
   });
 
   it(`should log TRACE properly`, async () => {
@@ -186,7 +193,8 @@ describe(`log reporter`, () => {
     mockedStream.end();
     mockedStream.destroy();
     const result = await streamPromise;
-    expect(result).toBe(`[100m[30m TRACE [39m[49m my message
-`);
+    const expected = `${chalk.bgGrey.black(` TRACE `)} my message
+`;
+    expect(result).toBe(expected);
   });
 });

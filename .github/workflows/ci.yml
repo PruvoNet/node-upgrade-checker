@@ -12,6 +12,7 @@ on:
 
 env:
   PRIMARY_NODE_VERSION: 10.x
+  PRIMARY_OS: ubuntu-latest
   FORCE_COLOR: true
   JEST_CI: true
   REGISTRY: https://registry.npmjs.org/
@@ -19,10 +20,16 @@ env:
 jobs:
   test:
     name: CI
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
         node-version: [10.x, 12.x]
+        exclude:
+          - os: macos-latest
+            node-version: 10.x
+          - os: windows-latest
+            node-version: 10.x
     steps:
       - uses: actions/checkout@v2
 
@@ -49,22 +56,22 @@ jobs:
       - name: Install dependencies and build
         run: |
           yarn --ignore-engines --frozen-lockfile
-          yarn check-clean-workspace-after-install
+          yarn run check-clean-workspace-after-install
 
       - name: Check code formatting
-        run: yarn format:check
+        run: yarn run format:check
 
       - name: Run linting
-        run: yarn lint
+        run: yarn run lint
 
       - name: Validate spelling
-        run: yarn check:spelling
+        run: yarn run check:spelling
 
       - name: Run unit tests
-        run: yarn cover:unit
+        run: yarn run cover:unit
 
       - name: Publish code coverage report
-        if: matrix.node-version == env.PRIMARY_NODE_VERSION
+        if: matrix.node-version == env.PRIMARY_NODE_VERSION && matrix.os == env.PRIMARY_OS
         uses: codecov/codecov-action@v1
         with:
           yml: ./codecov.yml
@@ -110,7 +117,7 @@ jobs:
       - name: Install dependencies and build
         run: |
           yarn --ignore-engines --frozen-lockfile
-          yarn check-clean-workspace-after-install
+          yarn run check-clean-workspace-after-install
           yarn run build
 
       - name: Publish
