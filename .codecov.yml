@@ -2,7 +2,7 @@ coverage:
   status:
     patch:
       default:
-        target: 90%
+        target: 70%
     project:
       default:
         target: auto
@@ -10,4 +10,4 @@ coverage:
 comment:
   layout: diff, flags, files
   require_changes: true
-  
+

@@ -100,3 +100,4 @@ typings/
 /tsconfig.build.json
 /tsconfig.json
 /tsconfig.test.json
+/jest.config.js

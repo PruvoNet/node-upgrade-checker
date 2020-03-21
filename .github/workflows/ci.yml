@@ -11,6 +11,7 @@ on:
 env:
   PRIMARY_NODE_VERSION: 10
   FORCE_COLOR: true
+  JEST_CI: true
 
 jobs:
   test:
@@ -57,7 +58,7 @@ jobs:
         run: yarn check:spelling
 
       - name: Run unit tests
-        run: yarn cover
+        run: yarn cover:unit
 
       - name: Publish code coverage report
         uses: codecov/codecov-action@v1
@@ -67,6 +68,12 @@ jobs:
           flags: unittest
           name: codecov
           fail_ci_if_error: true
+
+      - name: Run integration tests
+        run: yarn run test:integ
+
+      - name: Run e2e tests
+        run: yarn run test:e2e
 
   publish_version:
     name: Publish new version to npm
