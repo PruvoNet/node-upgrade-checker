@@ -1,7 +1,19 @@
 {
   "name": "node-upgrade-checker",
   "version": "1.0.0",
-  "description": "",
+  "description": "node cli tool checks if your dependencies are compatible with a desired node package",
+  "keywords": [
+    "nuc",
+    "node",
+    "upgrade",
+    "npm",
+    "yarn",
+    "nodejs",
+    "node.js",
+    "check",
+    "update",
+    "lts"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
