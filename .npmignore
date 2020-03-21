@@ -52,7 +52,6 @@ CONTRIBUTORS.md
 # nyc test coverage
 .nyc_output
 nyc.config.js
-.editorconfig
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
@@ -93,11 +92,6 @@ typings/
 # next.js build output
 .next
 
-/CONTRIBUTORS.md
-/CONTRIBUTING.md
-!/CODE_OF_CONDUCT.md
-/CHANGELOG.md
 /tsconfig.build.json
-/tsconfig.json
 /tsconfig.test.json
 /jest.config.js
