@@ -1,6 +1,6 @@
 {
   "name": "node-upgrade-checker",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.1-alpha.1",
   "description": "node cli tool checks if your dependencies are compatible with a desired node package",
   "keywords": [
     "nuc",
