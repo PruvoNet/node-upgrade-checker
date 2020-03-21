@@ -58,7 +58,7 @@ export class Git extends IGit {
   }
 
   public async locateTag({ repo, tag }: ILocateTagOptions): Promise<Reference> {
-    this.logger.debug(`Locating all references of repo ${repo.getNamespace()}`);
+    this.logger.debug(`Locating all references of repo ${repo.workdir()}`);
     const refs = await repo.getReferences();
     this.logger.debug(`Located ${refs.length} references`);
     const tagRefs = refs.filter((ref) => ref.isTag());
