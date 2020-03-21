@@ -28,17 +28,10 @@
     "**/dist/**",
     "**/*.{json,snap}",
     ".cspell.json",
-    "CONTRIBUTORS.md"
+    "CONTRIBUTORS.md",
+    "CHANGELOG.md"
   ],
-  "dictionaries": [
-    "typescript",
-    "softwareTerms",
-    "node",
-    "en_US",
-    "npm",
-    "misc",
-    "filetypes"
-  ],
+  "dictionaries": ["typescript", "softwareTerms", "node", "en_US", "npm", "misc", "filetypes"],
   "overrides": [
     {
       "filename": "**/*.{ts,js}"
