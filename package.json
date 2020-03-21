@@ -1,6 +1,6 @@
 {
   "name": "node-upgrade-checker",
-  "version": "1.0.0",
+  "version": "0.0.1-alpha.0",
   "description": "node cli tool checks if your dependencies are compatible with a desired node package",
   "keywords": [
     "nuc",
@@ -57,7 +57,12 @@
     "format:check": "yarn prettier --list-different \"./**/*.{ts,js,json,md}\"",
     "check:spelling": "cspell --config=.cspell.json \"**/*.{md,ts,js}\"",
     "generate-contributors": "yarn ts-node --transpile-only ./tools/generate-contributors.ts && yarn all-contributors generate",
-    "check-clean-workspace-after-install": "git diff --quiet --exit-code"
+    "check-clean-workspace-after-install": "git diff --quiet --exit-code",
+    "docs:changelog": "yarn run changelog --allow-unknown"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PruvoNet/node-upgrade-checker.git"
   },
   "author": "Regev Brody <regevbr@gmail.com>",
   "files": [
@@ -79,10 +84,12 @@
     "@typescript-eslint/eslint-plugin": "^2.24.0",
     "@typescript-eslint/parser": "^2.24.0",
     "all-contributors-cli": "^6.14.0",
+    "changelog-maker": "^2.3.2",
     "cspell": "^4.0.55",
     "eslint": "^6.8.0",
     "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-prefer-arrow": "^1.1.7",
+    "generate-changelog": "^1.8.0",
     "jest": "^25.1.0",
     "jest-serial-runner": "^1.1.0",
     "lint-staged": "^10.0.8",
