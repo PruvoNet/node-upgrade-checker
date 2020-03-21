@@ -114,6 +114,7 @@ jobs:
 
       - name: Publish
         run: |
+          yarn config set registry https://registry.npmjs.org/
           yarn config set //registry.npmjs.org/:_authToken $NPM_AUTH_TOKEN
           yarn publish --non-interactive --no-git-tag-version
         env:
