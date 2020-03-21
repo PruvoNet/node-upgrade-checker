@@ -66,8 +66,8 @@
   },
   "author": "Regev Brody <regevbr@gmail.com>",
   "files": [
-    "dist/*.d.ts",
-    "dist/*.js"
+    "dist/**/*.d.ts",
+    "dist/**/*.js"
   ],
   "license": "ISC",
   "devDependencies": {
