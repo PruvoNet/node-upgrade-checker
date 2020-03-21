@@ -10,6 +10,7 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": false,
+    "allowUnreachableCode": false,
     "noImplicitReturns": true,
     "resolveJsonModule": true,
     "strictFunctionTypes": true,
@@ -21,8 +22,9 @@
     "inlineSourceMap": true,
     "declaration": false,
     "noEmit": true,
+    "pretty": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["src", "test", "testE2E", "testInteg"]
+  "include": ["src", "test", "testE2E", "testInteg", "tools"]
 }

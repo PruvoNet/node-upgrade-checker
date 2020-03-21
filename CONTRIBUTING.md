@@ -40,7 +40,7 @@ Developing in this repo is easy:
 We have a sophisticated CI process setup which gets run on every PR. You must pass all of the checks for us to consider merging your PR. Here is a list of checks that are done automatically, that you can also perform locally before pushing.
 
 - Ensure your code is properly formatted.
-  - You can run `yarn format` in any package or in the root.
+  - You can run `yarn format:check` in any package or in the root.
   - Alternatively, you can run prettier on save.
 - Ensure your changes are adequately tested.
   - You can run `yarn test` in any package.

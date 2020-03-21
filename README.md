@@ -18,6 +18,15 @@ Node Upgrade Checker (or NUC) is a node cli tool checks if your dependencies are
 
 NUC supports Node 10 LTS and higher.
 
+## Code Contributors
+
+This project exists thanks to every one of the awesome people who contribute code and documentation:
+
+<a href="https://github.com/PruvoNet/node-upgrade-checker/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=PruvoNet/node-upgrade-checker" alt="contributors" />
+</a>
+🙏 An extra special thanks goes out to the wonderful people listed in [`CONTRIBUTORS.md`](./CONTRIBUTORS.md)
+
 ## Contributing
 
 [See the contributing guide here](./CONTRIBUTING.md)

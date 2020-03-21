@@ -15,7 +15,7 @@ describe(`git`, () => {
   const commitSpy = ({
     id: () => {
       return {
-        tostrS: () => {
+        tostrS: (): string => {
           return `test-commit-sha`;
         },
       };

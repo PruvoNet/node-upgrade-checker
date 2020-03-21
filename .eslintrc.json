@@ -116,7 +116,7 @@
     "max-len": [
       "error",
       {
-        "code": 120
+        "code": 130
       }
     ],
     "new-parens": "error",
