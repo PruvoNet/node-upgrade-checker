@@ -1,6 +1,6 @@
 [![Npm Version](https://img.shields.io/npm/v/node-upgrade-checker.svg?style=popout)](https://www.npmjs.com/package/node-upgrade-checker)
-[![Build Status](https://img.shields.io/github/workflow/status/PruvoNet/node-upgrade-checker/CI?style=flat-square)](https://github.com/PruvoNet/node-upgrade-checker/actions)
-[![Test Coverage](https://img.shields.io/codecov/c/github/PruvoNet/node-upgrade-checker.svg?style=flat-square)](https://codecov.io/gh/PruvoNet/node-upgrade-checker)
+![CI](https://github.com/PruvoNet/node-upgrade-checker/workflows/CI/badge.svg?branch=master)
+[![codecov](https://codecov.io/gh/PruvoNet/node-upgrade-checker/branch/master/graph/badge.svg)](https://codecov.io/gh/PruvoNet/node-upgrade-checker)
 [![Known Vulnerabilities](https://snyk.io/test/github/PruvoNet/node-upgrade-checker/badge.svg?targetFile=package.json)](https://snyk.io/test/github/PruvoNet/node-upgrade-checker?targetFile=package.json)
 [![dependencies Status](https://david-dm.org/PruvoNet/node-upgrade-checker/status.svg)](https://david-dm.org/PruvoNet/node-upgrade-checker)
 [![devDependencies Status](https://david-dm.org/PruvoNet/node-upgrade-checker/dev-status.svg)](https://david-dm.org/PruvoNet/node-upgrade-checker?type=dev)
