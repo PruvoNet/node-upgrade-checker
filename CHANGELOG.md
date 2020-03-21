@@ -24,6 +24,7 @@
 
 ##### Features
 
+*  automate changelog fix [#1](https://github.com/PruvoNet/node-upgrade-checker/pull/1) ([64592df1](https://github.com/PruvoNet/node-upgrade-checker/commit/64592df16422e8c206ac6e6c359a921f19af8ebb))
 *  add category to loggers ([02739516](https://github.com/PruvoNet/node-upgrade-checker/commit/02739516973d304ad6019702c22d3229367341e2))
 *  add logger ([421227bf](https://github.com/PruvoNet/node-upgrade-checker/commit/421227bf0f2f9c1500853bbc8f745b02df0d3eb6))
 *  add logger ([6138f64b](https://github.com/PruvoNet/node-upgrade-checker/commit/6138f64bef5156b48e439a2c15668b1122de62d2))

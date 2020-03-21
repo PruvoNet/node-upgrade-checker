@@ -15,7 +15,7 @@ env:
   PRIMARY_NODE_VERSION: 10.x
   FORCE_COLOR: true
   JEST_CI: true
-  RELEASE_COMMIT: "chore: Release (\\S+)"
+  RELEASE_COMMIT: "chore: release (\\S+)"
 
 jobs:
   test:
