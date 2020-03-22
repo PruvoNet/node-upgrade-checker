@@ -34,3 +34,7 @@ This project exists thanks to every one of the awesome people who contribute cod
 ## Contributing
 
 [See the contributing guide here](./CONTRIBUTING.md)
+
+## Community
+
+[Join our Gitter channel](https://gitter.im/node-upgrade-checker/community)
