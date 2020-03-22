@@ -21,7 +21,7 @@
   },
   "engineStrict": true,
   "engines": {
-    "node": "^10 || ^12"
+    "node": "^10 || ^12 || ^13"
   },
   "scripts": {
     "envcheck": "node -e \"if(!/yarn\\.js$/.test(process.env.npm_execpath))throw new Error('Use yarn')\"",
