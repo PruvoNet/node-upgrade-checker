@@ -21,7 +21,8 @@
     "Pruvo",
     "contributorsrc",
     "simplegit",
-    "lcov"
+    "lcov",
+    "Gitter"
   ],
   "ignorePaths": [
     "**/coverage/**",
