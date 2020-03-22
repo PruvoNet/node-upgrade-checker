@@ -34,3 +34,6 @@ This project exists thanks to every one of the awesome people who contribute cod
 ## Contributing
 
 [See the contributing guide here](./CONTRIBUTING.md)
+
+Simple test for github
+
