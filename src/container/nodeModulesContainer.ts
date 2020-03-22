@@ -3,10 +3,12 @@ import * as fs from 'fs';
 import * as pacote from 'pacote';
 import * as simpleGit from 'simple-git/promise';
 import * as spawn from 'cross-spawn';
+import axios from 'axios';
 import { interfaces } from 'inversify';
 import Bind = interfaces.Bind;
 
 export type Spawn = typeof spawn;
+export type Axios = typeof axios;
 export type Pacote = typeof pacote;
 export type FS = typeof fs;
 export type TypeOrm = typeof typeorm;
@@ -17,6 +19,7 @@ export const TYPES = {
   Pacote: Symbol.for(`Pacote`),
   Spawn: Symbol.for(`Spawn`),
   SimpleGit: Symbol.for(`SimpleGit`),
+  Axios: Symbol.for(`Axios`),
 };
 
 export const nodeModulesBinder = (bind: Bind): void => {
@@ -25,4 +28,5 @@ export const nodeModulesBinder = (bind: Bind): void => {
   bind<Pacote>(TYPES.Pacote).toConstantValue(pacote);
   bind<Spawn>(TYPES.Spawn).toConstantValue(spawn);
   bind<SimpleGitFn>(TYPES.SimpleGit).toConstantValue(simpleGit);
+  bind<Axios>(TYPES.Axios).toConstantValue(axios);
 };

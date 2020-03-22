@@ -13,16 +13,7 @@ const testPackageJsonFile = path.join(__dirname, testPackageJsonFileName);
 const failPackageJsonFile = path.join(__dirname, failTestPageJsonFileName);
 
 describe(`test resolver`, () => {
-  let testResolver: ITestResolver;
-
-  beforeEach(() => {
-    container.snapshot();
-    testResolver = container.get(ITestResolver);
-  });
-
-  afterEach(() => {
-    container.restore();
-  });
+  const testResolver = container.get(ITestResolver);
 
   it(`should resolve on test success`, async () => {
     const tmpDir = tmp.dirSync().name;

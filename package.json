@@ -105,6 +105,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "axios": "~0.19.2",
     "chalk": "~3.0.0",
     "consola": "~2.11.3",
     "cross-spawn": "~7.0.1",
