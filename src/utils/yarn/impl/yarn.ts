@@ -1,4 +1,4 @@
-import { IRunner } from '../../runner';
+import { ICommandRunner } from '../../commandRunner';
 import { IYarn, IYarnOptions } from '../interfaces/yarn';
 import { injectable } from 'inversify';
 import { ILoggerFactory } from '../../logger';
@@ -7,7 +7,7 @@ import { ILogger } from '../../logger/interfaces/logger';
 @injectable()
 export class Yarn extends IYarn {
   private logger: ILogger;
-  constructor(private runner: IRunner, loggerFactory: ILoggerFactory) {
+  constructor(private runner: ICommandRunner, loggerFactory: ILoggerFactory) {
     super();
     this.logger = loggerFactory.getLogger(`Yarn`);
   }
