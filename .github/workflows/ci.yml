@@ -82,7 +82,7 @@ jobs:
           fail_ci_if_error: true
 
       - name: Run unit tests
-        if: !(matrix.node-version == env.PRIMARY_NODE_VERSION && matrix.os == env.PRIMARY_OS)
+        if: "!(matrix.node-version == env.PRIMARY_NODE_VERSION && matrix.os == env.PRIMARY_OS)"
         run: yarn run test:unit
 
       - name: Run integration tests
