@@ -1,0 +1,24 @@
+on:
+  issue_comment:
+    types: [created]
+
+name: Retest
+jobs:
+  retest:
+    name: Retest
+    if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/retest')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.BOT_ACCESS_TOKEN }}
+          event-type: retest
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "head_ref": "${{ github.head_ref }}"}'
+  # https://github.community/t5/GitHub-Actions/Workflow-is-failing-if-no-job-can-be-ran-due-to-condition/m-p/38186#M3250
+  always_job:
+    name: Always run job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Always run
+        run: echo "This job is used to prevent the workflow to fail when all other jobs are skipped."
