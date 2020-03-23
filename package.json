@@ -105,19 +105,19 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "chalk": "^3.0.0",
-    "consola": "^2.11.3",
-    "cross-spawn": "^7.0.1",
-    "figures": "^3.2.0",
-    "inversify": "^5.0.1",
-    "moment": "^2.24.0",
-    "pacote": "^11.1.4",
-    "reflect-metadata": "^0.1.13",
-    "simple-git": "^1.132.0",
-    "sqlite3": "^4.1.1",
-    "tmp": "^0.1.0",
-    "typeorm": "^0.2.24",
-    "yaml": "^1.8.3"
+    "chalk": "~3.0.0",
+    "consola": "~2.11.3",
+    "cross-spawn": "~7.0.1",
+    "figures": "~3.2.0",
+    "inversify": "~5.0.1",
+    "moment": "~2.24.0",
+    "pacote": "~11.1.4",
+    "reflect-metadata": "~0.1.13",
+    "simple-git": "~1.132.0",
+    "sqlite3": "~4.1.1",
+    "tmp": "~0.1.0",
+    "typeorm": "~0.2.24",
+    "yaml": "~1.8.3"
   },
   "commitlint": {
     "extends": [
