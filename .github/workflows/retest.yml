@@ -17,6 +17,8 @@ jobs:
 
       - name: Get PR data
         id: pr-data
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_ACCESS_TOKEN }}
         run: |
           /bin/bash .github/workflows/scripts/getCommentPrData.sh
 
