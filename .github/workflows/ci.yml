@@ -83,15 +83,15 @@ jobs:
       - name: Validate spelling
         run: yarn run check:spelling
 
-      - name: Verify types
-        if: matrix.node-version == env.PRIMARY_NODE_VERSION && matrix.os == env.PRIMARY_OS
-        run: yarn run compile
-
       - name: Snyk security check
         if: matrix.node-version == env.PRIMARY_NODE_VERSION && matrix.os == env.PRIMARY_OS
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Verify types
+        if: matrix.node-version == env.PRIMARY_NODE_VERSION && matrix.os == env.PRIMARY_OS
+        run: yarn run compile
 
       - name: Run unit tests with coverage
         if: matrix.node-version == env.PRIMARY_NODE_VERSION && matrix.os == env.PRIMARY_OS
