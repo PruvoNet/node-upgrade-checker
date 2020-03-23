@@ -25,15 +25,13 @@ if [[ -z "$BASE_BRANCH" ]]; then
 	exit 1
 fi
 
-HEAD_BRANCH=$(echo "$pr_resp" | jq -r .head.ref)
 SHA=$(echo "$pr_resp" | jq -r .head.sha)
 
 echo "Base branch for PR #$PR_NUMBER is $BASE_BRANCH"
 
 PAYLOAD=$( jq -n -c \
-                  --arg headRef "$HEAD_BRANCH" \
-                  --arg baseRef "$BASE_BRANCH" \
+                  --arg headRef "refs/pull/$PR_NUMBER/merge" \
                   --arg sha "$SHA" \
-                  '{base_ref: $baseRef, head_ref: $headRef, sha: $sha, ref: $headRef}' )
+                  '{base_ref: "master", sha: $sha, ref: $headRef}' )
 
 echo "::set-output name=payload::$PAYLOAD"
