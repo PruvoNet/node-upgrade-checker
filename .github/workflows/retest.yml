@@ -9,12 +9,24 @@ jobs:
     if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/retest')
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+          ref: master
+
+      - name: Get PR data
+        id: pr-data
+        run: |
+          /bin/bash .github/workflows/scripts/getCommentPrData.sh
+
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.BOT_ACCESS_TOKEN }}
           event-type: retest
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "head_ref": "${{ github.head_ref }}"}'
+          client-payload: ${{ steps.pr-data.outputs.payload }}
+
   # https://github.community/t5/GitHub-Actions/Workflow-is-failing-if-no-job-can-be-ran-due-to-condition/m-p/38186#M3250
   always_job:
     name: Always run job
