@@ -30,7 +30,7 @@ SHA=$(echo "$pr_resp" | jq -r .head.sha)
 
 echo "Base branch for PR #$PR_NUMBER is $BASE_BRANCH"
 
-PAYLOAD=$( jq -n \
+PAYLOAD=$( jq -n -c \
                   --arg headRef "$HEAD_BRANCH" \
                   --arg baseRef "$BASE_BRANCH" \
                   --arg sha "$SHA" \
