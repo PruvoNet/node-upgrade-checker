@@ -1,4 +1,5 @@
 import { CommandRunner } from '../../../../../src/utils/commandRunner/impl/commandRunner';
+// @ts-ignore
 import mockSpawn = require('mock-spawn');
 import { ILoggerFactory } from '../../../../../src/utils/logger';
 import { ILogger } from '../../../../../src/utils/logger/interfaces/logger';
