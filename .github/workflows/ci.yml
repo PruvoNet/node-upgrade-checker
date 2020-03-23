@@ -40,9 +40,9 @@ jobs:
 
       - name: echo env variables
         run: |
-          echo ref: ${{ github.ref }}
-          echo sha: ${{ github.sha }}
-          echo head ref: ${{ github.head_ref }}
+          echo ref: ${{ github.event.client_payload.ref || github.ref }}
+          echo sha: ${{ github.event.client_payload.sha || github.sha }}
+          echo head ref: ${{ github.event.client_payload.head_ref || github.head_ref }}
           echo base ref: ${{ github.base_ref }}
           echo action: ${{ github.action }}
           echo event: ${{ github.event_name }}
@@ -51,11 +51,7 @@ jobs:
         name: Checkout
         if: github.event_name == 'repository_dispatch' && github.event.action == 'retest'
         with:
-          ref: ${{ github.event.client_payload.ref }}
-
-      - uses: actions/checkout@v2
-        name: Checkout
-        if: "!(github.event_name == 'repository_dispatch' && github.event.action == 'retest')"
+          ref: ${{ github.event.client_payload.ref || github.ref }}
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -95,6 +91,10 @@ jobs:
       - name: Publish code coverage report
         if: matrix.node-version == env.PRIMARY_NODE_VERSION && matrix.os == env.PRIMARY_OS
         uses: codecov/codecov-action@v1
+        env:
+          GITHUB_REF: ${{ github.event.client_payload.ref || github.ref }}
+          GITHUB_SHA: ${{ github.event.client_payload.sha || github.sha }}
+          GITHUB_HEAD_REF: ${{ github.event.client_payload.head_ref || github.head_ref }}
         with:
           yml: ./codecov.yml
           token: ${{ secrets.CODECOV_TOKEN }}
