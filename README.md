@@ -6,7 +6,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/PruvoNet/node-upgrade-checker/badge.svg?targetFile=package.json)](https://snyk.io/test/github/PruvoNet/node-upgrade-checker?targetFile=package.json)
 [![dependencies Status](https://david-dm.org/PruvoNet/node-upgrade-checker/status.svg)](https://david-dm.org/PruvoNet/node-upgrade-checker)
 [![devDependencies Status](https://david-dm.org/PruvoNet/node-upgrade-checker/dev-status.svg)](https://david-dm.org/PruvoNet/node-upgrade-checker?type=dev)
-[![Gitter](https://badges.gitter.im/node-upgrade-checker/community.svg)](https://gitter.im/node-upgrade-checker/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Discord](https://img.shields.io/discord/691608541915775017)](https://discord.gg/P28NWr)
 
 # WARNING
 
