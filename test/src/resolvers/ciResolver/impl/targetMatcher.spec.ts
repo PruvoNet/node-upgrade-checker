@@ -1,6 +1,5 @@
 import { ILts } from '../../../../../src/utils/lts';
 import { TargetMatcher } from '../../../../../src/resolvers/ciResolver/impl/targetMatcher';
-// eslint-disable-next-line @typescript-eslint/quotes
 import moment = require('moment');
 
 const dateFormat = `YYYY-MM-DD`;

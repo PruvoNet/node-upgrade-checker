@@ -1,6 +1,5 @@
 // @ts-ignore
 import { ConsolaLogObject, ConsolaReporter, ConsolaReporterArgs, FancyReporter } from 'consola';
-// eslint-disable-next-line @typescript-eslint/quotes
 import chalk = require('chalk');
 import * as figures from 'figures';
 

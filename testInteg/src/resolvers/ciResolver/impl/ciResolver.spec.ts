@@ -2,7 +2,6 @@ import * as path from 'path';
 import { ICIResolver } from '../../../../../src/resolvers/ciResolver';
 import { resourcesDir } from '../../../../common';
 import { container } from '../../../../../src/container';
-// eslint-disable-next-line @typescript-eslint/quotes
 import moment = require('moment');
 
 const dateFormat = `YYYY-MM-DD`;

@@ -1,5 +1,4 @@
 import { buildDateTransformer } from '../../../../src/db/impl/dateTransformer';
-// eslint-disable-next-line @typescript-eslint/quotes
 import moment = require('moment');
 
 describe(`date transformer`, () => {

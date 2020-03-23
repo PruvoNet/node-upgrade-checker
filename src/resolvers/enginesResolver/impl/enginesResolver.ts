@@ -1,11 +1,8 @@
 import { injectable } from 'inversify';
 import { IResolverResult } from '../../types';
 import { IEnginesResolver, IEnginesResolverOptions } from '../interfaces/enginesResolver';
-// eslint-disable-next-line @typescript-eslint/quotes
 import semver = require('semver');
-// eslint-disable-next-line @typescript-eslint/quotes
 import SemVer = require('semver/classes/semver');
-// eslint-disable-next-line @typescript-eslint/quotes
 import Comparator = require('semver/classes/comparator');
 
 const semverOptions = {
