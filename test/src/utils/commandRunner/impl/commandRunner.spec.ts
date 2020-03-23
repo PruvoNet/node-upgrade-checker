@@ -1,11 +1,11 @@
-import { Runner } from '../../../../../src/utils/runner/impl/runner';
+import { CommandRunner } from '../../../../../src/utils/commandRunner/impl/commandRunner';
 /* eslint-disable @typescript-eslint/quotes,@typescript-eslint/ban-ts-ignore */
 // @ts-ignore
 import mockSpawn = require('mock-spawn');
 import { ILoggerFactory } from '../../../../../src/utils/logger';
 import { ILogger } from '../../../../../src/utils/logger/interfaces/logger';
 
-describe(`runner`, () => {
+describe(`command runner`, () => {
   let mock = mockSpawn();
   const childProcessSpy: any = {
     spawn: mock,
@@ -27,7 +27,7 @@ describe(`runner`, () => {
   const loggerFactorySpy: ILoggerFactory = {
     getLogger: getLoggerMock as any,
   };
-  const runner = new Runner(childProcessSpy, loggerFactorySpy);
+  const runner = new CommandRunner(childProcessSpy, loggerFactorySpy);
 
   beforeEach(() => {
     getLoggerMock.mockReset();

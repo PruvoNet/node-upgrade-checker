@@ -1,6 +1,6 @@
 import { SpawnOptionsWithoutStdio } from 'child_process';
 import { inject, injectable } from 'inversify';
-import { IExecuteCommandOptions, IRunner } from '../interfaces/runner';
+import { IExecuteCommandOptions, ICommandRunner } from '../interfaces/ICommandRunner';
 import { Spawn, TYPES } from '../../../container/nodeModulesContainer';
 import { ILoggerFactory } from '../../logger';
 import { ILogger } from '../../logger/interfaces/logger';
@@ -12,7 +12,7 @@ interface IPromisifiedSpawnOptions {
 }
 
 @injectable()
-export class Runner extends IRunner {
+export class CommandRunner extends ICommandRunner {
   private logger: ILogger;
 
   constructor(@inject(TYPES.Spawn) private spawn: Spawn, loggerFactory: ILoggerFactory) {

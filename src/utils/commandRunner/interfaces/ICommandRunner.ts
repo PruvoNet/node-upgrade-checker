@@ -7,6 +7,6 @@ export interface IExecuteCommandOptions {
 }
 
 @injectable()
-export abstract class IRunner {
+export abstract class ICommandRunner {
   public abstract async executeCommand(options: IExecuteCommandOptions): Promise<void>;
 }

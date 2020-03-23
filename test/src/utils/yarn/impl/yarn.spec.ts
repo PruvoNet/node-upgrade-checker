@@ -1,11 +1,11 @@
 import { Yarn } from '../../../../../src/utils/yarn/impl/yarn';
 import { loggerFactory } from '../../../../common/logger';
-import { IRunner } from '../../../../../src/utils/runner';
+import { ICommandRunner } from '../../../../../src/utils/commandRunner';
 
 describe(`yarn`, () => {
   const cwd = `my cwd`;
   const executeCommandMock = jest.fn();
-  const runnerSpy: IRunner = {
+  const runnerSpy: ICommandRunner = {
     executeCommand: executeCommandMock,
   };
   const yarn = new Yarn(runnerSpy, loggerFactory);
