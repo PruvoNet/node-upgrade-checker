@@ -7,8 +7,6 @@ interface IData {
 }
 
 describe(`memoize`, () => {
-  const argHash = jest.fn((...args: any[]) => args.join(`:`));
-
   class Dummy {
     public method0Mock = jest.fn(() => {
       return this.data.method0;
@@ -32,7 +30,7 @@ describe(`memoize`, () => {
       return this.method1Mock(...args);
     }
 
-    @memoize(argHash)
+    @memoize((...args: any[]) => args.join(`:`))
     public method2(...args: any[]): string {
       return this.method2Mock(...args);
     }

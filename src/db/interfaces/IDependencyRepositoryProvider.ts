@@ -1,8 +1,4 @@
 import { Dependency } from '../entities/dependency';
-import { injectable } from 'inversify';
-import { Repository } from 'typeorm';
+import { IRepositoryProvider } from './IRepositoryProvider';
 
-@injectable()
-export abstract class IDependencyRepositoryProvider {
-  public abstract async getRepository(): Promise<Repository<Dependency>>;
-}
+export abstract class IDependencyRepositoryProvider extends IRepositoryProvider<Dependency> {}

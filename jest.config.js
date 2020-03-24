@@ -25,6 +25,7 @@ const config = {
 
 if (process.env.JEST_CI) {
   config.runner = 'jest-serial-runner';
+  config.coverageReporters.push(`text`);
 }
 
 module.exports = config;

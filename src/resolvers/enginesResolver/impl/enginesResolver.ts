@@ -11,11 +11,11 @@ const semverOptions = {
 
 const coerceSemVer = (version: SemVer): SemVer => {
   const majorStr = version.major.toFixed(0);
-  return semver.coerce(majorStr, semverOptions)!;
+  return semver.coerce(majorStr)!;
 };
 
 const coerce = (version: string): string | undefined => {
-  const coercedAll = semver.coerce(version, semverOptions);
+  const coercedAll = semver.coerce(version);
   if (!coercedAll) {
     return undefined;
   }

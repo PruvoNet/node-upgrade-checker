@@ -1,4 +1,4 @@
-import { BindingTypes, testBindings } from '../../../common/bindingTester';
+import { BindingTypes, testBindings } from '../../../common/testers/bindingTester';
 import { ICommandRunner, commandRunnerModuleBinder } from '../../../../src/utils/commandRunner';
 import { CommandRunner } from '../../../../src/utils/commandRunner/impl/commandRunner';
 

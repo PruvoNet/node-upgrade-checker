@@ -1,21 +1,17 @@
 import { Dependency, IDependencyRepositoryProvider } from '../../../../../src/db';
 import { Repository } from 'typeorm';
 import { CacheResolver } from '../../../../../src/resolvers/cacheResolver/impl/cacheResolver';
+import { loggerFactory } from '../../../../common/logger';
+import { mock, mockReset } from 'jest-mock-extended';
 
 describe(`cache resolver`, () => {
-  const findOneStub = jest.fn();
-  const repositorySpy = ({
-    findOne: findOneStub,
-  } as any) as Repository<Dependency>;
-  const dependencyRepositoryProviderSpy: IDependencyRepositoryProvider = {
-    getRepository: async (): Promise<Repository<Dependency>> => {
-      return repositorySpy;
-    },
-  };
-  const cacheResolver = new CacheResolver(dependencyRepositoryProviderSpy);
+  const repositoryMock = mock<Repository<Dependency>>();
+  const dependencyRepositoryProviderMock = mock<IDependencyRepositoryProvider>();
+  dependencyRepositoryProviderMock.getRepository.mockResolvedValue(repositoryMock);
+  const cacheResolver = new CacheResolver(dependencyRepositoryProviderMock, loggerFactory);
 
   beforeEach(() => {
-    findOneStub.mockReset();
+    mockReset(repositoryMock);
   });
 
   it(`should resolve if match in cache`, async () => {
@@ -26,7 +22,7 @@ describe(`cache resolver`, () => {
       name: `test dependency`,
       reason: `circleCi`,
     });
-    findOneStub.mockResolvedValue(dependency);
+    repositoryMock.findOne.mockResolvedValue(dependency);
     const targetNode = `8`;
     const result = await cacheResolver.resolve({
       repo: {
@@ -35,13 +31,72 @@ describe(`cache resolver`, () => {
       },
       targetNode,
     });
-    expect(findOneStub).toHaveBeenCalledWith({
+    expect(repositoryMock.findOne).toHaveBeenCalledWith({
       name: dependency.name,
       version: dependency.version,
       targetNode,
     });
-    expect(result.isMatch).toBe(true);
-    expect(result.resolverName).toBe(`circleCi (cache)`);
+    expect(result).toEqual({
+      isMatch: true,
+      resolverName: `circleCi (cache)`,
+      result: true,
+    });
+  });
+
+  it(`should resolve if no match in cache`, async () => {
+    const dependency = new Dependency({
+      targetNode: `12`,
+      match: false,
+      version: `4.0.1`,
+      name: `test dependency`,
+      reason: `circleCi`,
+    });
+    repositoryMock.findOne.mockResolvedValue(dependency);
+    const targetNode = `8`;
+    const result = await cacheResolver.resolve({
+      repo: {
+        version: dependency.version,
+        name: dependency.name,
+      },
+      targetNode,
+    });
+    expect(repositoryMock.findOne).toHaveBeenCalledWith({
+      name: dependency.name,
+      version: dependency.version,
+      targetNode,
+    });
+    expect(result).toEqual({
+      isMatch: true,
+      resolverName: `circleCi (cache)`,
+      result: false,
+    });
+  });
+
+  it(`should not resolve if in cache without match result`, async () => {
+    const dependency = new Dependency({
+      targetNode: `12`,
+      match: undefined,
+      version: `4.0.1`,
+      name: `test dependency`,
+      reason: `circleCi`,
+    });
+    repositoryMock.findOne.mockResolvedValue(undefined);
+    const targetNode = `8`;
+    const result = await cacheResolver.resolve({
+      repo: {
+        version: dependency.version,
+        name: dependency.name,
+      },
+      targetNode,
+    });
+    expect(repositoryMock.findOne).toHaveBeenCalledWith({
+      name: dependency.name,
+      version: dependency.version,
+      targetNode,
+    });
+    expect(result).toEqual({
+      isMatch: false,
+    });
   });
 
   it(`should not resolve if not in cache`, async () => {
@@ -52,7 +107,7 @@ describe(`cache resolver`, () => {
       name: `test dependency`,
       reason: `circleCi`,
     });
-    findOneStub.mockResolvedValue(undefined);
+    repositoryMock.findOne.mockResolvedValue(undefined);
     const targetNode = `8`;
     const result = await cacheResolver.resolve({
       repo: {
@@ -61,12 +116,14 @@ describe(`cache resolver`, () => {
       },
       targetNode,
     });
-    expect(findOneStub).toHaveBeenCalledWith({
+    expect(repositoryMock.findOne).toHaveBeenCalledWith({
       name: dependency.name,
       version: dependency.version,
       targetNode,
     });
-    expect(result.isMatch).toBe(false);
+    expect(result).toEqual({
+      isMatch: false,
+    });
   });
 
   it(`should not resolve if cache error`, async () => {
@@ -77,7 +134,7 @@ describe(`cache resolver`, () => {
       name: `test dependency`,
       reason: `circleCi`,
     });
-    findOneStub.mockRejectedValue(new Error());
+    repositoryMock.findOne.mockRejectedValue(new Error());
     const targetNode = `8`;
     const result = await cacheResolver.resolve({
       repo: {
@@ -86,7 +143,7 @@ describe(`cache resolver`, () => {
       },
       targetNode,
     });
-    expect(findOneStub).toHaveBeenCalledWith({
+    expect(repositoryMock.findOne).toHaveBeenCalledWith({
       name: dependency.name,
       version: dependency.version,
       targetNode,

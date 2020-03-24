@@ -1,11 +1,17 @@
-export interface IRootNode {
+export interface IBaseNode {
   value: any;
 }
 
-export interface INode extends IRootNode {
+export interface IRootNode extends IBaseNode {
+  isNonRootNode: false;
+}
+
+export interface INode extends IBaseNode {
   parent: IParent;
   key: string;
   depth: number;
+  isLeaf: boolean;
+  isNonRootNode: true;
 }
 
 export type IParent = INode | IRootNode;
@@ -17,22 +23,23 @@ export const keySorter: NodeSorter = (a: INode, b: INode) => {
 };
 
 export function* objectIterator(obj: any, sorter?: NodeSorter): ObjectIterator {
-  yield* iterator({ value: obj }, obj, 0, sorter || keySorter, new Set<any>());
+  yield* iterator({ value: obj, isNonRootNode: false }, obj, 0, sorter || keySorter, new Set<any>());
 }
 
 function* iterator(parent: IParent, obj: any, depth: number, sorter: NodeSorter, cache: Set<any>): ObjectIterator {
-  if (!isObject(obj) || cache.has(obj)) {
+  if (cache.has(obj)) {
     return;
   }
   cache.add(obj);
   const nextDepth = depth + 1;
-  const nodes = Object.keys(obj).map((key) => {
+  const nodes: INode[] = Object.keys(obj).map((key) => {
     const value = obj[key];
-    return { key, value, depth, parent };
+    const isLeaf = !isObject(value);
+    return { key, value, depth, parent, isLeaf, isNonRootNode: true };
   });
   nodes.sort(sorter);
   for (const node of nodes) {
-    if (!(yield node)) {
+    if (!(yield node) && !node.isLeaf) {
       yield* iterator(node, node.value, nextDepth, sorter, cache);
     }
   }

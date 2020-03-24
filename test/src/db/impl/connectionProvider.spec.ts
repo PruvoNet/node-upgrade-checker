@@ -1,25 +1,21 @@
-import Mock = jest.Mock;
 import * as path from 'path';
 import { Dependency, DependencyVersion, IConnectionSettings } from '../../../../src/db';
 import * as tmp from 'tmp';
 import { ConnectionProvider } from '../../../../src/db/impl/connectionProvider';
 import { TypeOrm } from '../../../../src/container/nodeModulesContainer';
+import { loggerFactory } from '../../../common/logger';
+import { mock, mockClear } from 'jest-mock-extended';
+import { Connection } from 'typeorm';
 
 describe(`connection provider`, () => {
-  const placeholder = `PLACEHOLDER`;
-
   let tmpDir: string;
-
-  let createConnectionMock: Mock;
-  let typeOrmSpy: TypeOrm;
+  const connectionMock = mock<Connection>();
+  const typeOrmMock = mock<TypeOrm>();
+  typeOrmMock.createConnection.mockResolvedValue(connectionMock);
 
   beforeEach(() => {
     tmpDir = tmp.dirSync().name;
-    createConnectionMock = jest.fn();
-    createConnectionMock.mockResolvedValue(placeholder);
-    typeOrmSpy = ({
-      createConnection: createConnectionMock,
-    } as any) as TypeOrm;
+    mockClear(typeOrmMock);
   });
 
   it(`should call createConnection properly`, async () => {
@@ -27,11 +23,11 @@ describe(`connection provider`, () => {
       databaseFilePath: tmpDir,
       dropSchema: false,
     };
-    const connectionProvider = new ConnectionProvider(settings, typeOrmSpy, [Dependency]);
+    const connectionProvider = new ConnectionProvider(settings, typeOrmMock, [Dependency], loggerFactory);
     const conn = await connectionProvider.getConnection();
-    expect(conn).toBe(placeholder);
-    expect(createConnectionMock).toBeCalledTimes(1);
-    expect(createConnectionMock).toHaveBeenCalledWith({
+    expect(conn).toBe(connectionMock);
+    expect(typeOrmMock.createConnection).toBeCalledTimes(1);
+    expect(typeOrmMock.createConnection).toHaveBeenCalledWith({
       name: tmpDir,
       type: `sqlite`,
       database: path.join(tmpDir, `cache.db`),
@@ -47,11 +43,11 @@ describe(`connection provider`, () => {
       databaseFilePath: tmpDir,
       dropSchema: true,
     };
-    const connectionProvider = new ConnectionProvider(settings, typeOrmSpy, [DependencyVersion]);
+    const connectionProvider = new ConnectionProvider(settings, typeOrmMock, [DependencyVersion], loggerFactory);
     const conn = await connectionProvider.getConnection();
-    expect(conn).toBe(placeholder);
-    expect(createConnectionMock).toBeCalledTimes(1);
-    expect(createConnectionMock).toHaveBeenCalledWith({
+    expect(conn).toBe(connectionMock);
+    expect(typeOrmMock.createConnection).toBeCalledTimes(1);
+    expect(typeOrmMock.createConnection).toHaveBeenCalledWith({
       name: tmpDir,
       type: `sqlite`,
       database: path.join(tmpDir, `cache.db`),
@@ -67,11 +63,11 @@ describe(`connection provider`, () => {
       databaseFilePath: tmpDir,
       dropSchema: false,
     };
-    const connectionProvider = new ConnectionProvider(settings, typeOrmSpy, []);
+    const connectionProvider = new ConnectionProvider(settings, typeOrmMock, [], loggerFactory);
     const conn = await connectionProvider.getConnection();
     const conn2 = await connectionProvider.getConnection();
     expect(conn).toBe(conn2);
-    expect(conn).toBe(placeholder);
-    expect(createConnectionMock).toBeCalledTimes(1);
+    expect(conn).toBe(connectionMock);
+    expect(typeOrmMock.createConnection).toBeCalledTimes(1);
   });
 });

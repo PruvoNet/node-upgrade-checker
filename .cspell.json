@@ -22,10 +22,13 @@
     "contributorsrc",
     "simplegit",
     "lcov",
-    "Ilts"
+    "toolbelt"
   ],
   "ignorePaths": [
     "**/coverage/**",
+    "reports/**",
+    "coverage/**",
+    ".stryker-tmp/**",
     "**/node_modules/**",
     "**/dist/**",
     "**/*.{json,snap}",

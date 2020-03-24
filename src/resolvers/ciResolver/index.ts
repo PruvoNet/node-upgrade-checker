@@ -1,22 +1,56 @@
 import { ICIResolver } from './interfaces/ICIResolver';
 import { CiResolver } from './impl/ciResolver';
 import { ISpecificCIResolver } from './interfaces/ISpecificCIResolver';
-import { TravisCiResolver } from './impl/resolvers/travis';
-import { CircleCiResolver } from './impl/resolvers/circle';
-import { GithubActionsResolver } from './impl/resolvers/github';
+import { CircleCiResolver } from './impl/resolvers/circleci/circleCiResolver';
+import { GithubActionsResolver } from './impl/resolvers/githubActions/githubActionsResolver';
 import { ITargetMatcher } from './interfaces/ITargetMatcher';
 import { TargetMatcher } from './impl/targetMatcher';
-import { AppVeyorResolver } from './impl/resolvers/appveyor';
+import { AppVeyorResolver } from './impl/resolvers/appveyor/appVeyorResolver';
 import { interfaces } from 'inversify';
 import Bind = interfaces.Bind;
+import { SpecificCIResolverRunner } from './impl/specificCIResolverRunner';
+import { ISpecificCIResolverRunner } from './interfaces/ISpecificCIResolverRunner';
+import { AppVeyorConfigParser } from './impl/resolvers/appveyor/appVeyorConfigParser';
+import { CircleCiConfigParser } from './impl/resolvers/circleci/circleCiConfigParser';
+import { TravisCiConfigParser } from './impl/resolvers/travisci/travisCiConfigParser';
+import { TravisCiResolver } from './impl/resolvers/travisci/travisCiResolver';
+import { GithubActionsConfigParser } from './impl/resolvers/githubActions/githubActionsConfigParser';
+import { namedOrMultiConstraint } from '../../container/utils';
+import { INvmHandler } from './interfaces/INvmHandler';
+import { NvmHandler } from './impl/nvmHandler';
+
+export const SpecificCIResolverTags = {
+  travisCi: Symbol.for(`travisCi`),
+  appVeyor: Symbol.for(`appVeyor`),
+  circleCi: Symbol.for(`circleCi`),
+  githubActions: Symbol.for(`githubActions`),
+};
 
 export const ciResolverModulesBinder = (bind: Bind): void => {
-  bind<ICIResolver>(ICIResolver).to(CiResolver).inSingletonScope();
+  bind<INvmHandler>(INvmHandler).to(NvmHandler).inSingletonScope();
   bind<ITargetMatcher>(ITargetMatcher).to(TargetMatcher).inSingletonScope();
-  bind<ISpecificCIResolver>(ISpecificCIResolver).to(TravisCiResolver).inSingletonScope();
-  bind<ISpecificCIResolver>(ISpecificCIResolver).to(AppVeyorResolver).inSingletonScope();
-  bind<ISpecificCIResolver>(ISpecificCIResolver).to(CircleCiResolver).inSingletonScope();
-  bind<ISpecificCIResolver>(ISpecificCIResolver).to(GithubActionsResolver).inSingletonScope();
+  bind<ICIResolver>(ISpecificCIResolverRunner).to(SpecificCIResolverRunner).inSingletonScope();
+  bind<ICIResolver>(ICIResolver).to(CiResolver).inSingletonScope();
+  bind<ISpecificCIResolver>(ISpecificCIResolver)
+    .to(TravisCiResolver)
+    .inSingletonScope()
+    .when(namedOrMultiConstraint(SpecificCIResolverTags.travisCi, ISpecificCIResolver));
+  bind<ISpecificCIResolver>(ISpecificCIResolver)
+    .to(AppVeyorResolver)
+    .inSingletonScope()
+    .when(namedOrMultiConstraint(SpecificCIResolverTags.appVeyor, ISpecificCIResolver));
+  bind<ISpecificCIResolver>(ISpecificCIResolver)
+    .to(CircleCiResolver)
+    .inSingletonScope()
+    .when(namedOrMultiConstraint(SpecificCIResolverTags.circleCi, ISpecificCIResolver));
+  bind<ISpecificCIResolver>(ISpecificCIResolver)
+    .to(GithubActionsResolver)
+    .inSingletonScope()
+    .when(namedOrMultiConstraint(SpecificCIResolverTags.githubActions, ISpecificCIResolver));
+  bind<AppVeyorConfigParser>(AppVeyorConfigParser).toSelf().inSingletonScope();
+  bind<CircleCiConfigParser>(CircleCiConfigParser).toSelf().inSingletonScope();
+  bind<TravisCiConfigParser>(TravisCiConfigParser).toSelf().inSingletonScope();
+  bind<GithubActionsConfigParser>(GithubActionsConfigParser).toSelf().inSingletonScope();
 };
 
 export * from './interfaces/ISpecificCIResolver';

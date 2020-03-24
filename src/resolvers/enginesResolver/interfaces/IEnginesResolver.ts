@@ -1,4 +1,3 @@
-import { injectable } from 'inversify';
 import { IResolverResult } from '../../types';
 
 export interface IEnginesResolverOptions {
@@ -6,7 +5,6 @@ export interface IEnginesResolverOptions {
   targetNode: string;
 }
 
-@injectable()
 export abstract class IEnginesResolver {
   public abstract async resolve(options: IEnginesResolverOptions): Promise<IResolverResult>;
 }

@@ -66,6 +66,8 @@ Where `<tag>` is one of:
 - `fix` - for any bug fixes that don't add new functionality
 - `test` - if you only change tests, and not shipped code
 - `docs` - if you only change documentation, and not shipped code
+- `refactor` - refactoring
+- `style` - linting fixes
 - `chore` - anything else
 
 And `<short description>` is a succinct title for the PR.

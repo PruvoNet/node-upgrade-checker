@@ -1,4 +1,4 @@
-import { BindingTypes, testBindings } from '../../../common/bindingTester';
+import { BindingTypes, testBindings } from '../../../common/testers/bindingTester';
 import { gitModuleBinder, IGitCheckout } from '../../../../src/utils/git';
 import { Git } from '../../../../src/utils/git/impl/git';
 import { GitCheckout } from '../../../../src/utils/git/impl/gitCheckout';

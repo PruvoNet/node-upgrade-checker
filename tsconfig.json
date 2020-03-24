@@ -17,7 +17,7 @@
     "alwaysStrict": true,
     "noImplicitUseStrict": false,
     "preserveSymlinks": true,
-    "lib": ["es2018"],
+    "lib": ["es2018", "esnext.array"],
     "sourceMap": false,
     "inlineSourceMap": true,
     "declaration": false,

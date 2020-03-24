@@ -1,19 +1,11 @@
 import { injectable } from 'inversify';
-import { Repository } from 'typeorm';
-import { DependencyVersion } from '../entities/dependencyVersion';
-import { IDependencyVersionRepositoryProvider } from '../interfaces/IDependencyVersionRepositoryProvider';
-import { memoize } from '../../utils/memoize/memoize';
 import { IConnectionProvider } from '../interfaces/IConnectionProvider';
+import { AbstractRepositoryProvider } from './AbstractRepositoryProvider';
+import { DependencyVersion } from '../entities/dependencyVersion';
 
 @injectable()
-export class DependencyVersionRepositoryProvider extends IDependencyVersionRepositoryProvider {
-  constructor(private connectionProvider: IConnectionProvider) {
-    super();
-  }
-
-  @memoize()
-  public async getRepository(): Promise<Repository<DependencyVersion>> {
-    const connection = await this.connectionProvider.getConnection();
-    return connection.getRepository(DependencyVersion);
+export class DependencyVersionRepositoryProvider extends AbstractRepositoryProvider<DependencyVersion> {
+  constructor(connectionProvider: IConnectionProvider) {
+    super(connectionProvider, DependencyVersion);
   }
 }

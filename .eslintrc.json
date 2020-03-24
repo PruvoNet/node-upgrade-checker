@@ -117,7 +117,12 @@
     "max-len": [
       "error",
       {
-        "code": 130
+        "code": 120,
+        "ignoreComments": true,
+        "ignoreUrls": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true,
+        "ignoreRegExpLiterals": true
       }
     ],
     "new-parens": "error",
@@ -153,5 +158,13 @@
     "use-isnan": "error",
     "valid-typeof": "off"
   },
-  "settings": {}
+  "settings": {},
+  "overrides": [
+    {
+      "files": ["*.spec.ts"],
+      "rules": {
+        "@typescript-eslint/unbound-method": "off"
+      }
+    }
+  ]
 }

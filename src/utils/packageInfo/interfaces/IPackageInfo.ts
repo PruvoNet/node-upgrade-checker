@@ -1,5 +1,3 @@
-import { injectable } from 'inversify';
-
 export interface IPackageInfoOptions {
   name: string;
   semver: string;
@@ -14,7 +12,6 @@ export interface IPackageInfoResult {
   commitSha?: string;
 }
 
-@injectable()
 export abstract class IPackageInfo {
   public abstract async getPackageInfo(options: IPackageInfoOptions): Promise<IPackageInfoResult>;
 }

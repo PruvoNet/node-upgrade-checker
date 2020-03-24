@@ -14,20 +14,31 @@
     "update",
     "lts"
   ],
+  "author": "Regev Brody <regevbr@gmail.com>",
+  "license": "ISC",
+  "engineStrict": true,
+  "engines": {
+    "node": "^10 || ^12 || ^13",
+    "yarn": "^1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PruvoNet/node-upgrade-checker.git"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
     "nuc": "./dist/cli/index.js"
   },
-  "engineStrict": true,
-  "engines": {
-    "node": "^10 || ^12 || ^13"
-  },
+  "files": [
+    "dist/**/*.d.ts",
+    "dist/**/*.js"
+  ],
   "scripts": {
     "envcheck": "node -e \"if(!/yarn\\.js$/.test(process.env.npm_execpath))throw new Error('Use yarn')\"",
     "preinstall": "yarn run envcheck",
     "postinstall": "yarn run compile",
-    "versionupdate": "yarn run ncu && yarn install",
+    "versionupdate": "yarn run ncu && rm yarn.lock && yarn install",
     "clean:dist": "rm -rf dist && rm -f .buildcache",
     "prebuild": "yarn run lint && yarn run clean:dist",
     "build": "yarn run tsc -p tsconfig.build.json",
@@ -58,71 +69,71 @@
     "check:spelling": "cspell --config=.cspell.json \"**/*.{md,ts,js}\"",
     "generate-contributors": "yarn run ts-node --transpile-only ./tools/generate-contributors.ts && yarn run all-contributors generate",
     "check-clean-workspace-after-install": "git diff --quiet --exit-code",
-    "docs:changelog": "yarn run changelog --allow-unknown"
+    "docs:changelog": "yarn run changelog --allow-unknown",
+    "mutation-test": "yarn run stryker run"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PruvoNet/node-upgrade-checker.git"
-  },
-  "author": "Regev Brody <regevbr@gmail.com>",
-  "files": [
-    "dist/**/*.d.ts",
-    "dist/**/*.js"
-  ],
-  "license": "ISC",
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
+    "@stryker-mutator/core": "^3.1.0",
+    "@stryker-mutator/jest-runner": "^3.1.0",
+    "@stryker-mutator/typescript": "^3.1.0",
     "@types/cross-spawn": "^6.0.1",
-    "@types/jest": "^25.1.4",
-    "@types/moment": "^2.13.0",
-    "@types/node": "^13.9.3",
-    "@types/node-fetch": "^2.5.5",
-    "@types/pacote": "^9.5.1",
+    "@types/jest": "^25.2.1",
+    "@types/jest-when": "^2.7.1",
+    "@types/node": "^13.11.1",
+    "@types/node-fetch": "^2.5.6",
+    "@types/pacote": "^11.1.0",
     "@types/semver": "^7.1.0",
+    "@types/shell-quote": "^1.6.1",
     "@types/tmp": "^0.1.0",
     "@types/yaml": "^1.2.0",
-    "@typescript-eslint/eslint-plugin": "^2.25.0",
-    "@typescript-eslint/parser": "^2.25.0",
-    "all-contributors-cli": "^6.14.0",
-    "cspell": "^4.0.55",
+    "@types/yargs-parser": "^15.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.27.0",
+    "@typescript-eslint/parser": "^2.27.0",
+    "all-contributors-cli": "^6.14.1",
+    "cspell": "^4.0.56",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-jest": "^23.8.2",
-    "eslint-plugin-prefer-arrow": "^1.1.7",
+    "eslint-plugin-prefer-arrow": "^1.2.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "expect": "^25.3.0",
     "generate-changelog": "^1.8.0",
-    "jest": "^25.1.0",
+    "husky": "^4.2.5",
+    "jest": "^25.3.0",
+    "jest-mock-extended": "^1.0.8",
     "jest-serial-runner": "^1.1.0",
-    "lint-staged": "^10.0.9",
+    "jest-when": "^2.7.1",
+    "lint-staged": "^10.1.3",
     "mock-spawn": "^0.2.6",
     "node-fetch": "^2.6.0",
-    "npm-check-updates": "^4.0.5",
-    "prettier": "^2.0.2",
-    "semver": "^7.1.3",
-    "ts-jest": "^25.2.1",
-    "ts-node": "^8.8.1",
+    "npm-check-updates": "^4.1.2",
+    "prettier": "^2.0.4",
+    "semver": "^7.2.2",
+    "ts-jest": "^25.3.1",
+    "ts-node": "^8.8.2",
+    "ts-toolbelt": "^6.4.2",
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "array-flat-polyfill": "~1.0.1",
     "axios": "~0.19.2",
-    "chalk": "~3.0.0",
+    "chalk": "~4.0.0",
     "consola": "~2.11.3",
-    "cross-spawn": "~7.0.1",
+    "cross-spawn": "~7.0.2",
     "figures": "~3.2.0",
     "inversify": "~5.0.1",
     "moment": "~2.24.0",
     "pacote": "~11.1.4",
     "reflect-metadata": "~0.1.13",
+    "shell-quote": "^1.7.2",
     "simple-git": "~1.132.0",
     "sqlite3": "~4.1.1",
     "tmp": "~0.1.0",
+    "ts-type-guards": "~0.6.1",
     "typeorm": "~0.2.24",
-    "yaml": "~1.8.3"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
+    "yaml": "~1.8.3",
+    "yargs-parser": "~18.1.2"
   }
 }

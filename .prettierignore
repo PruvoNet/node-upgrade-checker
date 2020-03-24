@@ -7,3 +7,5 @@
 .nyc_output
 CONTRIBUTORS.md
 CHANGELOG.md
+.stryker-tmp
+/reports/
