@@ -3,31 +3,14 @@ import { INode, keySorter, NodeSorter, objectIterator } from '../../../../src/ut
 describe(`object iterator`, () => {
   describe(`for of`, () => {
     it(`Should iterate simple object`, () => {
-      const obj = {
-        d: `7`,
-        a: 1,
-        b: {
-          c: 2,
-        },
-      };
-
+      const obj = { d: `7`, a: 1, b: { c: 2 } };
       const results: INode[] = [];
       for (const node of objectIterator(obj)) {
         results.push(node);
       }
       expect(results).toEqual([
-        {
-          key: `a`,
-          value: 1,
-          depth: 0,
-          parent: { value: { a: 1, b: { c: 2 }, d: `7` } },
-        },
-        {
-          key: `b`,
-          value: { c: 2 },
-          depth: 0,
-          parent: { value: { a: 1, b: { c: 2 }, d: `7` } },
-        },
+        { key: `a`, value: 1, depth: 0, parent: { value: { a: 1, b: { c: 2 }, d: `7` } } },
+        { key: `b`, value: { c: 2 }, depth: 0, parent: { value: { a: 1, b: { c: 2 }, d: `7` } } },
         {
           key: `c`,
           value: 2,
@@ -39,18 +22,7 @@ describe(`object iterator`, () => {
     });
 
     it(`Should iterate complex object`, () => {
-      const obj = {
-        a: 1,
-        b: {
-          c: 2,
-          d: {
-            e: `5`,
-            f: [1, `26`],
-          },
-        },
-        g: `7`,
-      };
-
+      const obj = { a: 1, b: { c: 2, d: { e: `5`, f: [1, `26`] } }, g: `7` };
       const results: INode[] = [];
       for (const node of objectIterator(obj)) {
         results.push(node);
@@ -60,13 +32,7 @@ describe(`object iterator`, () => {
   });
   describe(`skip logic`, () => {
     it(`Should iterate simple object`, () => {
-      const obj = {
-        a: 1,
-        b: {
-          c: 2,
-        },
-        d: `7`,
-      };
+      const obj = { a: 1, b: { c: 2 }, d: `7` };
       const results: INode[] = [];
       const it = objectIterator(obj);
       let result = it.next();
@@ -76,34 +42,14 @@ describe(`object iterator`, () => {
         result = it.next(node.key === `b`);
       }
       expect(results).toEqual([
-        {
-          key: `a`,
-          value: 1,
-          depth: 0,
-          parent: { value: { a: 1, b: { c: 2 }, d: `7` } },
-        },
-        {
-          key: `b`,
-          value: { c: 2 },
-          depth: 0,
-          parent: { value: { a: 1, b: { c: 2 }, d: `7` } },
-        },
+        { key: `a`, value: 1, depth: 0, parent: { value: { a: 1, b: { c: 2 }, d: `7` } } },
+        { key: `b`, value: { c: 2 }, depth: 0, parent: { value: { a: 1, b: { c: 2 }, d: `7` } } },
         { key: `d`, value: `7`, depth: 0, parent: { value: { a: 1, b: { c: 2 }, d: `7` } } },
       ]);
     });
 
     it(`Should iterate complex object`, () => {
-      const obj = {
-        a: 1,
-        b: {
-          c: 2,
-          d: {
-            e: `5`,
-            f: [1, `26`],
-          },
-        },
-        g: `7`,
-      };
+      const obj = { a: 1, b: { c: 2, d: { e: `5`, f: [1, `26`] } }, g: `7` };
       const results: INode[] = [];
       const it = objectIterator(obj);
       let result = it.next();
@@ -117,16 +63,7 @@ describe(`object iterator`, () => {
   });
   describe(`skip logic with custom sorter`, () => {
     it(`Should iterate simple object`, () => {
-      const obj = {
-        a: 1,
-        b: {
-          c: 2,
-        },
-        d: {
-          a: 1,
-          b: 2,
-        },
-      };
+      const obj = { a: 1, b: { c: 2 }, d: { a: 1, b: 2 } };
       const sorter: NodeSorter = (a: INode, b: INode) => {
         if (a.key === `b` && a.depth === 0) {
           return -1;
@@ -144,12 +81,7 @@ describe(`object iterator`, () => {
         result = it.next(node.key === `b`);
       }
       expect(results).toEqual([
-        {
-          key: `b`,
-          value: { c: 2 },
-          depth: 0,
-          parent: { value: { a: 1, b: { c: 2 }, d: { a: 1, b: 2 } } },
-        },
+        { key: `b`, value: { c: 2 }, depth: 0, parent: { value: { a: 1, b: { c: 2 }, d: { a: 1, b: 2 } } } },
         {
           key: `a`,
           value: 1,
