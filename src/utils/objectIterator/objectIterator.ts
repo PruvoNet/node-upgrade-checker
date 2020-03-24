@@ -32,23 +32,3 @@ function* iterator(parent: IParent, obj: any, depth: number): ObjectIterator {
 const isObject = (obj: any): obj is Record<string, any> => {
   return obj !== null && typeof obj === `object`;
 };
-
-// const testObj = {
-//   a: {
-//     b: [{ c: 3 }, { d: 4 }],
-//   },
-//   e: 5,
-//   f: 6,
-// };
-
-// for (const node of objectIterator(testObj)) {
-//   console.log(JSON.stringify(node));
-// }
-
-// const it = objectIterator(testObj);
-// let result = it.next();
-// while (!result.done) {
-//   const { value: node } = result;
-//   console.log(JSON.stringify(node));
-//   result = it.next(node.key === `b`);
-// }
