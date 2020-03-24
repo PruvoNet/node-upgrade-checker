@@ -62,7 +62,7 @@ describe(`object iterator`, () => {
     });
   });
   describe(`skip logic with custom sorter`, () => {
-    it(`Should iterate simple object`, () => {
+    it(`Should iterate object with skip logic with custom sorter`, () => {
       const obj = { a: 1, b: { c: 2 }, d: { a: 1, b: 2 } };
       const sorter: NodeSorter = (a: INode, b: INode) => {
         if (a.key === `b` && a.depth === 0) {
