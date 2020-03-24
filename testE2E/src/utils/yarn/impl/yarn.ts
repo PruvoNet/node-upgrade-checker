@@ -13,16 +13,7 @@ const testPackageJsonFile = path.join(__dirname, testPackageJsonFileName);
 const failPackageJsonFile = path.join(__dirname, failTestPageJsonFileName);
 
 describe(`yarn`, () => {
-  let yarn: IYarn;
-
-  beforeEach(() => {
-    container.snapshot();
-    yarn = container.get(IYarn);
-  });
-
-  afterEach(() => {
-    container.restore();
-  });
+  const yarn = container.get(IYarn);
 
   it(`should perform full yarn test flow`, async () => {
     const tmpDir = tmp.dirSync().name;

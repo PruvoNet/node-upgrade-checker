@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import * as simplegit from 'simple-git/promise';
 import * as pacote from 'pacote';
 import * as spawn from 'cross-spawn';
+import axios from 'axios';
 import { BindingTypes, testBindings } from '../../common/bindingTester';
 import { nodeModulesBinder, TYPES } from '../../../src/container/nodeModulesContainer';
 
@@ -33,6 +34,11 @@ testBindings({
     {
       binder: TYPES.SimpleGit,
       binded: simplegit,
+      type: BindingTypes.CONSTANT,
+    },
+    {
+      binder: TYPES.Axios,
+      binded: axios,
       type: BindingTypes.CONSTANT,
     },
   ],

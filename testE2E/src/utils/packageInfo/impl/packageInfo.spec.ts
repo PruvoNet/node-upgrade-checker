@@ -2,16 +2,7 @@ import { container } from '../../../../../src/container';
 import { IPackageInfo } from '../../../../../src/utils/packageInfo';
 
 describe(`package info e2e`, () => {
-  let packageInfo: IPackageInfo;
-
-  beforeEach(() => {
-    container.snapshot();
-    packageInfo = container.get(IPackageInfo);
-  });
-
-  afterEach(() => {
-    container.restore();
-  });
+  const packageInfo = container.get(IPackageInfo);
 
   it(`should resolve package info properly`, async () => {
     const result = await packageInfo.getPackageInfo({

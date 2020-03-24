@@ -20,16 +20,10 @@ const timeout = 60000;
 
 describe(`git checkout`, () => {
   let tmpDir = ``;
-  let gitCheckout: IGitCheckout;
+  const gitCheckout = container.get(IGitCheckout);
 
   beforeEach(() => {
     tmpDir = tmp.dirSync().name;
-    container.snapshot();
-    gitCheckout = container.get(IGitCheckout);
-  });
-
-  afterEach(() => {
-    container.restore();
   });
 
   it(

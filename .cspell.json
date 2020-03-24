@@ -22,7 +22,8 @@
     "contributorsrc",
     "simplegit",
     "lcov",
-    "Gitter"
+    "Gitter",
+    "Ilts"
   ],
   "ignorePaths": [
     "**/coverage/**",
