@@ -1,10 +1,10 @@
 import { injectable } from 'inversify';
-import { ILoggerFactory } from '../interfaces/loggerFactory';
+import { ILoggerFactory } from '../interfaces/ILoggerFactory';
 import { ConsolaOptions } from 'consola';
 import { memoize } from '../../memoize/memoize';
-import { ILoggerSettings } from '../interfaces/loggerSettings';
+import { ILoggerSettings } from '../interfaces/ILoggerSettings';
 import * as chalk from 'chalk';
-import { ILogger, LogLevel } from '../interfaces/logger';
+import { ILogger, LogLevel } from '../interfaces/ILogger';
 import { Logger } from './logger';
 import { LogReporter } from './logReporter';
 

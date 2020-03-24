@@ -1,5 +1,5 @@
 import { container } from '../../../src/container';
-import { IEntity } from '../../../src/db/interfaces/entity';
+import { IEntity } from '../../../src/db/interfaces/IEntity';
 import { Dependency, DependencyVersion } from '../../../src/db';
 import { ISpecificCIResolver } from '../../../src/resolvers/ciResolver';
 import { TravisCiResolver } from '../../../src/resolvers/ciResolver/impl/resolvers/travis';

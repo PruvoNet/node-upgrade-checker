@@ -2,7 +2,7 @@ import { ILoggerSettings } from '../../../../../src/utils/logger';
 import { LoggerFactory } from '../../../../../src/utils/logger/impl/loggerFactory';
 // @ts-ignore
 import { Consola, FancyReporter } from 'consola';
-import { LogLevel } from '../../../../../src/utils/logger/interfaces/logger';
+import { LogLevel } from '../../../../../src/utils/logger/interfaces/ILogger';
 
 describe(`logger factory`, () => {
   it(`should have proper logger level`, async () => {

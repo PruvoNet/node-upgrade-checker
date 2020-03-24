@@ -2,10 +2,10 @@ import { inject, injectable, multiInject } from 'inversify';
 import { Connection } from 'typeorm/connection/Connection';
 import * as path from 'path';
 import { memoize } from '../../utils/memoize/memoize';
-import { IConnectionProvider } from '../interfaces/connectionProvider';
-import { IConnectionSettings } from '../interfaces/connectionSettings';
+import { IConnectionProvider } from '../interfaces/IConnectionProvider';
+import { IConnectionSettings } from '../interfaces/IConnectionSettings';
 import { TypeOrm, TYPES } from '../../container/nodeModulesContainer';
-import { IEntity, IEntityConstructor } from '../interfaces/entity';
+import { IEntity, IEntityConstructor } from '../interfaces/IEntity';
 
 const DB_FILE = `cache.db`;
 

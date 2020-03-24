@@ -5,7 +5,7 @@ import moment = require('moment');
 import { memoize } from '../../memoize/memoize';
 import { Axios, TYPES } from '../../../container/nodeModulesContainer';
 import { ILoggerFactory } from '../../logger';
-import { ILogger } from '../../logger/interfaces/logger';
+import { ILogger } from '../../logger/interfaces/ILogger';
 
 const NODE_RELEASE_FILE = `https://raw.githubusercontent.com/nodejs/Release/master/schedule.json`;
 const dateFormat = `YYYY-MM-DD`;

@@ -1,11 +1,11 @@
 import * as path from 'path';
 import { inject, injectable } from 'inversify';
-import { ICheckoutOptions, IGitCheckout } from '../interfaces/gitCheckout';
+import { ICheckoutOptions, IGitCheckout } from '../interfaces/IGitCheckout';
 import { getRepoDirName } from './getRepoDirName';
 import { Git } from './git';
 import { FS, TYPES } from '../../../container/nodeModulesContainer';
 import { ILoggerFactory } from '../../logger';
-import { ILogger } from '../../logger/interfaces/logger';
+import { ILogger } from '../../logger/interfaces/ILogger';
 
 @injectable()
 export class GitCheckout extends IGitCheckout {
