@@ -10,21 +10,29 @@ export interface INode extends IRootNode {
 
 export type IParent = INode | IRootNode;
 export type ObjectIterator = Generator<INode, void, boolean | undefined>;
+export type NodeSorter = (a: INode, b: INode) => number;
 
-export function* objectIterator(obj: any): ObjectIterator {
-  yield* iterator({ value: obj }, obj, 0);
+export const keySorter: NodeSorter = (a: INode, b: INode) => {
+  return a.key.localeCompare(b.key);
+};
+
+export function* objectIterator(obj: any, sorter?: NodeSorter): ObjectIterator {
+  yield* iterator({ value: obj }, obj, 0, sorter || keySorter);
 }
 
-function* iterator(parent: IParent, obj: any, depth: number): ObjectIterator {
+function* iterator(parent: IParent, obj: any, depth: number, sorter: NodeSorter): ObjectIterator {
   if (!isObject(obj)) {
     return;
   }
   const nextDepth = depth + 1;
-  for (const key of Object.keys(obj)) {
+  const nodes = Object.keys(obj).map((key) => {
     const value = obj[key];
-    const node: INode = { key, value, depth, parent };
+    return { key, value, depth, parent };
+  });
+  nodes.sort(sorter);
+  for (const node of nodes) {
     if (!(yield node)) {
-      yield* iterator(node, value, nextDepth);
+      yield* iterator(node, node.value, nextDepth, sorter);
     }
   }
 }
