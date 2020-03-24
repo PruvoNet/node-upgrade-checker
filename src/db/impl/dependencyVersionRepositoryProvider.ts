@@ -1,9 +1,9 @@
 import { injectable } from 'inversify';
 import { Repository } from 'typeorm';
 import { DependencyVersion } from '../entities/dependencyVersion';
-import { IDependencyVersionRepositoryProvider } from '../interfaces/dependencyVersionRepositoryProvider';
+import { IDependencyVersionRepositoryProvider } from '../interfaces/IDependencyVersionRepositoryProvider';
 import { memoize } from '../../utils/memoize/memoize';
-import { IConnectionProvider } from '../interfaces/connectionProvider';
+import { IConnectionProvider } from '../interfaces/IConnectionProvider';
 
 @injectable()
 export class DependencyVersionRepositoryProvider extends IDependencyVersionRepositoryProvider {

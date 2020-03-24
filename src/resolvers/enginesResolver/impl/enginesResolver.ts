@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import { IResolverResult } from '../../types';
-import { IEnginesResolver, IEnginesResolverOptions } from '../interfaces/enginesResolver';
+import { IEnginesResolver, IEnginesResolverOptions } from '../interfaces/IEnginesResolver';
 import semver = require('semver');
 import SemVer = require('semver/classes/semver');
 import Comparator = require('semver/classes/comparator');

@@ -9,7 +9,7 @@ import {
 import { DependencyRepositoryProvider } from '../../../src/db/impl/dependencyRepositoryProvider';
 import { DependencyVersionRepositoryProvider } from '../../../src/db/impl/dependencyVersionRepositoryProvider';
 import { ConnectionProvider } from '../../../src/db/impl/connectionProvider';
-import { IEntity } from '../../../src/db/interfaces/entity';
+import { IEntity } from '../../../src/db/interfaces/IEntity';
 import { BindingTypes, testBindings } from '../../common/bindingTester';
 
 testBindings({

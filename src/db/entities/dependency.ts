@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryColumn } from 'typeorm';
-import { IEntity } from '../interfaces/entity';
+import { IEntity } from '../interfaces/IEntity';
 
 export interface IDependencyOptions {
   name: string;

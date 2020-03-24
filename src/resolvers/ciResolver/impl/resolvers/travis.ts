@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { ISpecificCIResolverOptions, ISpecificCIResolver, LTS_VERSION } from '../../interfaces/specificCIResolver';
+import { ISpecificCIResolverOptions, ISpecificCIResolver, LTS_VERSION } from '../../interfaces/ISpecificCIResolver';
 import { inject, injectable } from 'inversify';
 import { FS, TYPES } from '../../../../container/nodeModulesContainer';
 import { parse } from 'yaml';

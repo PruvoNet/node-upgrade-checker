@@ -1,5 +1,5 @@
 import { Consola, ConsolaOptions } from 'consola';
-import { ILogger, LogLevel } from '../interfaces/logger';
+import { ILogger, LogLevel } from '../interfaces/ILogger';
 
 export class Logger extends Consola implements ILogger {
   constructor(options: ConsolaOptions) {

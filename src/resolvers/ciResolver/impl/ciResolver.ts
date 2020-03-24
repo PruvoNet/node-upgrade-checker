@@ -1,7 +1,7 @@
-import { ICIResolveOptions, ICIResolver } from '../interfaces/cIResolver';
+import { ICIResolveOptions, ICIResolver } from '../interfaces/ICIResolver';
 import { injectable, multiInject } from 'inversify';
-import { ISpecificCIResolver } from '../interfaces/specificCIResolver';
-import { ITargetMatcher } from '../interfaces/targetMatcher';
+import { ISpecificCIResolver } from '../interfaces/ISpecificCIResolver';
+import { ITargetMatcher } from '../interfaces/ITargetMatcher';
 import { IResolverResult } from '../../types';
 
 @injectable()
