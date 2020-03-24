@@ -1,10 +1,10 @@
-import { ICIResolver } from './interfaces/cIResolver';
+import { ICIResolver } from './interfaces/ICIResolver';
 import { CiResolver } from './impl/ciResolver';
-import { ISpecificCIResolver } from './interfaces/specificCIResolver';
+import { ISpecificCIResolver } from './interfaces/ISpecificCIResolver';
 import { TravisCiResolver } from './impl/resolvers/travis';
 import { CircleCiResolver } from './impl/resolvers/circle';
 import { GithubActionsResolver } from './impl/resolvers/github';
-import { ITargetMatcher } from './interfaces/targetMatcher';
+import { ITargetMatcher } from './interfaces/ITargetMatcher';
 import { TargetMatcher } from './impl/targetMatcher';
 import { AppVeyorResolver } from './impl/resolvers/appveyor';
 import { interfaces } from 'inversify';
@@ -19,6 +19,6 @@ export const ciResolverModulesBinder = (bind: Bind): void => {
   bind<ISpecificCIResolver>(ISpecificCIResolver).to(GithubActionsResolver).inSingletonScope();
 };
 
-export * from './interfaces/specificCIResolver';
-export * from './interfaces/targetMatcher';
-export * from './interfaces/cIResolver';
+export * from './interfaces/ISpecificCIResolver';
+export * from './interfaces/ITargetMatcher';
+export * from './interfaces/ICIResolver';

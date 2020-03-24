@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { IPackageInfo, IPackageInfoOptions, IPackageInfoResult } from '../interfaces/packageInfo';
+import { IPackageInfo, IPackageInfoOptions, IPackageInfoResult } from '../interfaces/IPackageInfo';
 import { Pacote, TYPES } from '../../../container/nodeModulesContainer';
 
 @injectable()

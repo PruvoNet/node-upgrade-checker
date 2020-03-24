@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import { IResolverResult } from '../../types';
-import { ITestResolver, ITestResolverOptions } from '../interfaces/testResolver';
+import { ITestResolver, ITestResolverOptions } from '../interfaces/ITestResolver';
 import { IYarn, IYarnOptions } from '../../../utils/yarn';
 
 const resolverName = `yarn run test`;

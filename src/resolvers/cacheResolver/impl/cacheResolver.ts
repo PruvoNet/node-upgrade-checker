@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { ICacheResolver, ICacheResolverOptions } from '../interfaces/cacheResolver';
+import { ICacheResolver, ICacheResolverOptions } from '../interfaces/ICacheResolver';
 import { IDependencyRepositoryProvider } from '../../../db';
 import { IResolverResult } from '../../types';
 

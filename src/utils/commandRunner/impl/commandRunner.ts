@@ -3,7 +3,7 @@ import { inject, injectable } from 'inversify';
 import { IExecuteCommandOptions, ICommandRunner } from '../interfaces/ICommandRunner';
 import { Spawn, TYPES } from '../../../container/nodeModulesContainer';
 import { ILoggerFactory } from '../../logger';
-import { ILogger } from '../../logger/interfaces/logger';
+import { ILogger } from '../../logger/interfaces/ILogger';
 
 interface IPromisifiedSpawnOptions {
   command: string;

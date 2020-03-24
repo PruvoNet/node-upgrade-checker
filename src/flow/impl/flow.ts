@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { IFlow, IRunFlowOptions, IRunFlowResult } from '../interfaces/flow';
+import { IFlow, IRunFlowOptions, IRunFlowResult } from '../interfaces/IFlow';
 import { IGitCheckout } from '../../utils/git';
 import { ICacheResolver } from '../../resolvers/cacheResolver';
 import { ICIResolver } from '../../resolvers/ciResolver';

@@ -1,4 +1,4 @@
-import { ITargetMatcher, ITargetMatcherOptions } from '../interfaces/targetMatcher';
+import { ITargetMatcher, ITargetMatcherOptions } from '../interfaces/ITargetMatcher';
 import { injectable } from 'inversify';
 import { ILts } from '../../../utils/lts';
 import { LTS_VERSION } from '..';
