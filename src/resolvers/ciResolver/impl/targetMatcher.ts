@@ -2,7 +2,6 @@ import { ITargetMatcher, ITargetMatcherOptions } from '../interfaces/targetMatch
 import { injectable } from 'inversify';
 import { ILts } from '../../../utils/lts';
 import { LTS_VERSION } from '..';
-// eslint-disable-next-line @typescript-eslint/quotes
 import semver = require('semver');
 
 const semverOptions = {

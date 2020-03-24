@@ -1,5 +1,4 @@
 import { CommandRunner } from '../../../../../src/utils/commandRunner/impl/commandRunner';
-/* eslint-disable @typescript-eslint/quotes,@typescript-eslint/ban-ts-ignore */
 // @ts-ignore
 import mockSpawn = require('mock-spawn');
 import { ILoggerFactory } from '../../../../../src/utils/logger';
@@ -180,7 +179,7 @@ describe(`command runner`, () => {
     isDebugEnabledMock.mockReturnValue(true);
     isTraceEnabledMock.mockReturnValue(true);
     mock.sequence.add(function (this: any, cb: any) {
-      this.emit('error', new Error('spawn ENOENT'));
+      this.emit(`error`, new Error(`spawn ENOENT`));
       setTimeout(() => {
         cb(8);
       }, 10);
@@ -199,6 +198,6 @@ describe(`command runner`, () => {
     expect(call.command).toBe(`npm`);
     expect(call.args).toEqual([`run`, `build`]);
     expect(call.opts).toBe(execOptionsPlaceHolder);
-    expect(logErrorMock).toHaveBeenCalledWith(`spawn error`, new Error('spawn ENOENT'));
+    expect(logErrorMock).toHaveBeenCalledWith(`spawn error`, new Error(`spawn ENOENT`));
   });
 });

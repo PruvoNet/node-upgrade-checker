@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/quotes
 import moment = require('moment');
 import { Lts } from '../../../../../src/utils/lts/impl/lts';
 

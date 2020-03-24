@@ -1,7 +1,6 @@
 import { IDependencyVersionRepositoryProvider, DependencyVersion, IConnectionSettings } from '../../../../src/db';
 import { container } from '../../../../src/container';
 import * as tmp from 'tmp';
-// eslint-disable-next-line @typescript-eslint/quotes
 import moment = require('moment');
 
 const dateFormat = `YYYY-MM-DD`;

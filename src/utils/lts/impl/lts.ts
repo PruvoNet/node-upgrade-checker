@@ -1,7 +1,6 @@
 import { injectable } from 'inversify';
 import { ILts, ILtsOptions } from '../interfaces/lts';
 import { Moment } from 'moment';
-// eslint-disable-next-line @typescript-eslint/quotes
 import moment = require('moment');
 
 const dateFormat = `YYYY-MM-DD`;
