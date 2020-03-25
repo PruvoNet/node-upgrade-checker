@@ -1,6 +1,24 @@
 import { INode, keySorter, NodeSorter, objectIterator } from '../../../../src/utils/objectIterator/objectIterator';
 
 describe(`object iterator`, () => {
+  describe(`handled circular references`, () => {
+    it(`Should not get stuck on circular references`, () => {
+      const obj: any = { a: 1, b: { c: 2, d: {} } };
+      obj.b.d.cir = obj.b;
+      const results: INode[] = [];
+      for (const node of objectIterator(obj)) {
+        delete node.parent;
+        results.push(node);
+      }
+      expect(results).toEqual([
+        { key: `a`, value: 1, depth: 0 },
+        { key: `b`, value: obj.b, depth: 0 },
+        { key: `c`, value: 2, depth: 1 },
+        { key: `d`, value: obj.b.d, depth: 1 },
+        { key: `cir`, value: obj.b, depth: 2 },
+      ]);
+    });
+  });
   describe(`for of`, () => {
     it(`Should iterate simple object`, () => {
       const obj = { d: `7`, a: 1, b: { c: 2 } };

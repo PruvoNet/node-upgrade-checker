@@ -17,13 +17,14 @@ export const keySorter: NodeSorter = (a: INode, b: INode) => {
 };
 
 export function* objectIterator(obj: any, sorter?: NodeSorter): ObjectIterator {
-  yield* iterator({ value: obj }, obj, 0, sorter || keySorter);
+  yield* iterator({ value: obj }, obj, 0, sorter || keySorter, new Set<any>());
 }
 
-function* iterator(parent: IParent, obj: any, depth: number, sorter: NodeSorter): ObjectIterator {
-  if (!isObject(obj)) {
+function* iterator(parent: IParent, obj: any, depth: number, sorter: NodeSorter, cache: Set<any>): ObjectIterator {
+  if (!isObject(obj) || cache.has(obj)) {
     return;
   }
+  cache.add(obj);
   const nextDepth = depth + 1;
   const nodes = Object.keys(obj).map((key) => {
     const value = obj[key];
@@ -32,7 +33,7 @@ function* iterator(parent: IParent, obj: any, depth: number, sorter: NodeSorter)
   nodes.sort(sorter);
   for (const node of nodes) {
     if (!(yield node)) {
-      yield* iterator(node, node.value, nextDepth, sorter);
+      yield* iterator(node, node.value, nextDepth, sorter, cache);
     }
   }
 }
