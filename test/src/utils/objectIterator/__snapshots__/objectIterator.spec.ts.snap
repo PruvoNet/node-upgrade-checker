@@ -1,0 +1,510 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`object iterator for of Should iterate complex object 1`] = `
+Array [
+  Object {
+    "depth": 0,
+    "key": "a",
+    "parent": Object {
+      "value": Object {
+        "a": 1,
+        "b": Object {
+          "c": 2,
+          "d": Object {
+            "e": "5",
+            "f": Array [
+              1,
+              "26",
+            ],
+          },
+        },
+        "g": "7",
+      },
+    },
+    "value": 1,
+  },
+  Object {
+    "depth": 0,
+    "key": "b",
+    "parent": Object {
+      "value": Object {
+        "a": 1,
+        "b": Object {
+          "c": 2,
+          "d": Object {
+            "e": "5",
+            "f": Array [
+              1,
+              "26",
+            ],
+          },
+        },
+        "g": "7",
+      },
+    },
+    "value": Object {
+      "c": 2,
+      "d": Object {
+        "e": "5",
+        "f": Array [
+          1,
+          "26",
+        ],
+      },
+    },
+  },
+  Object {
+    "depth": 1,
+    "key": "c",
+    "parent": Object {
+      "depth": 0,
+      "key": "b",
+      "parent": Object {
+        "value": Object {
+          "a": 1,
+          "b": Object {
+            "c": 2,
+            "d": Object {
+              "e": "5",
+              "f": Array [
+                1,
+                "26",
+              ],
+            },
+          },
+          "g": "7",
+        },
+      },
+      "value": Object {
+        "c": 2,
+        "d": Object {
+          "e": "5",
+          "f": Array [
+            1,
+            "26",
+          ],
+        },
+      },
+    },
+    "value": 2,
+  },
+  Object {
+    "depth": 1,
+    "key": "d",
+    "parent": Object {
+      "depth": 0,
+      "key": "b",
+      "parent": Object {
+        "value": Object {
+          "a": 1,
+          "b": Object {
+            "c": 2,
+            "d": Object {
+              "e": "5",
+              "f": Array [
+                1,
+                "26",
+              ],
+            },
+          },
+          "g": "7",
+        },
+      },
+      "value": Object {
+        "c": 2,
+        "d": Object {
+          "e": "5",
+          "f": Array [
+            1,
+            "26",
+          ],
+        },
+      },
+    },
+    "value": Object {
+      "e": "5",
+      "f": Array [
+        1,
+        "26",
+      ],
+    },
+  },
+  Object {
+    "depth": 2,
+    "key": "e",
+    "parent": Object {
+      "depth": 1,
+      "key": "d",
+      "parent": Object {
+        "depth": 0,
+        "key": "b",
+        "parent": Object {
+          "value": Object {
+            "a": 1,
+            "b": Object {
+              "c": 2,
+              "d": Object {
+                "e": "5",
+                "f": Array [
+                  1,
+                  "26",
+                ],
+              },
+            },
+            "g": "7",
+          },
+        },
+        "value": Object {
+          "c": 2,
+          "d": Object {
+            "e": "5",
+            "f": Array [
+              1,
+              "26",
+            ],
+          },
+        },
+      },
+      "value": Object {
+        "e": "5",
+        "f": Array [
+          1,
+          "26",
+        ],
+      },
+    },
+    "value": "5",
+  },
+  Object {
+    "depth": 2,
+    "key": "f",
+    "parent": Object {
+      "depth": 1,
+      "key": "d",
+      "parent": Object {
+        "depth": 0,
+        "key": "b",
+        "parent": Object {
+          "value": Object {
+            "a": 1,
+            "b": Object {
+              "c": 2,
+              "d": Object {
+                "e": "5",
+                "f": Array [
+                  1,
+                  "26",
+                ],
+              },
+            },
+            "g": "7",
+          },
+        },
+        "value": Object {
+          "c": 2,
+          "d": Object {
+            "e": "5",
+            "f": Array [
+              1,
+              "26",
+            ],
+          },
+        },
+      },
+      "value": Object {
+        "e": "5",
+        "f": Array [
+          1,
+          "26",
+        ],
+      },
+    },
+    "value": Array [
+      1,
+      "26",
+    ],
+  },
+  Object {
+    "depth": 3,
+    "key": "0",
+    "parent": Object {
+      "depth": 2,
+      "key": "f",
+      "parent": Object {
+        "depth": 1,
+        "key": "d",
+        "parent": Object {
+          "depth": 0,
+          "key": "b",
+          "parent": Object {
+            "value": Object {
+              "a": 1,
+              "b": Object {
+                "c": 2,
+                "d": Object {
+                  "e": "5",
+                  "f": Array [
+                    1,
+                    "26",
+                  ],
+                },
+              },
+              "g": "7",
+            },
+          },
+          "value": Object {
+            "c": 2,
+            "d": Object {
+              "e": "5",
+              "f": Array [
+                1,
+                "26",
+              ],
+            },
+          },
+        },
+        "value": Object {
+          "e": "5",
+          "f": Array [
+            1,
+            "26",
+          ],
+        },
+      },
+      "value": Array [
+        1,
+        "26",
+      ],
+    },
+    "value": 1,
+  },
+  Object {
+    "depth": 3,
+    "key": "1",
+    "parent": Object {
+      "depth": 2,
+      "key": "f",
+      "parent": Object {
+        "depth": 1,
+        "key": "d",
+        "parent": Object {
+          "depth": 0,
+          "key": "b",
+          "parent": Object {
+            "value": Object {
+              "a": 1,
+              "b": Object {
+                "c": 2,
+                "d": Object {
+                  "e": "5",
+                  "f": Array [
+                    1,
+                    "26",
+                  ],
+                },
+              },
+              "g": "7",
+            },
+          },
+          "value": Object {
+            "c": 2,
+            "d": Object {
+              "e": "5",
+              "f": Array [
+                1,
+                "26",
+              ],
+            },
+          },
+        },
+        "value": Object {
+          "e": "5",
+          "f": Array [
+            1,
+            "26",
+          ],
+        },
+      },
+      "value": Array [
+        1,
+        "26",
+      ],
+    },
+    "value": "26",
+  },
+  Object {
+    "depth": 0,
+    "key": "g",
+    "parent": Object {
+      "value": Object {
+        "a": 1,
+        "b": Object {
+          "c": 2,
+          "d": Object {
+            "e": "5",
+            "f": Array [
+              1,
+              "26",
+            ],
+          },
+        },
+        "g": "7",
+      },
+    },
+    "value": "7",
+  },
+]
+`;
+
+exports[`object iterator skip logic Should iterate complex object 1`] = `
+Array [
+  Object {
+    "depth": 0,
+    "key": "a",
+    "parent": Object {
+      "value": Object {
+        "a": 1,
+        "b": Object {
+          "c": 2,
+          "d": Object {
+            "e": "5",
+            "f": Array [
+              1,
+              "26",
+            ],
+          },
+        },
+        "g": "7",
+      },
+    },
+    "value": 1,
+  },
+  Object {
+    "depth": 0,
+    "key": "b",
+    "parent": Object {
+      "value": Object {
+        "a": 1,
+        "b": Object {
+          "c": 2,
+          "d": Object {
+            "e": "5",
+            "f": Array [
+              1,
+              "26",
+            ],
+          },
+        },
+        "g": "7",
+      },
+    },
+    "value": Object {
+      "c": 2,
+      "d": Object {
+        "e": "5",
+        "f": Array [
+          1,
+          "26",
+        ],
+      },
+    },
+  },
+  Object {
+    "depth": 1,
+    "key": "c",
+    "parent": Object {
+      "depth": 0,
+      "key": "b",
+      "parent": Object {
+        "value": Object {
+          "a": 1,
+          "b": Object {
+            "c": 2,
+            "d": Object {
+              "e": "5",
+              "f": Array [
+                1,
+                "26",
+              ],
+            },
+          },
+          "g": "7",
+        },
+      },
+      "value": Object {
+        "c": 2,
+        "d": Object {
+          "e": "5",
+          "f": Array [
+            1,
+            "26",
+          ],
+        },
+      },
+    },
+    "value": 2,
+  },
+  Object {
+    "depth": 1,
+    "key": "d",
+    "parent": Object {
+      "depth": 0,
+      "key": "b",
+      "parent": Object {
+        "value": Object {
+          "a": 1,
+          "b": Object {
+            "c": 2,
+            "d": Object {
+              "e": "5",
+              "f": Array [
+                1,
+                "26",
+              ],
+            },
+          },
+          "g": "7",
+        },
+      },
+      "value": Object {
+        "c": 2,
+        "d": Object {
+          "e": "5",
+          "f": Array [
+            1,
+            "26",
+          ],
+        },
+      },
+    },
+    "value": Object {
+      "e": "5",
+      "f": Array [
+        1,
+        "26",
+      ],
+    },
+  },
+  Object {
+    "depth": 0,
+    "key": "g",
+    "parent": Object {
+      "value": Object {
+        "a": 1,
+        "b": Object {
+          "c": 2,
+          "d": Object {
+            "e": "5",
+            "f": Array [
+              1,
+              "26",
+            ],
+          },
+        },
+        "g": "7",
+      },
+    },
+    "value": "7",
+  },
+]
+`;
