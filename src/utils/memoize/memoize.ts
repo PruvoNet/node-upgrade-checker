@@ -1,9 +1,10 @@
 const cacheProp = Symbol.for(`[memoize]`);
+const NO_ARGS = `__no_args__`;
 
 export type GenericFunction<A extends any[] = any[], R = any> = (...args: A) => R;
 
 const defaultKeyBuilder: GenericFunction<[], string> = (): string => {
-  return `__no_args__`;
+  return NO_ARGS;
 };
 
 const getCache = (target: any): Record<string, Map<any, any>> => {

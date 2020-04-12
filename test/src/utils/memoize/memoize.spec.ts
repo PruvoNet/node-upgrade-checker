@@ -30,9 +30,9 @@ describe(`memoize`, () => {
       return this.method1Mock(arg);
     }
 
-    @memoize((...args: any[]) => args.join(`:`))
-    public method2(...args: any[]): string {
-      return this.method2Mock(...args);
+    @memoize((arg?: string) => arg || ``)
+    public method2(arg?: string): string {
+      return this.method2Mock(arg);
     }
   }
 
@@ -65,7 +65,7 @@ describe(`memoize`, () => {
     expect(subjectB.method0Mock).toHaveBeenCalledTimes(1);
   });
 
-  it(`should remember method values with one args`, () => {
+  it(`should remember method values with one arg`, () => {
     expect(subjectA.method1(`foo`)).toBe(`method1 A:foo`);
     expect(subjectA.method1Mock).toHaveBeenCalledTimes(1);
     expect(subjectA.method1(`bar`)).toBe(`method1 A:bar`);
@@ -73,5 +73,19 @@ describe(`memoize`, () => {
     expect(subjectA.method1(`foo`)).toBe(`method1 A:foo`);
     expect(subjectA.method1(`bar`)).toBe(`method1 A:bar`);
     expect(subjectA.method1Mock).toHaveBeenCalledTimes(2);
+  });
+
+  it(`should remember method values with optional one arg`, () => {
+    expect(subjectA.method2(`foo`)).toBe(`method2 A:foo`);
+    expect(subjectA.method2Mock).toHaveBeenCalledTimes(1);
+    expect(subjectA.method2(`bar`)).toBe(`method2 A:bar`);
+    expect(subjectA.method2Mock).toHaveBeenCalledTimes(2);
+    expect(subjectA.method2(`foo`)).toBe(`method2 A:foo`);
+    expect(subjectA.method2(`bar`)).toBe(`method2 A:bar`);
+    expect(subjectA.method2Mock).toHaveBeenCalledTimes(2);
+    expect(subjectA.method2()).toBe(`method2 A:`);
+    expect(subjectA.method2Mock).toHaveBeenCalledTimes(3);
+    expect(subjectA.method2()).toBe(`method2 A:`);
+    expect(subjectA.method2Mock).toHaveBeenCalledTimes(3);
   });
 });
