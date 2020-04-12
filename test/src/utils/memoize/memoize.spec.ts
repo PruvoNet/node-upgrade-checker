@@ -25,7 +25,7 @@ describe(`memoize`, () => {
       return this.method0Mock();
     }
 
-    @memoize()
+    @memoize((arg: string) => arg)
     public method1(arg: string): string {
       return this.method1Mock(arg);
     }

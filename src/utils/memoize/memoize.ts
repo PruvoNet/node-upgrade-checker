@@ -48,11 +48,7 @@ type MemoizeReturn<
 > = (_: object, propertyKey: string, descriptor: TypedPropertyDescriptor<GenericFunction<A, R>>) => void;
 
 type Memoize = {
-  <
-    T extends Function,
-    A extends [] = T extends (...args: []) => any ? [] : never,
-    R = T extends (...args: any) => infer RReal ? RReal : any
-  >(): MemoizeReturn<T, A, R>;
+  <T extends () => any, A extends [] = [], R = T extends () => infer RReal ? RReal : any>(): MemoizeReturn<T, A, R>;
   <
     T extends Function,
     A extends any[] = T extends (...args: infer AReal) => any ? AReal : any[],
