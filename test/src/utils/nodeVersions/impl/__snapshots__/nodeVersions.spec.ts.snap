@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`node versions getAllVersions should parse remote versions 1`] = `
+Array [
+  Object {
+    "codename": "argon",
+    "from": "2015-09-08T00:00:00.000Z",
+    "ltsFrom": "2015-10-12T00:00:00.000Z",
+    "to": "2018-04-30T00:00:00.000Z",
+    "version": "4",
+  },
+  Object {
+    "codename": "boron",
+    "from": "2016-04-26T00:00:00.000Z",
+    "ltsFrom": "2016-10-18T00:00:00.000Z",
+    "to": "2019-04-30T00:00:00.000Z",
+    "version": "6",
+  },
+  Object {
+    "codename": "carbon",
+    "from": "2017-05-30T00:00:00.000Z",
+    "ltsFrom": "2017-10-31T00:00:00.000Z",
+    "to": "2019-12-31T00:00:00.000Z",
+    "version": "8",
+  },
+  Object {
+    "codename": "dubnium",
+    "from": "2018-04-24T00:00:00.000Z",
+    "ltsFrom": "2018-10-30T00:00:00.000Z",
+    "to": "2021-04-30T00:00:00.000Z",
+    "version": "10",
+  },
+  Object {
+    "codename": "erbium",
+    "from": "2019-04-23T00:00:00.000Z",
+    "ltsFrom": "2019-10-21T00:00:00.000Z",
+    "to": "2022-04-30T00:00:00.000Z",
+    "version": "12",
+  },
+  Object {
+    "codename": "",
+    "from": "2020-04-21T00:00:00.000Z",
+    "ltsFrom": "2020-10-20T00:00:00.000Z",
+    "to": "2023-04-30T00:00:00.000Z",
+    "version": "14",
+  },
+]
+`;

@@ -397,4 +397,34 @@ describe(`node versions`, () => {
       expect(loggerMock.error).toHaveBeenCalledWith(`Failed to resolve LTS version of dummy`);
     });
   });
+
+  describe(`getAllVersions`, () => {
+    it(`should throw if fails to locate versions`, async () => {
+      mockReset(axiosMock.get);
+      axiosMock.get.mockRejectedValue(new Error(`failed to fetch`));
+      const promise = nodeVersions.getAllVersions();
+      await expect(promise).rejects.toBeInstanceOf(Error);
+      await expect(promise).rejects.toMatchObject({
+        message: `Failed to fetch node release versions`,
+      });
+      expect(axiosMock.get).toBeCalledTimes(1);
+      expect(axiosMock.get).toHaveBeenCalledWith(
+        `https://raw.githubusercontent.com/nodejs/Release/master/schedule.json`
+      );
+    });
+
+    it(`should cache remote versions result`, async () => {
+      await nodeVersions.getAllVersions();
+      await nodeVersions.getAllVersions();
+      expect(axiosMock.get).toBeCalledTimes(1);
+      expect(axiosMock.get).toHaveBeenCalledWith(
+        `https://raw.githubusercontent.com/nodejs/Release/master/schedule.json`
+      );
+    });
+
+    it(`should parse remote versions`, async () => {
+      const versions = await nodeVersions.getAllVersions();
+      expect(versions).toMatchSnapshot();
+    });
+  });
 });

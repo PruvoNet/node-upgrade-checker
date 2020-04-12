@@ -30,7 +30,7 @@ describe(`memoize`, () => {
       return this.method1Mock(arg);
     }
 
-    @memoize((arg?: string) => arg || ``)
+    @memoize((arg: string) => arg)
     public method2(arg?: string): string {
       return this.method2Mock(arg);
     }

@@ -3,11 +3,21 @@ const NO_ARGS = `__no_args__`;
 
 export type GenericFunction<A extends any[] = any[], R = any> = (...args: A) => R;
 
+type Check<TSig extends GenericFunction, T, K extends keyof T> = T[K] extends (...a: any[]) => any
+  ? T[K] extends TSig
+    ? Parameters<T[K]>['length'] extends 0
+      ? unknown
+      : ['Method must have exactly 0 parameters, Found Parameters:', Parameters<T[K]>]
+    : ['Parameters types not matched, expected  [', Parameters<TSig>, '] Found Parameters:', Parameters<T[K]>]
+  : unknown;
+
 const defaultKeyBuilder: GenericFunction<[], string> = (): string => {
   return NO_ARGS;
 };
 
-const getCache = (target: any): Record<string, Map<any, any>> => {
+type Key = string | number | symbol;
+
+const getCache = (target: any): Record<Key, Map<any, any>> => {
   if (!target[cacheProp]) {
     Object.defineProperty(target, cacheProp, {
       value: Object.create(null),
@@ -17,16 +27,17 @@ const getCache = (target: any): Record<string, Map<any, any>> => {
   return target[cacheProp];
 };
 
-const getKeyCache = (target: any, key: string): Map<any, any> => {
+const getKeyCache = (target: any, key: Key): Map<any, any> => {
   const dict = getCache(target);
-  if (!dict[key]) {
-    dict[key] = new Map<any, any>();
+  const coercedKey: string | number = typeof key === `symbol` ? (key as any) : key;
+  if (!dict[coercedKey]) {
+    dict[coercedKey] = new Map<any, any>();
   }
-  return dict[key];
+  return dict[coercedKey];
 };
 
 const memoizeFn = <A extends any[] = any[]>(
-  namespace: string,
+  namespace: Key,
   func: GenericFunction,
   keyBuilder: GenericFunction<A, string>
 ): GenericFunction => {
@@ -42,31 +53,34 @@ const memoizeFn = <A extends any[] = any[]>(
   };
 };
 
-type MemoizeReturn<
-  T extends Function,
-  A extends any[] = T extends (...args: infer AReal) => any ? AReal : any[],
-  R = T extends (...args: any) => infer RReal ? RReal : any
-> = (_: object, propertyKey: string, descriptor: TypedPropertyDescriptor<GenericFunction<A, R>>) => void;
-
-type Memoize = {
-  <T extends () => any, A extends [] = [], R = T extends () => infer RReal ? RReal : any>(): MemoizeReturn<T, A, R>;
-  <
-    T extends Function,
-    A extends any[] = T extends (...args: infer AReal) => any ? AReal : any[],
-    R = T extends (...args: any) => infer RReal ? RReal : any
-  >(
-    keyBuilder: GenericFunction<A, string>
-  ): MemoizeReturn<T, A, R>;
-};
-
-export const memoize: Memoize = <
-  T extends Function,
-  A extends any[] = T extends (...args: infer AReal) => any ? AReal : any[],
-  R = T extends (...args: any) => infer RReal ? RReal : any
+type MemoizeReturnValue<T extends GenericFunction, A extends any[] = Parameters<T>> = <
+  TTarget,
+  TKey extends keyof TTarget
 >(
+  _: TTarget,
+  propertyKey: TKey,
+  descriptor: TypedPropertyDescriptor<GenericFunction<A>>
+) => void;
+
+type MemoizeReturnValueNoArgs<T extends () => any> = <TTarget, TKey extends keyof TTarget>(
+  _: TTarget,
+  propertyKey: TKey & Check<T, TTarget, TKey>,
+  descriptor: TypedPropertyDescriptor<GenericFunction<[]>>
+) => void;
+
+export function memoize<T extends () => any>(): MemoizeReturnValueNoArgs<T>;
+export function memoize<T extends GenericFunction, A extends any[] = Parameters<T>>(
+  keyBuilder: GenericFunction<A, string>
+): MemoizeReturnValue<T, A>;
+// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+export function memoize<T extends GenericFunction, A extends any[] = Parameters<T>>(
   keyBuilder?: GenericFunction<A, string>
-): MemoizeReturn<T, A, R> => {
-  return (_: object, propertyKey: string, descriptor: TypedPropertyDescriptor<GenericFunction<A, R>>): void => {
+): MemoizeReturnValue<T, A> | MemoizeReturnValueNoArgs<T> {
+  return <TTarget, TKey extends Key>(
+    _: TTarget,
+    propertyKey: TKey,
+    descriptor: TypedPropertyDescriptor<GenericFunction<A>>
+  ): void => {
     descriptor.value = memoizeFn(propertyKey, descriptor.value!, keyBuilder || defaultKeyBuilder);
   };
-};
+}

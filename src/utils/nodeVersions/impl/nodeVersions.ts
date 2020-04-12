@@ -96,7 +96,7 @@ export class NodeVersions extends INodeVersions {
   }
 
   @memoize()
-  private async getAllVersions(): Promise<INodeVersion[]> {
+  public async getAllVersions(): Promise<INodeVersion[]> {
     this.logger.debug(`Fetching all node release versions`);
     try {
       const response = await this.axios.get<RemoteNodeVersions>(NODE_RELEASE_FILE);
@@ -105,9 +105,9 @@ export class NodeVersions extends INodeVersions {
         .filter(([, data]) => data.lts)
         .map(([version, data]) => {
           return {
-            from: moment(data.start, dateFormat),
-            to: moment(data.end, dateFormat),
-            ltsFrom: moment(data.lts, dateFormat),
+            from: moment.utc(data.start, dateFormat),
+            to: moment.utc(data.end, dateFormat),
+            ltsFrom: moment.utc(data.lts, dateFormat),
             version: version.substr(1),
             codename: (data.codename || ``).toLowerCase(),
           };
