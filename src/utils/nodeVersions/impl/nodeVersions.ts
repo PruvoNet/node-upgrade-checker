@@ -40,7 +40,7 @@ export class NodeVersions extends INodeVersions {
     this.logger = loggerFactory.getLogger(`Node Versions`);
   }
 
-  @memoize((options: INodeVersionsLtsOptions): string => options.codename.toLowerCase())
+  @memoize(({ codename }: INodeVersionsLtsOptions): string => codename.toLowerCase())
   public async resolveLtsVersion({ codename }: INodeVersionsLtsOptions): Promise<string | undefined> {
     codename = codename.toLowerCase();
     this.logger.debug(`Resolving LTS version of ${codename}`);
@@ -57,7 +57,7 @@ export class NodeVersions extends INodeVersions {
     return lts;
   }
 
-  @memoize((options: INodeVersionsLatestOptions): string => options.date.toJSON())
+  @memoize(({ date }: INodeVersionsLatestOptions): string => date.toJSON())
   public async resolveLatestLtsVersion({ date }: INodeVersionsLatestOptions): Promise<string | undefined> {
     this.logger.debug(`Resolving latest lts version in ${date.toJSON()}`);
     const versions = await this.getAllVersions();
@@ -76,7 +76,7 @@ export class NodeVersions extends INodeVersions {
     return latest;
   }
 
-  @memoize((options: INodeVersionsLatestOptions): string => options.date.toJSON())
+  @memoize(({ date }: INodeVersionsLatestOptions): string => date.toJSON())
   public async resolveStableVersion({ date }: INodeVersionsLatestOptions): Promise<string | undefined> {
     this.logger.debug(`Resolving stable version in ${date.toJSON()}`);
     const versions = await this.getAllVersions();

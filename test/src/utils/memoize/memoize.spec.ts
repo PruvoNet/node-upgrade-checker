@@ -26,8 +26,8 @@ describe(`memoize`, () => {
     }
 
     @memoize()
-    public method1(...args: any[]): string {
-      return this.method1Mock(...args);
+    public method1(arg: string): string {
+      return this.method1Mock(arg);
     }
 
     @memoize((...args: any[]) => args.join(`:`))
