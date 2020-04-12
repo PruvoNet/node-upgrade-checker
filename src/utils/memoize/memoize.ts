@@ -1,6 +1,6 @@
 const cacheProp = Symbol.for(`[memoize]`);
 
-export type GenericFunction = (...args: any[]) => any;
+export type GenericFunction<A extends any[] = any[], R = any> = (...args: A) => R;
 
 const defaultKeyBuilder = (v: any): any => {
   return v;
@@ -37,8 +37,14 @@ const memoizeFn = (namespace: string, func: GenericFunction, keyBuilder: Generic
   };
 };
 
-export const memoize = (keyBuilder?: GenericFunction) => {
-  return (_: object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>): void => {
-    descriptor.value = memoizeFn(propertyKey, descriptor.value, keyBuilder || defaultKeyBuilder);
+export const memoize = <
+  T extends Function,
+  A extends any[] = T extends (...args: infer AReal) => any ? AReal : any[],
+  R = T extends (...args: any) => infer RReal ? RReal : any
+>(
+  keyBuilder?: GenericFunction<A, string>
+) => {
+  return (_: object, propertyKey: string, descriptor: TypedPropertyDescriptor<GenericFunction<A, R>>): void => {
+    descriptor.value = memoizeFn(propertyKey, descriptor.value!, keyBuilder || defaultKeyBuilder);
   };
 };
