@@ -41,6 +41,10 @@ describe(`dependency version repository provider e2e`, () => {
       repoUrl: `https://www.github.com/example/test.git`,
       commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
       releaseDate,
+      engines: `>=6`,
+      repoDirectory: `dir/dir2`,
+      testScript: `test:unit`,
+      buildScript: `build`,
     });
     await repo.save(dependency);
     const count = await repo.count();
@@ -58,13 +62,21 @@ describe(`dependency version repository provider e2e`, () => {
       repoUrl: `https://www.github.com/example/test.git`,
       commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
       releaseDate,
+      engines: null,
+      repoDirectory: null,
+      testScript: null,
+      buildScript: null,
     });
     const dependency2 = new DependencyVersion({
       version: `5.0.1`,
       name: `test dependency2`,
       repoUrl: `https://www.github.com/example/test2.git`,
       commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
-      releaseDate,
+      releaseDate: null,
+      engines: null,
+      repoDirectory: null,
+      testScript: null,
+      buildScript: null,
     });
     await repo.save([dependency, dependency2]);
     const count = await repo.count();
@@ -83,6 +95,10 @@ describe(`dependency version repository provider e2e`, () => {
       repoUrl: `https://www.github.com/example/test.git`,
       commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
       releaseDate,
+      engines: null,
+      repoDirectory: null,
+      testScript: null,
+      buildScript: null,
     });
     const dependency2 = new DependencyVersion({
       version: `4.0.1`,
@@ -90,6 +106,10 @@ describe(`dependency version repository provider e2e`, () => {
       repoUrl: `https://www.github.com/example/test2.git`,
       releaseDate,
       commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
+      engines: null,
+      repoDirectory: null,
+      testScript: null,
+      buildScript: null,
     });
     await repo.save(dependency);
     await repo.save(dependency2);
@@ -105,6 +125,10 @@ describe(`dependency version repository provider e2e`, () => {
       repoUrl: `https://www.github.com/example/test.git`,
       commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
       releaseDate,
+      engines: null,
+      repoDirectory: null,
+      testScript: null,
+      buildScript: null,
     });
     const dependency2 = new DependencyVersion({
       version: `5.0.1`,
@@ -112,11 +136,50 @@ describe(`dependency version repository provider e2e`, () => {
       repoUrl: `https://www.github.com/example/test2.git`,
       commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
       releaseDate,
+      engines: null,
+      repoDirectory: null,
+      testScript: null,
+      buildScript: null,
     });
     await repo.save([dependency, dependency2]);
     const entity = await repo.findOne({
       version: `4.0.1`,
     });
     expect(entity).toEqual(dependency);
+  });
+
+  it(`should update entities`, async () => {
+    const repo = await dependencyVersionRepositoryProvider.getRepository();
+    const dependency = new DependencyVersion({
+      version: `4.0.1`,
+      name: `test dependency`,
+      repoUrl: `https://www.github.com/example/test.git`,
+      commitSha: null,
+      releaseDate,
+      engines: null,
+      repoDirectory: null,
+      testScript: null,
+      buildScript: null,
+    });
+    await repo.save(dependency);
+    const entity = await repo.findOne({
+      name: dependency.name,
+      version: dependency.version,
+    });
+    expect(entity).toEqual(dependency);
+    await repo.update(
+      {
+        name: dependency.name,
+        version: dependency.version,
+      },
+      {
+        commitSha: `v1.2.2`,
+      }
+    );
+    const entity2 = await repo.findOne({
+      name: dependency.name,
+      version: dependency.version,
+    });
+    expect(entity2?.commitSha).toEqual(`v1.2.2`);
   });
 });

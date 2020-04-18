@@ -1,6 +1,6 @@
 import * as path from 'path';
 import { inject, injectable } from 'inversify';
-import { ICheckoutOptions, IGitCheckout } from '../interfaces/IGitCheckout';
+import { ICheckoutOptions, ICheckoutResult, IGitCheckout } from '../interfaces/IGitCheckout';
 import { getRepoDirName } from './getRepoDirName';
 import { Git } from './git';
 import { FS, TYPES } from '../../../container/nodeModulesContainer';
@@ -15,7 +15,7 @@ export class GitCheckout extends IGitCheckout {
     this.logger = loggerFactory.getLogger(`GitCheckout`);
   }
 
-  public async checkoutRepo({ url, baseDir, tag, commitSha }: ICheckoutOptions): Promise<string> {
+  public async checkoutRepo({ url, baseDir, tag, commitSha }: ICheckoutOptions): Promise<ICheckoutResult> {
     const dirName = await getRepoDirName({ url });
     const fullDir = path.join(baseDir, dirName);
     this.logger.info(`Cloning repo ${url} to ${fullDir}`);
@@ -45,14 +45,17 @@ export class GitCheckout extends IGitCheckout {
       });
     } else {
       this.logger.debug(`Looking for commit of tag ${tag}`);
-      const reference = await this.git.locateTag({ repo, tag });
-      this.logger.debug(`Checking out found commit ${reference} for tag ${tag}`);
+      commitSha = await this.git.locateTag({ repo, tag });
+      this.logger.debug(`Checking out found commit ${commitSha} for tag ${tag}`);
       await this.git.checkoutCommit({
         repo,
-        commitSha: reference,
+        commitSha,
       });
     }
     this.logger.success(`Checking out repo ${dirName}`);
-    return fullDir;
+    return {
+      repoPath: fullDir,
+      commitSha,
+    };
   }
 }

@@ -29,20 +29,22 @@ describe(`git checkout`, () => {
   it(
     `should checkout existing tag`,
     async () => {
-      const name = await gitCheckout.checkoutRepo({
+      const { repoPath: name, commitSha } = await gitCheckout.checkoutRepo({
         url,
         baseDir: tmpDir,
         tag: `1.2.1`,
       });
       const expected = path.join(tmpDir, dirName);
       expect(name).toBe(expected);
+      expect(commitSha).toBe(`v1.2.1`);
       await verifyVersion(name, `1.2.1`);
-      const name2 = await gitCheckout.checkoutRepo({
+      const { repoPath: name2, commitSha: commitSha2 } = await gitCheckout.checkoutRepo({
         url,
         baseDir: tmpDir,
         tag: `1.2.2`,
       });
       expect(name2).toBe(expected);
+      expect(commitSha2).toBe(`v1.2.2`);
       await verifyVersion(name, `1.2.2`);
     },
     timeout
@@ -51,7 +53,7 @@ describe(`git checkout`, () => {
   it(
     `should checkout existing commit`,
     async () => {
-      const name = await gitCheckout.checkoutRepo({
+      const { repoPath: name, commitSha } = await gitCheckout.checkoutRepo({
         url,
         baseDir: tmpDir,
         tag: `4.0.9`,
@@ -59,14 +61,16 @@ describe(`git checkout`, () => {
       });
       const expected = path.join(tmpDir, dirName);
       expect(name).toBe(expected);
+      expect(commitSha).toBe(`e2942bb0f6a3d402cfef5714153263aef8e1466f`);
       await verifyVersion(name, `4.0.9`);
-      const name2 = await gitCheckout.checkoutRepo({
+      const { repoPath: name2, commitSha: commitSha2 } = await gitCheckout.checkoutRepo({
         url,
         baseDir: tmpDir,
         tag: `1.2.2`,
         commitSha: `e803d4cafb3a81d378117726a582cc7d561c5b47`,
       });
       expect(name2).toBe(expected);
+      expect(commitSha2).toBe(`e803d4cafb3a81d378117726a582cc7d561c5b47`);
       await verifyVersion(name, `1.2.2`);
     },
     timeout

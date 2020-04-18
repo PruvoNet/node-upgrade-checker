@@ -8,9 +8,13 @@ const dateFormat = `YYYY-MM-DD`;
 export interface IDependencyVersionOptions {
   name: string;
   version: string;
-  repoUrl: string;
-  releaseDate: Moment;
-  commitSha: string;
+  repoUrl: string | null;
+  repoDirectory: string | null;
+  releaseDate: Moment | null;
+  commitSha: string | null;
+  engines: string | null;
+  testScript: string | null;
+  buildScript: string | null;
 }
 
 @Entity()
@@ -23,18 +27,41 @@ export class DependencyVersion extends IEntity {
   @PrimaryColumn(`text`)
   public version!: string;
 
-  @Column(`text`)
-  public repoUrl!: string;
-
   @Column(`text`, {
-    transformer: buildDateTransformer(dateFormat),
+    nullable: true,
   })
-  public releaseDate!: Moment;
+  public repoUrl!: string | null;
 
   @Column(`text`, {
     nullable: true,
   })
-  public commitSha!: string;
+  public repoDirectory!: string | null;
+
+  @Column(`text`, {
+    transformer: buildDateTransformer(dateFormat),
+    nullable: true,
+  })
+  public releaseDate!: Moment | null;
+
+  @Column(`text`, {
+    nullable: true,
+  })
+  public commitSha!: string | null;
+
+  @Column(`text`, {
+    nullable: true,
+  })
+  public testScript!: string | null;
+
+  @Column(`text`, {
+    nullable: true,
+  })
+  public buildScript!: string | null;
+
+  @Column(`text`, {
+    nullable: true,
+  })
+  public engines!: string | null;
 
   constructor(options?: IDependencyVersionOptions) {
     super();
@@ -42,8 +69,12 @@ export class DependencyVersion extends IEntity {
       this.name = options.name;
       this.version = options.version;
       this.repoUrl = options.repoUrl;
+      this.repoDirectory = options.repoDirectory;
       this.releaseDate = options.releaseDate;
       this.commitSha = options.commitSha;
+      this.engines = options.engines;
+      this.testScript = options.testScript;
+      this.buildScript = options.buildScript;
     }
   }
 }

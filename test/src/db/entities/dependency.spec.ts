@@ -11,7 +11,7 @@ describe(`dependency entity`, () => {
     {
       databaseName: `match`,
       isPrimary: false,
-      isNullable: true,
+      isNullable: false,
       type: `boolean` as const,
     },
     {
@@ -34,22 +34,7 @@ describe(`dependency entity`, () => {
     },
   ]);
 
-  it(`should set properties from constructor`, async () => {
-    const dependency = new Dependency({
-      targetNode: `12`,
-      version: `4.0.1`,
-      name: `test`,
-      reason: undefined,
-      match: undefined,
-    });
-    expect(dependency.targetNode).toBe(`12`);
-    expect(dependency.version).toBe(`4.0.1`);
-    expect(dependency.name).toBe(`test`);
-    expect(dependency.reason).toBeUndefined();
-    expect(dependency.match).toBeUndefined();
-  });
-
-  it(`should set properties from constructor full`, async () => {
+  it(`should set properties from constructor with match`, async () => {
     const dependency = new Dependency({
       targetNode: `12`,
       version: `4.0.1`,
@@ -57,26 +42,30 @@ describe(`dependency entity`, () => {
       reason: `my reason`,
       match: true,
     });
-    expect(dependency.targetNode).toBe(`12`);
-    expect(dependency.version).toBe(`4.0.1`);
-    expect(dependency.name).toBe(`test`);
-    expect(dependency.reason).toBe(`my reason`);
-    expect(dependency.match).toBe(true);
-  });
-
-  it(`should set properties from constructor full 2`, async () => {
-    const dependency = new Dependency({
+    expect(dependency).toEqual({
       targetNode: `12`,
       version: `4.0.1`,
       name: `test`,
       reason: `my reason`,
-      match: false,
+      match: true,
     });
-    expect(dependency.targetNode).toBe(`12`);
-    expect(dependency.version).toBe(`4.0.1`);
-    expect(dependency.name).toBe(`test`);
-    expect(dependency.reason).toBe(`my reason`);
-    expect(dependency.match).toBe(false);
+  });
+
+  it(`should set properties from constructor with no match`, async () => {
+    const dependency = new Dependency({
+      targetNode: `12`,
+      version: `4.0.1`,
+      name: `test`,
+      match: false,
+      reason: null,
+    });
+    expect(dependency).toEqual({
+      targetNode: `12`,
+      version: `4.0.1`,
+      name: `test`,
+      match: false,
+      reason: null,
+    });
   });
 
   it(`should work with empty constructor`, async () => {

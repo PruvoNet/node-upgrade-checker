@@ -5,6 +5,11 @@ export interface ICheckoutOptions {
   commitSha?: string;
 }
 
+export interface ICheckoutResult {
+  commitSha: string;
+  repoPath: string;
+}
+
 export abstract class IGitCheckout {
-  public abstract async checkoutRepo(options: ICheckoutOptions): Promise<string>;
+  public abstract async checkoutRepo(options: ICheckoutOptions): Promise<ICheckoutResult>;
 }

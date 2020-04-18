@@ -21,4 +21,11 @@ describe(`date transformer`, () => {
     expect(transformer.to(momentDate)).toBe(expectedStr);
     expect(transformer.from(expectedStr).toJSON()).toEqual(expectedMoment.toJSON());
   });
+
+  it(`should transform nulls properly`, async () => {
+    const dateFormat = `YYYY-MM`;
+    const transformer = buildDateTransformer(dateFormat);
+    expect(transformer.to(null)).toBe(null);
+    expect(transformer.from(null)).toEqual(null);
+  });
 });

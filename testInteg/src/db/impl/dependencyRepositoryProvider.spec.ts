@@ -85,7 +85,7 @@ describe(`dependency repository provider e2e`, () => {
       match: false,
       version: `5.0.1`,
       name: `test dependency`,
-      reason: `cache2`,
+      reason: null,
     });
     await repo.save(dependency);
     await repo.save(dependency2);
