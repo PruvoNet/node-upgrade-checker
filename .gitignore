@@ -15,10 +15,10 @@ pids
 lib-cov
 /.stryker-tmp
 # Coverage directory used by tools like istanbul
-coverage
-.cache
+coverage/**
+.cache/**
 # nyc test coverage
-.nyc_output
+.nyc_output/**
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
@@ -33,11 +33,11 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
-.idea/
-build/
-dist/
-jspm_packages/
+node_modules/**
+.idea/**
+build/**
+dist/**
+jspm_packages/**
 !/tools
 !/tools/**/*.js
 **/*.js.map
@@ -48,7 +48,7 @@ jspm_packages/
 !nyc.config.js
 
 # Typescript v1 declaration files
-typings/
+typings/**
 
 # Optional npm cache directory
 .npm
@@ -69,8 +69,31 @@ typings/
 .env
 
 # stryker temp files
-.stryker-tmp
-/reports
+.stryker-tmp/**
+reports/**
 !@types/**
-!/tools
-
+!/tools/**
+.yarn/unplugged/**
+.yarn/build-state.yml
+.yarn/install-state.gz
+!.yarn/cache/**
+!.yarn/plugins/**
+!.yarn/releases/**
+!.pnp.js
+!.cspell.json
+!.all-contributorsrc
+!.codecov.yml
+!.commitlintrc.json
+!.editorconfig
+!.eslintignore
+!.eslintrc.json
+!.gitattributes
+!.gitignore
+!.huskyrc
+!.lintstagedrc
+!.ncurc.json
+!.npmignore
+!.prettierignore
+!.prettierrc.json
+!.yarnrc.yml
+!.yarnrc
