@@ -12,8 +12,8 @@ import { DependencyVersion } from './entities/dependencyVersion';
 import { namedOrMultiConstraint } from '../container/utils';
 
 export const EntitiesTags = {
-  dependencyVersion: Symbol.for(`DependencyVersion`),
-  dependency: Symbol.for(`Dependency`),
+  dependencyVersion: DependencyVersion.TAG,
+  dependency: Dependency.TAG,
 };
 
 export const dbModulesBinder = (bind: Bind): void => {

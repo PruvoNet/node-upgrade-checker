@@ -20,10 +20,10 @@ import { INvmHandler } from './interfaces/INvmHandler';
 import { NvmHandler } from './impl/nvmHandler';
 
 export const SpecificCIResolverTags = {
-  travisCi: Symbol.for(`travisCi`),
-  appVeyor: Symbol.for(`appVeyor`),
-  circleCi: Symbol.for(`circleCi`),
-  githubActions: Symbol.for(`githubActions`),
+  travisCi: TravisCiResolver.TAG,
+  appVeyor: AppVeyorResolver.TAG,
+  circleCi: CircleCiResolver.TAG,
+  githubActions: GithubActionsResolver.TAG,
 };
 
 export const ciResolverModulesBinder = (bind: Bind): void => {

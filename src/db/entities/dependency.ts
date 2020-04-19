@@ -11,6 +11,8 @@ export interface IDependencyOptions {
 
 @Entity()
 export class Dependency extends IEntity {
+  public static TAG = Symbol.for(`Dependency`);
+
   @PrimaryColumn(`text`)
   public name!: string;
 

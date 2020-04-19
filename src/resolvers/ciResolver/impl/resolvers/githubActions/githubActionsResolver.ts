@@ -23,6 +23,8 @@ export class GithubActionsResolver extends ISpecificCIResolver {
   public readonly resolverName = resolverName;
   private readonly logger: ILogger;
 
+  public static TAG = Symbol.for(resolverName);
+
   constructor(
     @inject(TYPES.FS) private readonly fs: FS,
     private readonly configParser: GithubActionsConfigParser,

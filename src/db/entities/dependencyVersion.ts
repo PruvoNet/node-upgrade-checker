@@ -15,6 +15,8 @@ export interface IDependencyVersionOptions {
 
 @Entity()
 export class DependencyVersion extends IEntity {
+  public static TAG = Symbol.for(`DependencyVersion`);
+
   @PrimaryColumn(`text`)
   public name!: string;
 

@@ -28,6 +28,8 @@ export class CircleCiResolver extends ISpecificCIResolver {
   public readonly resolverName = resolverName;
   private readonly logger: ILogger;
 
+  public static TAG = Symbol.for(resolverName);
+
   constructor(
     @inject(TYPES.FS) private fs: FS,
     private readonly configParser: CircleCiConfigParser,
