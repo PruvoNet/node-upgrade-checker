@@ -1,3 +1,5 @@
+import { Key, StringOrNumber } from '../types/types';
+
 const cacheProp = Symbol.for(`[memoize]`);
 const NO_ARGS = `__no_args__`;
 
@@ -15,8 +17,6 @@ const defaultKeyBuilder: GenericFunction<[], string> = (): string => {
   return NO_ARGS;
 };
 
-type Key = string | number | symbol;
-
 const getCache = (target: any): Record<Key, Map<any, any>> => {
   if (!target[cacheProp]) {
     Object.defineProperty(target, cacheProp, {
@@ -29,7 +29,7 @@ const getCache = (target: any): Record<Key, Map<any, any>> => {
 
 const getKeyCache = (target: any, key: Key): Map<any, any> => {
   const dict = getCache(target);
-  const coercedKey: string | number = typeof key === `symbol` ? (key as any) : key;
+  const coercedKey: StringOrNumber = typeof key === `symbol` ? (key as any) : key;
   if (!dict[coercedKey]) {
     dict[coercedKey] = new Map<any, any>();
   }

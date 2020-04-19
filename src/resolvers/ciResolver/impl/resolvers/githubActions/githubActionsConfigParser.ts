@@ -3,18 +3,19 @@ import { injectable } from 'inversify';
 import { ILoggerFactory } from '../../../../../utils/logger';
 import { ILogger } from '../../../../../utils/logger/interfaces/ILogger';
 import { INode, keySorter, NodeSorter, objectIterator } from '../../../../../utils/objectIterator/objectIterator';
-import { is, isArrayOfObjects, isNumber, isString } from 'ts-type-guards';
+import { is, isArrayOfObjects, isString } from 'ts-type-guards';
 import { INvmHandler } from '../../../interfaces/INvmHandler';
+import { isStringOrNumber } from '../../../../../utils/types/typeGuards';
+import { StringOrNumber } from '../../../../../utils/types/types';
 
 const envRegex = /\${{\s*(?:env|matrix|secrets)\.([^\s]+)\s*}}/i;
 const nodeEnvReplaceRegex = /\${{\s*(?:env|matrix|secrets)\.([^\s]+)\s*}}/i;
 
-type Scalar = string | number;
 type Matrix = Record<string, string[]>;
 
-const toString = (value: Scalar): string => String(value);
+const toString = (value: StringOrNumber): string => String(value);
 
-const nodeVersionCommandParser = (matrix: Matrix) => (version: Scalar): string[] => {
+const nodeVersionCommandParser = (matrix: Matrix) => (version: StringOrNumber): string[] => {
   version = String(version);
   const matrixKey = envRegex.exec(version)?.[1];
   if (matrixKey) {
@@ -36,17 +37,51 @@ const sorter: NodeSorter = (a: INode, b: INode) => {
   return keySorter(a, b);
 };
 
-const isStringOrNumber = (x: any): x is string | number => {
-  return isString(x) || isNumber(x);
-};
-
-const isStringOrNumberArray = (x: any): x is Scalar[] => {
+const isStringOrNumberArray = (x: any): x is StringOrNumber[] => {
   return is(Array)(x) && x.every(isStringOrNumber);
 };
 
 export interface IGithubActionsConfigParserOptions {
   config: Record<string, any>;
 }
+
+const isEnvNode = (value: unknown, node: INode): value is StringOrNumber => {
+  const { parent, isLeaf } = node;
+  return isLeaf && parent.isNonRootNode && parent.key === `env` && isStringOrNumber(value);
+};
+
+const isMatrixNode = (value: unknown, node: INode): value is StringOrNumber[] => {
+  const { parent } = node;
+  return (
+    parent.isNonRootNode &&
+    parent.key === `matrix` &&
+    parent.parent.isNonRootNode &&
+    parent.parent.key === `strategy` &&
+    isStringOrNumberArray(value)
+  );
+};
+
+const isIncludeMatrixNode = (value: unknown, node: INode): value is object[] => {
+  const { parent, key } = node;
+  return (
+    parent.isNonRootNode &&
+    parent.key === `matrix` &&
+    parent.parent.isNonRootNode &&
+    parent.parent.key === `strategy` &&
+    key === `include` &&
+    isArrayOfObjects(value)
+  );
+};
+
+const isNodeVersionNode = (value: unknown, node: INode): value is StringOrNumber => {
+  const { parent, key, isLeaf } = node;
+  return isLeaf && key === `node-version` && parent.isNonRootNode && parent.key === `with` && isStringOrNumber(value);
+};
+
+const isRunNode = (value: unknown, node: INode): value is string => {
+  const { key, isLeaf } = node;
+  return isLeaf && key === `run` && isString(value);
+};
 
 @injectable()
 export class GithubActionsConfigParser {
@@ -58,43 +93,30 @@ export class GithubActionsConfigParser {
 
   public async parse({ config }: IGithubActionsConfigParserOptions): Promise<ISpecificCIResolverResponse> {
     this.logger.debug(`Parsing Github Actions configuration`);
-    const rawVersions: Scalar[] = [];
+    const rawVersions: StringOrNumber[] = [];
     const matrix: Matrix = {};
     const nvmCommands: string[] = [];
     const it = objectIterator(config, sorter);
     let iteration = it.next();
     while (!iteration.done) {
       const { value: node } = iteration;
-      const { value, parent, key, isLeaf } = node;
+      const { value, key } = node;
       let skip = false;
-      if (isLeaf && parent.isNonRootNode && parent.key === `env` && isStringOrNumber(value)) {
+      if (isEnvNode(value, node)) {
         if (matrix[key]) {
           matrix[key].push(String(value));
         } else {
           matrix[key] = [String(value)];
         }
         skip = true;
-      } else if (
-        parent.isNonRootNode &&
-        parent.key === `matrix` &&
-        parent.parent.isNonRootNode &&
-        parent.parent.key === `strategy` &&
-        isStringOrNumberArray(value)
-      ) {
+      } else if (isMatrixNode(value, node)) {
         if (matrix[key]) {
           matrix[key].push(...value.map(toString));
         } else {
           matrix[key] = value.map(toString);
         }
         skip = true;
-      } else if (
-        parent.isNonRootNode &&
-        parent.key === `matrix` &&
-        parent.parent.isNonRootNode &&
-        parent.parent.key === `strategy` &&
-        key === `include` &&
-        isArrayOfObjects(value)
-      ) {
+      } else if (isIncludeMatrixNode(value, node)) {
         for (const element of value) {
           for (const [currentKey, currentValue] of Object.entries(element)) {
             if (matrix[currentKey]) {
@@ -105,16 +127,10 @@ export class GithubActionsConfigParser {
           }
         }
         skip = true;
-      } else if (
-        isLeaf &&
-        key === `node-version` &&
-        parent.isNonRootNode &&
-        parent.key === `with` &&
-        isStringOrNumber(value)
-      ) {
+      } else if (isNodeVersionNode(value, node)) {
         rawVersions.push(value);
         skip = true;
-      } else if (isLeaf && key === `run` && isString(value)) {
+      } else if (isRunNode(value, node)) {
         const command = value.replace(nodeEnvReplaceRegex, `\${$1}`);
         if (this.nvmHandler.isNvmCommand(command)) {
           this.logger.debug(`Found nvm command - ${command}`);

@@ -3,8 +3,10 @@ import { injectable } from 'inversify';
 import { ILoggerFactory } from '../../../../../utils/logger';
 import { ILogger } from '../../../../../utils/logger/interfaces/ILogger';
 import { INode, keySorter, NodeSorter, objectIterator } from '../../../../../utils/objectIterator/objectIterator';
-import { isNumber, isString } from 'ts-type-guards';
+import { isString } from 'ts-type-guards';
 import { INvmHandler } from '../../../interfaces/INvmHandler';
+import { isStringOrNumber } from '../../../../../utils/types/typeGuards';
+import { Key, StringOrNumber } from '../../../../../utils/types/types';
 
 const nodeVersionRegex = /node ([^\s]+)/i;
 const nodeVersionInstallRegex = /Install-Product node ([^\s]+)/i;
@@ -55,12 +57,50 @@ export interface IAppVeyorConfigParserOptions {
   config: Record<string, any>;
 }
 
-const coerceString = (o: Record<string, string | number>): Record<string, string> => {
+const coerceString = (o: Record<Key, unknown>): Record<string, string> => {
   const newObj: Record<string, string> = {};
   Object.keys(o).forEach((k) => {
     newObj[k] = String(o[k]);
   });
   return newObj;
+};
+
+const isStackNode = (value: unknown, node: INode): value is string => {
+  const { parent, isLeaf, key } = node;
+  return !parent.isNonRootNode && isLeaf && key === `stack` && isString(value);
+};
+
+const isMatrixNode = (node: INode): boolean => {
+  const { parent, isLeaf } = node;
+  return (
+    !isLeaf &&
+    parent.isNonRootNode &&
+    parent.key === `matrix` &&
+    parent.parent.isNonRootNode &&
+    parent.parent.key === `environment`
+  );
+};
+
+const isGlobalEnvNode = (value: unknown, node: INode): value is StringOrNumber => {
+  const { parent, isLeaf } = node;
+  return (
+    isLeaf &&
+    parent.isNonRootNode &&
+    parent.key === `global` &&
+    parent.parent.isNonRootNode &&
+    parent.parent.key === `environment` &&
+    isStringOrNumber(value)
+  );
+};
+
+const isEnvNode = (value: unknown, node: INode): value is StringOrNumber => {
+  const { parent, isLeaf } = node;
+  return isLeaf && parent.isNonRootNode && parent.key === `environment` && isStringOrNumber(value);
+};
+
+const isCommandNode = (value: unknown, node: INode): value is string => {
+  const { key, isLeaf } = node;
+  return isLeaf && (key === `ps` || key === `sh` || key === `cmd`) && isString(value);
 };
 
 @injectable()
@@ -80,42 +120,25 @@ export class AppVeyorConfigParser {
     let iteration = it.next();
     while (!iteration.done) {
       const { value: node } = iteration;
-      const { value, parent, key, isLeaf } = node;
+      const { value, key } = node;
       let skip = false;
-      if (!parent.isNonRootNode && isLeaf && key === `stack` && isString(value)) {
+      if (isStackNode(value, node)) {
         parseStack(value, versions);
-      } else if (
-        parent.isNonRootNode &&
-        parent.key === `matrix` &&
-        parent.parent.isNonRootNode &&
-        parent.parent.key === `environment`
-      ) {
-        matrix.push(coerceString(value));
+      } else if (!node.isLeaf && isMatrixNode(node)) {
+        matrix.push(coerceString(node.value));
         skip = true;
-      } else if (
-        isLeaf &&
-        parent.isNonRootNode &&
-        parent.key === `global` &&
-        parent.parent.isNonRootNode &&
-        parent.parent.key === `environment` &&
-        (isString(value) || isNumber(value))
-      ) {
+      } else if (isGlobalEnvNode(value, node)) {
         matrix.forEach((mat) => {
           mat[key] = String(value);
         });
-      } else if (
-        isLeaf &&
-        parent.isNonRootNode &&
-        parent.key === `environment` &&
-        (isString(value) || isNumber(value))
-      ) {
+      } else if (isEnvNode(value, node)) {
         if (matrix.length === 0) {
           matrix.push({});
         }
         matrix.forEach((mat) => {
           mat[key] = String(value);
         });
-      } else if (isLeaf && (key === `ps` || key === `sh` || key === `cmd`) && isString(value)) {
+      } else if (isCommandNode(value, node)) {
         commands.push(value);
         skip = true;
       }

@@ -2,10 +2,12 @@ import { ISpecificCIResolverResponse } from '../../../interfaces/ISpecificCIReso
 import { injectable } from 'inversify';
 import { ILoggerFactory } from '../../../../../utils/logger';
 import { ILogger } from '../../../../../utils/logger/interfaces/ILogger';
-import { objectIterator } from '../../../../../utils/objectIterator/objectIterator';
-import { isNumber, isString } from 'ts-type-guards';
+import { INode, objectIterator } from '../../../../../utils/objectIterator/objectIterator';
+import { isString } from 'ts-type-guards';
 import { ITargetMatcher } from '../../../interfaces/ITargetMatcher';
 import { INvmHandler } from '../../../interfaces/INvmHandler';
+import { isStringOrNumber } from '../../../../../utils/types/typeGuards';
+import { StringOrNumber } from '../../../../../utils/types/types';
 
 const nodeVersionRegex = /node:([^-.]+)-?/i;
 
@@ -14,6 +16,24 @@ type Matrix = Record<string, string[]>;
 export interface ICircleCiConfigParserOptions {
   config: Record<string, any>;
 }
+
+const isVersionNode = (value: unknown, node: INode): value is string => {
+  const { parent, isLeaf, key, isNonRootNode } = node;
+  return (
+    isLeaf &&
+    key === `image` &&
+    isString(value) &&
+    isNonRootNode &&
+    parent.isNonRootNode &&
+    parent.parent.isNonRootNode &&
+    parent.parent.key === `docker`
+  );
+};
+
+const isEnvNode = (value: unknown, node: INode): value is StringOrNumber => {
+  const { parent, isLeaf } = node;
+  return isLeaf && parent.isNonRootNode && parent.key === `environment` && isStringOrNumber(value);
+};
 
 @injectable()
 export class CircleCiConfigParser {
@@ -33,29 +53,16 @@ export class CircleCiConfigParser {
     const matrix: Matrix = {};
     const nvmCommands: string[] = [];
     for (const node of objectIterator(config)) {
-      const { value, key, isLeaf, isNonRootNode, parent } = node;
-      if (
-        isLeaf &&
-        key === `image` &&
-        isString(value) &&
-        isNonRootNode &&
-        parent.isNonRootNode &&
-        parent.parent.isNonRootNode &&
-        parent.parent.key === `docker`
-      ) {
+      const { value, key } = node;
+      if (isVersionNode(value, node)) {
         this.parseVersion(value, versions);
-      } else if (
-        isLeaf &&
-        parent.isNonRootNode &&
-        parent.key === `environment` &&
-        (isString(value) || isNumber(value))
-      ) {
+      } else if (isEnvNode(value, node)) {
         if (matrix[key]) {
           matrix[key].push(String(value));
         } else {
           matrix[key] = [String(value)];
         }
-      } else if (isLeaf && isString(value) && this.nvmHandler.isNvmCommand(value)) {
+      } else if (this.isNvmCommandNode(value, node)) {
         this.logger.debug(`Found nvm command - ${value}`);
         nvmCommands.push(value);
       }
@@ -67,6 +74,11 @@ export class CircleCiConfigParser {
     return {
       nodeVersions: versions,
     };
+  }
+
+  private isNvmCommandNode(value: unknown, node: INode): value is string {
+    const { isLeaf } = node;
+    return isLeaf && isString(value) && this.nvmHandler.isNvmCommand(value);
   }
 
   private nodeVersionCommandParser(command: string, matrix: Matrix, versions: Set<string>): void {

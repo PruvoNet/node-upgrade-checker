@@ -2,13 +2,15 @@ import { ISpecificCIResolverResponse } from '../../../interfaces/ISpecificCIReso
 import { injectable } from 'inversify';
 import { ILoggerFactory } from '../../../../../utils/logger';
 import { ILogger } from '../../../../../utils/logger/interfaces/ILogger';
-import { objectIterator } from '../../../../../utils/objectIterator/objectIterator';
-import { isNumber, isString } from 'ts-type-guards';
+import { INode, objectIterator } from '../../../../../utils/objectIterator/objectIterator';
+import { isString } from 'ts-type-guards';
 import { ITargetMatcher } from '../../../interfaces/ITargetMatcher';
 import { parse, ParseEntry } from 'shell-quote';
 import * as yargsParser from 'yargs-parser';
 import { Options } from 'yargs-parser';
 import { INvmHandler } from '../../../interfaces/INvmHandler';
+import { isStringOrNumber } from '../../../../../utils/types/typeGuards';
+import { StringOrNumber } from '../../../../../utils/types/types';
 
 const yargsOptions: Options = {
   configuration: {
@@ -39,6 +41,33 @@ const parseEnvVariable = (value: string, matrix: Matrix): void => {
   });
 };
 
+const isEnvNode = (value: unknown, node: INode): value is string => {
+  const { parent, isLeaf } = node;
+  return isLeaf && parent.isNonRootNode && parent.key === `env` && isString(value);
+};
+
+const isStringEnvNode = (value: unknown, node: INode): value is string => {
+  const { key, isLeaf } = node;
+  return isLeaf && key === `env` && isString(value);
+};
+
+const isEntryEnvNode = (value: unknown, node: INode): value is string => {
+  const { parent, isLeaf } = node;
+  return (
+    isLeaf && parent.isNonRootNode && parent.parent.isNonRootNode && parent.parent.key === `env` && isString(value)
+  );
+};
+
+const isNodeJsNode = (value: unknown, node: INode): value is StringOrNumber => {
+  const { key, isLeaf } = node;
+  return isLeaf && key === `node_js` && isStringOrNumber(value);
+};
+
+const isNodeJsEntryNode = (value: unknown, node: INode): value is StringOrNumber => {
+  const { parent, isLeaf } = node;
+  return isLeaf && parent.isNonRootNode && parent.key === `node_js` && isStringOrNumber(value);
+};
+
 @injectable()
 export class TravisCiConfigParser {
   private readonly logger: ILogger;
@@ -60,30 +89,24 @@ export class TravisCiConfigParser {
     let iteration = it.next();
     while (!iteration.done) {
       const { value: node } = iteration;
-      const { value, key, isLeaf, parent } = node;
+      const { value } = node;
       let skip = false;
-      if (isLeaf && parent.isNonRootNode && parent.key === `env` && isString(value)) {
+      if (isEnvNode(value, node)) {
         parseEnvVariable(value, matrix);
         skip = true;
-      } else if (isLeaf && key === `env` && isString(value)) {
+      } else if (isStringEnvNode(value, node)) {
         parseEnvVariable(value, matrix);
         skip = true;
-      } else if (
-        isLeaf &&
-        parent.isNonRootNode &&
-        parent.parent.isNonRootNode &&
-        parent.parent.key === `env` &&
-        isString(value)
-      ) {
+      } else if (isEntryEnvNode(value, node)) {
         parseEnvVariable(value, matrix);
         skip = true;
-      } else if (isLeaf && key === `node_js` && (isString(value) || isNumber(value))) {
+      } else if (isNodeJsNode(value, node)) {
         const version = this.parseVersion(value);
         versions.add(version);
-      } else if (isLeaf && parent.isNonRootNode && parent.key === `node_js` && (isString(value) || isNumber(value))) {
+      } else if (isNodeJsEntryNode(value, node)) {
         const version = this.parseVersion(value);
         versions.add(version);
-      } else if (isLeaf && isString(value) && this.nvmHandler.isNvmCommand(value)) {
+      } else if (this.isNvmCommandNode(value, node)) {
         this.logger.debug(`Found nvm command - ${value}`);
         nvmCommands.push(value);
       }
@@ -98,6 +121,11 @@ export class TravisCiConfigParser {
     };
   }
 
+  private isNvmCommandNode(value: unknown, node: INode): value is string {
+    const { isLeaf } = node;
+    return isLeaf && isString(value) && this.nvmHandler.isNvmCommand(value);
+  }
+
   private nodeVersionCommandParser(command: string, matrix: Matrix, versions: Set<string>): void {
     const foundVersions = this.nvmHandler.getNvmVersionsFromMatrix(command, matrix);
     for (const version of foundVersions) {
@@ -105,7 +133,7 @@ export class TravisCiConfigParser {
     }
   }
 
-  private parseVersion(version: string | number): string {
+  private parseVersion(version: StringOrNumber): string {
     const versionStr = String(version);
     if (versionStr === `node` || versionStr === `stable`) {
       return this.targetMatcher.getStableVersionPlaceholder();
