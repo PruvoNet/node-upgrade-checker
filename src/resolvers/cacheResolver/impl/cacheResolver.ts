@@ -3,6 +3,7 @@ import { ICacheResolver, ICacheResolverOptions, ICacheResolverResult } from '../
 import { IDependencyRepositoryProvider } from '../../../db';
 import { ILoggerFactory } from '../../../utils/logger';
 import { ILogger } from '../../../utils/logger/interfaces/ILogger';
+import { isBoolean } from 'ts-type-guards';
 
 @injectable()
 export class CacheResolver extends ICacheResolver {
@@ -24,7 +25,7 @@ export class CacheResolver extends ICacheResolver {
         version: repo.version,
         targetNode,
       });
-      if (dependency && (dependency.match === true || dependency.match === false)) {
+      if (dependency && isBoolean(dependency.match)) {
         this.logger.info(`Located cached results for ${repo.name}@$${repo.version}`);
         return {
           isMatch: true,

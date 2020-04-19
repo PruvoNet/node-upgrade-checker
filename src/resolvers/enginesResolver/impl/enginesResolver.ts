@@ -14,10 +14,10 @@ const coerceSemVer = (version: SemVer): SemVer => {
   return semver.coerce(majorStr)!;
 };
 
-const coerce = (version: string): string | undefined => {
+const coerce = (version: string): string | null => {
   const coercedAll = semver.coerce(version);
   if (!coercedAll) {
-    return undefined;
+    return null;
   }
   const coerced = coerceSemVer(coercedAll);
   return coerced.format();
