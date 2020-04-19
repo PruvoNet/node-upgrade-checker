@@ -99,3 +99,4 @@ tools/
 /stryker.conf.js
 /.stryker-tmp/
 /reports/
+tools/
