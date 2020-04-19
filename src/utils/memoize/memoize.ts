@@ -29,7 +29,7 @@ const getCache = (target: any): Record<Key, Map<any, any>> => {
 
 const getKeyCache = (target: any, key: Key): Map<any, any> => {
   const dict = getCache(target);
-  const coercedKey: StringOrNumber = typeof key === `symbol` ? (key as any) : key;
+  const coercedKey: StringOrNumber = key as StringOrNumber;
   if (!dict[coercedKey]) {
     dict[coercedKey] = new Map<any, any>();
   }
