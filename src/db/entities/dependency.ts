@@ -11,19 +11,15 @@ export interface IDependencyOptions {
 
 @Entity()
 export class Dependency extends IEntity {
-  @PrimaryColumn(`text`, {
-    nullable: false,
-  })
+  public static TAG = Symbol.for(`Dependency`);
+
+  @PrimaryColumn(`text`)
   public name!: string;
 
-  @PrimaryColumn(`text`, {
-    nullable: false,
-  })
+  @PrimaryColumn(`text`)
   public version!: string;
 
-  @PrimaryColumn(`text`, {
-    nullable: false,
-  })
+  @PrimaryColumn(`text`)
   public targetNode!: string;
 
   @Column(`boolean`, {

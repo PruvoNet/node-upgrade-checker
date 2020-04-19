@@ -9,6 +9,12 @@ import Bind = interfaces.Bind;
 import { IEntity } from './interfaces/IEntity';
 import { Dependency } from './entities/dependency';
 import { DependencyVersion } from './entities/dependencyVersion';
+import { namedOrMultiConstraint } from '../container/utils';
+
+export const EntitiesTags = {
+  dependencyVersion: DependencyVersion.TAG,
+  dependency: Dependency.TAG,
+};
 
 export const dbModulesBinder = (bind: Bind): void => {
   bind<IDependencyRepositoryProvider>(IDependencyRepositoryProvider)
@@ -18,8 +24,10 @@ export const dbModulesBinder = (bind: Bind): void => {
     .to(DependencyVersionRepositoryProvider)
     .inSingletonScope();
   bind<IConnectionProvider>(IConnectionProvider).to(ConnectionProvider).inSingletonScope();
-  bind<IEntity>(IEntity).toConstantValue(Dependency);
-  bind<IEntity>(IEntity).toConstantValue(DependencyVersion);
+  bind<IEntity>(IEntity).toConstantValue(Dependency).when(namedOrMultiConstraint(EntitiesTags.dependency, IEntity));
+  bind<IEntity>(IEntity)
+    .toConstantValue(DependencyVersion)
+    .when(namedOrMultiConstraint(EntitiesTags.dependencyVersion, IEntity));
 };
 
 export * from './interfaces/IConnectionProvider';

@@ -2,6 +2,7 @@ import {
   dbModulesBinder,
   Dependency,
   DependencyVersion,
+  EntitiesTags,
   IConnectionProvider,
   IDependencyRepositoryProvider,
   IDependencyVersionRepositoryProvider,
@@ -10,7 +11,7 @@ import { DependencyRepositoryProvider } from '../../../src/db/impl/dependencyRep
 import { DependencyVersionRepositoryProvider } from '../../../src/db/impl/dependencyVersionRepositoryProvider';
 import { ConnectionProvider } from '../../../src/db/impl/connectionProvider';
 import { IEntity } from '../../../src/db/interfaces/IEntity';
-import { BindingTypes, testBindings } from '../../common/bindingTester';
+import { BindingTypes, testBindings } from '../../common/testers/bindingTester';
 
 testBindings({
   name: `db module container`,
@@ -35,11 +36,15 @@ testBindings({
       binder: IEntity,
       binded: Dependency,
       type: BindingTypes.CONSTANT,
+      multi: true,
+      tag: EntitiesTags.dependency,
     },
     {
       binder: IEntity,
       binded: DependencyVersion,
       type: BindingTypes.CONSTANT,
+      multi: true,
+      tag: EntitiesTags.dependencyVersion,
     },
   ],
 });

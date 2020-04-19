@@ -4,7 +4,7 @@ import * as simplegit from 'simple-git/promise';
 import * as pacote from 'pacote';
 import * as spawn from 'cross-spawn';
 import axios from 'axios';
-import { BindingTypes, testBindings } from '../../common/bindingTester';
+import { BindingTypes, testBindings } from '../../common/testers/bindingTester';
 import { nodeModulesBinder, TYPES } from '../../../src/container/nodeModulesContainer';
 
 testBindings({

@@ -22,7 +22,7 @@ export class LoggerFactory extends ILoggerFactory {
     };
   }
 
-  @memoize((category) => category)
+  @memoize((category: string): string => category)
   public getLogger(category: string): ILogger {
     return new Logger({
       ...this.options,

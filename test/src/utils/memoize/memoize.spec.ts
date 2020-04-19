@@ -7,8 +7,6 @@ interface IData {
 }
 
 describe(`memoize`, () => {
-  const argHash = jest.fn((...args: any[]) => args.join(`:`));
-
   class Dummy {
     public method0Mock = jest.fn(() => {
       return this.data.method0;
@@ -27,14 +25,14 @@ describe(`memoize`, () => {
       return this.method0Mock();
     }
 
-    @memoize()
-    public method1(...args: any[]): string {
-      return this.method1Mock(...args);
+    @memoize((arg: string) => arg)
+    public method1(arg: string): string {
+      return this.method1Mock(arg);
     }
 
-    @memoize(argHash)
-    public method2(...args: any[]): string {
-      return this.method2Mock(...args);
+    @memoize((arg: string) => arg)
+    public method2(arg?: string): string {
+      return this.method2Mock(arg);
     }
   }
 
@@ -67,7 +65,7 @@ describe(`memoize`, () => {
     expect(subjectB.method0Mock).toHaveBeenCalledTimes(1);
   });
 
-  it(`should remember method values with one args`, () => {
+  it(`should remember method values with one arg`, () => {
     expect(subjectA.method1(`foo`)).toBe(`method1 A:foo`);
     expect(subjectA.method1Mock).toHaveBeenCalledTimes(1);
     expect(subjectA.method1(`bar`)).toBe(`method1 A:bar`);
@@ -75,5 +73,19 @@ describe(`memoize`, () => {
     expect(subjectA.method1(`foo`)).toBe(`method1 A:foo`);
     expect(subjectA.method1(`bar`)).toBe(`method1 A:bar`);
     expect(subjectA.method1Mock).toHaveBeenCalledTimes(2);
+  });
+
+  it(`should remember method values with optional one arg`, () => {
+    expect(subjectA.method2(`foo`)).toBe(`method2 A:foo`);
+    expect(subjectA.method2Mock).toHaveBeenCalledTimes(1);
+    expect(subjectA.method2(`bar`)).toBe(`method2 A:bar`);
+    expect(subjectA.method2Mock).toHaveBeenCalledTimes(2);
+    expect(subjectA.method2(`foo`)).toBe(`method2 A:foo`);
+    expect(subjectA.method2(`bar`)).toBe(`method2 A:bar`);
+    expect(subjectA.method2Mock).toHaveBeenCalledTimes(2);
+    expect(subjectA.method2()).toBe(`method2 A:`);
+    expect(subjectA.method2Mock).toHaveBeenCalledTimes(3);
+    expect(subjectA.method2()).toBe(`method2 A:`);
+    expect(subjectA.method2Mock).toHaveBeenCalledTimes(3);
   });
 });

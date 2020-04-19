@@ -1,4 +1,4 @@
-import { BindingTypes, testBindings } from '../../../common/bindingTester';
+import { BindingTypes, testBindings } from '../../../common/testers/bindingTester';
 import { IYarn, yarnModulesBinder } from '../../../../src/utils/yarn';
 import { Yarn } from '../../../../src/utils/yarn/impl/yarn';
 

@@ -4,8 +4,11 @@ exports[`object iterator for of Should iterate complex object 1`] = `
 Array [
   Object {
     "depth": 0,
+    "isLeaf": true,
+    "isNonRootNode": true,
     "key": "a",
     "parent": Object {
+      "isNonRootNode": false,
       "value": Object {
         "a": 1,
         "b": Object {
@@ -25,8 +28,11 @@ Array [
   },
   Object {
     "depth": 0,
+    "isLeaf": false,
+    "isNonRootNode": true,
     "key": "b",
     "parent": Object {
+      "isNonRootNode": false,
       "value": Object {
         "a": 1,
         "b": Object {
@@ -55,11 +61,16 @@ Array [
   },
   Object {
     "depth": 1,
+    "isLeaf": true,
+    "isNonRootNode": true,
     "key": "c",
     "parent": Object {
       "depth": 0,
+      "isLeaf": false,
+      "isNonRootNode": true,
       "key": "b",
       "parent": Object {
+        "isNonRootNode": false,
         "value": Object {
           "a": 1,
           "b": Object {
@@ -90,11 +101,16 @@ Array [
   },
   Object {
     "depth": 1,
+    "isLeaf": false,
+    "isNonRootNode": true,
     "key": "d",
     "parent": Object {
       "depth": 0,
+      "isLeaf": false,
+      "isNonRootNode": true,
       "key": "b",
       "parent": Object {
+        "isNonRootNode": false,
         "value": Object {
           "a": 1,
           "b": Object {
@@ -131,14 +147,21 @@ Array [
   },
   Object {
     "depth": 2,
+    "isLeaf": true,
+    "isNonRootNode": true,
     "key": "e",
     "parent": Object {
       "depth": 1,
+      "isLeaf": false,
+      "isNonRootNode": true,
       "key": "d",
       "parent": Object {
         "depth": 0,
+        "isLeaf": false,
+        "isNonRootNode": true,
         "key": "b",
         "parent": Object {
+          "isNonRootNode": false,
           "value": Object {
             "a": 1,
             "b": Object {
@@ -177,14 +200,21 @@ Array [
   },
   Object {
     "depth": 2,
+    "isLeaf": false,
+    "isNonRootNode": true,
     "key": "f",
     "parent": Object {
       "depth": 1,
+      "isLeaf": false,
+      "isNonRootNode": true,
       "key": "d",
       "parent": Object {
         "depth": 0,
+        "isLeaf": false,
+        "isNonRootNode": true,
         "key": "b",
         "parent": Object {
+          "isNonRootNode": false,
           "value": Object {
             "a": 1,
             "b": Object {
@@ -226,17 +256,26 @@ Array [
   },
   Object {
     "depth": 3,
+    "isLeaf": true,
+    "isNonRootNode": true,
     "key": "0",
     "parent": Object {
       "depth": 2,
+      "isLeaf": false,
+      "isNonRootNode": true,
       "key": "f",
       "parent": Object {
         "depth": 1,
+        "isLeaf": false,
+        "isNonRootNode": true,
         "key": "d",
         "parent": Object {
           "depth": 0,
+          "isLeaf": false,
+          "isNonRootNode": true,
           "key": "b",
           "parent": Object {
+            "isNonRootNode": false,
             "value": Object {
               "a": 1,
               "b": Object {
@@ -280,17 +319,26 @@ Array [
   },
   Object {
     "depth": 3,
+    "isLeaf": true,
+    "isNonRootNode": true,
     "key": "1",
     "parent": Object {
       "depth": 2,
+      "isLeaf": false,
+      "isNonRootNode": true,
       "key": "f",
       "parent": Object {
         "depth": 1,
+        "isLeaf": false,
+        "isNonRootNode": true,
         "key": "d",
         "parent": Object {
           "depth": 0,
+          "isLeaf": false,
+          "isNonRootNode": true,
           "key": "b",
           "parent": Object {
+            "isNonRootNode": false,
             "value": Object {
               "a": 1,
               "b": Object {
@@ -334,8 +382,11 @@ Array [
   },
   Object {
     "depth": 0,
+    "isLeaf": true,
+    "isNonRootNode": true,
     "key": "g",
     "parent": Object {
+      "isNonRootNode": false,
       "value": Object {
         "a": 1,
         "b": Object {
@@ -360,8 +411,11 @@ exports[`object iterator skip logic Should iterate complex object 1`] = `
 Array [
   Object {
     "depth": 0,
+    "isLeaf": true,
+    "isNonRootNode": true,
     "key": "a",
     "parent": Object {
+      "isNonRootNode": false,
       "value": Object {
         "a": 1,
         "b": Object {
@@ -381,8 +435,11 @@ Array [
   },
   Object {
     "depth": 0,
+    "isLeaf": false,
+    "isNonRootNode": true,
     "key": "b",
     "parent": Object {
+      "isNonRootNode": false,
       "value": Object {
         "a": 1,
         "b": Object {
@@ -411,11 +468,16 @@ Array [
   },
   Object {
     "depth": 1,
+    "isLeaf": true,
+    "isNonRootNode": true,
     "key": "c",
     "parent": Object {
       "depth": 0,
+      "isLeaf": false,
+      "isNonRootNode": true,
       "key": "b",
       "parent": Object {
+        "isNonRootNode": false,
         "value": Object {
           "a": 1,
           "b": Object {
@@ -446,11 +508,16 @@ Array [
   },
   Object {
     "depth": 1,
+    "isLeaf": false,
+    "isNonRootNode": true,
     "key": "d",
     "parent": Object {
       "depth": 0,
+      "isLeaf": false,
+      "isNonRootNode": true,
       "key": "b",
       "parent": Object {
+        "isNonRootNode": false,
         "value": Object {
           "a": 1,
           "b": Object {
@@ -487,8 +554,11 @@ Array [
   },
   Object {
     "depth": 0,
+    "isLeaf": true,
+    "isNonRootNode": true,
     "key": "g",
     "parent": Object {
+      "isNonRootNode": false,
       "value": Object {
         "a": 1,
         "b": Object {

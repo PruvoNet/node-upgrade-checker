@@ -1,13 +1,13 @@
-import { injectable } from 'inversify';
-
 export interface ISpecificCIResolverOptions {
   repoPath: string;
 }
 
-export const LTS_VERSION = `LTS_VERSION`;
+export interface ISpecificCIResolverResponse {
+  nodeVersions: Set<string>;
+}
 
-@injectable()
 export abstract class ISpecificCIResolver {
-  public abstract async resolve(options: ISpecificCIResolverOptions): Promise<string[] | undefined>;
+  public abstract async isRelevant(options: ISpecificCIResolverOptions): Promise<boolean>;
+  public abstract async resolve(options: ISpecificCIResolverOptions): Promise<ISpecificCIResolverResponse>;
   public abstract readonly resolverName: string;
 }

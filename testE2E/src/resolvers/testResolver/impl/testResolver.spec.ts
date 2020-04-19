@@ -21,8 +21,10 @@ describe(`test resolver`, () => {
     const result = await testResolver.resolve({
       repoPath: tmpDir,
     });
-    expect(result.isMatch).toBe(true);
-    expect(result.resolverName).toBe(`yarn run test`);
+    expect(result).toEqual({
+      isMatch: true,
+      resolverName: `yarn run test`,
+    });
   }, 30000);
 
   it(`should fail yarn test flow`, async () => {

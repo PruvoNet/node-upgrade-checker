@@ -7,14 +7,16 @@ import { ciResolverModulesBinder } from '../resolvers/ciResolver';
 import { dbModulesBinder } from '../db';
 import { cacheResolveModulesBinder } from '../resolvers/cacheResolver';
 import { testResolverModulesBinder } from '../resolvers/testResolver';
-import { flowModulesBinder } from '../flow';
-import { ltsModulesBinder } from '../utils/lts';
+import { dependencyCheckerModulesBinder } from '../dependencyChecker';
+import { nodeVersionsModulesBinder } from '../utils/nodeVersions';
 import { packageInfoModulesBinder } from '../utils/packageInfo';
 import { nodeModulesBinder } from './nodeModulesContainer';
 import { enginesResolveModulesBinder } from '../resolvers/enginesResolver';
 import { loggerModuleBinder } from '../utils/logger';
 
-export const container = new Container();
+export const container = new Container({
+  skipBaseClassChecks: true,
+});
 
 type Binder = (bind: Bind) => void;
 
@@ -27,8 +29,8 @@ const binders: Binder[] = [
   dbModulesBinder,
   cacheResolveModulesBinder,
   testResolverModulesBinder,
-  flowModulesBinder,
-  ltsModulesBinder,
+  dependencyCheckerModulesBinder,
+  nodeVersionsModulesBinder,
   packageInfoModulesBinder,
   enginesResolveModulesBinder,
   loggerModuleBinder,

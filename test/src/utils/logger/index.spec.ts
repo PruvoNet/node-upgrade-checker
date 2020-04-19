@@ -1,4 +1,4 @@
-import { BindingTypes, testBindings } from '../../../common/bindingTester';
+import { BindingTypes, testBindings } from '../../../common/testers/bindingTester';
 import { ILoggerFactory, loggerModuleBinder } from '../../../../src/utils/logger';
 import { LoggerFactory } from '../../../../src/utils/logger/impl/loggerFactory';
 

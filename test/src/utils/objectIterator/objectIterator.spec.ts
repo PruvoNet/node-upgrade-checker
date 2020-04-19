@@ -11,11 +11,11 @@ describe(`object iterator`, () => {
         results.push(node);
       }
       expect(results).toEqual([
-        { key: `a`, value: 1, depth: 0 },
-        { key: `b`, value: obj.b, depth: 0 },
-        { key: `c`, value: 2, depth: 1 },
-        { key: `d`, value: obj.b.d, depth: 1 },
-        { key: `cir`, value: obj.b, depth: 2 },
+        { key: `a`, value: 1, depth: 0, isLeaf: true, isNonRootNode: true },
+        { key: `b`, value: obj.b, depth: 0, isLeaf: false, isNonRootNode: true },
+        { key: `c`, value: 2, depth: 1, isLeaf: true, isNonRootNode: true },
+        { key: `d`, value: obj.b.d, depth: 1, isLeaf: false, isNonRootNode: true },
+        { key: `cir`, value: obj.b, depth: 2, isLeaf: false, isNonRootNode: true },
       ]);
     });
   });
@@ -27,15 +27,45 @@ describe(`object iterator`, () => {
         results.push(node);
       }
       expect(results).toEqual([
-        { key: `a`, value: 1, depth: 0, parent: { value: { a: 1, b: { c: 2 }, d: `7` } } },
-        { key: `b`, value: { c: 2 }, depth: 0, parent: { value: { a: 1, b: { c: 2 }, d: `7` } } },
+        {
+          key: `a`,
+          value: 1,
+          depth: 0,
+          isLeaf: true,
+          isNonRootNode: true,
+          parent: { value: { a: 1, b: { c: 2 }, d: `7` }, isNonRootNode: false },
+        },
+        {
+          key: `b`,
+          value: { c: 2 },
+          depth: 0,
+          isLeaf: false,
+          isNonRootNode: true,
+          parent: { value: { a: 1, b: { c: 2 }, d: `7` }, isNonRootNode: false },
+        },
         {
           key: `c`,
           value: 2,
           depth: 1,
-          parent: { key: `b`, value: { c: 2 }, depth: 0, parent: { value: { a: 1, b: { c: 2 }, d: `7` } } },
+          isLeaf: true,
+          isNonRootNode: true,
+          parent: {
+            key: `b`,
+            value: { c: 2 },
+            depth: 0,
+            isLeaf: false,
+            isNonRootNode: true,
+            parent: { value: { a: 1, b: { c: 2 }, d: `7` }, isNonRootNode: false },
+          },
         },
-        { key: `d`, value: `7`, depth: 0, parent: { value: { a: 1, b: { c: 2 }, d: `7` } } },
+        {
+          key: `d`,
+          value: `7`,
+          depth: 0,
+          isLeaf: true,
+          isNonRootNode: true,
+          parent: { value: { a: 1, b: { c: 2 }, d: `7` }, isNonRootNode: false },
+        },
       ]);
     });
 
@@ -60,9 +90,30 @@ describe(`object iterator`, () => {
         result = it.next(node.key === `b`);
       }
       expect(results).toEqual([
-        { key: `a`, value: 1, depth: 0, parent: { value: { a: 1, b: { c: 2 }, d: `7` } } },
-        { key: `b`, value: { c: 2 }, depth: 0, parent: { value: { a: 1, b: { c: 2 }, d: `7` } } },
-        { key: `d`, value: `7`, depth: 0, parent: { value: { a: 1, b: { c: 2 }, d: `7` } } },
+        {
+          key: `a`,
+          value: 1,
+          depth: 0,
+          isLeaf: true,
+          isNonRootNode: true,
+          parent: { value: { a: 1, b: { c: 2 }, d: `7` }, isNonRootNode: false },
+        },
+        {
+          key: `b`,
+          value: { c: 2 },
+          depth: 0,
+          isLeaf: false,
+          isNonRootNode: true,
+          parent: { value: { a: 1, b: { c: 2 }, d: `7` }, isNonRootNode: false },
+        },
+        {
+          key: `d`,
+          value: `7`,
+          depth: 0,
+          isLeaf: true,
+          isNonRootNode: true,
+          parent: { value: { a: 1, b: { c: 2 }, d: `7` }, isNonRootNode: false },
+        },
       ]);
     });
 
@@ -99,39 +150,58 @@ describe(`object iterator`, () => {
         result = it.next(node.key === `b`);
       }
       expect(results).toEqual([
-        { key: `b`, value: { c: 2 }, depth: 0, parent: { value: { a: 1, b: { c: 2 }, d: { a: 1, b: 2 } } } },
+        {
+          key: `b`,
+          value: { c: 2 },
+          depth: 0,
+          isLeaf: false,
+          isNonRootNode: true,
+          parent: { value: { a: 1, b: { c: 2 }, d: { a: 1, b: 2 } }, isNonRootNode: false },
+        },
         {
           key: `a`,
           value: 1,
           depth: 0,
-          parent: { value: { a: 1, b: { c: 2 }, d: { a: 1, b: 2 } } },
+          isLeaf: true,
+          isNonRootNode: true,
+          parent: { value: { a: 1, b: { c: 2 }, d: { a: 1, b: 2 } }, isNonRootNode: false },
         },
         {
           key: `d`,
           value: { a: 1, b: 2 },
           depth: 0,
-          parent: { value: { a: 1, b: { c: 2 }, d: { a: 1, b: 2 } } },
+          isLeaf: false,
+          isNonRootNode: true,
+          parent: { value: { a: 1, b: { c: 2 }, d: { a: 1, b: 2 } }, isNonRootNode: false },
         },
         {
           key: `a`,
           value: 1,
           depth: 1,
+          isLeaf: true,
+          isNonRootNode: true,
           parent: {
             key: `d`,
             value: { a: 1, b: 2 },
             depth: 0,
-            parent: { value: { a: 1, b: { c: 2 }, d: { a: 1, b: 2 } } },
+            isLeaf: false,
+            isNonRootNode: true,
+            parent: { value: { a: 1, b: { c: 2 }, d: { a: 1, b: 2 } }, isNonRootNode: false },
           },
         },
         {
           key: `b`,
           value: 2,
           depth: 1,
+          isLeaf: true,
+          isNonRootNode: true,
           parent: {
             key: `d`,
             value: { a: 1, b: 2 },
             depth: 0,
-            parent: { value: { a: 1, b: { c: 2 }, d: { a: 1, b: 2 } } },
+            isLeaf: false,
+            isNonRootNode: true,
+            parent: { value: { a: 1, b: { c: 2 }, d: { a: 1, b: 2 } }, isNonRootNode: false },
           },
         },
       ]);

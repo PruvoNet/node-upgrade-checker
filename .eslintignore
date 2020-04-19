@@ -8,3 +8,5 @@ coverage
 .github
 .nyc_output
 scripts
+.stryker-tmp
+/reports/

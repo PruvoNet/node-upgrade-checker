@@ -13,7 +13,7 @@ on:
     types: [retest]
 
 env:
-  PRIMARY_NODE_VERSION: 10.x
+  PRIMARY_NODE_VERSION: 12.x
   PRIMARY_OS: ubuntu-latest
   FORCE_COLOR: true
   JEST_CI: true
@@ -111,6 +111,13 @@ jobs:
           name: codecov
           fail_ci_if_error: true
 
+      - name: Upload coverage reports artifact
+        if: matrix.node-version == env.PRIMARY_NODE_VERSION && matrix.os == env.PRIMARY_OS
+        uses: actions/upload-artifact@v1
+        with:
+          name: coverage
+          path: coverage
+
       - name: Run unit tests
         if: "!(matrix.node-version == env.PRIMARY_NODE_VERSION && matrix.os == env.PRIMARY_OS)"
         run: yarn run test:unit
@@ -120,6 +127,17 @@ jobs:
 
       - name: Run e2e tests
         run: yarn run test:e2e
+
+      - name: Run mutation tests
+        if: matrix.node-version == env.PRIMARY_NODE_VERSION && matrix.os == env.PRIMARY_OS && github.ref == 'refs/heads/master'
+        run: yarn run mutation-test
+
+      - name: Upload mutation reports artifact
+        if: matrix.node-version == env.PRIMARY_NODE_VERSION && matrix.os == env.PRIMARY_OS && github.ref == 'refs/heads/master'
+        uses: actions/upload-artifact@v1
+        with:
+          name: mutation
+          path: reports/mutation
 
   publish_version:
     name: Publish

@@ -8,16 +8,7 @@ const dateFormat = `YYYY-MM-DD`;
 const packageReleaseDate = moment.utc(`2015-10-02`, dateFormat);
 
 describe(`ci resolver`, () => {
-  let ciResolver: ICIResolver;
-
-  beforeEach(() => {
-    container.snapshot();
-    ciResolver = container.get(ICIResolver);
-  });
-
-  afterEach(() => {
-    container.restore();
-  });
+  const ciResolver = container.get(ICIResolver);
 
   it(`should not resolve node js from repo with no ci`, async () => {
     const repoPath = path.join(resourcesDir, `empty`);
@@ -37,22 +28,14 @@ describe(`ci resolver`, () => {
         targetNode: `8`,
         packageReleaseDate,
       });
-      expect(result.isMatch).toBe(true);
-      expect(result.resolverName).toBe(`travisCi`);
+      expect(result).toEqual({
+        isMatch: true,
+        resolverName: `TravisCi`,
+      });
     });
 
     it(`should not resolve node js from travis configuration`, async () => {
       const repoPath = path.join(resourcesDir, `travis`);
-      const result = await ciResolver.resolve({
-        repoPath,
-        targetNode: `2`,
-        packageReleaseDate,
-      });
-      expect(result.isMatch).toBe(false);
-    });
-
-    it(`should not resolve node js from faulty travis configuration`, async () => {
-      const repoPath = path.join(resourcesDir, `travisFaulty`);
       const result = await ciResolver.resolve({
         repoPath,
         targetNode: `2`,
@@ -70,8 +53,10 @@ describe(`ci resolver`, () => {
         targetNode: `6`,
         packageReleaseDate,
       });
-      expect(result.isMatch).toBe(true);
-      expect(result.resolverName).toBe(`appVeyor`);
+      expect(result).toEqual({
+        isMatch: true,
+        resolverName: `AppVeyor`,
+      });
     });
 
     it(`should not resolve node js from appveyor configuration`, async () => {
@@ -83,42 +68,24 @@ describe(`ci resolver`, () => {
       });
       expect(result.isMatch).toBe(false);
     });
-
-    it(`should not resolve node js from faulty appveyor configuration`, async () => {
-      const repoPath = path.join(resourcesDir, `appveyorFaulty`);
-      const result = await ciResolver.resolve({
-        repoPath,
-        targetNode: `2`,
-        packageReleaseDate,
-      });
-      expect(result.isMatch).toBe(false);
-    });
   });
 
   describe(`circleci`, () => {
     it(`should resolve node js from circleci configuration`, async () => {
-      const repoPath = path.join(resourcesDir, `circleci`);
+      const repoPath = path.join(resourcesDir, `circleciV2`);
       const result = await ciResolver.resolve({
         repoPath,
         targetNode: `10`,
         packageReleaseDate,
       });
-      expect(result.isMatch).toBe(true);
-      expect(result.resolverName).toBe(`circleCi`);
+      expect(result).toEqual({
+        isMatch: true,
+        resolverName: `CircleCi`,
+      });
     });
 
     it(`should not resolve node js from circleci configuration`, async () => {
-      const repoPath = path.join(resourcesDir, `circleci`);
-      const result = await ciResolver.resolve({
-        repoPath,
-        targetNode: `2`,
-        packageReleaseDate,
-      });
-      expect(result.isMatch).toBe(false);
-    });
-
-    it(`should not resolve node js from faulty circleci configuration`, async () => {
-      const repoPath = path.join(resourcesDir, `circleciFaulty`);
+      const repoPath = path.join(resourcesDir, `circleciV2`);
       const result = await ciResolver.resolve({
         repoPath,
         targetNode: `2`,
@@ -136,22 +103,14 @@ describe(`ci resolver`, () => {
         targetNode: `10`,
         packageReleaseDate,
       });
-      expect(result.isMatch).toBe(true);
-      expect(result.resolverName).toBe(`githubActions`);
+      expect(result).toEqual({
+        isMatch: true,
+        resolverName: `Github Actions`,
+      });
     });
 
     it(`should not resolve node js from github configuration`, async () => {
       const repoPath = path.join(resourcesDir, `github`);
-      const result = await ciResolver.resolve({
-        repoPath,
-        targetNode: `2`,
-        packageReleaseDate,
-      });
-      expect(result.isMatch).toBe(false);
-    });
-
-    it(`should not resolve node js from faulty github configuration`, async () => {
-      const repoPath = path.join(resourcesDir, `githubFaulty`);
       const result = await ciResolver.resolve({
         repoPath,
         targetNode: `2`,

@@ -96,4 +96,12 @@ describe(`engines resolver`, () => {
     });
     expect(result.isMatch).toBe(true);
   });
+
+  it(`should match if in range hyphen (using loose mode)`, async () => {
+    const result = await enginesResolver.resolve({
+      engines: `6.5.0a - 12`,
+      targetNode: `8`,
+    });
+    expect(result.isMatch).toBe(true);
+  });
 });
