@@ -38,6 +38,8 @@ node_modules/
 build/
 dist/
 jspm_packages/
+!/tools
+!/tools/**/*.js
 **/*.js.map
 **/*.js
 **/*.d.ts
@@ -69,3 +71,4 @@ typings/
 # stryker temp files
 .stryker-tmp
 /reports
+
