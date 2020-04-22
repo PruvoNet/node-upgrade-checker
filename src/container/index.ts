@@ -13,6 +13,7 @@ import { packageInfoModulesBinder } from '../utils/packageInfo';
 import { nodeModulesBinder } from './nodeModulesContainer';
 import { enginesResolveModulesBinder } from '../resolvers/enginesResolver';
 import { loggerModuleBinder } from '../utils/logger';
+import { manifestParserModulesBinder } from '../utils/manifestParser';
 
 export const container = new Container({
   skipBaseClassChecks: true,
@@ -34,6 +35,7 @@ const binders: Binder[] = [
   packageInfoModulesBinder,
   enginesResolveModulesBinder,
   loggerModuleBinder,
+  manifestParserModulesBinder,
 ];
 
 container.load(

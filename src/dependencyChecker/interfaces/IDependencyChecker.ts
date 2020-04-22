@@ -1,8 +1,4 @@
-export enum DependencyType {
-  PROD = `production`,
-  DEV = `development`,
-  PEER = `peer`,
-}
+import { DependencyType } from '../../utils/manifestParser';
 
 export interface IDependencyCheckerRunOptions {
   pkg: {

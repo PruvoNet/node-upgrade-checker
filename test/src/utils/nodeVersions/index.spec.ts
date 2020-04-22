@@ -3,7 +3,7 @@ import { INodeVersions, nodeVersionsModulesBinder } from '../../../../src/utils/
 import { NodeVersions } from '../../../../src/utils/nodeVersions/impl/nodeVersions';
 
 testBindings({
-  name: `lts module container`,
+  name: `node version module container`,
   binderFn: nodeVersionsModulesBinder,
   bindings: [
     {
