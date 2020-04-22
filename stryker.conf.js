@@ -16,8 +16,8 @@ const config = {
   maxConcurrentTestRunners: 4,
   thresholds: {
     high: 90,
-    low: 70,
-    break: 70,
+    low: 60,
+    break: 60,
   },
   jest: {
     projectType: 'custom',
