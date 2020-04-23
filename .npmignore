@@ -91,7 +91,7 @@ typings/
 
 # next.js build output
 .next
-
+tools/
 /tsconfig.build.json
 /tsconfig.test.json
 /jest.config.js
