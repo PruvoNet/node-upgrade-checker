@@ -18,7 +18,7 @@
   "license": "ISC",
   "engineStrict": true,
   "engines": {
-    "node": "^10 || ^12 || ^13",
+    "node": "^10 || ^12 || ^14",
     "yarn": "^1"
   },
   "repository": {
@@ -82,12 +82,11 @@
     "@types/jest": "^25.2.1",
     "@types/jest-when": "^2.7.1",
     "@types/node": "^13.13.2",
-    "@types/node-fetch": "^2.5.6",
+    "@types/node-fetch": "^2.5.7",
     "@types/pacote": "^11.1.0",
     "@types/semver": "^7.1.0",
     "@types/shell-quote": "^1.6.1",
     "@types/tmp": "^0.1.0",
-    "@types/yaml": "^1.2.0",
     "@types/yargs-parser": "^15.0.0",
     "@typescript-eslint/eslint-plugin": "^2.29.0",
     "@typescript-eslint/parser": "^2.29.0",
