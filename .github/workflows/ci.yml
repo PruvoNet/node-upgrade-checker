@@ -121,13 +121,13 @@ jobs:
         run: yarn run test:e2e
 
       - name: Run mutation tests
-        if: matrix.node-version == env.PRIMARY_NODE_VERSION && matrix.os == env.PRIMARY_OS && github.ref == 'refs/heads/master'
+        if: matrix.node-version == env.PRIMARY_NODE_VERSION && matrix.os == env.PRIMARY_OS && github.ref == 'refs/heads/master' && github.event_name != 'release' && github.event.action != 'published'
         run: yarn run mutation-test
         env:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
 
       - name: Upload mutation reports artifact
-        if: matrix.node-version == env.PRIMARY_NODE_VERSION && matrix.os == env.PRIMARY_OS && github.ref == 'refs/heads/master'
+        if: matrix.node-version == env.PRIMARY_NODE_VERSION && matrix.os == env.PRIMARY_OS && github.ref == 'refs/heads/master' && github.event_name != 'release' && github.event.action != 'published'
         uses: actions/upload-artifact@v1
         with:
           name: mutation
