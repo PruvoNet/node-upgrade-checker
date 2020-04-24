@@ -25,6 +25,11 @@
     "type": "git",
     "url": "git+https://github.com/PruvoNet/node-upgrade-checker.git"
   },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
@@ -126,7 +131,7 @@
     "moment": "~2.24.0",
     "pacote": "~11.1.4",
     "reflect-metadata": "~0.1.13",
-    "shell-quote": "^1.7.2",
+    "shell-quote": "~1.7.2",
     "simple-git": "~1.132.0",
     "sqlite3": "~4.1.1",
     "tmp": "~0.1.0",

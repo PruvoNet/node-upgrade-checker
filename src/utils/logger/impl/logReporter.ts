@@ -1,54 +1,59 @@
-// @ts-ignore
-import { ConsolaLogObject, ConsolaReporter, ConsolaReporterArgs, FancyReporter } from 'consola';
+import { ConsolaLogObject, ConsolaReporter, FancyReporter, ReporterOptions } from 'consola';
 import chalk = require('chalk');
 import * as figures from 'figures';
+import type { Chalk, BackgroundColor, ForegroundColor } from 'chalk';
+import { Nullable } from 'Union/Nullable';
+import { isNumber } from 'ts-type-guards';
 
-const bgColorCache: any = {};
+const bgColorCache: Record<string, Chalk> = {};
 
-const chalkBgColor = (name: string): any => {
-  let color = bgColorCache[name];
-  if (color) {
-    return color;
+const chalkBgColor = (name: BGColor): Chalk => {
+  if (!bgColorCache[name]) {
+    bgColorCache[name] = chalk[name];
   }
-  // @ts-ignore
-  color = chalk[`bg${name[0].toUpperCase()}${name.slice(1)}`];
-  bgColorCache[name] = color;
-  return color;
+  return bgColorCache[name];
 };
 
-const LEVEL_COLOR_MAP = {
-  0: `red`,
-  1: `yellow`,
-  2: `white`,
-  3: `green`,
+const LEVEL_COLOR_MAP: Record<number, Nullable<BGColor>> = {
+  0: `bgRed`,
+  1: `bgYellow`,
+  2: `bgWhite`,
+  3: `bgGreen`,
 };
 
-const TYPE_COLOR_MAP = {
-  info: `blue`,
+const TYPE_COLOR_MAP: Record<string, Nullable<BGColor>> = {
+  info: `bgBlue`,
 };
 
-const TYPE_ICONS = {
+const TYPE_ICONS: Record<string, Nullable<string>> = {
   info: figures(`ℹ`),
   success: figures(`✔`),
   error: figures(`✖`),
   warn: figures(`Ⓘ`),
 };
 
+export type BGColor = typeof BackgroundColor;
+export type Color = typeof ForegroundColor;
+
+export interface LogReporterOptions extends ReporterOptions {
+  secondaryColor: Color;
+  bgColor: BGColor;
+}
+
 export class LogReporter extends FancyReporter implements ConsolaReporter {
-  constructor(options?: any) {
+  private bgColor: BGColor;
+  constructor(options: LogReporterOptions) {
     super(options);
+    this.bgColor = options.bgColor;
   }
 
-  protected formatType(logObj: any): string {
-    // @ts-ignore
-    const typeColor = TYPE_COLOR_MAP[logObj.type] || LEVEL_COLOR_MAP[logObj.level] || this.options.secondaryColor;
-    // @ts-ignore
-    const typeIcon = TYPE_ICONS[logObj.type];
-    const text = ` ${typeIcon || logObj.type.toUpperCase()} `;
+  protected formatType(logObj: ConsolaLogObject): string {
+    const typeColor =
+      (logObj.type && TYPE_COLOR_MAP[logObj.type]) ||
+      (isNumber(logObj.level) && LEVEL_COLOR_MAP[logObj.level]) ||
+      this.bgColor;
+    const typeIcon = logObj.type && TYPE_ICONS[logObj.type];
+    const text = ` ${typeIcon || (logObj.type && logObj.type.toUpperCase())} `;
     return chalkBgColor(typeColor).black(text);
-  }
-
-  public log(logObj: ConsolaLogObject, args: ConsolaReporterArgs): void {
-    super.log(logObj, args);
   }
 }

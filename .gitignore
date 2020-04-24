@@ -71,3 +71,4 @@ typings/
 # stryker temp files
 .stryker-tmp
 /reports
+!@types/**

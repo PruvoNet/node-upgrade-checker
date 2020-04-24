@@ -19,7 +19,7 @@ const yargsOptions: Options = {
 };
 
 export interface ICircleCiConfigParserOptions {
-  config: Record<string, any>;
+  config: Record<string, unknown>;
 }
 
 const ltsRegex = new RegExp(`lts/(.+)`, `i`);
