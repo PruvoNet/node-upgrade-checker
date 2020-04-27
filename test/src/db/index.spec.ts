@@ -3,6 +3,7 @@ import {
   Dependency,
   DependencyVersion,
   EntitiesTags,
+  IConnectionOptionsProvider,
   IConnectionProvider,
   IDependencyRepositoryProvider,
   IDependencyVersionRepositoryProvider,
@@ -12,6 +13,7 @@ import { DependencyVersionRepositoryProvider } from '../../../src/db/impl/depend
 import { ConnectionProvider } from '../../../src/db/impl/connectionProvider';
 import { IEntity } from '../../../src/db/interfaces/IEntity';
 import { BindingTypes, testBindings } from '../../common/testers/bindingTester';
+import { ConnectionOptionsProvider } from '../../../src/db/impl/connectionOptionsProvider';
 
 testBindings({
   name: `db module container`,
@@ -25,6 +27,11 @@ testBindings({
     {
       binder: IDependencyVersionRepositoryProvider,
       binded: DependencyVersionRepositoryProvider,
+      type: BindingTypes.SINGELTON,
+    },
+    {
+      binder: IConnectionOptionsProvider,
+      binded: ConnectionOptionsProvider,
       type: BindingTypes.SINGELTON,
     },
     {

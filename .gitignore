@@ -72,3 +72,4 @@ typings/
 .stryker-tmp
 /reports
 !@types/**
+!/tools
