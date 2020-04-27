@@ -3,9 +3,10 @@
 **/.nyc_output
 .github
 .all-contributorsrc
-.cache
-.nyc_output
+.cache/**
 CONTRIBUTORS.md
 CHANGELOG.md
 .stryker-tmp
 /reports/
+.yarn/**
+.pnp.js

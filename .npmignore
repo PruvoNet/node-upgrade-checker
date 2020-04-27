@@ -99,4 +99,14 @@ tools/
 /stryker.conf.js
 /.stryker-tmp/
 /reports/
-tools/
+.yarn
+tools
+.pnp.js
+.codecov.yml
+.commitlintrc.json
+.huskyrc
+.ncurc.json
+.prettierignore
+.prettierrc.json
+.yarnrc.yml
+.yarnrc

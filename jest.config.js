@@ -3,6 +3,7 @@ const config = {
   globals: {
     'ts-jest': {
       tsConfig: 'tsconfig.test.json',
+      packageJson: 'package.json',
     },
   },
   testEnvironment: 'node',
@@ -24,7 +25,7 @@ const config = {
 };
 
 if (process.env.JEST_CI) {
-  config.runner = 'jest-serial-runner';
+  config.runner = 'jest-runner-serial';
   config.coverageReporters.push(`text`);
 }
 
