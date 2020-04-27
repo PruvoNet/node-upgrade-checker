@@ -10,6 +10,7 @@ import Abstract = interfaces.Abstract;
 import { mock, mockClear, mockDeep } from 'jest-mock-extended';
 import BindingToSyntax = interfaces.BindingToSyntax;
 import { mockFn } from '../safeMockFn';
+import { when } from 'jest-when';
 
 export type BinderFn = (bind: Bind) => void;
 
@@ -55,8 +56,8 @@ export const testNameOrMultiConstraint = (symbol: symbol, target: Abstract<any>,
   const matchesTagNameMock = mockFn<ReturnType<Request['target']['matchesTag']>>();
   const matchesTagMultiMock = mockFn<ReturnType<Request['target']['matchesTag']>>();
   const requestMock = mockDeep<Request>();
-  requestMock.target.matchesTag.calledWith(METADATA_KEY.NAMED_TAG).mockReturnValue(matchesTagNameMock);
-  requestMock.target.matchesTag.calledWith(METADATA_KEY.MULTI_INJECT_TAG).mockReturnValue(matchesTagMultiMock);
+  when(requestMock.target.matchesTag).calledWith(METADATA_KEY.NAMED_TAG).mockReturnValue(matchesTagNameMock);
+  when(requestMock.target.matchesTag).calledWith(METADATA_KEY.MULTI_INJECT_TAG).mockReturnValue(matchesTagMultiMock);
 
   beforeEach(() => {
     matchesTagNameMock.mockReset();

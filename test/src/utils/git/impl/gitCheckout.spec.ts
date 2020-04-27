@@ -35,7 +35,7 @@ describe(`git checkout`, () => {
       tag,
       commitSha,
     });
-    expect(result).toBe(fullDir);
+    expect(result).toEqual({ repoPath: fullDir, commitSha });
     expect(fsMock.promises.stat).toHaveBeenCalledTimes(1);
     expect(fsMock.promises.stat).toHaveBeenCalledWith(fullDir);
     expect(gitMock.openRepo).toHaveBeenCalledTimes(1);
@@ -59,7 +59,7 @@ describe(`git checkout`, () => {
       tag,
       commitSha,
     });
-    expect(result).toBe(fullDir);
+    expect(result).toEqual({ repoPath: fullDir, commitSha });
     expect(fsMock.promises.stat).toHaveBeenCalledTimes(1);
     expect(fsMock.promises.stat).toHaveBeenCalledWith(fullDir);
     expect(fsMock.promises.mkdir).toHaveBeenCalledTimes(1);
@@ -86,7 +86,7 @@ describe(`git checkout`, () => {
       baseDir,
       tag,
     });
-    expect(result).toBe(fullDir);
+    expect(result).toEqual({ repoPath: fullDir, commitSha });
     expect(fsMock.promises.stat).toHaveBeenCalledTimes(1);
     expect(fsMock.promises.stat).toHaveBeenCalledWith(fullDir);
     expect(gitMock.openRepo).toHaveBeenCalledTimes(1);

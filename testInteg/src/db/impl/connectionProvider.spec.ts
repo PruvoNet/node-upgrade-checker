@@ -3,7 +3,7 @@ import * as tmp from 'tmp';
 import { Connection } from 'typeorm';
 import { IConnectionProvider, IConnectionSettings } from '../../../../src/db';
 
-describe(`connection provider e2e`, () => {
+describe(`connection provider integration`, () => {
   let connectionProvider: IConnectionProvider;
   let conn: Connection;
 

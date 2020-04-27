@@ -1,5 +1,3 @@
-import { Moment } from 'moment';
-
 export enum DependencyType {
   PROD = `production`,
   DEV = `development`,
@@ -8,14 +6,9 @@ export enum DependencyType {
 
 export interface IDependencyCheckerRunOptions {
   pkg: {
-    version: string;
+    semver: string;
     name: string;
-    releaseDate: Moment;
     dependencyType: DependencyType;
-  };
-  repo: {
-    url: string;
-    commitSha?: string;
   };
   workDir: string;
   targetNode: string;
@@ -23,16 +16,30 @@ export interface IDependencyCheckerRunOptions {
     cache: {
       ignoreAll: boolean;
       ignoreFalsy: boolean;
-      ignoreTruthy: boolean;
     };
+    packageCache: boolean;
     yarnTest: boolean;
   };
 }
 
-export interface IDependencyCheckerRunResult {
-  isMatch: boolean;
-  resolverName?: string;
+export interface IDependencyCheckerRunPositiveResult {
+  isMatch: true;
+  resolverName: string;
 }
+
+export interface IDependencyCheckerRunFalsyResult {
+  isMatch: false;
+}
+
+export interface IDependencyCheckerRunErrorResult {
+  isError: true;
+  reason: string;
+}
+
+export type IDependencyCheckerRunResult =
+  | IDependencyCheckerRunPositiveResult
+  | IDependencyCheckerRunFalsyResult
+  | IDependencyCheckerRunErrorResult;
 
 export abstract class IDependencyChecker {
   public abstract async run(options: IDependencyCheckerRunOptions): Promise<IDependencyCheckerRunResult>;

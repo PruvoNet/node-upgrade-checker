@@ -3,7 +3,6 @@ import { ICacheResolver, ICacheResolverOptions, ICacheResolverResult } from '../
 import { IDependencyRepositoryProvider } from '../../../db';
 import { ILoggerFactory } from '../../../utils/logger';
 import { ILogger } from '../../../utils/logger/interfaces/ILogger';
-import { isBoolean } from 'ts-type-guards';
 
 @injectable()
 export class CacheResolver extends ICacheResolver {
@@ -25,13 +24,20 @@ export class CacheResolver extends ICacheResolver {
         version: repo.version,
         targetNode,
       });
-      if (dependency && isBoolean(dependency.match)) {
+      if (dependency) {
         this.logger.info(`Located cached results for ${repo.name}@$${repo.version}`);
-        return {
-          isMatch: true,
-          result: dependency.match,
-          resolverName: `${dependency.reason} (cache)`,
-        };
+        if (dependency.match) {
+          return {
+            isMatch: true,
+            result: true,
+            resolverName: `${dependency.reason} (cache)`,
+          };
+        } else {
+          return {
+            isMatch: true,
+            result: false,
+          };
+        }
       } else {
         this.logger.info(`No cached results for ${repo.name}@$${repo.version}`);
         return {
@@ -39,7 +45,7 @@ export class CacheResolver extends ICacheResolver {
         };
       }
     } catch (err) {
-      this.logger.debug(`Failed to located cache results for ${repo.name}@$${repo.version}`, err);
+      this.logger.error(`Failed to locate cached results for ${repo.name}@$${repo.version}`, err);
       return {
         isMatch: false,
       };

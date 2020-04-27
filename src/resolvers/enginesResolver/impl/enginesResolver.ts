@@ -4,6 +4,7 @@ import { IEnginesResolver, IEnginesResolverOptions } from '../interfaces/IEngine
 import semver = require('semver');
 import SemVer = require('semver/classes/semver');
 import Comparator = require('semver/classes/comparator');
+import { INodeVersions } from '../../../utils/nodeVersions';
 
 const semverOptions = {
   loose: true,
@@ -23,21 +24,32 @@ const coerce = (version: string): string | null => {
   return coerced.format();
 };
 
-const strictSatisfiesRange = (target: string, range: string): boolean => {
+const strictSatisfiesRange = (target: string, range: string, upperBoundVersion: string | undefined): boolean => {
   const rangeObj = new semver.Range(range, semverOptions);
   const revisedComparatorRange: (readonly Comparator[])[] = [];
-  for (const comparatorRange of rangeObj.set) {
+  for (const roComparatorRange of rangeObj.set) {
+    const comparatorRange: Comparator[] = [];
     let hasUpperBound = false;
     let hasLowerBound = false;
-    for (const comparator of comparatorRange) {
+    for (const comparator of roComparatorRange) {
       if (comparator.operator === `<` || comparator.operator === `<=`) {
         hasUpperBound = true;
+        comparatorRange.push(comparator);
       } else if (comparator.operator === `>` || comparator.operator === `>=`) {
         hasLowerBound = true;
+        const newRangeString = semver.validRange(`>=${comparator.semver.major.toFixed(0)}`, semverOptions);
+        comparatorRange.push(new semver.Comparator(newRangeString, semverOptions));
       }
     }
-    if ((hasLowerBound && hasUpperBound) || (!hasLowerBound && !hasUpperBound)) {
+    if (hasLowerBound && !hasUpperBound && upperBoundVersion) {
+      const newRangeString = semver.validRange(`<=${upperBoundVersion}`, semverOptions);
+      comparatorRange.push(new semver.Comparator(newRangeString, semverOptions));
+      hasUpperBound = true;
+    }
+    if (hasLowerBound && hasUpperBound) {
       revisedComparatorRange.push(comparatorRange);
+    } else if (!hasLowerBound && !hasUpperBound) {
+      revisedComparatorRange.push(roComparatorRange);
     }
   }
   rangeObj.set = revisedComparatorRange;
@@ -49,11 +61,11 @@ const resolverName = `engines field`;
 
 @injectable()
 export class EnginesResolver extends IEnginesResolver {
-  constructor() {
+  constructor(private readonly nodeVersions: INodeVersions) {
     super();
   }
 
-  public async resolve({ engines, targetNode }: IEnginesResolverOptions): Promise<IResolverResult> {
+  public async resolve({ engines, targetNode, releaseDate }: IEnginesResolverOptions): Promise<IResolverResult> {
     if (!engines) {
       return {
         isMatch: false,
@@ -67,7 +79,12 @@ export class EnginesResolver extends IEnginesResolver {
     if (!validRange) {
       throw new TypeError(`Engines range ${engines} is not valid`);
     }
-    const isMatch = strictSatisfiesRange(validTarget, validRange);
+    const upperBound = releaseDate
+      ? await this.nodeVersions.resolveStableVersion({
+          date: releaseDate,
+        })
+      : undefined;
+    const isMatch = strictSatisfiesRange(validTarget, validRange, upperBound);
     if (isMatch) {
       return {
         isMatch: true,

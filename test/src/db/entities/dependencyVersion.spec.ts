@@ -9,7 +9,7 @@ describe(`dependencyVersion entity`, () => {
     {
       databaseName: `releaseDate`,
       isPrimary: false,
-      isNullable: false,
+      isNullable: true,
       type: `text` as const,
     },
     {
@@ -19,9 +19,33 @@ describe(`dependencyVersion entity`, () => {
       type: `text` as const,
     },
     {
+      databaseName: `engines`,
+      isPrimary: false,
+      isNullable: true,
+      type: `text` as const,
+    },
+    {
       databaseName: `repoUrl`,
       isPrimary: false,
-      isNullable: false,
+      isNullable: true,
+      type: `text` as const,
+    },
+    {
+      databaseName: `repoDirectory`,
+      isPrimary: false,
+      isNullable: true,
+      type: `text` as const,
+    },
+    {
+      databaseName: `testScript`,
+      isPrimary: false,
+      isNullable: true,
+      type: `text` as const,
+    },
+    {
+      databaseName: `buildScript`,
+      isPrimary: false,
+      isNullable: true,
       type: `text` as const,
     },
     {
@@ -57,6 +81,28 @@ describe(`dependencyVersion entity`, () => {
       repoUrl: `https://www.github.com/example/test.git`,
       commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
       releaseDate,
+      engines: null,
+      repoDirectory: null,
+      testScript: null,
+      buildScript: null,
+    });
+    const repo = connection.getRepository(DependencyVersion);
+    await repo.save(dependencyVersion);
+    const entity = await repo.findOne();
+    expect(entity).toEqual(dependencyVersion);
+  });
+
+  it(`should properly transform undefined releaseDate field`, async () => {
+    const dependencyVersion = new DependencyVersion({
+      version: `4.0.1`,
+      name: `test dependency`,
+      repoUrl: `https://www.github.com/example/test.git`,
+      commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
+      releaseDate: null,
+      engines: null,
+      repoDirectory: null,
+      testScript: null,
+      buildScript: null,
     });
     const repo = connection.getRepository(DependencyVersion);
     await repo.save(dependencyVersion);
@@ -72,19 +118,34 @@ describe(`dependencyVersion entity`, () => {
       repoUrl: `https://www.github.com/example/test.git`,
       commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
       releaseDate,
+      engines: null,
+      repoDirectory: null,
+      testScript: null,
+      buildScript: null,
     });
-    expect(dependency.version).toBe(`4.0.1`);
-    expect(dependency.name).toBe(`test dependency`);
-    expect(dependency.repoUrl).toBe(`https://www.github.com/example/test.git`);
-    expect(dependency.commitSha).toBe(`595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`);
-    expect(dependency.releaseDate.toJSON()).toBe(releaseDate.toJSON());
+    expect(dependency).toEqual({
+      version: `4.0.1`,
+      name: `test dependency`,
+      repoUrl: `https://www.github.com/example/test.git`,
+      commitSha: `595e42ff-1a21-4c99-a0c9-f5ddbadbdce4`,
+      releaseDate,
+      engines: null,
+      repoDirectory: null,
+      testScript: null,
+      buildScript: null,
+    });
   });
+
   it(`should work with empty constructor`, async () => {
     const dependency = new DependencyVersion();
     expect(dependency.version).toBeUndefined();
     expect(dependency.name).toBeUndefined();
+    expect(dependency.engines).toBeUndefined();
     expect(dependency.repoUrl).toBeUndefined();
+    expect(dependency.repoDirectory).toBeUndefined();
     expect(dependency.commitSha).toBeUndefined();
     expect(dependency.releaseDate).toBeUndefined();
+    expect(dependency.testScript).toBeUndefined();
+    expect(dependency.buildScript).toBeUndefined();
   });
 });

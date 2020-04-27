@@ -22,7 +22,8 @@
     "contributorsrc",
     "simplegit",
     "lcov",
-    "toolbelt"
+    "toolbelt",
+    "packument"
   ],
   "ignorePaths": [
     "**/coverage/**",

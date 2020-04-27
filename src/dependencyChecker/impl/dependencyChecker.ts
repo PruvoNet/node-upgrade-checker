@@ -9,9 +9,9 @@ import { ICacheResolver } from '../../resolvers/cacheResolver';
 import { ICIResolver } from '../../resolvers/ciResolver';
 import { ITestResolver } from '../../resolvers/testResolver';
 import { IEnginesResolver } from '../../resolvers/enginesResolver';
-import { IPackageInfo } from '../../utils/packageInfo';
 import { ILoggerFactory } from '../../utils/logger';
 import { ILogger } from '../../utils/logger/interfaces/ILogger';
+import { IPackageInfoCache } from '..';
 
 @injectable()
 export class DependencyChecker extends IDependencyChecker {
@@ -23,7 +23,7 @@ export class DependencyChecker extends IDependencyChecker {
     private readonly ciResolver: ICIResolver,
     private readonly testResolver: ITestResolver,
     private readonly engineResolver: IEnginesResolver,
-    private readonly packageInfo: IPackageInfo,
+    private readonly packageInfoCache: IPackageInfoCache,
     loggerFactory: ILoggerFactory
   ) {
     super();
@@ -31,23 +31,26 @@ export class DependencyChecker extends IDependencyChecker {
   }
 
   public async run({
-    repo,
     targetNode,
     pkg,
     workDir,
     skip,
   }: IDependencyCheckerRunOptions): Promise<IDependencyCheckerRunResult> {
-    this.logger.info(`Checking ${pkg.dependencyType} dependency - ${pkg.name}@${pkg.version}`);
+    this.logger.info(`Checking ${pkg.dependencyType} dependency - ${pkg.name}@${pkg.semver}`);
+    const dependencyVersion = await this.packageInfoCache.getPackageInfo({
+      semver: pkg.semver,
+      name: pkg.name,
+    });
     if (!skip.cache.ignoreAll) {
       const cacheResult = await this.cacheResolver.resolve({
         targetNode,
         repo: {
           name: pkg.name,
-          version: pkg.version,
+          version: dependencyVersion.version,
         },
       });
       if (cacheResult.isMatch) {
-        if (cacheResult.result && !skip.cache.ignoreTruthy) {
+        if (cacheResult.result) {
           return {
             isMatch: true,
             resolverName: cacheResult.resolverName,
@@ -59,14 +62,10 @@ export class DependencyChecker extends IDependencyChecker {
         }
       }
     }
-    // TODO get packageInfo from cache, probably we should move all this logic to a different unit
-    const packageInfo = await this.packageInfo.getPackageInfo({
-      semver: pkg.version,
-      name: pkg.name,
-    });
     const engineResult = await this.engineResolver.resolve({
       targetNode,
-      engines: packageInfo.engines,
+      engines: dependencyVersion.engines || undefined,
+      releaseDate: dependencyVersion.releaseDate || undefined,
     });
     if (engineResult.isMatch) {
       return {
@@ -74,16 +73,38 @@ export class DependencyChecker extends IDependencyChecker {
         resolverName: engineResult.resolverName,
       };
     }
-    const repoPath = await this.gitCheckout.checkoutRepo({
-      tag: pkg.version,
-      commitSha: repo.commitSha,
+    if (!dependencyVersion.repoUrl) {
+      const reason = `Failed to get repository url for ${pkg.dependencyType} dependency - ${pkg.name}@${dependencyVersion.version}`;
+      this.logger.error(reason);
+      return {
+        isError: true,
+        reason,
+      };
+    }
+    if (!dependencyVersion.releaseDate) {
+      const reason = `Failed to get package release date for ${pkg.dependencyType} dependency - ${pkg.name}@${dependencyVersion.version}`;
+      this.logger.error(reason);
+      return {
+        isError: true,
+        reason,
+      };
+    }
+    const { repoPath, commitSha } = await this.gitCheckout.checkoutRepo({
+      tag: dependencyVersion.version,
+      commitSha: dependencyVersion.commitSha || undefined,
       baseDir: workDir,
-      url: repo.url,
+      url: dependencyVersion.repoUrl,
     });
+    if (!dependencyVersion.commitSha) {
+      await this.packageInfoCache.updateCommitSha({
+        dependencyVersion,
+        commitSha,
+      });
+    }
     const ciResult = await this.ciResolver.resolve({
       targetNode,
       repoPath,
-      packageReleaseDate: pkg.releaseDate,
+      packageReleaseDate: dependencyVersion.releaseDate,
     });
     if (ciResult.isMatch) {
       return {

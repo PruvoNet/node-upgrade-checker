@@ -8,7 +8,7 @@ import { container } from '../../../../src/container';
 import * as tmp from 'tmp';
 import { Connection } from 'typeorm';
 
-describe(`dependency repository provider e2e`, () => {
+describe(`dependency repository provider integration`, () => {
   let dependencyRepositoryProvider: IDependencyRepositoryProvider;
   let conn: Connection;
 
@@ -84,7 +84,7 @@ describe(`dependency repository provider e2e`, () => {
       match: false,
       version: `5.0.1`,
       name: `test dependency`,
-      reason: `cache2`,
+      reason: null,
     });
     await repo.save(dependency);
     await repo.save(dependency2);

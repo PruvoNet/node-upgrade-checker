@@ -6,17 +6,27 @@ export interface ICacheResolverOptions {
   targetNode: string;
 }
 
-export interface ICacheResolverPositiveResult {
+export interface ICacheResolverResultMatch {
   isMatch: true;
-  result: boolean;
+}
+
+export interface ICacheResolverResultMatchPositive extends ICacheResolverResultMatch {
+  result: true;
   resolverName: string;
 }
 
-export interface ICacheResolverNegativeResult {
+export interface ICacheResolverResultMatchNegative extends ICacheResolverResultMatch {
+  result: false;
+}
+
+export interface ICacheResolverResultNoMatch {
   isMatch: false;
 }
 
-export type ICacheResolverResult = ICacheResolverNegativeResult | ICacheResolverPositiveResult;
+export type ICacheResolverResult =
+  | ICacheResolverResultNoMatch
+  | ICacheResolverResultMatchPositive
+  | ICacheResolverResultMatchNegative;
 
 export abstract class ICacheResolver {
   public abstract async resolve(options: ICacheResolverOptions): Promise<ICacheResolverResult>;

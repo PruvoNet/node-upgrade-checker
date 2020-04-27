@@ -49,7 +49,7 @@ describe(`cache resolver`, () => {
       match: false,
       version: `4.0.1`,
       name: `test dependency`,
-      reason: `circleCi`,
+      reason: null,
     });
     repositoryMock.findOne.mockResolvedValue(dependency);
     const targetNode = `8`;
@@ -67,35 +67,7 @@ describe(`cache resolver`, () => {
     });
     expect(result).toEqual({
       isMatch: true,
-      resolverName: `circleCi (cache)`,
       result: false,
-    });
-  });
-
-  it(`should not resolve if in cache without match result`, async () => {
-    const dependency = new Dependency({
-      targetNode: `12`,
-      match: undefined,
-      version: `4.0.1`,
-      name: `test dependency`,
-      reason: `circleCi`,
-    });
-    repositoryMock.findOne.mockResolvedValue(undefined);
-    const targetNode = `8`;
-    const result = await cacheResolver.resolve({
-      repo: {
-        version: dependency.version,
-        name: dependency.name,
-      },
-      targetNode,
-    });
-    expect(repositoryMock.findOne).toHaveBeenCalledWith({
-      name: dependency.name,
-      version: dependency.version,
-      targetNode,
-    });
-    expect(result).toEqual({
-      isMatch: false,
     });
   });
 

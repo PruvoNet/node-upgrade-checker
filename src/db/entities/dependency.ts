@@ -1,13 +1,23 @@
 import { Entity, Column, PrimaryColumn } from 'typeorm';
 import { IEntity } from '../interfaces/IEntity';
 
-export interface IDependencyOptions {
+export interface IDependencyOptionsBase {
   name: string;
   version: string;
   targetNode: string;
-  match: boolean | undefined;
-  reason: string | undefined;
 }
+
+export interface IDependencyOptionsMatch extends IDependencyOptionsBase {
+  match: true;
+  reason: string;
+}
+
+export interface IDependencyOptionsNoMatch extends IDependencyOptionsBase {
+  match: false;
+  reason: null;
+}
+
+export type IDependencyOptions = IDependencyOptionsMatch | IDependencyOptionsNoMatch;
 
 @Entity()
 export class Dependency extends IEntity {
@@ -22,15 +32,13 @@ export class Dependency extends IEntity {
   @PrimaryColumn(`text`)
   public targetNode!: string;
 
-  @Column(`boolean`, {
-    nullable: true,
-  })
-  public match!: boolean | undefined;
+  @Column(`boolean`)
+  public match!: boolean;
 
   @Column(`text`, {
     nullable: true,
   })
-  public reason!: string | undefined;
+  public reason!: string | null;
 
   constructor(options?: IDependencyOptions) {
     super();
