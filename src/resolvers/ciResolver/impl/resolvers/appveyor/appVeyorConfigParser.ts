@@ -54,7 +54,7 @@ const sorter: NodeSorter = (a: INode, b: INode) => {
 };
 
 export interface IAppVeyorConfigParserOptions {
-  config: Record<string, any>;
+  config: Record<string, unknown>;
 }
 
 const coerceString = (o: Record<Key, unknown>): Record<string, string> => {

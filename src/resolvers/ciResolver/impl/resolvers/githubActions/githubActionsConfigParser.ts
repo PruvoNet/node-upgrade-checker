@@ -37,12 +37,12 @@ const sorter: NodeSorter = (a: INode, b: INode) => {
   return keySorter(a, b);
 };
 
-const isStringOrNumberArray = (x: any): x is StringOrNumber[] => {
+const isStringOrNumberArray = (x: unknown): x is StringOrNumber[] => {
   return is(Array)(x) && x.every(isStringOrNumber);
 };
 
 export interface IGithubActionsConfigParserOptions {
-  config: Record<string, any>;
+  config: Record<string, unknown>;
 }
 
 const isEnvNode = (value: unknown, node: INode): value is StringOrNumber => {
