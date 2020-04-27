@@ -12,7 +12,7 @@ import { Connection } from 'typeorm';
 const dateFormat = `YYYY-MM-DD`;
 const releaseDate = moment.utc(`2015-10-02`, dateFormat);
 
-describe(`dependency version repository provider e2e`, () => {
+describe(`dependency version repository provider integration`, () => {
   let dependencyVersionRepositoryProvider: IDependencyVersionRepositoryProvider;
   let conn: Connection;
 

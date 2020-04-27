@@ -8,7 +8,7 @@ import { container } from '../../../../src/container';
 import * as tmp from 'tmp';
 import { Connection } from 'typeorm';
 
-describe(`dependency repository provider e2e`, () => {
+describe(`dependency repository provider integration`, () => {
   let dependencyRepositoryProvider: IDependencyRepositoryProvider;
   let conn: Connection;
 
