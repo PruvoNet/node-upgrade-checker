@@ -12,7 +12,6 @@ describe(`connection provider e2e`, () => {
     const tmpDir = tmp.dirSync().name;
     container.bind<IConnectionSettings>(IConnectionSettings).toConstantValue({
       databaseFilePath: tmpDir,
-      dropSchema: false,
     });
     connectionProvider = container.get(IConnectionProvider);
     conn = await connectionProvider.getConnection();

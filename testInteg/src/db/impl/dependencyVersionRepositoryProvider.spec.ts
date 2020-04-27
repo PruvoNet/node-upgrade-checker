@@ -21,7 +21,6 @@ describe(`dependency version repository provider e2e`, () => {
     const tmpDir = tmp.dirSync().name;
     container.bind<IConnectionSettings>(IConnectionSettings).toConstantValue({
       databaseFilePath: tmpDir,
-      dropSchema: false,
     });
     dependencyVersionRepositoryProvider = container.get(IDependencyVersionRepositoryProvider);
     const connectionProvider = container.get(IConnectionProvider);

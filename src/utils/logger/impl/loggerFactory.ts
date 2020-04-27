@@ -18,7 +18,12 @@ export class LoggerFactory extends ILoggerFactory {
     const level = isTrace ? LogLevel.TRACE : isDebug ? LogLevel.DEBUG : LogLevel.INFO;
     this.options = {
       level,
-      reporters: [new LogReporter()],
+      reporters: [
+        new LogReporter({
+          secondaryColor: `grey`,
+          bgColor: `bgGrey`,
+        }),
+      ],
     };
   }
 

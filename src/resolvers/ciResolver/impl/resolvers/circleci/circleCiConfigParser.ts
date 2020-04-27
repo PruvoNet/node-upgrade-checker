@@ -14,7 +14,7 @@ const nodeVersionRegex = /node:([^-.]+)-?/i;
 type Matrix = Record<string, string[]>;
 
 export interface ICircleCiConfigParserOptions {
-  config: Record<string, any>;
+  config: Record<string, unknown>;
 }
 
 const isVersionNode = (value: unknown, node: INode): value is string => {

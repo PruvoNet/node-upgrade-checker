@@ -27,5 +27,5 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["src", "test", "testE2E", "testInteg", "tools"]
+  "include": ["src", "test", "testE2E", "testInteg", "tools", "@types/**/*.d.ts"]
 }

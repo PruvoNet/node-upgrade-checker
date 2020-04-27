@@ -1,5 +1,7 @@
 import { DependencyVersion } from '../../../../src/db';
-import { DependencyVersionRepositoryProvider } from '../../../../src/db/impl/dependencyVersionRepositoryProvider';
 import { testRepositoryProvider } from '../../../common/testers/repositoryProviderTester';
+import { DependencyVersionRepositoryProvider } from '../../../../src/db/impl/dependencyVersionRepositoryProvider';
 
-testRepositoryProvider(DependencyVersion, DependencyVersionRepositoryProvider);
+describe(`DependencyVersion repository provider`, () => {
+  testRepositoryProvider(DependencyVersion, DependencyVersionRepositoryProvider);
+});

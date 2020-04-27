@@ -3,22 +3,41 @@ import { PassThrough } from 'stream';
 import * as chalk from 'chalk';
 import * as figures from 'figures';
 
+interface MockedStream {
+  mockedStream: PassThrough;
+  streamPromise: Promise<string>;
+  closeStream: () => void;
+}
+
+const getMockedStream = (): MockedStream => {
+  const mockedStream = new PassThrough();
+  const streamPromise = new Promise<string>((resolve) => {
+    const logData: Uint8Array[] = [];
+    mockedStream.on(`data`, (data) => {
+      logData.push(data);
+    });
+    mockedStream.on(`end`, () => {
+      resolve(Buffer.concat(logData).toString());
+    });
+  });
+  return {
+    mockedStream,
+    streamPromise,
+    closeStream: (): void => {
+      mockedStream.end();
+      mockedStream.destroy();
+    },
+  };
+};
+
 describe(`log reporter`, () => {
   const logReporter = new LogReporter({
     secondaryColor: `grey`,
+    bgColor: `bgGrey`,
   });
 
   it(`should log ERROR properly`, async () => {
-    const mockedStream = new PassThrough();
-    const streamPromise = new Promise((resolve) => {
-      const logData: Uint8Array[] = [];
-      mockedStream.on(`data`, (data) => {
-        logData.push(data);
-      });
-      mockedStream.on(`end`, () => {
-        resolve(Buffer.concat(logData).toString());
-      });
-    });
+    const { mockedStream, streamPromise, closeStream } = getMockedStream();
     logReporter.log(
       {
         level: 0,
@@ -31,8 +50,7 @@ describe(`log reporter`, () => {
         stdout: mockedStream,
       }
     );
-    mockedStream.end();
-    mockedStream.destroy();
+    closeStream();
     const result = await streamPromise;
     const expected = `
 ${chalk.bgRed.black(` ` + figures(`✖`) + ` `)} my message
@@ -42,16 +60,7 @@ ${chalk.bgRed.black(` ` + figures(`✖`) + ` `)} my message
   });
 
   it(`should log WARN properly`, async () => {
-    const mockedStream = new PassThrough();
-    const streamPromise = new Promise((resolve) => {
-      const logData: Uint8Array[] = [];
-      mockedStream.on(`data`, (data) => {
-        logData.push(data);
-      });
-      mockedStream.on(`end`, () => {
-        resolve(Buffer.concat(logData).toString());
-      });
-    });
+    const { mockedStream, streamPromise, closeStream } = getMockedStream();
     logReporter.log(
       {
         level: 1,
@@ -64,8 +73,7 @@ ${chalk.bgRed.black(` ` + figures(`✖`) + ` `)} my message
         stdout: mockedStream,
       }
     );
-    mockedStream.end();
-    mockedStream.destroy();
+    closeStream();
     const result = await streamPromise;
     const expected = `
 ${chalk.bgYellow.black(` ` + figures(`Ⓘ`) + ` `)} my message
@@ -75,16 +83,7 @@ ${chalk.bgYellow.black(` ` + figures(`Ⓘ`) + ` `)} my message
   });
 
   it(`should log LOG properly`, async () => {
-    const mockedStream = new PassThrough();
-    const streamPromise = new Promise((resolve) => {
-      const logData: Uint8Array[] = [];
-      mockedStream.on(`data`, (data) => {
-        logData.push(data);
-      });
-      mockedStream.on(`end`, () => {
-        resolve(Buffer.concat(logData).toString());
-      });
-    });
+    const { mockedStream, streamPromise, closeStream } = getMockedStream();
     logReporter.log(
       {
         level: 2,
@@ -97,8 +96,7 @@ ${chalk.bgYellow.black(` ` + figures(`Ⓘ`) + ` `)} my message
         stdout: mockedStream,
       }
     );
-    mockedStream.end();
-    mockedStream.destroy();
+    closeStream();
     const result = await streamPromise;
     const expected = `${chalk.bgWhite.black(` LOG `)} my message
 `;
@@ -106,16 +104,7 @@ ${chalk.bgYellow.black(` ` + figures(`Ⓘ`) + ` `)} my message
   });
 
   it(`should log INFO properly`, async () => {
-    const mockedStream = new PassThrough();
-    const streamPromise = new Promise((resolve) => {
-      const logData: Uint8Array[] = [];
-      mockedStream.on(`data`, (data) => {
-        logData.push(data);
-      });
-      mockedStream.on(`end`, () => {
-        resolve(Buffer.concat(logData).toString());
-      });
-    });
+    const { mockedStream, streamPromise, closeStream } = getMockedStream();
     logReporter.log(
       {
         level: 3,
@@ -128,8 +117,7 @@ ${chalk.bgYellow.black(` ` + figures(`Ⓘ`) + ` `)} my message
         stdout: mockedStream,
       }
     );
-    mockedStream.end();
-    mockedStream.destroy();
+    closeStream();
     const result = await streamPromise;
     const expected = `${chalk.bgBlue.black(` ` + figures(`ℹ`) + ` `)} my message
 `;
@@ -137,16 +125,7 @@ ${chalk.bgYellow.black(` ` + figures(`Ⓘ`) + ` `)} my message
   });
 
   it(`should log DEBUG properly`, async () => {
-    const mockedStream = new PassThrough();
-    const streamPromise = new Promise((resolve) => {
-      const logData: Uint8Array[] = [];
-      mockedStream.on(`data`, (data) => {
-        logData.push(data);
-      });
-      mockedStream.on(`end`, () => {
-        resolve(Buffer.concat(logData).toString());
-      });
-    });
+    const { mockedStream, streamPromise, closeStream } = getMockedStream();
     logReporter.log(
       {
         level: 4,
@@ -159,8 +138,7 @@ ${chalk.bgYellow.black(` ` + figures(`Ⓘ`) + ` `)} my message
         stdout: mockedStream,
       }
     );
-    mockedStream.end();
-    mockedStream.destroy();
+    closeStream();
     const result = await streamPromise;
     const expected = `${chalk.bgGrey.black(` DEBUG `)} my message
 `;
@@ -168,16 +146,7 @@ ${chalk.bgYellow.black(` ` + figures(`Ⓘ`) + ` `)} my message
   });
 
   it(`should log TRACE properly`, async () => {
-    const mockedStream = new PassThrough();
-    const streamPromise = new Promise((resolve) => {
-      const logData: Uint8Array[] = [];
-      mockedStream.on(`data`, (data) => {
-        logData.push(data);
-      });
-      mockedStream.on(`end`, () => {
-        resolve(Buffer.concat(logData).toString());
-      });
-    });
+    const { mockedStream, streamPromise, closeStream } = getMockedStream();
     logReporter.log(
       {
         level: 5,
@@ -190,8 +159,7 @@ ${chalk.bgYellow.black(` ` + figures(`Ⓘ`) + ` `)} my message
         stdout: mockedStream,
       }
     );
-    mockedStream.end();
-    mockedStream.destroy();
+    closeStream();
     const result = await streamPromise;
     const expected = `${chalk.bgGrey.black(` TRACE `)} my message
 `;

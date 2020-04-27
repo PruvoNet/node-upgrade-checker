@@ -6,7 +6,7 @@ const config = {
     },
   },
   testEnvironment: 'node',
-  collectCoverageFrom: ['<rootDir>/src/**/*.ts', '!<rootDir>/src/**/*.d.ts'],
+  collectCoverageFrom: ['<rootDir>/src/**/*.ts', '!<rootDir>/src/**/*.d.ts', '!<rootDir>/src/db/migrations/**'],
   setupFilesAfterEnv: ['<rootDir>/test/setup.ts'],
   coverageDirectory: 'coverage',
   coverageReporters: ['text-summary', 'lcov'],
