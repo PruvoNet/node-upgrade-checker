@@ -5,6 +5,7 @@ export enum LogLevel {
   INFO,
   DEBUG,
   TRACE,
+  SILENT,
 }
 
 export interface ILogger {

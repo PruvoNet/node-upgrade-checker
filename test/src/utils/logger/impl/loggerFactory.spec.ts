@@ -12,6 +12,7 @@ describe(`logger factory`, () => {
     expect(LogLevel.INFO).toBe(3);
     expect(LogLevel.DEBUG).toBe(4);
     expect(LogLevel.TRACE).toBe(5);
+    expect(LogLevel.SILENT).toBe(6);
   });
   it(`should set reporter`, async () => {
     const settings: ILoggerSettings = {
