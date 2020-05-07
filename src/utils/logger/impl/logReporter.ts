@@ -1,4 +1,4 @@
-import { ConsolaLogObject, ConsolaReporter, FancyReporter, ReporterOptions } from 'consola';
+import { ConsolaLogObject, ConsolaReporter, FancyReporter, FancyReporterOptions } from 'consola';
 import chalk = require('chalk');
 import * as figures from 'figures';
 import type { Chalk, BackgroundColor, ForegroundColor } from 'chalk';
@@ -35,7 +35,7 @@ const TYPE_ICONS: Record<string, Nullable<string>> = {
 export type BGColor = typeof BackgroundColor;
 export type Color = typeof ForegroundColor;
 
-export interface LogReporterOptions extends ReporterOptions {
+export interface LogReporterOptions extends FancyReporterOptions {
   secondaryColor: Color;
   bgColor: BGColor;
 }

@@ -1,5 +1,6 @@
 import { Consola, ConsolaOptions } from 'consola';
 import { ILogger, LogLevel } from '../interfaces/ILogger';
+import { getConoslaLogLevel } from './logLevel';
 
 export class Logger extends Consola implements ILogger {
   constructor(options: ConsolaOptions) {
@@ -7,7 +8,7 @@ export class Logger extends Consola implements ILogger {
   }
 
   public isLevelEnabled(level: LogLevel): boolean {
-    return this.level >= level;
+    return this.level >= getConoslaLogLevel(level);
   }
 
   public isTraceEnabled(): boolean {
