@@ -12,13 +12,10 @@ import { getConoslaLogLevel } from './logLevel';
 @injectable()
 export class LoggerFactory extends ILoggerFactory {
   private readonly options: ConsolaOptions;
-  constructor(settings: ILoggerSettings) {
+  constructor({ logLevel }: ILoggerSettings) {
     super();
-    const isDebug = settings.debugMode;
-    const isTrace = settings.traceMode;
-    const level = isTrace ? LogLevel.TRACE : isDebug ? LogLevel.DEBUG : LogLevel.INFO;
     this.options = {
-      level: getConoslaLogLevel(level),
+      level: getConoslaLogLevel(logLevel ?? LogLevel.INFO),
       reporters: [
         new LogReporter({
           secondaryColor: `grey`,

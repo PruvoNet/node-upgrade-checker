@@ -7,10 +7,6 @@ export class Logger extends Consola implements ILogger {
     super(options);
   }
 
-  public isLevelEnabled(level: LogLevel): boolean {
-    return this.level >= getConoslaLogLevel(level);
-  }
-
   public isTraceEnabled(): boolean {
     return this.isLevelEnabled(LogLevel.TRACE);
   }
@@ -25,5 +21,21 @@ export class Logger extends Consola implements ILogger {
 
   public isWarnEnabled(): boolean {
     return this.isLevelEnabled(LogLevel.WARN);
+  }
+
+  public isLogEnabled(): boolean {
+    return this.isLevelEnabled(LogLevel.LOG);
+  }
+
+  public isErrorEnabled(): boolean {
+    return this.isLevelEnabled(LogLevel.ERROR);
+  }
+
+  public isSilent(): boolean {
+    return this.isLevelEnabled(LogLevel.SILENT);
+  }
+
+  private isLevelEnabled(level: LogLevel): boolean {
+    return this.level >= getConoslaLogLevel(level);
   }
 }
