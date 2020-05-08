@@ -4,8 +4,7 @@ import { ICheckoutOptions, ICheckoutResult, IGitCheckout } from '../interfaces/I
 import { getRepoDirName } from './getRepoDirName';
 import { Git } from './git';
 import { FS, TYPES } from '../../../container/nodeModulesContainer';
-import { ILoggerFactory } from '../../logger';
-import { ILogger } from '../../logger/interfaces/ILogger';
+import { ILoggerFactory, ILogger } from '../../logger';
 
 @injectable()
 export class GitCheckout extends IGitCheckout {

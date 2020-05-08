@@ -1,7 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { SimpleGitFn, TYPES } from '../../../container/nodeModulesContainer';
-import { ILoggerFactory } from '../../logger';
-import { ILogger } from '../../logger/interfaces/ILogger';
+import { ILoggerFactory, ILogger } from '../../logger';
 import { SimpleGit } from 'simple-git/promise';
 
 export interface ICheckoutCommitOptions {

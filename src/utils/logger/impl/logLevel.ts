@@ -1,5 +1,5 @@
 import { LogLevel as ConsolaLogLevel } from 'consola';
-import { LogLevel } from '../interfaces/ILogger';
+import { LogLevel } from '../interfaces/ILoggerSettings';
 
 const logLevelMap = {
   [LogLevel.ERROR]: ConsolaLogLevel.Error,
@@ -8,8 +8,8 @@ const logLevelMap = {
   [LogLevel.INFO]: ConsolaLogLevel.Info,
   [LogLevel.DEBUG]: ConsolaLogLevel.Debug,
   [LogLevel.TRACE]: ConsolaLogLevel.Trace,
-  [LogLevel.SILENT]: -ConsolaLogLevel.Silent, // Hack until the issue in conosla is fixed
-  [LogLevel.VERBOSE]: ConsolaLogLevel.Silent, // Hack until the issue in conosla is fixed
+  [LogLevel.SILENT]: -ConsolaLogLevel.Silent, // Hack until the issue in conosla is fixed. Need to also give restrictive type to object
+  [LogLevel.VERBOSE]: ConsolaLogLevel.Silent, // Hack until the issue in conosla is fixed. Need to also give restrictive type to object
 };
 
 export const getConoslaLogLevel = (level: LogLevel): ConsolaLogLevel => logLevelMap[level];

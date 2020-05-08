@@ -4,8 +4,7 @@ import { Moment } from 'moment';
 import moment = require('moment');
 import { memoize } from '../../memoize/memoize';
 import { Axios, TYPES } from '../../../container/nodeModulesContainer';
-import { ILoggerFactory } from '../../logger';
-import { ILogger } from '../../logger/interfaces/ILogger';
+import { ILoggerFactory, ILogger } from '../../logger';
 import { O } from 'ts-toolbelt';
 
 const NODE_RELEASE_FILE = `https://raw.githubusercontent.com/nodejs/Release/master/schedule.json`;

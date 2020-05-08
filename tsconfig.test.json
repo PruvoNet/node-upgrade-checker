@@ -1,7 +1,9 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "noEmit": false,
+    "outDir": "dist",
     "incremental": true,
-    "tsBuildInfoFile": ".buildcache"
+    "tsBuildInfoFile": ".cache/.buildcache"
   }
 }

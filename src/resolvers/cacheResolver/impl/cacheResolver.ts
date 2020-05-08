@@ -1,8 +1,7 @@
 import { injectable } from 'inversify';
 import { ICacheResolver, ICacheResolverOptions, ICacheResolverResult } from '../interfaces/ICacheResolver';
 import { IDependencyRepositoryProvider } from '../../../db';
-import { ILoggerFactory } from '../../../utils/logger';
-import { ILogger } from '../../../utils/logger/interfaces/ILogger';
+import { ILoggerFactory, ILogger } from '../../../utils/logger';
 
 @injectable()
 export class CacheResolver extends ICacheResolver {

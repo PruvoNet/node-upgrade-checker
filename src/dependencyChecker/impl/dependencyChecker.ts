@@ -9,8 +9,7 @@ import { ICacheResolver } from '../../resolvers/cacheResolver';
 import { ICIResolver } from '../../resolvers/ciResolver';
 import { ITestResolver } from '../../resolvers/testResolver';
 import { IEnginesResolver } from '../../resolvers/enginesResolver';
-import { ILoggerFactory } from '../../utils/logger';
-import { ILogger } from '../../utils/logger/interfaces/ILogger';
+import { ILogger, ILoggerFactory } from '../../utils/logger';
 import { IPackageInfoCache } from '..';
 
 @injectable()

@@ -1,8 +1,7 @@
 import { ICommandRunner } from '../../commandRunner';
 import { IYarn, IYarnOptions } from '../interfaces/IYarn';
 import { injectable } from 'inversify';
-import { ILoggerFactory } from '../../logger';
-import { ILogger } from '../../logger/interfaces/ILogger';
+import { ILoggerFactory, ILogger } from '../../logger';
 
 @injectable()
 export class Yarn extends IYarn {

@@ -1,14 +1,3 @@
-export enum LogLevel {
-  ERROR,
-  WARN,
-  LOG,
-  INFO,
-  DEBUG,
-  TRACE,
-  SILENT,
-  VERBOSE,
-}
-
 export interface ILogger {
   fatal(...args: unknown[]): void;
 

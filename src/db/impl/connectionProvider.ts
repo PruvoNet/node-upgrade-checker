@@ -3,8 +3,7 @@ import { Connection } from 'typeorm/connection/Connection';
 import { memoize } from '../../utils/memoize/memoize';
 import { IConnectionProvider } from '../interfaces/IConnectionProvider';
 import { TypeOrm, TYPES } from '../../container/nodeModulesContainer';
-import { ILoggerFactory } from '../../utils/logger';
-import { ILogger } from '../../utils/logger/interfaces/ILogger';
+import { ILogger, ILoggerFactory } from '../../utils/logger';
 import { IConnectionOptionsProvider } from '../interfaces/IConnectionOptionsProvider';
 
 @injectable()

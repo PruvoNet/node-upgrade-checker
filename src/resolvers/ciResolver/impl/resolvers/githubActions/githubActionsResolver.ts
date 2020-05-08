@@ -6,8 +6,7 @@ import {
 } from '../../../interfaces/ISpecificCIResolver';
 import { inject, injectable } from 'inversify';
 import { FS, TYPES } from '../../../../../container/nodeModulesContainer';
-import { ILoggerFactory } from '../../../../../utils/logger';
-import { ILogger } from '../../../../../utils/logger/interfaces/ILogger';
+import { ILoggerFactory, ILogger } from '../../../../../utils/logger';
 import { GithubActionsConfigParser } from './githubActionsConfigParser';
 import { parse } from 'yaml';
 

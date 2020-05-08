@@ -1,6 +1,5 @@
-import { ILoggerSettings } from '../../../../../src/utils/logger';
+import { ILoggerSettings, LogLevel } from '../../../../../src/utils/logger';
 import { LoggerFactory } from '../../../../../src/utils/logger/impl/loggerFactory';
-import { LogLevel } from '../../../../../src/utils/logger/interfaces/ILogger';
 import * as tmp from 'tmp';
 import { FS } from '../../../../../src/container/nodeModulesContainer';
 import { mock, mockReset } from 'jest-mock-extended';

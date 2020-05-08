@@ -2,8 +2,7 @@ import { ICIResolveOptions, ICIResolver } from '../interfaces/ICIResolver';
 import { injectable, multiInject } from 'inversify';
 import { ISpecificCIResolver } from '../interfaces/ISpecificCIResolver';
 import { IResolverResult } from '../../types';
-import { ILoggerFactory } from '../../../utils/logger';
-import { ILogger } from '../../../utils/logger/interfaces/ILogger';
+import { ILoggerFactory, ILogger } from '../../../utils/logger';
 import { asyncFilter } from '../../../utils/asyncFilter/asyncFilter';
 import { ISpecificCIResolverRunner } from '../interfaces/ISpecificCIResolverRunner';
 

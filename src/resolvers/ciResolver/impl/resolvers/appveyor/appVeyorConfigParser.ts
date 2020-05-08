@@ -1,7 +1,6 @@
 import { ISpecificCIResolverResponse } from '../../../interfaces/ISpecificCIResolver';
 import { injectable } from 'inversify';
-import { ILoggerFactory } from '../../../../../utils/logger';
-import { ILogger } from '../../../../../utils/logger/interfaces/ILogger';
+import { ILoggerFactory, ILogger } from '../../../../../utils/logger';
 import { INode, keySorter, NodeSorter, objectIterator } from '../../../../../utils/objectIterator/objectIterator';
 import { isString } from 'ts-type-guards';
 import { INvmHandler } from '../../../interfaces/INvmHandler';

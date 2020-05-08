@@ -1,8 +1,7 @@
 import { CommandRunner } from '../../../../../src/utils/commandRunner/impl/commandRunner';
 // @ts-ignore
 import mockSpawn = require('mock-spawn');
-import { ILoggerFactory } from '../../../../../src/utils/logger';
-import { ILogger } from '../../../../../src/utils/logger/interfaces/ILogger';
+import { ILoggerFactory, ILogger } from '../../../../../src/utils/logger';
 import { mock, mockReset } from 'jest-mock-extended';
 import { Spawn } from '../../../../../src/container/nodeModulesContainer';
 

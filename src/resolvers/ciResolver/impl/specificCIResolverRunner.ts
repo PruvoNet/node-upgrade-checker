@@ -1,8 +1,7 @@
 import { injectable } from 'inversify';
 import { ITargetMatcher } from '../interfaces/ITargetMatcher';
 import { IResolverResult } from '../../types';
-import { ILoggerFactory } from '../../../utils/logger';
-import { ILogger } from '../../../utils/logger/interfaces/ILogger';
+import { ILoggerFactory, ILogger } from '../../../utils/logger';
 import { ISpecificCIResolverRunner, ISpecificCIResolverRunnerOptions } from '../interfaces/ISpecificCIResolverRunner';
 
 @injectable()
