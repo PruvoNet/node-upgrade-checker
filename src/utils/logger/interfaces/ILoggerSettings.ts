@@ -1,4 +1,5 @@
+import { LogLevel } from './ILogger';
+
 export abstract class ILoggerSettings {
-  public abstract readonly debugMode: boolean;
-  public abstract readonly traceMode: boolean;
+  public abstract readonly logLevel: LogLevel | undefined;
 }
