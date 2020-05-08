@@ -32,7 +32,7 @@ export class Logger extends Consola implements ILogger {
   }
 
   public isSilent(): boolean {
-    return this.isLevelEnabled(LogLevel.SILENT);
+    return this.level === getConoslaLogLevel(LogLevel.SILENT);
   }
 
   private isLevelEnabled(level: LogLevel): boolean {

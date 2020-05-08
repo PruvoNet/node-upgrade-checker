@@ -8,7 +8,7 @@ const logLevelMap = {
   [LogLevel.INFO]: ConsolaLogLevel.Info,
   [LogLevel.DEBUG]: ConsolaLogLevel.Debug,
   [LogLevel.TRACE]: ConsolaLogLevel.Trace,
-  [LogLevel.SILENT]: ConsolaLogLevel.Silent,
+  [LogLevel.SILENT]: -ConsolaLogLevel.Silent, // Hack until the issue of fixed
 };
 
 export const getConoslaLogLevel = (level: LogLevel): ConsolaLogLevel => logLevelMap[level];
