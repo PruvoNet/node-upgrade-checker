@@ -1,4 +1,11 @@
-import { ConsolaLogObject, ConsolaReporter, FancyReporter, FancyReporterOptions } from 'consola';
+import {
+  ConsolaLogObject,
+  ConsolaReporter,
+  ConsolaReporterArgs,
+  FancyReporter,
+  FancyReporterOptions,
+  LogLevel,
+} from 'consola';
 import chalk = require('chalk');
 import * as figures from 'figures';
 import type { Chalk, BackgroundColor, ForegroundColor } from 'chalk';
@@ -38,13 +45,25 @@ export type Color = typeof ForegroundColor;
 export interface LogReporterOptions extends FancyReporterOptions {
   secondaryColor: Color;
   bgColor: BGColor;
+  level: LogLevel;
 }
 
 export class LogReporter extends FancyReporter implements ConsolaReporter {
-  private bgColor: BGColor;
+  private readonly bgColor: BGColor;
+  private readonly level: LogLevel;
+
   constructor(options: LogReporterOptions) {
     super(options);
     this.bgColor = options.bgColor;
+    this.level = options.level;
+  }
+
+  public log(logObj: ConsolaLogObject, args: ConsolaReporterArgs): void {
+    // TODO fix that once consola typings are fixed
+    if (logObj.level! > this.level) {
+      return;
+    }
+    super.log(logObj, args);
   }
 
   protected formatType(logObj: ConsolaLogObject): string {

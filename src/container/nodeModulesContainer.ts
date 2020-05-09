@@ -6,6 +6,7 @@ import * as spawn from 'cross-spawn';
 import axios from 'axios';
 import { interfaces } from 'inversify';
 import Bind = interfaces.Bind;
+import Process = NodeJS.Process;
 
 export type Spawn = typeof spawn;
 export type Axios = typeof axios;
@@ -16,6 +17,7 @@ export type SimpleGitFn = typeof simpleGit;
 export const TYPES = {
   TypeOrm: Symbol.for(`TypeOrm`),
   FS: Symbol.for(`FS`),
+  Process: Symbol.for(`Process`),
   Pacote: Symbol.for(`Pacote`),
   Spawn: Symbol.for(`Spawn`),
   SimpleGit: Symbol.for(`SimpleGit`),
@@ -25,6 +27,7 @@ export const TYPES = {
 export const nodeModulesBinder = (bind: Bind): void => {
   bind<TypeOrm>(TYPES.TypeOrm).toConstantValue(typeorm);
   bind<FS>(TYPES.FS).toConstantValue(fs);
+  bind<Process>(TYPES.Process).toConstantValue(process);
   bind<Pacote>(TYPES.Pacote).toConstantValue(pacote);
   bind<Spawn>(TYPES.Spawn).toConstantValue(spawn);
   bind<SimpleGitFn>(TYPES.SimpleGit).toConstantValue(simpleGit);

@@ -22,6 +22,11 @@ testBindings({
       type: BindingTypes.CONSTANT,
     },
     {
+      binder: TYPES.Process,
+      binded: process,
+      type: BindingTypes.CONSTANT,
+    },
+    {
       binder: TYPES.Pacote,
       binded: pacote,
       type: BindingTypes.CONSTANT,

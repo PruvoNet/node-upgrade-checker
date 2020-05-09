@@ -23,8 +23,6 @@ describe(`command runner`, () => {
   });
 
   it(`should resolve on successful run`, async () => {
-    loggerMock.isDebugEnabled.mockReturnValue(true);
-    loggerMock.isTraceEnabled.mockReturnValue(true);
     spawnMock.sequence.add(spawnMock.simple(0));
     const execOptionsPlaceHolder = {};
     await runner.executeCommand({
@@ -39,8 +37,6 @@ describe(`command runner`, () => {
   });
 
   it(`should log command output`, async () => {
-    loggerMock.isDebugEnabled.mockReturnValue(true);
-    loggerMock.isTraceEnabled.mockReturnValue(true);
     spawnMock.sequence.add(function (this: any, cb: any) {
       this.stdout.write(`output data my library expects`);
       this.stderr.write(`error output data my library expects`);
@@ -58,13 +54,11 @@ describe(`command runner`, () => {
     expect(call.command).toBe(`npm`);
     expect(call.args).toEqual([`run`, `build`]);
     expect(call.opts).toBe(execOptionsPlaceHolder);
-    expect(loggerMock.debug).toHaveBeenCalledWith(`Command error output:\n`, `error output data my library expects`);
+    expect(loggerMock.error).toHaveBeenCalledWith(`Command error output:\n`, `error output data my library expects`);
     expect(loggerMock.debug).toHaveBeenCalledWith(`Command output:\n`, `output data my library expects`);
   });
 
   it(`should log error command output`, async () => {
-    loggerMock.isDebugEnabled.mockReturnValue(false);
-    loggerMock.isTraceEnabled.mockReturnValue(false);
     spawnMock.sequence.add(function (this: any, cb: any) {
       this.stdout.write(`output data my library expects`);
       this.stderr.write(`error output data my library expects`);
@@ -90,8 +84,6 @@ describe(`command runner`, () => {
   });
 
   it(`should not log error command output if empty output`, async () => {
-    loggerMock.isDebugEnabled.mockReturnValue(false);
-    loggerMock.isTraceEnabled.mockReturnValue(false);
     spawnMock.sequence.add(function (this: any, cb: any) {
       this.stdout.write(`output data my library expects`);
       setTimeout(() => {
@@ -115,31 +107,7 @@ describe(`command runner`, () => {
     expect(loggerMock.error).toBeCalledTimes(0);
   });
 
-  it(`should not log command output`, async () => {
-    loggerMock.isDebugEnabled.mockReturnValue(false);
-    loggerMock.isTraceEnabled.mockReturnValue(false);
-    spawnMock.sequence.add(function (this: any, cb: any) {
-      this.stdout.write(`output data my library expects`);
-      setTimeout(() => {
-        cb(0);
-      }, 10);
-    });
-    const execOptionsPlaceHolder = {};
-    await runner.executeCommand({
-      execOptions: execOptionsPlaceHolder,
-      command: [`npm`, `run`, `build`],
-    });
-    expect(spawnMock.calls.length).toBe(1);
-    const call = spawnMock.calls[0];
-    expect(call.command).toBe(`npm`);
-    expect(call.args).toEqual([`run`, `build`]);
-    expect(call.opts).toBe(execOptionsPlaceHolder);
-    expect(loggerMock.debug).toBeCalledTimes(0);
-  });
-
   it(`should reject on bad exit code`, async () => {
-    loggerMock.isDebugEnabled.mockReturnValue(true);
-    loggerMock.isTraceEnabled.mockReturnValue(true);
     spawnMock.sequence.add(spawnMock.simple(-1));
     const execOptionsPlaceHolder = {};
     const promise = runner.executeCommand({
@@ -158,8 +126,6 @@ describe(`command runner`, () => {
   });
 
   it(`should reject on failed spawn`, async () => {
-    loggerMock.isDebugEnabled.mockReturnValue(true);
-    loggerMock.isTraceEnabled.mockReturnValue(true);
     spawnMock.sequence.add(function (this: any, cb: any) {
       this.emit(`error`, new Error(`spawn ENOENT`));
       setTimeout(() => {
