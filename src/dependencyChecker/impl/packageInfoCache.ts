@@ -1,7 +1,6 @@
 import { injectable } from 'inversify';
 import { IPackageInfo } from '../../utils/packageInfo';
-import { ILoggerFactory } from '../../utils/logger';
-import { ILogger } from '../../utils/logger/interfaces/ILogger';
+import { ILogger, ILoggerFactory } from '../../utils/logger';
 import { DependencyVersion, IDependencyVersionRepositoryProvider } from '../../db';
 import {
   IPackageInfoCache,

@@ -2,8 +2,7 @@ import { IGetLtsVersionPlaceholderOptions, ITargetMatcher, ITargetMatcherOptions
 import { injectable } from 'inversify';
 import { INodeVersions } from '../../../utils/nodeVersions';
 import semver = require('semver');
-import { ILoggerFactory } from '../../../utils/logger';
-import { ILogger } from '../../../utils/logger/interfaces/ILogger';
+import { ILoggerFactory, ILogger } from '../../../utils/logger';
 
 const coerce = (version: string): string | undefined => {
   const coercedAll = semver.coerce(version);

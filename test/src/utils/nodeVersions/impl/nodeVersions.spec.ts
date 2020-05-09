@@ -2,8 +2,7 @@ import moment = require('moment');
 import { NodeVersions } from '../../../../../src/utils/nodeVersions/impl/nodeVersions';
 import { Axios } from '../../../../../src/container/nodeModulesContainer';
 import { mock, mockReset } from 'jest-mock-extended';
-import { ILogger } from '../../../../../src/utils/logger/interfaces/ILogger';
-import { ILoggerFactory } from '../../../../../src/utils/logger';
+import { ILoggerFactory, ILogger } from '../../../../../src/utils/logger';
 
 const dateFormat = `YYYY-MM-DD`;
 

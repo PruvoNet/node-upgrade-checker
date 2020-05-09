@@ -1,6 +1,6 @@
-import { LogLevel } from '../../../../../src/utils/logger/interfaces/ILogger';
 import { LogLevel as ConsolaLogLevel } from 'consola';
 import { getConoslaLogLevel } from '../../../../../src/utils/logger/impl/logLevel';
+import { LogLevel } from '../../../../../src/utils/logger';
 
 describe(`log level`, () => {
   describe(`get conosla log level`, () => {

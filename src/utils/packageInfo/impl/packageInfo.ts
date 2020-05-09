@@ -6,8 +6,7 @@ import {
   IPackageVersionOptions,
 } from '../interfaces/IPackageInfo';
 import { Pacote, TYPES } from '../../../container/nodeModulesContainer';
-import { ILoggerFactory } from '../../logger';
-import { ILogger } from '../../logger/interfaces/ILogger';
+import { ILoggerFactory, ILogger } from '../../logger';
 import moment = require('moment');
 import { memoize } from '../../memoize/memoize';
 

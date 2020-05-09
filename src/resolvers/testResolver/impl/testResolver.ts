@@ -2,8 +2,7 @@ import { injectable } from 'inversify';
 import { IResolverResult } from '../../types';
 import { ITestResolver, ITestResolverOptions } from '../interfaces/ITestResolver';
 import { IYarn, IYarnOptions } from '../../../utils/yarn';
-import { ILoggerFactory } from '../../../utils/logger';
-import { ILogger } from '../../../utils/logger/interfaces/ILogger';
+import { ILoggerFactory, ILogger } from '../../../utils/logger';
 
 const resolverName = `yarn run test`;
 

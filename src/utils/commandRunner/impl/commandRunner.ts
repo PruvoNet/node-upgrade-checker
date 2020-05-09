@@ -2,8 +2,7 @@ import { SpawnOptionsWithoutStdio } from 'child_process';
 import { inject, injectable } from 'inversify';
 import { IExecuteCommandOptions, ICommandRunner } from '../interfaces/ICommandRunner';
 import { Spawn, TYPES } from '../../../container/nodeModulesContainer';
-import { ILoggerFactory } from '../../logger';
-import { ILogger } from '../../logger/interfaces/ILogger';
+import { ILoggerFactory, ILogger } from '../../logger';
 
 interface IPromisifiedSpawnOptions {
   command: string;
