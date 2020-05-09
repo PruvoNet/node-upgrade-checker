@@ -1,0 +1,29 @@
+import { BasicReporter, BasicReporterOptions, ConsolaLogObject, ConsolaReporter } from 'consola';
+
+export interface JsonLogReporterOptions extends BasicReporterOptions {
+  stream: NodeJS.WritableStream;
+}
+
+export class JsonLogReporter extends BasicReporter implements ConsolaReporter {
+  private readonly stream: NodeJS.WritableStream;
+
+  constructor(options: JsonLogReporterOptions) {
+    super(options);
+    this.stream = options.stream;
+  }
+
+  public log(logObj: ConsolaLogObject): void {
+    // TODO fix that after consola typings are fixed
+    // @ts-ignore
+    const message = this.formatArgs(logObj.args);
+    this.stream.write(
+      `${JSON.stringify({
+        message,
+        level: logObj.level,
+        type: logObj.type,
+        tag: logObj.tag || undefined,
+        date: logObj.date,
+      })}\n`
+    );
+  }
+}

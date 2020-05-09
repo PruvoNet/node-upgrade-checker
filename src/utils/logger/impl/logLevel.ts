@@ -8,7 +8,8 @@ const logLevelMap = {
   [LogLevel.INFO]: ConsolaLogLevel.Info,
   [LogLevel.DEBUG]: ConsolaLogLevel.Debug,
   [LogLevel.TRACE]: ConsolaLogLevel.Trace,
-  [LogLevel.SILENT]: -ConsolaLogLevel.Silent, // Hack until the issue of fixed
+  [LogLevel.SILENT]: -ConsolaLogLevel.Silent, // Hack until the issue in conosla is fixed
+  [LogLevel.VERBOSE]: ConsolaLogLevel.Silent, // Hack until the issue in conosla is fixed
 };
 
 export const getConoslaLogLevel = (level: LogLevel): ConsolaLogLevel => logLevelMap[level];

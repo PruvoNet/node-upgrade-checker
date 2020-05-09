@@ -1,46 +1,45 @@
 import { LogReporter } from '../../../../../src/utils/logger/impl/logReporter';
-import { PassThrough } from 'stream';
 import * as chalk from 'chalk';
 import * as figures from 'figures';
-
-interface MockedStream {
-  mockedStream: PassThrough;
-  streamPromise: Promise<string>;
-  closeStream: () => void;
-}
-
-const getMockedStream = (): MockedStream => {
-  const mockedStream = new PassThrough();
-  const streamPromise = new Promise<string>((resolve) => {
-    const logData: Uint8Array[] = [];
-    mockedStream.on(`data`, (data) => {
-      logData.push(data);
-    });
-    mockedStream.on(`end`, () => {
-      resolve(Buffer.concat(logData).toString());
-    });
-  });
-  return {
-    mockedStream,
-    streamPromise,
-    closeStream: (): void => {
-      mockedStream.end();
-      mockedStream.destroy();
-    },
-  };
-};
+import { LogLevel } from 'consola';
+import { getMockedStream } from '../../../../common/streams';
 
 describe(`log reporter`, () => {
   const logReporter = new LogReporter({
     secondaryColor: `grey`,
     bgColor: `bgGrey`,
+    level: LogLevel.Trace,
+  });
+
+  it(`should not log using custom log level`, async () => {
+    const infoLogReporter = new LogReporter({
+      secondaryColor: `grey`,
+      bgColor: `bgGrey`,
+      level: LogLevel.Info,
+    });
+    const { mockedStream, streamPromise, closeStream } = getMockedStream();
+    infoLogReporter.log(
+      {
+        level: LogLevel.Debug,
+        type: `debug`,
+        args: [`my message`],
+      },
+      {
+        async: false,
+        stderr: mockedStream,
+        stdout: mockedStream,
+      }
+    );
+    closeStream();
+    const result = await streamPromise;
+    expect(result).toBe(``);
   });
 
   it(`should log ERROR properly`, async () => {
     const { mockedStream, streamPromise, closeStream } = getMockedStream();
     logReporter.log(
       {
-        level: 0,
+        level: LogLevel.Error,
         type: `error`,
         args: [`my message`],
       },
@@ -63,7 +62,7 @@ ${chalk.bgRed.black(` ` + figures(`✖`) + ` `)} my message
     const { mockedStream, streamPromise, closeStream } = getMockedStream();
     logReporter.log(
       {
-        level: 1,
+        level: LogLevel.Warn,
         type: `warn`,
         args: [`my message`],
       },
@@ -86,7 +85,7 @@ ${chalk.bgYellow.black(` ` + figures(`Ⓘ`) + ` `)} my message
     const { mockedStream, streamPromise, closeStream } = getMockedStream();
     logReporter.log(
       {
-        level: 2,
+        level: LogLevel.Log,
         type: `log`,
         args: [`my message`],
       },
@@ -107,7 +106,7 @@ ${chalk.bgYellow.black(` ` + figures(`Ⓘ`) + ` `)} my message
     const { mockedStream, streamPromise, closeStream } = getMockedStream();
     logReporter.log(
       {
-        level: 3,
+        level: LogLevel.Info,
         type: `info`,
         args: [`my message`],
       },
@@ -128,7 +127,7 @@ ${chalk.bgYellow.black(` ` + figures(`Ⓘ`) + ` `)} my message
     const { mockedStream, streamPromise, closeStream } = getMockedStream();
     logReporter.log(
       {
-        level: 4,
+        level: LogLevel.Debug,
         type: `debug`,
         args: [`my message`],
       },
@@ -149,7 +148,7 @@ ${chalk.bgYellow.black(` ` + figures(`Ⓘ`) + ` `)} my message
     const { mockedStream, streamPromise, closeStream } = getMockedStream();
     logReporter.log(
       {
-        level: 5,
+        level: LogLevel.Trace,
         type: `trace`,
         args: [`my message`],
       },

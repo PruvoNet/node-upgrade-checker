@@ -6,6 +6,7 @@ export enum LogLevel {
   DEBUG,
   TRACE,
   SILENT,
+  VERBOSE,
 }
 
 export interface ILogger {
@@ -24,12 +25,4 @@ export interface ILogger {
   debug(...args: unknown[]): void;
 
   trace(...args: unknown[]): void;
-
-  isErrorEnabled(): boolean;
-  isWarnEnabled(): boolean;
-  isLogEnabled(): boolean;
-  isInfoEnabled(): boolean;
-  isDebugEnabled(): boolean;
-  isTraceEnabled(): boolean;
-  isSilent(): boolean;
 }
