@@ -1,7 +1,6 @@
 import { inject, injectable } from 'inversify';
-import { ILogger } from '../../logger/interfaces/ILogger';
 import { LibNpmConfig, TYPES } from '../../../container/nodeModulesContainer';
-import { ILoggerFactory } from '../../logger';
+import { ILoggerFactory, ILogger } from '../../logger';
 import { INpmConfig, INpmConfigRetriever } from '../interfaces/INpmConfigRetriever';
 import { isBoolean, isString } from 'ts-type-guards';
 
