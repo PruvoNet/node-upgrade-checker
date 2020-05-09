@@ -916,7 +916,7 @@
   resolved "https://registry.yarnpkg.com/@types/npm-package-arg/-/npm-package-arg-6.1.0.tgz#88bdfce72f6a3d5fa1053c8d44d655e7850642e4"
   integrity sha512-vbt5fb0y1svMhu++1lwtKmZL76d0uPChFlw7kEzyUmTwfmpHRcFb8i0R8ElT69q/L+QLgK2hgECivIAvaEDwag==
 
-"@types/npm-registry-fetch@*":
+"@types/npm-registry-fetch@*", "@types/npm-registry-fetch@^8.0.0":
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/@types/npm-registry-fetch/-/npm-registry-fetch-8.0.0.tgz#b66607c291f0e9f15b50ea3fef0d392e9c4e69de"
   integrity sha512-3dtNw1VMy1gnaklK0746/cOkJYMvdY/3FNuRDR5ih+WUWIbgTR6JvKq6hmhW4G1/o6lPdjHECPaWcowXgWZDyg==

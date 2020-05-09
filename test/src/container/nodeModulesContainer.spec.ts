@@ -6,6 +6,7 @@ import * as spawn from 'cross-spawn';
 import axios from 'axios';
 import { BindingTypes, testBindings } from '../../common/testers/bindingTester';
 import { nodeModulesBinder, TYPES } from '../../../src/container/nodeModulesContainer';
+import * as libnpmconfig from 'libnpmconfig';
 
 testBindings({
   name: `node module container`,
@@ -44,6 +45,11 @@ testBindings({
     {
       binder: TYPES.Axios,
       binded: axios,
+      type: BindingTypes.CONSTANT,
+    },
+    {
+      binder: TYPES.LibNpmConfig,
+      binded: libnpmconfig,
       type: BindingTypes.CONSTANT,
     },
   ],
