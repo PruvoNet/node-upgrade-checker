@@ -7,8 +7,8 @@ describe(`package info e2e`, () => {
 
   it(`should resolve package version properly`, async () => {
     const result = await packageInfo.resolvePackageVersion({
-      name: `@pruvo/common`,
-      semver: `~1.0.0`,
+      name: `squiss-ts`,
+      semver: `~3.0.0`,
     });
     expect(result).toEqual(`3.0.1`);
   }, 30000);
