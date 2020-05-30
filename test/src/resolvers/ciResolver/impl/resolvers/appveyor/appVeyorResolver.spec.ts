@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
 import { AppVeyorResolver } from '../../../../../../../src/resolvers/ciResolver/impl/resolvers/appveyor/appVeyorResolver';
 import { FS } from '../../../../../../../src/container/nodeModulesContainer';

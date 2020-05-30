@@ -1,7 +1,7 @@
 import {
-  ConsolaLogObject,
   ConsolaReporter,
   ConsolaReporterArgs,
+  ConsolaReporterLogObject,
   FancyReporter,
   FancyReporterOptions,
   LogLevel,
@@ -58,7 +58,7 @@ export class LogReporter extends FancyReporter implements ConsolaReporter {
     this.level = options.level;
   }
 
-  public log(logObj: ConsolaLogObject, args: ConsolaReporterArgs): void {
+  public log(logObj: ConsolaReporterLogObject, args: ConsolaReporterArgs): void {
     // TODO fix that once consola typings are fixed
     if (logObj.level! > this.level) {
       return;
@@ -66,7 +66,7 @@ export class LogReporter extends FancyReporter implements ConsolaReporter {
     super.log(logObj, args);
   }
 
-  protected formatType(logObj: ConsolaLogObject): string {
+  protected formatType(logObj: ConsolaReporterLogObject): string {
     const typeColor =
       (logObj.type && TYPE_COLOR_MAP[logObj.type]) ||
       (isNumber(logObj.level) && LEVEL_COLOR_MAP[logObj.level]) ||

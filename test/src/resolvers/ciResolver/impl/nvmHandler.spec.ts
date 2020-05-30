@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { NvmHandler } from '../../../../../src/resolvers/ciResolver/impl/nvmHandler';
 import { mock, mockClear } from 'jest-mock-extended';
 import { ITargetMatcher } from '../../../../../src/resolvers/ciResolver';

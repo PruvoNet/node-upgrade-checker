@@ -60,7 +60,7 @@ const isMatrixNode = (value: unknown, node: INode): value is StringOrNumber[] =>
   );
 };
 
-const isIncludeMatrixNode = (value: unknown, node: INode): value is object[] => {
+const isIncludeMatrixNode = (value: unknown, node: INode): value is Record<string, unknown>[] => {
   const { parent, key } = node;
   return (
     parent.isNonRootNode &&

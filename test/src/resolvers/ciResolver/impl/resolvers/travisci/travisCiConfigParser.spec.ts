@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
 import { loggerFactory } from '../../../../../../common/logger';
 import { TravisCiConfigParser } from '../../../../../../../src/resolvers/ciResolver/impl/resolvers/travisci/travisCiConfigParser';
