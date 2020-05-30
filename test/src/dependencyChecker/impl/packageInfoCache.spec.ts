@@ -10,6 +10,7 @@ describe(`package info cache`, () => {
   const packageInfoMock = mock<IPackageInfo>();
   const repositoryMock = mock<Repository<DependencyVersion>>();
   const dependencyVersionRepositoryProviderMock = mock<IDependencyVersionRepositoryProvider>();
+  // @ts-ignore
   dependencyVersionRepositoryProviderMock.getRepository.mockResolvedValue(repositoryMock);
   let packageInfoCache: PackageInfoCache;
 

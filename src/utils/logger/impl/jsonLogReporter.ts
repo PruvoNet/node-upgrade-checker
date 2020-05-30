@@ -13,9 +13,7 @@ export class JsonLogReporter extends BasicReporter implements ConsolaReporter {
   }
 
   public log(logObj: ConsolaLogObject): void {
-    // TODO fix that after consola typings are fixed
-    // @ts-ignore
-    const message = this.formatArgs(logObj.args);
+    const message = this.formatArgs(logObj.args || []);
     this.stream.write(
       `${JSON.stringify({
         message,

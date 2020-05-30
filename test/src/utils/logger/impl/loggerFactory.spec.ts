@@ -8,9 +8,9 @@ import { when } from 'jest-when';
 import Process = NodeJS.Process;
 
 const fileStreamOptions = {
-  encoding: `utf8`,
+  encoding: `utf-8`,
   flags: `w`,
-};
+} as const;
 
 interface StreamResults {
   stdoutResult: string;

@@ -12,10 +12,12 @@ describe(`connection provider`, () => {
     database: `database`,
   };
   const connectionOptionsProviderMock = mock<IConnectionOptionsProvider>();
+  // @ts-ignore
   connectionOptionsProviderMock.getConnectionOptions.mockReturnValue(connectionOptionsPlaceholder);
   const connectionMock = mockDeep<Connection>();
   const typeOrmMock = mock<TypeOrm>();
   const schemaBuilderMock = mock<SchemaBuilder>();
+  // @ts-ignore
   typeOrmMock.createConnection.mockResolvedValue(connectionMock);
   connectionMock.driver.createSchemaBuilder.mockReturnValue(schemaBuilderMock);
 

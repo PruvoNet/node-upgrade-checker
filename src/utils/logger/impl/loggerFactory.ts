@@ -13,9 +13,9 @@ import { FS, TYPES } from '../../../container/nodeModulesContainer';
 import Process = NodeJS.Process;
 
 const fileStreamOptions = {
-  encoding: `utf8`,
+  encoding: `utf-8`,
   flags: `w`,
-};
+} as const;
 
 @injectable()
 export class LoggerFactory extends ILoggerFactory {

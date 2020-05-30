@@ -8,11 +8,12 @@ import { IConnectionProvider } from '../../../src/db';
 import { IRepositoryProvider } from '../../../src/db/interfaces/IRepositoryProvider';
 
 export const testRepositoryProvider = <E extends IEntity, P extends IRepositoryProvider<E>>(
-  Entity: new () => E,
-  RepositoryProvider: new (connectionProvider: IConnectionProvider) => P
+  entity: new () => E,
+  repositoryProvider: new (connectionProvider: IConnectionProvider) => P
 ): void => {
   const repositoryMock = mock<Repository<E>>();
   const connectionMock = mock<Connection>();
+  // @ts-ignore
   connectionMock.getRepository.mockReturnValue(repositoryMock);
   const connectionProviderMock = mock<IConnectionProvider>();
   connectionProviderMock.getConnection.mockResolvedValue(connectionMock);
@@ -22,7 +23,7 @@ export const testRepositoryProvider = <E extends IEntity, P extends IRepositoryP
     mockClear(connectionProviderMock);
     mockClear(connectionMock);
     mockClear(repositoryMock);
-    dependencyRepositoryProvider = new RepositoryProvider(connectionProviderMock);
+    dependencyRepositoryProvider = new repositoryProvider(connectionProviderMock);
   });
 
   it(`should cache repo`, async () => {
@@ -40,6 +41,6 @@ export const testRepositoryProvider = <E extends IEntity, P extends IRepositoryP
     expect(connectionProviderMock.getConnection).toBeCalledTimes(1);
     expect(connectionMock.getRepository).toBeCalledTimes(1);
     expect(connectionProviderMock.getConnection).toHaveBeenCalledWith();
-    expect(connectionMock.getRepository).toHaveBeenCalledWith(Entity);
+    expect(connectionMock.getRepository).toHaveBeenCalledWith(entity);
   });
 };

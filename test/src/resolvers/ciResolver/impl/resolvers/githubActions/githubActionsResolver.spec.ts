@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
 import { FS } from '../../../../../../../src/container/nodeModulesContainer';
 import { normalize } from 'path';
@@ -56,6 +56,7 @@ describe(`Github Actions Resolver`, () => {
       when(fsMock.promises.readdir)
         // @ts-ignore
         .calledWith(normalize(`placeholder/.github/workflows`))
+        // @ts-ignore
         .mockResolvedValue([config1FileName, config2FileName, config3FileName, `nonYamlFile.sh`]);
       when(fsMock.promises.readFile)
         .calledWith(normalize(`placeholder/.github/workflows/${config1FileName}`), `utf-8`)

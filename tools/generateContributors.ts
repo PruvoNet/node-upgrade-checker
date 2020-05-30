@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import fetch from 'node-fetch';
 import * as path from 'path';
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
 
 const IGNORED_USERS = new Set([`NUC[bot]`, `greenkeeper[bot]`, `semantic-release-bot`]);
@@ -67,7 +68,7 @@ const main = async (): Promise<void> => {
       return {
         login: user.login,
         name: user.name || user.login,
-        avatar_url: user.avatar_url, // eslint-disable-line @typescript-eslint/camelcase
+        avatar_url: user.avatar_url,
         profile: user.html_url,
         contributions: [],
       };
