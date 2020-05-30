@@ -8,7 +8,7 @@ const logLevelMap = {
   [LogLevel.INFO]: ConsolaLogLevel.Info,
   [LogLevel.DEBUG]: ConsolaLogLevel.Debug,
   [LogLevel.TRACE]: ConsolaLogLevel.Trace,
-  [LogLevel.SILENT]: -ConsolaLogLevel.Silent,
+  [LogLevel.SILENT]: ConsolaLogLevel.Silent,
   [LogLevel.VERBOSE]: ConsolaLogLevel.Verbose,
 };
 
