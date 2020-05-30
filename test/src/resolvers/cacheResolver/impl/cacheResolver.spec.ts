@@ -7,6 +7,7 @@ import { mock, mockReset } from 'jest-mock-extended';
 describe(`cache resolver`, () => {
   const repositoryMock = mock<Repository<Dependency>>();
   const dependencyRepositoryProviderMock = mock<IDependencyRepositoryProvider>();
+  // @ts-ignore
   dependencyRepositoryProviderMock.getRepository.mockResolvedValue(repositoryMock);
   const cacheResolver = new CacheResolver(dependencyRepositoryProviderMock, loggerFactory);
 

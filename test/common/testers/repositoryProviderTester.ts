@@ -13,6 +13,7 @@ export const testRepositoryProvider = <E extends IEntity, P extends IRepositoryP
 ): void => {
   const repositoryMock = mock<Repository<E>>();
   const connectionMock = mock<Connection>();
+  // @ts-ignore
   connectionMock.getRepository.mockReturnValue(repositoryMock);
   const connectionProviderMock = mock<IConnectionProvider>();
   connectionProviderMock.getConnection.mockResolvedValue(connectionMock);
