@@ -50,6 +50,27 @@ describe(`json log reporter`, () => {
     });
   });
 
+  it(`should log without args`, async () => {
+    const date = moment();
+    const { mockedStream, streamPromise, closeStream } = getMockedStream();
+    const logReporter = new JsonLogReporter({
+      stream: mockedStream,
+    });
+    logReporter.log({
+      level: LogLevel.Info,
+      type: `info`,
+      date: date.toDate(),
+    });
+    closeStream();
+    const result = await streamPromise;
+    expect(JSON.parse(result)).toEqual({
+      date: date.toJSON(),
+      level: LogLevel.Info,
+      message: ``,
+      type: `info`,
+    });
+  });
+
   it(`should log with error`, async () => {
     const date = moment();
     const { mockedStream, streamPromise, closeStream } = getMockedStream();
