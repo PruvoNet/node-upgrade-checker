@@ -11,7 +11,8 @@ describe(`log level`, () => {
       expect(getConoslaLogLevel(LogLevel.INFO)).toEqual(ConsolaLogLevel.Info);
       expect(getConoslaLogLevel(LogLevel.DEBUG)).toEqual(ConsolaLogLevel.Debug);
       expect(getConoslaLogLevel(LogLevel.TRACE)).toEqual(ConsolaLogLevel.Trace);
-      expect(getConoslaLogLevel(LogLevel.SILENT)).toEqual(-ConsolaLogLevel.Silent);
+      expect(getConoslaLogLevel(LogLevel.SILENT)).toEqual(ConsolaLogLevel.Silent);
+      expect(getConoslaLogLevel(LogLevel.VERBOSE)).toEqual(ConsolaLogLevel.Verbose);
     });
   });
 });
