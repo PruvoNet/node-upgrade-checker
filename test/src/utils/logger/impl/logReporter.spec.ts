@@ -3,6 +3,7 @@ import * as chalk from 'chalk';
 import * as figures from 'figures';
 import { LogLevel } from 'consola';
 import { getMockedStream } from '../../../../common/streams';
+import moment = require('moment');
 
 describe(`log reporter`, () => {
   const logReporter = new LogReporter({
@@ -10,6 +11,7 @@ describe(`log reporter`, () => {
     bgColor: `bgGrey`,
     level: LogLevel.Trace,
   });
+  const date = moment();
 
   it(`should not log using custom log level`, async () => {
     const infoLogReporter = new LogReporter({
@@ -23,6 +25,8 @@ describe(`log reporter`, () => {
         level: LogLevel.Debug,
         type: `debug`,
         args: [`my message`],
+        date: date.toDate(),
+        tag: `tag`,
       },
       {
         async: false,
@@ -42,6 +46,8 @@ describe(`log reporter`, () => {
         level: LogLevel.Error,
         type: `error`,
         args: [`my message`],
+        date: date.toDate(),
+        tag: `tag`,
       },
       {
         async: false,
@@ -65,6 +71,8 @@ ${chalk.bgRed.black(` ` + figures(`✖`) + ` `)} my message
         level: LogLevel.Warn,
         type: `warn`,
         args: [`my message`],
+        date: date.toDate(),
+        tag: `tag`,
       },
       {
         async: false,
@@ -88,6 +96,8 @@ ${chalk.bgYellow.black(` ` + figures(`Ⓘ`) + ` `)} my message
         level: LogLevel.Log,
         type: `log`,
         args: [`my message`],
+        date: date.toDate(),
+        tag: `tag`,
       },
       {
         async: false,
@@ -109,6 +119,8 @@ ${chalk.bgYellow.black(` ` + figures(`Ⓘ`) + ` `)} my message
         level: LogLevel.Info,
         type: `info`,
         args: [`my message`],
+        date: date.toDate(),
+        tag: `tag`,
       },
       {
         async: false,
@@ -130,6 +142,8 @@ ${chalk.bgYellow.black(` ` + figures(`Ⓘ`) + ` `)} my message
         level: LogLevel.Debug,
         type: `debug`,
         args: [`my message`],
+        date: date.toDate(),
+        tag: `tag`,
       },
       {
         async: false,
@@ -151,6 +165,8 @@ ${chalk.bgYellow.black(` ` + figures(`Ⓘ`) + ` `)} my message
         level: LogLevel.Trace,
         type: `trace`,
         args: [`my message`],
+        date: date.toDate(),
+        tag: `tag`,
       },
       {
         async: false,
