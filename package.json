@@ -137,7 +137,7 @@
     "sqlite3": "~4.2.0",
     "tmp": "~0.2.1",
     "ts-type-guards": "~0.6.1",
-    "typeorm": "~0.2.25",
+    "typeorm": "~0.2.27",
     "yaml": "~1.10.0",
     "yargs-parser": "~18.1.3"
   }
