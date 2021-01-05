@@ -123,7 +123,7 @@
   },
   "dependencies": {
     "array-flat-polyfill": "~1.0.1",
-    "axios": "~0.19.2",
+    "axios": "~0.21.1",
     "chalk": "~4.0.0",
     "consola": "~2.12.2",
     "cross-spawn": "~7.0.3",
