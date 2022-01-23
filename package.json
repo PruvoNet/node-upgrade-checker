@@ -112,7 +112,7 @@
     "jest-when": "^2.7.2",
     "lint-staged": "^10.2.7",
     "mock-spawn": "^0.2.6",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.1.1",
     "npm-check-updates": "^6.0.1",
     "prettier": "^2.0.5",
     "semver": "^7.3.2",
