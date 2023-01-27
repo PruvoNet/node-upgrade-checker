@@ -133,7 +133,7 @@
     "pacote": "~11.1.10",
     "reflect-metadata": "~0.1.13",
     "shell-quote": "~1.7.2",
-    "simple-git": "~2.5.0",
+    "simple-git": "~3.16.0",
     "sqlite3": "~4.2.0",
     "tmp": "~0.2.1",
     "ts-type-guards": "~0.6.1",
